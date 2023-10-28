@@ -1,0 +1,267 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="pedido" styleClass="edit">
+			<p:panel>
+				<f:facet name="header">#{pedidoHome.managed ? messages['global.edit'] : messages['global.insert']} #{messages['menu.PedidoApostila1']}</f:facet>
+
+
+				<s:decorate id="nroPedidoField" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['pedido.nroPedido']}</ui:define>
+					<h:inputText id="nroPedido" required="true" disabled="true"
+						value="#{pedidoHome.instance.nroPedido}">
+						<a:support event="onblur" reRender="nroPedidoField"
+							bypassUpdates="true" ajaxSingle="true" />
+					</h:inputText>
+				</s:decorate>
+
+
+				<s:decorate id="dtpedidoField" template="layout/display.xhtml">
+					<ui:define name="label">#{messages['pedido.dtpedido']}</ui:define>
+					<h:outputText value="#{pedidoHome.instance.dtpedido}">
+						<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+							timeZone="#{timeZoneSelector.timeZone}"
+							pattern="#{messages.pattern}" />
+					</h:outputText>
+				</s:decorate>
+
+
+				<s:decorate id="funcionariosField" template="layout/display.xhtml">
+					<ui:define name="label">#{messages['pedido.funcionarios']}</ui:define>
+					<h:outputText id="funcionarios" required="true"
+						value="#{pedidoHome.instance.funcionarios.nome}">
+					</h:outputText>
+				</s:decorate>
+
+				<s:decorate id="situacaoField" template="layout/display.xhtml">
+					<ui:define name="label">#{messages['pedido.situacao']}</ui:define>
+					<h:outputText id="situacao" required="true"
+						value="#{pedidoHome.listSituacao.get(pedidoHome.instance.situacao)}">
+					</h:outputText>
+				</s:decorate>
+
+				<div style="clear: both">
+					<span class="required">*</span> #{messages['global.requiredField']}
+				</div>
+
+			</p:panel>
+
+			<div class="actionButtons">
+
+				<p:commandButton id="save" value="#{messages['global.save']}"
+					disabled="#{!pedidoHome.wired}" onclick="addPedido();" image="save" style="width:100px;"
+					rendered="#{!pedidoHome.managed &amp;&amp; rich:isUserInRole('PedidoApostila1_A')}" />
+
+
+
+				<p:commandButton id="update" value="#{messages['global.save']}"
+					image="save" onclick="upPedido();" style="width:100px;"
+					rendered="#{pedidoHome.managed &amp;&amp; rich:isUserInRole('PedidoApostila1_A')}" />
+
+
+
+				<p:commandButton id="delete" value="#{messages['global.delete']}"
+					image="delete" disabled="#{pedidoHome.instance.situacao!=1}"
+					immediate="true" onclick="delPedido.show();" style="width:100px;"
+					rendered="#{pedidoHome.managed &amp;&amp; rich:isUserInRole('PedidoApostila1_R')}" />
+
+				<p:commandButton id="cancelEdit"
+					value="#{messages['global.cancel']}" image="excluir"
+					onclick="cancelEditPedido();"  style="width:100px;"
+					rendered="#{pedidoHome.managed}" />
+
+				
+
+				<p:commandButton id="cancelAdd" value="#{messages['global.cancel']}"
+					propagation="end" immediate="true" image="excluir" ajax="false" actionListener="#{pedidoHome.limpaCampos}"
+					action="/private/onbyte/PedidoList.xhtml" style="width:100px;"
+					rendered="#{!pedidoHome.managed}" />
+
+
+
+				<p:confirmDialog widgetVar="deletarPedidoDlg" id="deletarPedidoDlg"
+					hideEffect="explode" header="Remover Apostila Curso"
+					message="Deseja Remover Apostila do Curso?" width="400"
+					showEffect="clip" modal="true" closable="false"
+					closeOnEscape="true" severity="alert">
+					<h:panelGroup layout="block" style="text-align: right">
+						<p:commandButton value="Sim"
+							onclick="delPedido();deletarPedidoDlg.hide();" />
+						<p:commandButton value="#{messages['global.nao']}"
+							onclick="deletarPedidoDlg.hide();" />
+					</h:panelGroup>
+				</p:confirmDialog>
+
+				<a:jsFunction name="delPedido" action="#{pedidoHome.remove}"
+					immediate="true" />
+
+				<a:jsFunction name="addPedido" action="#{pedidoHome.persist}" />
+
+				<a:jsFunction name="upPedido" action="#{pedidoHome.update}" />
+				
+				<a:jsFunction name="cancelEditPedido" action="#{pedidoHome.cancelUpdate}" />
+
+			</div>
+		</h:form>
+
+		<p:tabView switchType="client">
+
+			<p:tab title="#{messages['pedido.itemPedidos']}" id="cursos">
+				<h:panelGrid columns="2" columnClasses="cursos_col1,cursos_col2"
+					style="width: 100%; vertical-align: top; border-collapse:collapse;border-spacing: 0;;">
+					<h:form styleClass="association" id="itemPedidosChildren">
+						<rich:extendedDataTable
+							noDataLabel="#{messages['global.naoHaDados']}"
+							value="#{pedidoHome.itemPedidos}" var="_itemPedido"
+							height="250px" enableContextMenu="false" width="100%" style="text-align:center;"
+							selection="#{pedidoHome.selectionItemPedido}" id="curMatrisTable">
+							<a:support event="onselectionchange" ajaxSingle="true"
+								actionListener="#{pedidoHome.selectionListenerItemPedido}"
+								limitToList="true" immediate="true">
+							</a:support>
+
+							<rich:column sortBy="#{_itemPedido.id.nroItemPedido}"
+								sortOrder="ASCENDING" width="25%">
+								<f:facet name="header">#{messages['itemPedido.nroItemPedido']}</f:facet>
+								<h:outputText value="#{_itemPedido.id.nroItemPedido}" />
+							</rich:column>
+							<rich:column sortBy="#{_itemPedido.cursos.descricao}"
+								width="30%">
+								<f:facet name="header">#{messages['itemPedido.cursos']}</f:facet>
+								<h:outputText value="#{_itemPedido.cursos.descricao}" />
+							</rich:column>
+							<rich:column sortBy="#{_itemPedido.qtdItemPedido}" width="15%">
+								<f:facet name="header">#{messages['itemPedido.qtdItemPedido']}</f:facet>
+								<h:outputText value="#{_itemPedido.qtdItemPedido}">
+									<f:convertNumber />
+								</h:outputText>
+							</rich:column>
+							<rich:column sortBy="#{_itemPedido.qtdItemDigital}" width="15%">
+								<f:facet name="header">Qtd. Digital</f:facet>
+								<h:outputText value="#{_itemPedido.qtdItemDigital}">
+									<f:convertNumber />
+								</h:outputText>
+							</rich:column>
+							
+							
+						</rich:extendedDataTable>
+
+					</h:form>
+
+					<f:subview>
+						<h:form>
+							<h:panelGrid styleClass="actionButtons">
+								<p:commandButton value="#{messages['global.insert']}"
+									image="novo" disabled="#{pedidoHome.instance.situacao!=1}"
+									rendered="#{rich:isUserInRole('PedidoApostila1_A')}"
+									style="width:100px; height: 50px"
+									onclick="Richfaces.showModalPanel('BuscarCursoPanel'); return false;" />
+
+								<p:commandButton value="#{messages['global.delete']}"
+									disabled="#{pedidoHome.instance.situacao!=1}"
+									rendered="#{rich:isUserInRole('PedidoApostila1_A')}"
+									style="width:100px; height: 50px" image="delete"
+									onclick="deletarApostilaDlg.show();">
+									<s:conversationId />
+								</p:commandButton>
+
+								<p:confirmDialog widgetVar="deletarApostilaDlg"
+									id="deletarApostilaDlg" hideEffect="explode"
+									header="Remover Apostila Curso"
+									message="Deseja Remover Apostila do Curso?" width="400"
+									showEffect="clip" modal="true" closable="false"
+									closeOnEscape="true" severity="alert">
+									<h:panelGroup layout="block" style="text-align: right">
+										<p:commandButton value="Sim"
+											onclick="removerApostila();deletarApostilaDlg.hide();" />
+										<p:commandButton value="#{messages['global.nao']}"
+											onclick="deletarApostilaDlg.hide();" />
+									</h:panelGroup>
+								</p:confirmDialog>
+
+
+								<a:jsFunction name="removerApostila"
+									actionListener="#{pedidoHome.removeApostila}"
+									reRender="itemPedidosChildren,cursosList" limitToList="true"
+									data="#{pedidoHome.messageRetornoAjax}"
+									onbeforedomupdate="showMessageRetorno(data)" />
+							</h:panelGrid>
+						</h:form>
+					</f:subview>
+				</h:panelGrid>
+			</p:tab>
+		</p:tabView>
+
+		<rich:modalPanel id="BuscarCursoPanel" width="720" height="445"
+			showWhenRendered="#{!pedidoHome.managed}" resizeable="false"
+			onshow="scrollPosCurso()">
+			<p:panel header="#{messages['modulos.buscaNovoCurso']}">
+
+				<f:facet name="controls">
+					<h:panelGroup>
+						<h:graphicImage value="/img/false.png" styleClass="hidelink"
+							id="hidelink_BuscarCurso" />
+						<rich:componentControl for="BuscarCursoPanel"
+							attachTo="hidelink_BuscarCurso" operation="hide" event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<ui:include src="PedidoApostilaBody.xhtml">
+					<ui:param name="defaultBean" value="#{pedidoHome}" />
+					<ui:param name="calc_valores" value="#{true}" />
+					<ui:param name="id_render" value="itemPedidosChildren" />
+				</ui:include>
+			</p:panel>
+		</rich:modalPanel>
+
+		<rich:modalPanel id="confPrintPropectoPanel" width="350" height="120"
+			resizeable="false" onhide="fn_onHideconfPrintPropectoPanel();"
+			showWhenRendered="true" rendered="#{!pedidoHome.managed}">
+			<p:panel header="#{messages['global.confirmacao']}">
+
+				<f:facet name="controls">
+					<h:panelGroup>
+						<h:graphicImage value="/img/false.png" styleClass="hidelink"
+							id="hidelink_confPrintPropectoPanel" />
+						<rich:componentControl for="confPrintPropectoPanel"
+							attachTo="hidelink_confPrintPropectoPanel" operation="hide"
+							event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<h:form styleClass="edit">
+					<center>
+						<s:div>
+							<h:outputText
+								value="#{messages['pedidoList.visualizarPropecto']}"
+								escape="false" />
+						</s:div>
+						<p:panel>
+							<p:commandButton value="#{messages['global.sim']}" ajax="false"
+								action="#{pedidoHome.redirecionar('/private/onbyte/relatorios/matriculas/RelCompraApostilas')}"
+								onclick="Richfaces.hideModalPanel('confPrintPropectoPanel');"
+								style="width:100px; height:22px;" immediate="true" />
+							<p:commandButton
+								onclick="Richfaces.hideModalPanel('confPrintPropectoPanel');  return false;"
+								value="#{messages['global.nao']}"
+								style="width:100px; height:22px;" ajaxSingle="true"
+								limitToList="true" />
+						</p:panel>
+					</center>
+					<a:jsFunction name="fn_onHideconfPrintPropectoPanel"
+						immediate="true" limitToList="true" ajaxSingle="true" />
+				</h:form>
+			</p:panel>
+		</rich:modalPanel>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelGradeHorarios" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="808" leftMargin="17" rightMargin="17" topMargin="20" bottomMargin="20" uuid="47813f85-8a11-4c42-8d29-a388dfa845db">
+	<property name="ireport.zoom" value="1.2100000000000035"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="grade" uuid="7dee3427-6419-4e9a-8f9a-4db855b5ce91">
+		<field name="horario" class="java.lang.String"/>
+		<field name="computador" class="java.lang.String"/>
+		<field name="nomeAluno" class="java.lang.String"/>
+		<field name="codigoComputador" class="java.lang.Integer"/>
+	</subDataset>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="title_linha1" class="java.lang.String"/>
+	<parameter name="title_linha2" class="java.lang.String"/>
+	<parameter name="gradeHorarios" class="java.lang.Object" isForPrompting="false"/>
+	<parameter name="totalAluno" class="java.lang.Integer"/>
+	<parameter name="totalVagas" class="java.lang.Integer"/>
+	<variable name="DETAIL_COUNT" class="java.lang.Integer" calculation="Count"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement uuid="098f00ef-8e28-4864-8726-2f798202da5a" x="0" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="5205e60b-2cf5-490a-9712-206188f2d3ac" x="708" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<patternExpression><![CDATA[$R{global.reportPagina}+": "]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="98f7dff5-edf5-4456-b6be-b84e58b07db5" mode="Transparent" x="0" y="22" width="808" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="15" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title_linha1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bd01891a-88d1-48bc-a77e-5d458228ff2e" x="236" y="0" width="336" height="23"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="ZurichCalligraphic" size="20" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="44">
+			<crosstab columnBreakOffset="800" ignoreWidth="false">
+				<reportElement uuid="a8efac99-d8e3-4b25-ac79-f26aebb9ace9" x="0" y="0" width="808" height="44"/>
+				<crosstabDataset isDataPreSorted="true">
+					<dataset>
+						<datasetRun subDataset="grade" uuid="39c66fcb-32cc-4703-8e6a-0c263288a1e1">
+							<dataSourceExpression><![CDATA[$P{gradeHorarios}]]></dataSourceExpression>
+						</datasetRun>
+					</dataset>
+				</crosstabDataset>
+				<crosstabHeaderCell>
+					<cellContents backcolor="#F0F8FF" mode="Opaque">
+						<textField>
+							<reportElement uuid="e15293b6-3409-4f5c-9b3f-23fce749ecef" style="Crosstab Data Text" x="0" y="0" width="156" height="30" backcolor="#FFFFFF"/>
+							<textElement verticalAlignment="Middle" markup="none">
+								<font fontName="Arial" isBold="true"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$R{computadores.descricao}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabHeaderCell>
+				<rowGroup name="codigoComputador" width="1">
+					<bucket class="java.lang.Integer">
+						<bucketExpression><![CDATA[$F{codigoComputador}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF"/>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#F0F8FF"/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="computador" width="155">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{computador}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="a91ee430-d692-4559-9a86-c9d163c1b9d9" style="Crosstab Data Text" x="0" y="0" width="153" height="13"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{computador}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="horario" height="30">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{horario}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement uuid="eb7317aa-c8a8-44c4-9e26-6e1661012206" style="Crosstab Data Text" x="0" y="0" width="104" height="30"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" size="11" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{horario}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents/>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="nomeAlunoMeasure" class="java.lang.Integer" calculation="Count">
+					<measureExpression><![CDATA[$F{nomeAluno}]]></measureExpression>
+				</measure>
+				<measure name="nomeAluno" class="java.lang.String">
+					<measureExpression><![CDATA[$F{nomeAluno}]]></measureExpression>
+				</measure>
+				<crosstabCell width="104" height="13">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField isBlankWhenNull="true">
+							<reportElement uuid="b59f3b0a-6832-4f41-9d97-2fbe3b57fea8" style="Crosstab Data Text" x="0" y="0" width="104" height="13"/>
+							<textElement>
+								<font fontName="Arial"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$V{nomeAluno}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="computador">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="4ac409f4-071a-47e3-bbc9-f4f056037ab3" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{nomeAlunoMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="horario">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="f5e97121-ea86-4d10-8e28-122c00b33695" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{nomeAlunoMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="computador" columnTotalGroup="horario">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement uuid="09c1155e-14ea-4165-9365-5d3a63bfb6d7" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$V{nomeAlunoMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="codigoComputador">
+					<cellContents/>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="codigoComputador" columnTotalGroup="horario">
+					<cellContents/>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</detail>
+	<summary>
+		<band height="27">
+			<textField>
+				<reportElement uuid="48fa97dc-6e56-4382-ae26-8db746450d33" x="0" y="14" width="67" height="13"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="10" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{gradeHorariosAction.totalVagas}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="f2baf41e-2b20-4328-82f6-cde1efe65bb1" x="67" y="0" width="57" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalAluno}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="079922cc-57be-4c3c-85a2-e500333ea071" x="67" y="14" width="57" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalVagas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9c8afef9-6f2b-4345-bf8a-9a7bd0cdd881" x="0" y="0" width="67" height="13"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="10" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{gradeHorariosAction.totalAlunos}+":"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

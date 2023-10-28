@@ -1,0 +1,138 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+	<ui:define name="body">
+		<h:form id="relMatricSemApostilaSearch" styleClass="edit">
+
+			<a:outputPanel id="relMatricSemApostila">
+
+
+				<div class="panel panel-primary"
+					style="width: 99.5%; margin: 0 auto;">
+					<div class="panel-heading">
+						<i class="fa fa-book"></i>
+						#{messages['relMatricSemApostila.title']} #{empty
+						relMatricSemApostila.curMatri ? 0 :
+						relMatricSemApostila.curMatri.size}
+					</div>
+					<div class="panel-body">
+
+
+
+						<table width="100%" id="tblMatricSemApos"
+							style="text-align: center; text-transform: uppercase;"
+							class="table-responsive table-condensed table-striped tbody table-bordered bootstrap-datatable datatable table-hover table-sortable">
+							<thead>
+								<tr>
+
+									<th style="text-align: center;">MATRIC. <i
+										class="glyphicon glyphicon-sort" /></th>
+									<th style="text-align: center;">ALUNO <i
+										class="glyphicon glyphicon-sort" /></th>
+									<th style="text-align: center;">CURSO <i
+										class="glyphicon glyphicon-sort" /></th>
+									<th style="text-align: center;">INÍCIO CURSO <i
+										class="glyphicon glyphicon-sort" /></th>
+
+								</tr>
+							</thead>
+
+							<tbody class="searchable" id="tbody">
+
+								<c:forEach items="#{relMatricSemApostila.curMatri}"
+									var="_curMatri">
+									<tr>
+
+										<td class="center"><h:outputText
+												value="#{_curMatri.matriculas.codigo}" /></td>
+										<td class="center"><h:outputText
+												value="#{_curMatri.matriculas.alunos.nome}" /></td>
+										<td class="center"><h:outputText
+												value="#{_curMatri.cursos.descricao}" /></td>
+										<td class="center"><h:outputText
+												value="#{_curMatri.dataprimeiroacesso}">
+												<f:convertDateTime type="date"
+													locale="#{localeSelector.locale}"
+													timeZone="#{timeZoneSelector.timeZone}"
+													pattern="#{messages.pattern}" />
+											</h:outputText></td>
+
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+
+
+					</div>
+					<div class="panel-footer" ><center>	<h:commandLink limitToList="true"
+							actionListener="#{relMatricSemApostila.exportarRelatorioPDF}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/pdf.png" />
+						</h:commandLink>
+
+						<h:commandLink limitToList="true"
+							actionListener="#{relMatricSemApostila.exportarRelatorioExcel}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/excel.png" />
+						</h:commandLink></center></div>
+				</div>
+
+						<script>
+			$(document).ready(function() {
+			    $('#tblMatricSemApos').DataTable( {
+			        "language": {
+			        	"sEmptyTable": "Nenhum registro encontrado",
+			            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+			            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+			            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+			            "sInfoPostFix": "",
+			            "sInfoThousands": ".",
+			            "sLengthMenu": "_MENU_ resultados por página",
+			            "sLoadingRecords": "Carregando...",
+			            "sProcessing": "Processando...",
+			            "sZeroRecords": "Nenhum registro encontrado",
+			            "sSearch": "Pesquisar",
+			            "oPaginate": {
+			                "sNext": "Próximo",
+			                "sPrevious": "Anterior",
+			                "sFirst": "Primeiro",
+			                "sLast": "Último"
+			            },
+			            "oAria": {
+			                "sSortAscending": ": Ordenar colunas de forma ascendente",
+			                "sSortDescending": ": Ordenar colunas de forma descendente"
+			            }
+			        }
+			    } );
+
+             
+
+					} );
+
+			
+	
+					
+  </script>
+
+
+			</a:outputPanel>
+
+
+
+			
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

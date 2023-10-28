@@ -1,0 +1,972 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">#{messages['menu.Vendas1']} #{messages['global.Detalhes']}</f:facet>
+
+        <s:decorate id="codigo" template="layout/display.xhtml">
+            <ui:define name="label">Codigo</ui:define>
+            <h:outputText value="#{matriculasHome.instance.codigo}"/>
+        </s:decorate>
+
+        <s:decorate id="dtcancel" template="layout/display.xhtml">
+            <ui:define name="label">Dtcancel</ui:define>
+            <h:outputText value="#{matriculasHome.instance.dtcancel}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="dtinicio" template="layout/display.xhtml">
+            <ui:define name="label">Dtinicio</ui:define>
+            <h:outputText value="#{matriculasHome.instance.dtinicio}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="dtmatri" template="layout/display.xhtml">
+            <ui:define name="label">Dtmatri</ui:define>
+            <h:outputText value="#{matriculasHome.instance.dtmatri}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="dttermino" template="layout/display.xhtml">
+            <ui:define name="label">Dttermino</ui:define>
+            <h:outputText value="#{matriculasHome.instance.dttermino}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="dtultalula" template="layout/display.xhtml">
+            <ui:define name="label">Dtultalula</ui:define>
+            <h:outputText value="#{matriculasHome.instance.dtultalula}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="funcionarios" template="layout/display.xhtml">
+            <ui:define name="label">Funcionario</ui:define>
+            <h:outputText value="#{matriculasHome.instance.funcionarios.nome}"/>
+        </s:decorate>
+
+        <s:decorate id="notivocancel" template="layout/display.xhtml">
+            <ui:define name="label">Notivocancel</ui:define>
+            <h:outputText value="#{matriculasHome.instance.notivocancel}"/>
+        </s:decorate>
+
+        <s:decorate id="qtdhoras" template="layout/display.xhtml">
+            <ui:define name="label">Qtdhoras</ui:define>
+            <h:outputText value="#{matriculasHome.instance.qtdhoras}"/>
+        </s:decorate>
+
+        <s:decorate id="qtmeses" template="layout/display.xhtml">
+            <ui:define name="label">Qtmeses</ui:define>
+            <h:outputText value="#{matriculasHome.instance.qtmeses}"/>
+        </s:decorate>
+
+        <s:decorate id="qtparcelas" template="layout/display.xhtml">
+            <ui:define name="label">Qtparcelas</ui:define>
+            <h:outputText value="#{matriculasHome.instance.qtparcelas}"/>
+        </s:decorate>
+
+        <s:decorate id="senha" template="layout/display.xhtml">
+            <ui:define name="label">Senha</ui:define>
+            <h:outputText value="#{matriculasHome.instance.senha}"/>
+        </s:decorate>
+
+        <s:decorate id="status" template="layout/display.xhtml">
+            <ui:define name="label">Status</ui:define>
+            <h:outputText value="#{matriculasHome.instance.status}"/>
+        </s:decorate>
+
+        <s:decorate id="venc1mens" template="layout/display.xhtml">
+            <ui:define name="label">Venc1mens</ui:define>
+            <h:outputText value="#{matriculasHome.instance.venc1mens}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="vencmatri" template="layout/display.xhtml">
+            <ui:define name="label">Vencmatri</ui:define>
+            <h:outputText value="#{matriculasHome.instance.vencmatri}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="vlmatricula" template="layout/display.xhtml">
+            <ui:define name="label">Vlmatricula</ui:define>
+            <h:outputText value="#{matriculasHome.instance.vlmatricula}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="vlmensal" template="layout/display.xhtml">
+            <ui:define name="label">Vlmensal</ui:define>
+            <h:outputText value="#{matriculasHome.instance.vlmensal}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="vlpacote" template="layout/display.xhtml">
+            <ui:define name="label">Vlpacote</ui:define>
+            <h:outputText value="#{matriculasHome.instance.vlpacote}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/private/onbyte/MatriculasEdit.xhtml"
+                    id="edit"
+                    rendered="#{rich:isUserInRole('Vendas1_A')}"
+                 value="#{messages['global.edit']}"/>
+
+        <s:button view="/private/onbyte/#{empty matriculasFrom ? 'MatriculasList' : matriculasFrom}.xhtml"
+                    id="done"
+                 value="#{messages['global.done']}"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Alunos</h:panelGroup>
+        </f:facet>
+    <div class="association" id="alunosParent">
+
+        <h:outputFormat value="There is no alunos associado a este matriculas."
+                   rendered="#{matriculasHome.instance.alunos == null}"/>
+
+        <rich:dataTable var="_alunos"
+                   value="#{matriculasHome.instance.alunos}"
+                rendered="#{matriculasHome.instance.alunos != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="alunosTable">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_alunos.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nome</f:facet>
+                <h:outputText value="#{_alunos.nome}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Situacao</f:facet>
+                <h:outputText value="#{_alunos.situacao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Telres</f:facet>
+                <h:outputText value="#{_alunos.telres}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Telcel</f:facet>
+                <h:outputText value="#{_alunos.telcel}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{_alunos.email}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewalunos"
+                     value="Visualizar"
+                      view="/private/onbyte/Alunos.xhtml">
+                    <f:param name="alunosCodigo"
+                           value="#{_alunos.codigo}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Cur matris</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="curMatrisChildren">
+
+        <h:outputFormat value="Não há curMatris associado a este matriculas."
+                   rendered="#{empty matriculasHome.curMatris}"/>
+
+        <rich:dataTable value="#{matriculasHome.curMatris}"
+                       var="_curMatri"
+                  rendered="#{not empty matriculasHome.curMatris}"
+                 onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                        id="curMatrisTable">
+            <rich:column id="colOrden" sortBy="#{_curMatri.ordem}" sortOrder="ASCENDING" width="60px">
+                <f:facet name="header">Ordem</f:facet>
+                <h:outputText value="#{_curMatri.ordem}"/>
+            </rich:column>
+            <rich:column sortBy="#{_curMatri.id.curso}" width="60px">
+                <f:facet name="header">Curso</f:facet>
+                <h:outputText value="#{_curMatri.cursos.codigo}"/>
+            </rich:column>
+            <rich:column sortBy="#{_curMatri.cursos.descricao}" width="280px">
+                <f:facet name="header">Descrição Curso</f:facet>
+                <h:outputText value="#{_curMatri.cursos.descricao}"/>
+            </rich:column>
+            <rich:column sortBy="#{_curMatri.cursos.NHoras}">
+                <f:facet name="header">No Horas</f:facet>
+                <h:outputText value="#{_curMatri.cursos.NHoras}"/>
+            </rich:column>
+            <rich:column sortBy="#{_curMatri.modulo}">
+                <f:facet name="header">Tipo Curso</f:facet>
+                <h:outputText value="#{_curMatri.modulo==0?'EXTRA':'MÓDULO'}"/>
+            </rich:column>
+            <rich:column sortBy="#{_curMatri.status}" width="60px">
+                <f:facet name="header">Status</f:facet>
+                <h:outputText value="#{_curMatri.status}"/>
+            </rich:column>
+            <rich:column width="80px">
+                <f:facet name="header">Aula Atual</f:facet>
+                <h:outputText value="#{_curMatri.aulaAtual}"/>                
+            </rich:column>
+            <h:column>
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="selectcurMatri"
+                     value="#{messages['global.select']}"
+                      view="/private/onbyte/CurMatri.xhtml">
+                    <f:param name="curMatriCurso"
+                            value="#{_curMatri.id.curso}"/>
+                    <f:param name="curMatriMatricula"
+                            value="#{_curMatri.id.matricula}"/>
+                    <f:param name="curMatriFrom" value="Matriculas"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="#{messages['global.insert']} curMatri"
+                view="/private/onbyte/CurMatriEdit.xhtml">
+            <f:param name="matriculasCodigo"
+                    value="#{matriculasHome.instance.codigo}"/>
+            <f:param name="curMatriFrom" value="Matriculas"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Descmatris</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="descmatrisChildren">
+
+        <h:outputFormat value="Não há descmatris associado a este matriculas."
+                   rendered="#{empty matriculasHome.descmatris}"/>
+
+        <rich:dataTable value="#{matriculasHome.descmatris}"
+                       var="_descmatri"
+                  rendered="#{not empty matriculasHome.descmatris}"
+                 onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                        id="descmatrisTable">
+            <rich:column sortBy="#{_descmatri.id.codigo}">
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_descmatri.id.codigo}"/>
+            </rich:column>
+            <rich:column sortBy="#{_descmatri.id.dia}">
+                <f:facet name="header">Dia</f:facet>
+                <h:outputText value="#{_descmatri.id.dia}"/>
+            </rich:column>
+            <rich:column sortBy="#{_descmatri.desconto}">
+                <f:facet name="header">Desconto</f:facet>
+                <h:outputText value="#{_descmatri.desconto}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="selectdescmatri"
+                     value="#{messages['global.select']}"
+                      view="/private/onbyte/Descmatri.xhtml">
+                    <f:param name="descmatriCodigo"
+                            value="#{_descmatri.id.codigo}"/>
+                    <f:param name="descmatriDia"
+                            value="#{_descmatri.id.dia}"/>
+                    <f:param name="descmatriFrom" value="Matriculas"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="#{messages['global.insert']} descmatri"
+                view="/private/onbyte/DescmatriEdit.xhtml">
+            <f:param name="matriculasCodigo"
+                    value="#{matriculasHome.instance.codigo}"/>
+            <f:param name="descmatriFrom" value="Matriculas"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Frequencias</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="frequenciasChildren">
+
+        <h:outputFormat value="Não há frequencias associado a este matriculas."
+                   rendered="#{empty matriculasHome.frequencias}"/>
+
+        <rich:dataTable value="#{matriculasHome.frequencias}"
+                       var="_frequencia"
+                  rendered="#{not empty matriculasHome.frequencias}"
+                 onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                        id="frequenciasTable">
+            <rich:column sortBy="#{_frequencia.id.data}">
+                <f:facet name="header">Data</f:facet>
+                <h:outputText value="#{_frequencia.id.data}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_frequencia.id.horario}">
+                <f:facet name="header">Horario</f:facet>
+                <h:outputText value="#{_frequencia.id.horario}"/>
+            </rich:column>
+            <rich:column sortBy="#{_frequencia.id.matricula}">
+                <f:facet name="header">Matricula</f:facet>
+                <h:outputText value="#{_frequencia.id.matricula}"/>
+            </rich:column>
+            <rich:column sortBy="#{_frequencia.computador}">
+                <f:facet name="header">Computador</f:facet>
+                <h:outputText value="#{_frequencia.computador}"/>
+            </rich:column>
+            <rich:column sortBy="#{_frequencia.presente}">
+                <f:facet name="header">Presente</f:facet>
+                <h:outputText value="#{_frequencia.presente}"/>
+            </rich:column>
+            <rich:column sortBy="#{_frequencia.saiucedo}">
+                <f:facet name="header">Saiucedo</f:facet>
+                <h:outputText value="#{_frequencia.saiucedo}"/>
+            </rich:column>
+            <rich:column sortBy="#{_frequencia.tipo}">
+                <f:facet name="header">Tipo</f:facet>
+                <h:outputText value="#{_frequencia.tipo}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="selectfrequencia"
+                     value="#{messages['global.select']}"
+                      view="/private/onbyte/Frequencia.xhtml">
+                    <f:param name="frequenciaData"
+                            value="#{_frequencia.id.data}"/>
+                    <f:param name="frequenciaHorario"
+                            value="#{_frequencia.id.horario}"/>
+                    <f:param name="frequenciaMatricula"
+                            value="#{_frequencia.id.matricula}"/>
+                    <f:param name="frequenciaFrom" value="Matriculas"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="#{messages['global.insert']} frequencia"
+                view="/private/onbyte/FrequenciaEdit.xhtml">
+            <f:param name="matriculasCodigo"
+                    value="#{matriculasHome.instance.codigo}"/>
+            <f:param name="frequenciaFrom" value="Matriculas"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Funcionarios</h:panelGroup>
+        </f:facet>
+    <div class="association" id="consultorParent">
+
+        <h:outputFormat value="There is no consultor associado a este matriculas."
+                   rendered="#{matriculasHome.instance.consultor == null}"/>
+
+        <rich:dataTable var="_consultor"
+                   value="#{matriculasHome.instance.consultor}"
+                rendered="#{matriculasHome.instance.consultor != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="consultorTable">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_consultor.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Bairro</f:facet>
+                <h:outputText value="#{_consultor.bairro}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cep</f:facet>
+                <h:outputText value="#{_consultor.cep}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cidade</f:facet>
+                <h:outputText value="#{_consultor.cidade}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cpf</f:facet>
+                <h:outputText value="#{_consultor.cpf}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Endereco</f:facet>
+                <h:outputText value="#{_consultor.endereco}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Fone</f:facet>
+                <h:outputText value="#{_consultor.fone}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Fone2</f:facet>
+                <h:outputText value="#{_consultor.fone2}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nome</f:facet>
+                <h:outputText value="#{_consultor.nome}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Passe</f:facet>
+                <h:outputText value="#{_consultor.passe}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Rg</f:facet>
+                <h:outputText value="#{_consultor.rg}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Tipo</f:facet>
+                <h:outputText value="#{_consultor.tipo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Uf</f:facet>
+                <h:outputText value="#{_consultor.uf}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewconsultor"
+                     value="Visualizar"
+                      view="/private/onbyte/Funcionarios.xhtml">
+                    <f:param name="consultorCodigo"
+                           value="#{_consultor.codigo}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Mensalidadeses</h:panelGroup>
+        </f:facet>
+		<rich:tabPanel switchType="client">
+		
+			<rich:tab label="A Pagar">
+				<h:panelGrid columns="3" columnClasses="mensalidade_col1,mensalidade_col2,mensalidade_col3" style="width: 100%; vertical-align: top;" >
+					<h:form styleClass="association" id="mensalidadesesAPagarChildren">
+	    			
+			            <h:outputFormat value="Não há mensalidadeses associado a este matriculas."
+			                       rendered="#{empty matriculasHome.mensalidadesesAPagar}"/>
+			
+			            <rich:extendedDataTable noDataLabel="#{messages['global.naoHaDados']}" id="mensalidadesesTableAPagar" value="#{matriculasHome.mensalidadesesAPagar}"
+			                           var="_mensalidadesesAPagar"		
+			                           height="300px"
+			                           width="405px"
+			                           enableContextMenu="false"			
+			                           selection="#{matriculasHome.selection}"                           
+			                           rowKeyVar="row"
+			                           rendered="#{not empty matriculasHome.mensalidadesesAPagar}">
+													                    		
+						      <a:support execute="@form"
+						                event="onselectionchange"		
+						                actionListener="#{matriculasHome.selectionListener}"                
+						                reRender="panelMensalidadeEdit,editmensalidade,quitar_mensalidades">						                
+						               </a:support>			                           			                   	   
+			                <rich:column sortBy="#{_mensalidadesesAPagar.id.parcela}"  >
+			                    <f:facet name="header">Parcela</f:facet>
+			                    <h:outputText value="#{_mensalidadesesAPagar.id.parcela}"/>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesesAPagar.dtaVenc}" sortOrder="ASCENDING">
+			                    <f:facet name="header">Dta venc</f:facet>
+			                    <h:outputText value="#{_mensalidadesesAPagar.dtaVenc}">
+			                        <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+			                    </h:outputText>			                    
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesesAPagar.tipo}">
+			                    <f:facet name="header">Tipo</f:facet>
+			                    <h:outputText value="#{_mensalidadesesAPagar.tipo}"/>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesesAPagar.valor}">
+			                    <f:facet name="header">Valor</f:facet>
+			                    <h:outputText value="#{_mensalidadesesAPagar.valor}" style="float: right;">
+			                       <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"/>
+			                    </h:outputText>
+			                </rich:column>			                
+			            </rich:extendedDataTable>
+			
+			         </h:form>
+			
+			        <f:subview rendered="#{matriculasHome.managed}" id="mensalidadesesAPagar" >
+			        <h:form>
+			        <h:panelGrid styleClass="actionButtons">
+			            <a:commandButton value="#{messages['global.insert']}" style="width:100px; height: 50px"
+			            	action="#{matriculasHome.addMensalidade}"
+                        	reRender="editmensalidade"
+                        	oncomplete="inicializar();"
+                        	ajaxSingle="false">
+                       		 <rich:componentControl event="onclick" for="RegistryMensalidadePanel" operation="show" />
+                        <s:conversationId />
+                        </a:commandButton> 
+                        <a:commandButton value="#{messages['global.edit']}" style="width:100px; height: 50px"
+                                 ajaxSingle="false"
+                                 oncomplete="inicializar();"
+                                 reRender="editmensalidade"
+                                bypassUpdates="false">                                             
+                                <rich:componentControl for="RegistryMensalidadePanel" operation="show" event="onclick"/>                                
+                        </a:commandButton>
+						<a:commandButton value="#{messages['global.delete']}" style="width:100px; height: 50px"                        		
+                        		immediate="true"
+                        		onclick="if(confirm('#{messages['global.confirmDelete']}')){mensalidaderetorno();} ">
+    							<a:jsFunction name="mensalidaderetorno" action="#{matriculasHome.removeMensalidade}" reRender="mensalidadesesAPagarChildren, valor_total_parcelas, valor_total_apagar, valor_total_pago, valor_total_pago2" />                                                                                                                                                       
+                        </a:commandButton> 
+                        <a:commandButton value="Quita Parcela" style="width:100px; height: 50px"			            	
+                        	reRender="editmensalidade"
+                        	ajaxSingle="false"
+                        	bypassUpdates="false">
+                       		 <rich:componentControl event="onclick" for="QuitaParcelaPanel" operation="show" />
+                        <s:conversationId />
+                        </a:commandButton>                                   
+			        </h:panelGrid>
+			        </h:form>
+			        </f:subview>
+			        <f:subview>
+			        <h:panelGrid>
+			        	<s:span><strong>Total do Curso</strong></s:span>
+			            <h:inputText id="valor_total_parcelas" value="#{matriculasHome.total_curso}"  readonly="true" style="text-align: right;" size="10">
+			            <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"></f:convertNumber>  		                    
+		                </h:inputText>                       
+		                
+		                <s:span><strong>Total a Pagar</strong></s:span>
+			            <h:inputText id="valor_total_apagar" value="#{matriculasHome.total_apagar}" readonly="true" style="text-align: right;" size="10">
+			            <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"></f:convertNumber>  		                    
+		                </h:inputText>		                
+		                <s:span><strong>Total Pago</strong></s:span>
+			            <h:inputText id="valor_total_pago" value="#{matriculasHome.total_pago}" readonly="true" style="text-align: right;" size="10">
+			            <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"></f:convertNumber>
+		                </h:inputText>
+		                
+			        </h:panelGrid>
+			        </f:subview>
+			      
+		        </h:panelGrid>
+        	</rich:tab>
+        	 
+        	<rich:tab label="Pagas">
+        		<h:panelGrid columns="2" columnClasses="mensalidadepagas_col1,mensalidadepagas_col2" style="width: 100%; vertical-align: top;" >
+	        		<h:form styleClass="association" id="mensalidadesesPagasChildren">
+			            <h:outputFormat value="Não há mensalidadeses associado a este matriculas."
+			                       rendered="#{empty matriculasHome.mensalidadesesPagas}"/>
+			
+			            <rich:extendedDataTable noDataLabel="#{messages['global.naoHaDados']}" id="mensalidadesesTablePagas" 
+			            				value="#{matriculasHome.mensalidadesesPagas}"
+			                           var="_mensalidadesPagas"
+			                            height="300px"
+			                           width="755px"
+			                           enableContextMenu="false"			 
+			                           selection="#{matriculasHome.selectionPagas}"                          
+			                      rendered="#{not empty matriculasHome.mensalidadesesPagas}">			                     
+			                <a:support execute="@form"
+						                event="onselectionchange"		
+						                actionListener="#{matriculasHome.selectionListenerPagas}">						                
+						               </a:support>			                           		
+						               
+			                <rich:column sortBy="#{_mensalidadesPagas.id.parcela}" width="60px">
+			                    <f:facet name="header">Parcela</f:facet>
+			                    <h:outputText value="#{_mensalidadesPagas.id.parcela}"/>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesPagas.dtaVenc}" width="80px" sortOrder="ASCENDING">
+			                    <f:facet name="header">Dta venc</f:facet>
+			                    <h:outputText value="#{_mensalidadesPagas.dtaVenc}">
+			                        <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+			                    </h:outputText>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesPagas.tipo}" width="100px">
+			                    <f:facet name="header">Tipo</f:facet>
+			                    <h:outputText value="#{_mensalidadesPagas.tipo}"/>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesPagas.tipopg}" width="90px">
+			                    <f:facet name="header">Pago em</f:facet>
+			                    <h:outputText value="#{_mensalidadesPagas.tipopg}"/>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesPagas.valor}" width="60px">
+			                    <f:facet name="header">Valor</f:facet>
+			                    <h:outputText value="#{_mensalidadesPagas.valor}" style="float: right;">
+			                        <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"></f:convertNumber>
+			                    </h:outputText>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesPagas.valorPg}" width="80px">
+			                    <f:facet name="header">Desconto</f:facet>
+			                    <h:outputText value="#{_mensalidadesPagas.desconto}" style="float: right;">
+			                        <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"></f:convertNumber>
+			                    </h:outputText>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesPagas.valorPg}" width="80px">
+			                    <f:facet name="header">Acréscimo</f:facet>
+			                    <h:outputText value="#{_mensalidadesPagas.acrescimo}" style="float: right;">
+			                        <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"></f:convertNumber>
+			                    </h:outputText>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesPagas.valorPg}" width="80px">
+			                    <f:facet name="header">Valor Pago</f:facet>
+			                    <h:outputText value="#{_mensalidadesPagas.valorPg}" style="float: right;">
+			                        <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"></f:convertNumber>
+			                    </h:outputText>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesPagas.dtaPgto}" width="80px">
+			                    <f:facet name="header">Dta Pgto</f:facet>
+			                    <h:outputText value="#{_mensalidadesPagas.dtaPgto}">
+			                        <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+			                    </h:outputText>
+			                </rich:column>
+			                <rich:column sortBy="#{_mensalidadesPagas.funcionario}" width="200px">
+			                    <f:facet name="header">Funcionário Responsável</f:facet>
+			                    <h:outputText value="#{_mensalidadesPagas.funcionario.nome}"/>
+			                </rich:column>			                
+			            </rich:extendedDataTable>
+			         </h:form>   
+		            <f:subview rendered="#{matriculasHome.managed}" id="mensalidadesesPagas">
+		            	<h:form>
+				        <h:panelGrid styleClass="actionButtons">			                                    
+							<a:commandButton value="#{messages['global.delete']}" style="width:100px; height: 50px"								                        		
+	                                 immediate="true"
+	                                 onclick="if(confirm('#{messages['global.confirmDelete']}')){pagasRetorno();} ">
+	                                 <a:jsFunction name="pagasRetorno" action="#{matriculasHome.removeMensalidadePagas}" reRender="mensalidadesesPagasChildren, valor_total_parcelas, valor_total_pago, valor_total_pago2" />
+	                        </a:commandButton>
+	                        <a:commandButton value="Cancela Quitação" style="width:100px; height: 50px"								                        		
+	                                 immediate="true"
+	                                 onclick="if(confirm('Cancelar Quitação da parcela paga?')){cancelaQuitacaoretorno();} ">
+	                                 <a:jsFunction name="cancelaQuitacaoretorno" action="#{matriculasHome.cancelarquitacao}" reRender="mensalidadesesAPagarChildren, mensalidadesesPagasChildren, valor_total_parcelas, valor_total_pago, valor_total_pago2" />
+	                        </a:commandButton>                                  
+				        </h:panelGrid>
+				        <h:panelGrid>
+				        	<s:span><strong>Total Pago</strong></s:span>
+				            <h:inputText id="valor_total_pago2" value="#{matriculasHome.total_pago}"  readonly="true" style="text-align: right;" size="10">
+				            <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"></f:convertNumber>  		                    
+			                </h:inputText>
+			                
+				        </h:panelGrid>
+				        </h:form>
+			        </f:subview>
+			       </h:panelGrid>			
+        	</rich:tab>
+        	
+		</rich:tabPanel>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Modulos</h:panelGroup>
+        </f:facet>
+    <div class="association" id="modulosParent">
+
+        <h:outputFormat value="There is no modulos associado a este matriculas."
+                   rendered="#{matriculasHome.instance.modulos == null}"/>
+
+        <rich:dataTable var="_modulos"
+                   value="#{matriculasHome.instance.modulos}"
+                rendered="#{matriculasHome.instance.modulos != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="modulosTable">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_modulos.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Descricao</f:facet>
+                <h:outputText value="#{_modulos.descricao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Duracao</f:facet>
+                <h:outputText value="#{_modulos.duracao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Mensalidade</f:facet>
+                <h:outputText value="#{_modulos.mensalidade}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Parcelas</f:facet>
+                <h:outputText value="#{_modulos.parcelas}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Valormodulo</f:facet>
+                <h:outputText value="#{_modulos.valormodulo}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewmodulos"
+                     value="Visualizar"
+                      view="/private/onbyte/Modulos.xhtml">
+                    <f:param name="modulosCodigo"
+                           value="#{_modulos.codigo}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Notases</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="notasesChildren">
+
+        <h:outputFormat value="Não há notases associado a este matriculas."
+                   rendered="#{empty matriculasHome.notases}"/>
+
+        <rich:dataTable value="#{matriculasHome.notases}"
+                       var="_notas"
+                  rendered="#{not empty matriculasHome.notases}"
+                 onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                        id="notasesTable">
+            <rich:column sortBy="#{_notas.NProva}">
+                <f:facet name="header">N prova</f:facet>
+                <h:outputText value="#{_notas.NProva}"/>
+            </rich:column>
+            <rich:column sortBy="#{_notas.aula}">
+                <f:facet name="header">Aula</f:facet>
+                <h:outputText value="#{_notas.aula}"/>
+            </rich:column>
+            <rich:column sortBy="#{_notas.avaliacaoaluno}">
+                <f:facet name="header">Avaliacaoaluno</f:facet>
+                <h:outputText value="#{_notas.avaliacaoaluno}"/>
+            </rich:column>
+            <rich:column sortBy="#{_notas.comentario}">
+                <f:facet name="header">Comentario</f:facet>
+                <h:outputText value="#{_notas.comentario}"/>
+            </rich:column>
+            <rich:column sortBy="#{_notas.data}">
+                <f:facet name="header">Data</f:facet>
+                <h:outputText value="#{_notas.data}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_notas.nota}">
+                <f:facet name="header">Nota</f:facet>
+                <h:outputText value="#{_notas.nota}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="selectnotas"
+                     value="#{messages['global.select']}"
+                      view="/private/onbyte/Notas.xhtml">
+                    <f:param name="notasNProva"
+                            value="#{_notas.NProva}"/>
+                    <f:param name="notasFrom" value="Matriculas"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="#{messages['global.insert']} notas"
+                view="/private/onbyte/NotasEdit.xhtml">
+            <f:param name="matriculasCodigo"
+                    value="#{matriculasHome.instance.codigo}"/>
+            <f:param name="notasFrom" value="Matriculas"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Statusmatriculas</h:panelGroup>
+        </f:facet>
+	    <h:form styleClass="association" id="statusmatriculasChildren">
+	
+	        <h:outputFormat value="Não há statusmatriculas associado a este matriculas."
+	                   rendered="#{empty matriculasHome.statusmatriculas}"/>
+	
+	        <rich:extendedDataTable noDataLabel="#{messages['global.naoHaDados']}" value="#{matriculasHome.statusmatriculas}"
+	                       var="_statusmatricula"
+	                       height="300px"
+	                       enableContextMenu="false"
+	                  rendered="#{not empty matriculasHome.statusmatriculas}"
+	                 onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+	                        id="statusmatriculasTable">
+	            <rich:column sortBy="#{_statusmatricula.id.data}" sortOrder="ASCENDING">
+	                <f:facet name="header">Data</f:facet>
+	                <h:outputText value="#{_statusmatricula.id.data}">
+	                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+	                </h:outputText>
+	            </rich:column>
+	            <rich:column sortBy="#{_statusmatricula.id.hora}" sortOrder="ASCENDING">
+	                <f:facet name="header">Hora</f:facet>
+	                <h:outputText value="#{_statusmatricula.id.hora}"/>
+	            </rich:column>
+	            <rich:column sortBy="#{_statusmatricula.id.matricula}" width="200px">
+	                <f:facet name="header">Nome Funcionário</f:facet>
+	                <h:outputText value="#{_statusmatricula.funcionarios.nome}"/>
+	            </rich:column>
+	             <rich:column sortBy="#{_statusmatricula.status}">
+	                <f:facet name="header">Status</f:facet>
+	                <h:outputText value="#{_statusmatricula.status}"/>
+	            </rich:column>
+	            <rich:column sortBy="#{_statusmatricula.motivo}" width="300px">
+	                <f:facet name="header">Motivo</f:facet>
+	                <h:outputText value="#{_statusmatricula.motivo}"/>
+	            </rich:column>
+	        </rich:extendedDataTable>
+
+    	</h:form>    
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Sugestaos</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="sugestaosChildren">
+
+        <h:outputFormat value="Não há sugestaos associado a este matriculas."
+                   rendered="#{empty matriculasHome.sugestaos}"/>
+
+        <rich:dataTable value="#{matriculasHome.sugestaos}"
+                       var="_sugestao"
+                  rendered="#{not empty matriculasHome.sugestaos}"
+                 onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                        id="sugestaosTable">
+            <rich:column sortBy="#{_sugestao.codigo}">
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_sugestao.codigo}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.cp1}">
+                <f:facet name="header">Cp1</f:facet>
+                <h:outputText value="#{_sugestao.cp1}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.cp2}">
+                <f:facet name="header">Cp2</f:facet>
+                <h:outputText value="#{_sugestao.cp2}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.cp3}">
+                <f:facet name="header">Cp3</f:facet>
+                <h:outputText value="#{_sugestao.cp3}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.cp4}">
+                <f:facet name="header">Cp4</f:facet>
+                <h:outputText value="#{_sugestao.cp4}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.data}">
+                <f:facet name="header">Data</f:facet>
+                <h:outputText value="#{_sugestao.data}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.p1}">
+                <f:facet name="header">P1</f:facet>
+                <h:outputText value="#{_sugestao.p1}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.p2}">
+                <f:facet name="header">P2</f:facet>
+                <h:outputText value="#{_sugestao.p2}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.p3}">
+                <f:facet name="header">P3</f:facet>
+                <h:outputText value="#{_sugestao.p3}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.p4}">
+                <f:facet name="header">P4</f:facet>
+                <h:outputText value="#{_sugestao.p4}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.sugestao}">
+                <f:facet name="header">Sugestao</f:facet>
+                <h:outputText value="#{_sugestao.sugestao}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="selectsugestao"
+                     value="#{messages['global.select']}"
+                      view="/private/onbyte/Sugestao.xhtml">
+                    <f:param name="sugestaoCodigo"
+                            value="#{_sugestao.codigo}"/>
+                    <f:param name="sugestaoFrom" value="Matriculas"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="#{messages['global.insert']} sugestao"
+                view="/private/onbyte/SugestaoEdit.xhtml">
+            <f:param name="matriculasCodigo"
+                    value="#{matriculasHome.instance.codigo}"/>
+            <f:param name="sugestaoFrom" value="Matriculas"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Tipomark</h:panelGroup>
+        </f:facet>
+    <div class="association" id="tipomarkParent">
+
+        <h:outputFormat value="There is no tipomark associado a este matriculas."
+                   rendered="#{matriculasHome.instance.tipomark == null}"/>
+
+        <rich:dataTable var="_tipomark"
+                   value="#{matriculasHome.instance.tipomark}"
+                rendered="#{matriculasHome.instance.tipomark != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="tipomarkTable">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_tipomark.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Descricao</f:facet>
+                <h:outputText value="#{_tipomark.descricao}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewtipomark"
+                     value="Visualizar"
+                      view="/private/onbyte/Tipomark.xhtml">
+                    <f:param name="tipomarkCodigo"
+                           value="#{_tipomark.codigo}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

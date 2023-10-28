@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+	<name>sistemaEscola</name>
+	<application>
+		<view-handler>org.ajax4jsf.application.AjaxViewHandler</view-handler>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+			
+  			<!--supported-locale>pt_BR</supported-locale-->
+			<!--supported-locale>es</supported-locale-->
+			
+		</locale-config>
+	</application>
+	<render-kit>
+		<renderer>
+			<component-family>javax.faces.SelectBoolean</component-family>
+			<renderer-type>javax.faces.Checkbox</renderer-type>
+			<renderer-class>com.intelinet.util.CustomCheckboxRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<validator>
+		<validator-id>cpfValidator</validator-id>
+		<validator-class>com.intelinet.seam.validator.CpfValidator</validator-class>
+	</validator>
+	<!-- application> <view-handler>com.sun.facelets.FaceletViewHandler</view-handler> 
+		</application -->	
+		
+	 <lifecycle>
+        <phase-listener>com.intelinet.util.SessionTimeoutListener</phase-listener>
+    </lifecycle>	
+		
+</faces-config>

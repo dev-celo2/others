@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelMatPorMarketing" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="561" leftMargin="17" rightMargin="17" topMargin="20" bottomMargin="20" uuid="42944ec9-1d5a-4457-8f2b-8b78f642e2c8">
+	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="title_rel" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.Integer"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="qtd_alunos" class="java.lang.Integer"/>
+	<variable name="DETAIL_COUNT" class="java.lang.Integer" calculation="Count"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement uuid="6222cb0e-45e2-4fbb-92d4-e364e21f5dd6" x="0" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="f27e0b70-609b-4484-b933-cf40692bcb40" x="455" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<patternExpression><![CDATA[$R{global.reportPagina}+": "]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3d2d54fc-ffd8-4781-96fd-9119eeafee67" mode="Transparent" x="0" y="22" width="561" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="15" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title_rel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3271908a-83b1-472f-8b8d-76cb00ff8704" x="105" y="0" width="336" height="23"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="ZurichCalligraphic" size="20" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c87ae882-ea82-4845-a508-7008e9e2f9fa" x="0" y="0" width="65" height="15"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="none">
+					<font fontName="Arial" size="10" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{tipomark.codigo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="308fe668-5a6d-4cf9-b9d5-bf9132e41816" mode="Transparent" x="426" y="0" width="63" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Arial" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relMatPorMarketing.qtdAlunos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bc883701-1a16-4017-b209-31d3868d64b7" x="65" y="0" width="361" height="15"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement markup="none">
+					<font fontName="Arial" size="10" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{tipomark.descricao}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="91e92709-a9b9-4867-9d85-a0cd6ddcf646" x="0" y="14" width="561" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="1af431db-e79c-4296-888e-6dc42f07db3c" x="0" y="0" width="561" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement uuid="878d2832-5b4d-4caf-856d-95e54428c840" x="0" y="0" width="65" height="18"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8832665d-470f-496b-b737-430f221b5ae0" x="65" y="0" width="361" height="18"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="93479438-0882-4186-bc19-4871b57e98e6" x="426" y="0" width="63" height="18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qtd_alunos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="1">
+			<line>
+				<reportElement uuid="866cbccc-3048-4629-a055-4505479fffbd" x="0" y="0" width="561" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

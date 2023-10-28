@@ -1,0 +1,1 @@
+isql -u sysdba -p masterkey -i 'ScriptAtualizarBanco.txt'  "banco.fdb"

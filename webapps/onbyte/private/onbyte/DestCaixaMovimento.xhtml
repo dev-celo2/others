@@ -1,0 +1,131 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<rich:modalPanel id="movimentoCaixaPanel#{tela}" width="420"
+		height="380" onshow="inicializar#{tela}();" resizeable="false"
+		onhide="#{fn_hide};">
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="#{messages['caixasMovimento.entrada']}"
+					rendered="#{tela.equals('entrada')}" />
+				<h:outputText value="#{messages['caixasMovimento.saida']}"
+					rendered="#{tela.equals('saida')}" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/false.png" styleClass="hidelink"
+					id="hidelink_movimentoCaixaPanel#{tela}" />
+				<rich:componentControl for="movimentoCaixaPanel#{tela}"
+					attachTo="hidelink_movimentoCaixaPanel#{tela}" operation="hide"
+					event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+
+		<a:form id="formEntradaCaixa#{tela}">
+			<h:inputHidden value="#{destCaixaMovimentoAction.destcaixaCodigo}" />
+			<h:panelGrid>
+				<rich:panel style="width:390px" bodyClass="panelPaddingZero">
+					<s:decorate template="layout/edit_top.xhtml">
+						<ui:define name="label">#{messages['movdestcaixa.contacaixa']}:</ui:define>
+						<h:inputText
+							value="#{destCaixaMovimentoAction.destCaixaDescricao}"
+							readonly="true" size="58" />
+						<ui:param name="styleName" value="width:auto;"></ui:param>
+						<ui:param name="styleValue" value="width:25px;"></ui:param>
+					</s:decorate>
+				</rich:panel>
+				<div style="clear: both" />
+				<rich:panel style="width:390px" bodyClass="panelPaddingZero">
+					<h:panelGrid columns="2">
+						<s:div style="width:245px">
+							<s:decorate id="planocontasField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['caixasMovimento.planocontas']}:</ui:define>
+								<h:selectOneMenu id="planocontas"
+									style="width:200px; font-family:courier new;" required="true"
+									requiredMessage=""
+									value="#{destCaixaMovimentoAction.planoContasCodigo}">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems itemLabelEscaped="true"
+										value="#{destCaixaMovimentoAction.getPlanoContasList(tela)}" />
+									<a:support event="onblur" limitToList="true"
+										reRender="planocontasField" bypassUpdates="false"
+										ajaxSingle="true" />
+								</h:selectOneMenu>
+							</s:decorate>
+						</s:div>
+						<s:decorate id="dtLancamentoField" template="layout/edit.xhtml">
+							<ui:define name="label">#{messages['global.date']}:</ui:define>
+							<rich:calendar id="dtLancamento" inputSize="10" required="true" direction="bottom-left"
+								requiredMessage="" enableManualInput="true" converterMessage=""
+								value="#{destCaixaMovimentoAction.movdestcaixa.id.data}"
+								datePattern="#{messages.pattern}">
+								<a:support event="oninputblur" reRender="dtLancamentoField"
+									oncomplete="inicializar#{tela}();" bypassUpdates="false" />
+							</rich:calendar>
+						</s:decorate>
+					</h:panelGrid>
+					<s:decorate id="descricaoField" template="layout/edit_top.xhtml">
+						<ui:define name="label">#{messages['caixasMovimento.descricao']}</ui:define>
+						<h:inputText id="descricao" size="60" required="true"
+							requiredMessage=""
+							value="#{destCaixaMovimentoAction.movdestcaixa.descricao}">
+							<a:support event="onblur" limitToList="true"
+								reRender="descricaoField" bypassUpdates="false"
+								ajaxSingle="true" />
+						</h:inputText>
+					</s:decorate>
+
+					<s:decorate id="valorField" template="layout/edit_top.xhtml">
+						<ui:define name="label">#{messages['caixasMovimento.valor']}</ui:define>
+						<h:inputText id="valor" required="true"
+							value="#{destCaixaMovimentoAction.movdestcaixa.valor}"
+							style="text-align: right;" size="11">
+							<f:convertNumber maxFractionDigits="2" minFractionDigits="2"></f:convertNumber>
+							<f:validateDoubleRange minimum="0.01" />
+							<a:support event="onblur" limitToList="true"
+								reRender="valorField" bypassUpdates="false" ajaxSingle="true" />
+						</h:inputText>
+					</s:decorate>
+				</rich:panel>
+			</h:panelGrid>
+			<div class="actionButtons">
+
+				<a:commandButton id="btnGravar"
+					value="#{messages['caixasMovimento.btngravar']}"
+					style="width:100px; height: 40px; white-space: normal;"
+					actionListener="#{destCaixaMovimentoAction.gravaMovimento}"
+					limitToList="true" ajaxSingle="false"
+					reRender="planocontasField, descricaoField, valorField"
+					data="#{destCaixaMovimentoAction.messageRetornoAjax}"
+					oncomplete="if(data!=null &amp;&amp; data.msgErro.length==0){Richfaces.hideModalPanel('movimentoCaixaPanel#{tela}');}"
+					onbeforedomupdate="if(data!=null){showMessageRetorno(data.msgErro + data.msgSucesso)};">
+					<f:attribute name="tela" value="#{tela}" />
+				</a:commandButton>
+			</div>
+		</a:form>
+	</rich:modalPanel>
+	<script type="text/javascript"
+		src="#{request.contextPath}/js/jquery.maskedinput-1.3.min.js" />
+	<script type="text/javascript">
+		function inicializar#{tela}(){
+			jQuery(function($){
+			$("#formEntradaCaixa#{tela}\\:dtLancamentoField\\:dtLancamentoInputDate").mask("99/99/9999"); //maskedinput		
+			});
+		}
+	</script>
+	<c:if test="#{showtela}">
+		<script type="text/javascript">
+			Richfaces.showModalPanel('movimentoCaixaPanel#{tela}');
+		</script>
+	</c:if>
+
+</ui:composition>

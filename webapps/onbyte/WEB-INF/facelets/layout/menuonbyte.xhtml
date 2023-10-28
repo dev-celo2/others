@@ -1,0 +1,674 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<div>
+
+		<h:form>
+
+
+			<!--  <script>
+			window.history.forward();
+		</script> -->
+
+			<!--<rich:toolbarGroup>
+        <h:outputText value="#{projectName}:"/>
+        <h:link id="menuHomeId" view="/home.jsf'" value="Home" propagation="none"/>
+    </rich:toolbarGroup>
+    -->
+			<script type="text/javascript">
+    	function openBoletim(){
+        	var width = 795;
+            var height = 540;
+    		var left = (screen.width/2)-(width/2);
+    		var top = (screen.height/2)-(height/2);
+    		win=window.open("#{request.contextPath}/boletim/RelBoletimAluno.jsf", "_blank", "scrollbars=yes, screenY = 0, top= "+top+", left = "+left+", screenX = 0, width="+width+", height="+height+", resizable=yes");
+    	}
+
+    	function openConfigBackup(){
+            var width = 795;
+            var height = 460;
+            var left = (screen.width/2)-(width/2);
+            var top = (screen.height/2)-(height/2);
+            win=window.open("#{request.contextPath}/backup/ConfigBackup.jsf", "ConfigBackup", "scrollbars=yes, screenY = 0, top= "+top+", left = "+left+", screenX = 0, width="+width+", height="+height+", resizable=yes");
+        }
+        
+    	function openManualBackup(){
+            var width = 795;
+            var height = 460;
+            var left = (screen.width/2)-(width/2);
+            var top = (screen.height/2)-(height/2);
+            win=window.open("#{request.contextPath}/backup/BackupManual.jsf", "BackupManual", "scrollbars=yes, screenY = 0, top= "+top+", left = "+left+", screenX = 0, width="+width+", height="+height+", resizable=yes");
+        }
+    </script>
+
+			<nav>
+				<a id="resp-menu" class="responsive-menu" href="#"><i
+					class="fa fa-navicon"></i> Menu</a>
+				<ul class="menu">
+					<li><a class="homer" href="#{request.contextPath}/index.jsf"><i
+							style="font-size: 15px;" class="fa fa-home"></i> HOME</a></li>
+
+					<h:inputHidden rendered="#{rich:isUserInRole('Cadastro1')}">
+						<li><a href="#"><i style="font-size: 15px;"
+								class="fa fa-cog" /> MANUTENÇÃO</a>
+							<ul class="sub-menu">
+								<h:inputHidden rendered="#{rich:isUserInRole('Produtos1')}">
+									<li><a id="AlunosId"
+										href='#{request.contextPath}/private/onbyte/AlunosList.jsf'><span>ALUNOS</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('Clientes1')}">
+									<li><a id="CursosId"
+										href='#{request.contextPath}/private/onbyte/CursosList.jsf'><span>CURSOS</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('Convnios1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/ModulosList.jsf'
+										id="ModulosId"><span>MÓDULOS</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('Funcionrios1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/FuncionariosList.jsf'><span>FUNCIONÁRIOS</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('Computadores1')}">
+									<li><a id="ComputadoresId"
+										href='#{request.contextPath}/private/onbyte/ComputadoresList.jsf'><span>COMPUTADORES</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('HorriosdeAula1')}">
+									<li><a id="HorariosId"
+										href='#{request.contextPath}/private/onbyte/HorariosList.jsf'><span>HORÁRIOS
+												DE AULA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('iposdeMarketing1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/TipomarkList.jsf'
+										id="TipomarkId"><span>TIPOS DE MARKETING</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('PlanodeContas1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/PlanocontasList.jsf'
+										id="PlanocontasId"><span>PLANO DE CONTAS</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('MotivoCancelamento1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/MotcancList.jsf'
+										id="MotcancId"><span>MOT. CANC./FINALIZA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('DestinodoCaixa1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/DestcaixaList.jsf'
+										id="DestcaixaId"><span>CONTAS DO CAIXA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('FaixasEtrias1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/FaixaetariaList.jsf'
+										id="FaixaetariaId"><span>FAIXA ETÁRIA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="true">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/telemarketing/teleprincipal.jsf'
+										target="_blank"><span>TELEMARKETING </span></a></li>
+								</h:inputHidden>
+
+
+								<h:inputHidden rendered="true">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/lojaOnCash.jsf'
+										target="_blank"><span>LOJA ONCASH <span
+												style="padding-left: 29px" /> <a:outputPanel id="pedAg">
+													<span class="badge" style="background-color: #337ab7;"
+														title="Quantidade de Produtos Aguardando Entrega ou Cancelamento">#{produtosolicitadoHome.pedidosAguardando}</span>
+												</a:outputPanel>
+										</span></a></li>
+								</h:inputHidden>
+
+
+							</ul></li>
+					</h:inputHidden>
+
+					<h:inputHidden rendered="#{rich:isUserInRole('Movimentao1')}">
+						<li><a href="#"><i style="font-size: 15px;"
+								class="fa fa-refresh"></i> MOVIMENTAÇÃO</a>
+							<ul class="sub-menu">
+
+								<h:inputHidden rendered="#{rich:isUserInRole('Vendas1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/MatriculasList.jsf'
+										id="MatriculasId"><span>MATRÍCULAS</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('CancelaMatricula1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/ManutencaoMatriculaCancelar.jsf'
+										id="CancelMatricId"><span>CANCELA MATRÍCULA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('ReativaMatricula1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/ManutencaoMatriculaReativar.jsf'
+										id="ReativaMatricId"><span>REATIVA MATRÍCULA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('FinalizaMatrcula1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/ManutencaoMatriculaFinalizar.jsf'
+										id="FinalizaMatricId"><span>FINALIZA MATRÍCULA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('TrancaMatricula1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/ManutencaoMatriculaTrancar.jsf'
+										id="TrancaMatricId"><span>TRANCAR MATRÍCULA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('BaixadeBoletos1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/QuitarParcela.jsf'
+										id="QuitarParcelaId"><span>QUITAR PARCELA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('Caixa1')}">
+									<!-- submenu -->
+									<li><a href=" "><i class="fa fa-usd" /> CAIXA <span
+											style="padding-left: 80px" /> <i style="font-size: 15px;"
+											class="fa fa-caret-right" /></a>
+										<ul>
+											<h:inputHidden rendered="#{rich:isUserInRole('AbreCaixa1') }">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/CaixasAbertura.jsf'
+													id="AbertcaixaId"><span>ABRE CAIXA</span></a></li>
+											</h:inputHidden>
+
+
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('EntradasnoCaixa1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/CaixasEntrada.jsf'
+													id="EntcaixaId"><span>ENTRADA CAIXA</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('SaidasdoCaixa1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/CaixasSaida.jsf'
+													id="SdacaixaId"><span>SAÍDA CAIXA</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('MovimentaodoCaixa1')}">
+												<li class='last'><a
+													href='#{request.contextPath}/private/onbyte/MovcaixaList.jsf'
+													id="MovcaixaId"><span>MOVIMENTO CAIXA</span></a></li>
+											</h:inputHidden>
+										</ul></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('DestinosdoCaixa1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/MovdestcaixaList.jsf'
+										id="MovdestcaixaId"><span>CONTAS DO CAIXA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('Frequncia1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/LancamentoFrequencia.jsf'
+										id="LancaFrequenciaId"><span>LANÇA FREQUÊNCIA</span></a></li>
+								</h:inputHidden>
+
+								<!-- 								<h:inputHidden rendered="#{rich:isUserInRole('Frequncia1')}"> -->
+								<!-- 									<li><a -->
+								<!-- 										href='#{request.contextPath}/private/onbyte/JustificaAulaTodos.jsf' -->
+								<!-- 										id="justFaltaId"><span>JUST. FALTA TODOS</span></a></li> -->
+								<!-- 								</h:inputHidden> -->
+
+								<h:inputHidden rendered="#{rich:isUserInRole('LancdeReposio1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/LancamentoReposicao.jsf'
+										id="LancaReposicaoId"><span>LANCA REPOSIÇÃO</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('LancdeAulaAvulsa1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/LancamentoAulaAvulsa.jsf'
+										id="LancaAulaAvulsaId"><span>LANÇA AULA AVULSA</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('PedidoApostila1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/PedidoList.jsf'
+										id="PedidoApostilaId"><span>PEDIDOS APOSTILA</span></a></li>
+								</h:inputHidden>
+
+							</ul></li>
+					</h:inputHidden>
+
+					<h:inputHidden rendered="#{rich:isUserInRole('Relatrios1')}">
+						<li><a href="#"><i style="font-size: 15px;"
+								class="fa fa-file"></i> RELATÓRIOS</a>
+
+							<ul class="sub-menu">
+
+								<h:inputHidden rendered="#{rich:isUserInRole('Alunos1')}">
+									<li><a href="#"><i class="fa fa-user-circle" />
+											ALUNOS <span style="padding-left: 65px" /> <i
+											style="font-size: 15px;" class="fa fa-caret-right" /></a>
+										<ul>
+
+											<h:inputHidden rendered="true">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/HoraAtualList2.jsf'
+													target="_blanck"><span>ALUNOS ON/OFF</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('Aniversariantes1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelAniversariantes.jsf'
+													id="RelAniversariantesId"><span>ANIVERSARIANTES</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('RelFrequencia')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelFrequencia.jsf'
+													id="RelFaltantesId"><span>FREQUÊNCIA</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden rendered="#{rich:isUserInRole('Faltantes1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelFaltantes.jsf'
+													id="RelFaltantesId"><span>FALTANTES</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden rendered="#{rich:isUserInRole('Devedores1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelInadimplentes.jsf'
+													id="RelInadimplentesId"><span>INADIMPLENTES</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden rendered="#{rich:isUserInRole('erminar1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelATerminar.jsf'
+													id="RelATerminarId"><span>A TERMINAR</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden rendered="#{rich:isUserInRole('erminaram1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelTerminaram.jsf'
+													id="RelTerminaramId"><span>TERMINARAM</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('MensalidadesaReceber1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelParcelasAReceber.jsf'
+													id="RelParcelasAReceberId"><span>PARCELAS A
+															RECEBER</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('MensRecebidas1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelParcelasRecebidas.jsf'
+													id="RelParcelasRecebidasId"><span>PARCELAS
+															RECEBIDAS</span></a></li>
+											</h:inputHidden>
+
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('NaoMatriculados1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelNaoMatriculados.jsf'
+													id="RelNaoMatriculadosId"><span>NÃO MATRICULADOS</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('RelAcompAlunos1')}">
+												<li class='last'><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelAcompAlunos.jsf'
+													id="relAcompAlunosId"><span>ACOMPANHAR ALUNOS</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('RelAcompAlunos1')}">
+												<li class='last'><a
+													href='#{request.contextPath}/private/onbyte/relatorios/alunos/RelAcompAlunosPorModulo.jsf'
+													id="relAcompAlunosId"><span>ACOMPANHAR ALUNOS
+															POR MÓDULO</span></a></li>
+											</h:inputHidden>
+
+
+											<li class='last'><a
+												href='#{request.contextPath}/private/onbyte/relatorios/alunos/PerfilAluno.jsf'
+												id="relAcompAlunosId"><span>PERFIL(S) ALUNO(S)</span></a></li>
+
+										</ul></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('Matrculas1')}">
+									<li><a href="#"><i class="fa fa-vcard-o" />
+											MATRÍCULAS <span style="padding-left: 38px" /> <i
+											style="font-size: 15px;" class="fa fa-caret-right" /></a>
+										<ul>
+											<h:inputHidden rendered="true">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelMatCurso.jsf'
+													id="RelEfetuadasId"><span>CURSO MATRÍCULAS</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden rendered="#{rich:isUserInRole('Efetuadas1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelMatEfetuadas.jsf'
+													id="RelEfetuadasId"><span>EFETUADAS</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden rendered="#{rich:isUserInRole('Canceladas1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelMatCanceladas.jsf'
+													id="RelCanceladasId"><span>CANC. / TRANCADAS</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden rendered="#{rich:isUserInRole('Ativas1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelMatAtivas.jsf'
+													id="RelAtivasId"><span>ATIVAS</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('PorMarketing1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelMatPorMarketing.jsf'
+													id="RelMatPorMarketingId"><span>POR MARKETING</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('PorFuncionrio1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelMatPorFuncionario.jsf'
+													id="RelMatPorFuncionarioId"><span>POR
+															FUNCIONÁRIO</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('RelMatricSemApostila1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelMatricSemApostila.jsf'
+													id="RelMatricSemApostilaId"><span>APOS. NÃO
+															ENTREGUES</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('RelCompraApostilas1')}">
+												<li><a title="PROSPECTO PARA COMPRA DE APOSTILA"
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelCompraApostilas.jsf'
+													id="RelCompraApostilasId"><span>PROSP. COMPRA
+															APOS.</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('RelApostilasEntregue1')}">
+												<li class='last'><a
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelApostilasEntregue.jsf'
+													id="RelApostilasEntregueId"><span>APOSTILAS
+															ENTREGUES</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('RelMatriculasAnalitico1')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelMatAnalitico.jsf'
+													id="RelApostilasEntregueId"><span>ANALÍTICO</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden
+												rendered="#{rich:isUserInRole('MatriculaMedia')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/matriculas/RelMediaPorMatricula.jsf'
+													id="RelApostilasEntregueId"><span>MÉDIA POR
+															MATRÍCULA</span></a></li>
+											</h:inputHidden>
+
+
+										</ul></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('Matrculas1')}">
+									<li><a href="#"><i class="fa fa-book" /> CURSOS <span
+											style="padding-left: 66px" /> <i style="font-size: 15px;"
+											class="fa fa-caret-right" /></a>
+										<ul>
+											<li class='last'><a
+												href='#{request.contextPath}/private/onbyte/relatorios/cursos/SaldoApostilas.jsf'
+												id="RelApostilasEntregueId"><span>SALDO APOSTILAS</span></a></li>
+										</ul></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('CaixaMensal1')}">
+									<li><a href="#"><i class="fa fa-calculator" /> PLANO
+											DE CONTAS <span style="padding-left: 5px" /> <i
+											style="font-size: 15px;" class="fa fa-caret-right" /></a>
+										<ul>
+											<h:inputHidden rendered="#{rich:isUserInRole('Movimentao2')}">
+												<li><a
+													href='#{request.contextPath}/private/onbyte/relatorios/planoConta/RelPlMovimentacao.jsf'
+													id="RelPlMovimentacaoId"><span>MOVIMENTAÇÃO</span></a></li>
+											</h:inputHidden>
+
+											<h:inputHidden rendered="#{rich:isUserInRole('B1')}">
+												<li class='last'><a
+													href='#{request.contextPath}/private/onbyte/relatorios/planoConta/RelPlBuscaPorDescricao.jsf'
+													id="RelPlBuscaPorDescricaoId"><span>BUSCA POR
+															DESCRIÇÃO</span></a></li>
+											</h:inputHidden>
+
+										</ul></li>
+
+								</h:inputHidden>
+
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('QuadrodeHorrios1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/relatorios/RelQuadroHorarios.jsf'
+										id="RelQuadroHorariosId"><span>QUADRO HORÁRIOS</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="#{rich:isUserInRole('GradeHorarios1')}">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/GradeHorariosList.jsf'
+										id="GradeHorariosId"><span>GRADE HORÁRIOS</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden rendered="false">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/HoraAtualList.jsf'
+										id="GradeHorariosId"><span>ALUNOS ON / OFF-LINE</span></a></li>
+								</h:inputHidden>
+
+								<h:inputHidden
+									rendered="#{rich:isUserInRole('BoletimdoAluno1')}">
+									<li><a href=" " onclick="openBoletim();"
+										id="GradeHorariosId"><span>BOLETIM ALUNO</span></a></li>
+								</h:inputHidden>
+
+							</ul></li>
+					</h:inputHidden>
+
+					<li><a href="#"><i style="font-size: 15px;"
+							class="fa fa-cogs"></i> OUTRAS OPÇÕES</a>
+
+						<ul>
+
+							<h:inputHidden rendered="#{rich:isUserInRole('Perfil1')}">
+								<li><a
+									href='#{request.contextPath}/private/onbyte/PerfilEdit.jsf'
+									id="ProfileId"><span>PERFIS</span></a></li>
+							</h:inputHidden>
+
+							<h:inputHidden rendered="#{rich:isUserInRole('Usurios1')}">
+								<li><a
+									href='#{request.contextPath}/private/onbyte/UserEdit.jsf'
+									id="UserId"><span>USUÁRIOS</span></a></li>
+							</h:inputHidden>
+
+							<h:inputHidden rendered="#{rich:isUserInRole('Parmetros1')}">
+								<li><a
+									href='#{request.contextPath}/private/onbyte/ParametroEdit.jsf'
+									id="ParametroId"><span>PARÂMETROS</span></a></li>
+							</h:inputHidden>
+
+							<h:inputHidden rendered="#{rich:isUserInRole('Backups1')}">
+								<li><a href="#"><i class="fa fa-database" /> BACKUP'S
+										<span style="padding-left: 55px" /> <i
+										style="font-size: 15px;" class="fa fa-caret-right" /></a>
+									<ul>
+										<h:inputHidden
+											rendered="#{rich:isUserInRole('AgendadordeBakups1')}">
+											<li><a onclick="openConfigBackup();" href=" "
+												id="AgendadordeBakupId"><span>AGENDAR BACKUP</span></a></li>
+										</h:inputHidden>
+
+										<!--       	     <rich:menuItem submitMode="ajax" value="#{messages['menu.AtivaMonitordeBackups1']}" actionListener="#{ativarMonitorBackupAction.ativarMonitorBackup}" data="#{ativarMonitorBackupAction.messageRetornoAjax}"  id="AtivarMonitorBackupId" disabled="#{!rich:isUserInRole('AtivaMonitordeBackups1')}" ajaxSingle="true" limitToList="true" oncomplete="showMessageRetorno(data)"/>  -->
+
+										<h:inputHidden
+											rendered="#{rich:isUserInRole('BackupManual1')}">
+											<li class='last'><a onclick="openManualBackup();"
+												href=" " id="BackupManualId"><span>BACKUP MANUAL</span></a></li>
+										</h:inputHidden>
+									</ul></li>
+							</h:inputHidden>
+
+							<!--  <h:inputHidden rendered="#{rich:isUserInRole('rocaReferncia1')}">
+								<li><a
+									href='#{request.contextPath}/private/onbyte/TrocaReferencia.jsf'
+									id="TrocaReferenciaId"><span>TROCA REFERÊNCIA</span></a></li>
+							</h:inputHidden> -->
+
+
+
+						</ul></li>
+
+					<li style="float: right;"></li>
+
+
+
+
+
+
+					<li style="float: right;"><a class="homer"
+						style="font-size: 11px !important;"><i
+							style="font-size: 16px;" class="fa fa-user" /> BEM-VINDO,
+							#{identity.credentials.username.toUpperCase()} </a></li>
+
+					<li style="float: right;"><a href="#"><i
+							style="font-size: 15px !important;" class="fa fa-sign-out" />
+							SAIR</a>
+						<ul>
+							<li><a href=""><i style="font-size: 15px !important;"
+									class="fa fa-info" /><span style="padding-left: 10px" />VERSÃO
+									#{versionAplicacao}</a></li>
+
+							<li><a href=""><i style="font-size: 15px !important;"
+									class="fa fa-user" /><span style="padding-left: 10px" />CLIENTE:
+									#{parametroHome.getIdCliente()}</a></li>
+
+							<li><s:link action="#{authenticatorAction.logout}"
+									rendered="#{identity.loggedIn}" propagation="none">
+									<i style="font-size: 15px !important;" class="fa fa-sign-out" />
+									<span style="padding-left: 10px" />SAIR
+						</s:link></li>
+
+						</ul></li>
+
+
+
+				</ul>
+			</nav>
+
+
+
+			<div class="jquery-script-ads" align="center">
+				<script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+
+			</div>
+
+			<script>
+$(document).ready(function(){ 
+	var touch 	= $('#resp-menu');
+	var menu 	= $('.menu');
+ 
+	$(touch).on('click', function(e) {
+		e.preventDefault();
+		menu.slideToggle();
+	});
+	
+	$(window).resize(function(){
+		var w = $(window).width();
+		if(w > 767 &amp;&amp; menu.is(':hidden')) {
+			menu.removeAttr('style');
+		}
+	});
+	
+});
+</script>
+			<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+			<!--  <a:poll interval="180000" reRender="pedAg" status="false" /> -->
+
+			<!--  a:poll interval="90000" status="false"
+				actionListener="#{horariosHome.verificaHorariosPresos}" /-->
+
+
+		</h:form>
+
+	</div>
+</ui:composition>

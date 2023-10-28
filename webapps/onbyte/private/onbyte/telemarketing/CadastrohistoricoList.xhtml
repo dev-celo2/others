@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+
+<ui:composition
+	template="/WEB-INF/facelets/layout/mainlayoutTelemarketing.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="frmCadHistorico">
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-plus-sign" /> REGISTRAR CONVERSA
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<a:outputPanel id="pnlCad" style="text-transform: uppercase;">
+
+							<div class="col-xs-5">
+								<label for="ex1">DATA</label>
+								<h:inputText readonly="true"
+									value="#{historicoteleHome.histTele.data}"
+									styleClass="form-control" id="ex1" type="text">
+									<f:convertDateTime pattern="EEEE, dd/MMMM/yyyy HH:mm:ss" />
+								</h:inputText>
+							</div>
+
+							<div class="col-xs-3">
+								<label for="ex1">RETORNO</label>
+
+								<p:inputMask styleClass="form-control"  readonly="#{!historicoteleHome.editable}"
+									mask="99/99/9999 99:99:99" navigator="true"
+									value="#{historicoteleHome.histTele.dataretorno}" id="ex2">
+									<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+								</p:inputMask>
+
+							</div>
+
+							<div class="col-xs-4">
+								<label for="ex1">OPERADOR(A)</label>
+								<h:inputText readonly="true"
+									value="#{historicoteleHome.histTele.funcionario.nome}"
+									styleClass="form-control" id="ex3" type="text" />
+							</div>
+
+							<div class="col-xs-12">
+								<label for="ex1">CONTATO</label>
+
+								<h:inputText readonly="true"
+									value="#{historicoteleHome.histTele.futuroAluno.nome}"
+									styleClass="form-control" id="ex4" type="text" />
+
+
+								<a:commandLink  onclick="$('#dlgContato').modal('show');"
+									style="float: right;" rendered="#{historicoteleHome.editable}"
+									styleClass="btn btn-default glyphicon glyphicon-search"
+									title="Buscar Contato"  />
+
+
+							</div>
+
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							
+							<a:outputPanel>
+								<div class="col-xs-12">
+									<center>
+										<label for="ex1">CONVERSA</label>
+									</center>
+									<h:inputTextarea style="height:100px;"
+										readonly="#{!historicoteleHome.editable}"
+										value="#{historicoteleHome.histTele.descricao}"
+										styleClass="form-control" id="ex5" type="text">
+										<a:support event="onkeyup"
+											actionListener="#{historicoteleHome.contarCaracteres}"
+											reRender="contador" />
+									</h:inputTextarea>
+									<rich:spacer height="18px" />
+									<h:outputText styleClass="label label-danger"
+										value="#{historicoteleHome.qtdCaracteres} caracteres digitados de no máximo 400."
+										id="contador" />
+								</div>
+
+							</a:outputPanel>
+
+
+						</a:outputPanel>
+
+					</div>
+
+				</div>
+				<div class="panel-footer">
+					<center>
+						<a:outputPanel id="btns">
+							<a:commandLink styleClass="btn btn-warning"
+								rendered="#{!historicoteleHome.editable}"
+								actionListener="#{historicoteleHome.novo(null)}" style="width:100px;"
+								reRender="msgGlobal, pnlCad, btns, grpCadCont">
+								<i class="glyphicon glyphicon-plus" />  
+						 Novo
+					</a:commandLink>
+
+							<rich:spacer width="2px" />
+
+							<a:commandLink styleClass="btn btn-success"
+								rendered="#{historicoteleHome.editable}"
+								actionListener="#{historicoteleHome.Salvar}" style="width:100px;"
+								reRender="msgGlobal, pnlCad, btns, grpCadCont">
+								<i class="glyphicon glyphicon-floppy-disk" />  
+						 Gravar
+					</a:commandLink>
+
+							<rich:spacer width="2px" />
+
+							<a:commandLink styleClass="btn btn-danger"
+								rendered="#{historicoteleHome.editable}"
+								actionListener="#{historicoteleHome.cancelar}"
+								reRender="pnlCad, btns, grpCadCont" style="width:100px;">
+								<i class="glyphicon glyphicon-remove" />  
+						 Cancelar
+					</a:commandLink>
+						</a:outputPanel>
+					</center>
+				</div>
+			</div>
+
+
+			<p />
+
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-th-list" /> CONVERSAS
+					<div class="input-group"
+						style="width: 400px; float: right; top: -7px">
+						<span class="input-group-addon" id="basic-addon1">Pesquisar Nome</span>
+						<h:inputText type="text" class="form-control"
+							value="#{historicoteleHome.nome}">
+							<a:support event="onkeyup" reRender="grpCadCont" action="#{historicoteleHome.setListHistoricosFuturoAluno(null, 'FIRST')}"/>
+						</h:inputText>
+
+					</div>
+				</div>
+				<div class="panel-body" id="pnl">
+
+					<div class="box-content">
+
+						<a:outputPanel id="grpCadCont">
+							<table id="tblCadCont" width="100%"
+								style="text-align: center; text-transform: uppercase; font-size: 12px;"
+								class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+								<thead>
+									<tr>
+
+										<th style="text-align: center; width: 12%;">Data</th>
+
+										<th style="text-align: center;"><a:commandLink
+												value="Nome"
+												actionListener="#{historicotelemarketingList.orderby}"
+												reRender="grpCadCont">
+												<i class="#{historicotelemarketingList.classOrder}" />
+											</a:commandLink></th>
+
+										<th style="text-align: center; width: 12%;">Operador</th>
+										<th style="text-align: center; width: 15%;">Retorno</th>
+										<th style="text-align: center; width: 10%;">Ação</th>
+
+
+
+									</tr>
+								</thead>
+
+								<tbody class="searchable" id="tbody">
+
+									<c:forEach items="#{historicoteleHome.historicoFuturoAlunosList}"
+										var="cad">
+										<tr>
+
+											<td class="center"><h:outputText value="#{cad.data}">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</h:outputText> <br /></td>
+
+											<td class="center"><h:outputText
+													value="#{cad.futuroAluno.nome}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{cad.funcionario.nome}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{cad.dataretorno}">
+													<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+												</h:outputText> <br /></td>
+
+
+											<td class="center"><a:commandLink
+													actionListener="#{historicoteleHome.ver(cad)}"
+													rendered="#{!historicoteleHome.editable}" reRender="pnlCad"
+													styleClass="btn btn-default" title="Visualizar">
+													<i class="glyphicon glyphicon-search" />
+												</a:commandLink> <rich:spacer width="2px;" /></td>
+
+
+										</tr>
+
+									</c:forEach>
+
+								</tbody>
+								
+
+							</table>
+							
+							<table width="100%">
+								<tr>
+
+									<td width="45%">
+										<h5>
+											<span class="label label-default">#{historicoteleHome.descPag}</span>
+										</h5>
+									</td>
+									
+									<td>
+									
+									<a:commandButton image="/images/primeiro.png" title="PRIMEIRO"
+											reRender="grpCadCont" styleClass="btn btn-default"
+											action="#{historicoteleHome.setListHistoricosFuturoAluno(null, 'FIRST')}"
+											id="firstPage" />
+
+										<a:commandButton image="/images/anterior.png" title="ANTERIOR"
+											reRender="grpCadCont" styleClass="btn btn-default"
+											action="#{historicoteleHome.setListHistoricosFuturoAluno(null, 'PRIOR')}"
+											id="previousPage" />
+
+										<a:commandButton image="/images/proximo.png"
+											title="#{messages['global.proximo']}" reRender="grpCadCont"
+											styleClass="btn btn-default"
+											action="#{historicoteleHome.setListHistoricosFuturoAluno(null, 'NEXT')}"
+											id="nextPage" />
+
+										<a:commandButton image="/images/ultimo.png"
+											reRender="grpCadCont"
+											styleClass="btn btn-default dropdown-toggle"
+											title="#{messages['global.ultimo']}"
+											action="#{historicoteleHome.setListHistoricosFuturoAluno(null, 'LAST')}" />
+									
+									</td>
+
+								</tr>
+							</table>
+
+						</a:outputPanel>
+
+					</div>
+
+
+				</div>
+			</div>
+
+
+
+
+			<!-- Modal -->
+
+			<div id="dlgContato" class="modal fade" data-backdrop="static"
+				role="dialog">
+				<div class="modal-dialog modal-lg">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="font-weight: bold;" class="modal-title text-primary">
+									<i class="glyphicon glyphicon-user" style="font-size: 20px;" />
+									BUSCAR CONTATO
+								</h4>
+								<div class="input-group" style="width: 100%;">
+									<span class="input-group-addon" id="basic-addon1">PESQUISAR
+										POR NOME</span>
+									<h:inputText type="text" class="form-control" 
+							value="#{futuroalunoHome.nome}">
+							<a:support event="onkeyup" action="#{futuroalunoHome.setListFuturoAluno(null, 'FIRST')}" reRender="grpCont" />
+						</h:inputText>
+
+								</div>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+								<a:outputPanel id="grpCont">
+
+
+									<table id="tblCadCont" width="100%"
+										style="text-align: center; text-transform: uppercase; font-size: 12px;"
+										class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+										<thead>
+											<tr>
+												
+												<th style="text-align: center;"><a:commandLink
+												 actionListener="#{futuroalunoHome.setOrder(1)}" action="#{futuroalunoHome.setListFuturoAluno(null, 'FIRST')}"
+												reRender="grpCont"> <i class="glyphicon glyphicon-arrow-down" /> </a:commandLink>
+												 NOME <a:commandLink reRender="grpCont"
+																		action="#{futuroalunoHome.setListFuturoAluno(null, 'FIRST')}"
+																		actionListener="#{futuroalunoHome.setOrder(0)}">
+																		<i class="glyphicon glyphicon-arrow-up" />
+																	</a:commandLink>
+											</th>
+												<th style="text-align: center; width: 12%;">Telefone</th>
+												<th style="text-align: center; width: 12%;">Celular</th>
+												<th style="text-align: center; width: 12%;">Nascido Em</th>
+												<th style="text-align: center; width: 15%;">Ação</th>
+
+
+
+											</tr>
+										</thead>
+
+										<tbody class="searchable" id="tbody">
+
+											<c:forEach items="#{futuroalunoHome.futuroAlunosList}" var="cad">
+												<tr>
+													
+													<td class="center"><h:outputText value="#{cad.nome}" /></td>
+
+													<td class="center"><h:outputText value="#{cad.telres}" /></td>
+
+													<td class="center"><h:outputText value="#{cad.telcel}" /></td>
+
+													<td class="center"><h:outputText
+															value="#{cad.nascimento}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+														</h:outputText> <br /> <span style="font-weight: bold;">
+															#{cad.idade} anos</span></td>
+
+													<td class="center"><a:commandLink   onclick="$('#dlgContato').modal('hide');"
+															actionListener="#{historicoteleHome.selecionarContato(cad)}"
+															reRender="pnlCad"
+															styleClass="btn btn-success" title="Selecionar Contato">
+															<i class="glyphicon glyphicon-ok" />
+														</a:commandLink></td>
+
+
+												</tr>
+
+											</c:forEach>
+
+										</tbody>
+									</table>
+
+
+
+								</a:outputPanel>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+
+
+
+							<button type="button" class="btn btn-default"
+								style="width: 100px;" data-dismiss="modal">
+								<i class="glyphicon glyphicon-log-out" /> Fechar
+							</button>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</h:form>
+
+
+	</ui:define>
+
+
+</ui:composition>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<a:form id="relMatAnaliticosSearch" styleClass="edit">
+			
+			<p:panel header="#{messages['relMatAnalitico.title']}"
+				style="width:99.5%">
+
+
+
+				<p:panel style="width:99.5%;">
+					<h:panelGrid columns="4" id="pgFiltros"
+						style="margin: 0px auto; width: 50%" columnClasses="mensalidade_col3,mensalidade_col3,mensalidade_col3,mensalidade_col3">
+						<p:panel style="width: 100%; height:100%"
+                            bodyClass="panelPaddingZero">  
+						    <s:div style="position: relative; top: -5px; ">
+                                <s:span styleClass="spanNamePanel" style="font-weight: bold;">Status </s:span>
+                                <h:selectOneRadio value="#{relMatAnalitico.statusMatricula}" layout="pageDirection"
+                                    style="width:100%">
+                                    <f:selectItems itemLabelEscaped="true"
+                                        value="#{matriculasList.listStatusMatricula}" />                                    
+                                </h:selectOneRadio>
+                            </s:div>
+                        </p:panel>
+						<p:panel style="width: 100%; height:100%"
+                            bodyClass="panelPaddingZero">                            
+                            <s:span styleClass="spanNamePanel" style="font-weight: bold;">Dados Matrícula</s:span>
+                            <s:div style="position: relative; top: -5px; ">
+                                  <h:selectManyCheckbox value="#{relMatAnalitico.dadosselecionados}" layout="pageDirection" style="white-space: nowrap;"  >
+                                        <f:selectItem itemValue="MAT" itemLabel="Matrícula" itemDisabled="true" />
+                                        <f:selectItem itemValue="DATA" itemLabel="DATA" />
+										<f:selectItem itemValue="STATUS" itemLabel="STATUS" />
+										<f:selectItem itemValue="CODAL" itemLabel="CÓDIGO ALUNO" />
+										<f:selectItem itemValue="ALUNO" itemLabel="ALUNO" />
+										<f:selectItem itemValue="DTNASC" itemLabel="DATA DE NASCIMENTO" />
+										<f:selectItem itemValue="CODMOD" itemLabel="CÓDIGO MÓDULO" />
+										<f:selectItem itemValue="MODULO" itemLabel="MÓDULO" />
+										<f:selectItem itemValue="DTINI" itemLabel="INÍCIO CONTRATO" />
+										<f:selectItem itemValue="QTDH" itemLabel="H/SEMANA" />
+										<f:selectItem itemValue="QTDM" itemLabel="Q. MESES" />
+										<f:selectItem itemValue="DTFIM" itemLabel="FIM CONTRATO" />
+										<f:selectItem itemValue="VLPCTE" itemLabel="VALOR PACOTE" />
+										<f:selectItem itemValue="VENC1" itemLabel="VENC. 1ª PARC." />
+										<f:selectItem itemValue="QTDP" itemLabel="QTD PARCELAS" />
+										<f:selectItem itemValue="MENSAL" itemLabel="VLR PARCELAS" />
+										<f:selectItem itemValue="VENCM" itemLabel="VENC. MATRÍCULA" />
+										<f:selectItem itemValue="VLMAT" itemLabel="VL. MATRÍCULA" />
+										<f:selectItem itemValue="SENHA" itemLabel="SENHA" />
+										<f:selectItem itemValue="CONS" itemLabel="CONSULTOR" />
+										<f:selectItem itemValue="MARK" itemLabel="MARKETING" />
+										<f:selectItem itemValue="FLEX" itemLabel="FLEX" />
+										<f:selectItem itemValue="RECADO" itemLabel="RECADO" />
+                                   </h:selectManyCheckbox>                                  
+                            </s:div>
+                            
+                        </p:panel>
+						<p:panel style="width: 100%; height:100%"
+							bodyClass="panelPaddingZero">
+							
+							<!--  <s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relMatAnalitico.filtroHorarioAgend']}</s:span>-->
+							<s:span styleClass="spanNamePanel" style="font-weight: bold;">Tabela</s:span>
+							<s:div style="position: relative; top: -8px; ">
+                                  <h:selectOneRadio value="#{relMatAnalitico.tabela}" layout="pageDirection" style="white-space: nowrap;"  >
+                                        <f:selectItem itemValue="MAT" itemLabel="Matrícula  " />
+                                        <f:selectItem itemValue="CUR" itemLabel="Cursos" />
+                                        <f:selectItem itemValue="PAC" itemLabel="Parcelas" />
+                                        <f:selectItem itemValue="HOR" itemLabel="Horários" />
+                                        <f:selectItem itemValue="AVU" itemLabel="Aulas Avulsa"/>
+                                        <f:selectItem itemValue="REP" itemLabel="Reposições" />
+                                        <f:selectItem itemValue="FRE" itemLabel="Frequências" />
+                                        <f:selectItem itemValue="ALT" itemLabel="Alterações" />
+                                        <f:selectItem itemValue="CAL" itemLabel="Contatos Alunos"/>
+                                        <f:selectItem itemValue="DESC" itemLabel="Desconto" />
+                                   </h:selectOneRadio>									
+							</s:div>
+							
+						</p:panel>
+						<s:div styleClass="actionButtons" rendered="#{empty from}">
+                                        <h:commandLink limitToList="true"
+                                            actionListener="#{relMatAnalitico.exportarRelatorioExcel}"
+                                            style="width:80px; height: 40px; white-space: normal;">
+                                            <p:graphicImage value="/images/excel.png" />
+                
+                                        </h:commandLink>
+                                    </s:div>						
+					</h:panelGrid>
+				</p:panel>
+			</p:panel>			
+
+
+		</a:form>
+	</ui:define>
+</ui:composition>

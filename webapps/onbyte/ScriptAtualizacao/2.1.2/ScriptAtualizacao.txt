@@ -1,0 +1,1190 @@
+ALTER TRIGGER BI_CURSOS2 INACTIVE;
+ALTER TRIGGER BI_CURSOS3 INACTIVE;
+
+INSERT INTO CURSOS (CODIGO, DESCRICAO, DURACAO, PARCELAS, N_HORAS, EXERVIRTUAIS, CAMINHO, QTD_APOSTILA, ATIVO, VALOR, REQUERAPOSTILA, POSEST, STATUSEST, QTD_APOSTILA_DIG, CANCELADOFRANQUEADORA, INCLUSAO, IMAGEM, OCULTO, MAPAKIDS, HORASCURSO, LINKARQUIVOS, LINKINDICE)
+                      VALUES (252, 'AFTER EFFECTS 2021', 2, 2, 32, 'N', 'cursos/after2021', 0, 'S', NULL, 1, 'N', 'N', 0, 'N', 'S', 'ONLINE', 'N', 'N', 16, 'https://url.gratis/XjUWv1', NULL)
+                    ;
+INSERT INTO CURSOS (CODIGO, DESCRICAO, DURACAO, PARCELAS, N_HORAS, EXERVIRTUAIS, CAMINHO, QTD_APOSTILA, ATIVO, VALOR, REQUERAPOSTILA, POSEST, STATUSEST, QTD_APOSTILA_DIG, CANCELADOFRANQUEADORA, INCLUSAO, IMAGEM, OCULTO, MAPAKIDS, HORASCURSO, LINKARQUIVOS, LINKINDICE)
+                      VALUES (253, 'ILLUSTRATOR 2021', 2, 2, 32, 'N', 'cursos/illustrator2021', 0, 'S', NULL, 1, 'N', 'N', 0, 'N', 'S', 'ONLINE', 'N', 'N', 16, 'https://url.gratis/XjUWv1', NULL)
+                    ;
+INSERT INTO CURSOS (CODIGO, DESCRICAO, DURACAO, PARCELAS, N_HORAS, EXERVIRTUAIS, CAMINHO, QTD_APOSTILA, ATIVO, VALOR, REQUERAPOSTILA, POSEST, STATUSEST, QTD_APOSTILA_DIG, CANCELADOFRANQUEADORA, INCLUSAO, IMAGEM, OCULTO, MAPAKIDS, HORASCURSO, LINKARQUIVOS, LINKINDICE)
+                      VALUES (254, 'INDESIGN 2021', 2, 2, 32, 'N', 'cursos/indesign2021', 0, 'S', NULL, 1, 'N', 'N', 0, 'N', 'S', 'ONLINE', 'N', 'N', 16, 'https://url.gratis/XjUWv1', NULL)
+                    ;
+INSERT INTO CURSOS (CODIGO, DESCRICAO, DURACAO, PARCELAS, N_HORAS, EXERVIRTUAIS, CAMINHO, QTD_APOSTILA, ATIVO, VALOR, REQUERAPOSTILA, POSEST, STATUSEST, QTD_APOSTILA_DIG, CANCELADOFRANQUEADORA, INCLUSAO, IMAGEM, OCULTO, MAPAKIDS, HORASCURSO, LINKARQUIVOS, LINKINDICE)
+                      VALUES (255, 'PHOTOSHOP 2021', 2, 2, 36, 'N', 'cursos/photoshop2021', 0, 'S', NULL, 1, 'N', 'N', 0, 'N', 'S', 'ONLINE', 'N', 'N', 18, 'https://url.gratis/XjUWv1', NULL)
+                    ;
+INSERT INTO CURSOS (CODIGO, DESCRICAO, DURACAO, PARCELAS, N_HORAS, EXERVIRTUAIS, CAMINHO, QTD_APOSTILA, ATIVO, VALOR, REQUERAPOSTILA, POSEST, STATUSEST, QTD_APOSTILA_DIG, CANCELADOFRANQUEADORA, INCLUSAO, IMAGEM, OCULTO, MAPAKIDS, HORASCURSO, LINKARQUIVOS, LINKINDICE)
+                      VALUES (256, 'PREMIERE 2021', 2, 2, 32, 'N', 'cursos/premiere2021', 0, 'S', NULL, 1, 'N', 'N', 0, 'N', 'S', 'ONLINE', 'N', 'N', 16, 'https://url.gratis/XjUWv1', NULL)
+                    ;
+INSERT INTO CURSOS (CODIGO, DESCRICAO, DURACAO, PARCELAS, N_HORAS, EXERVIRTUAIS, CAMINHO, QTD_APOSTILA, ATIVO, VALOR, REQUERAPOSTILA, POSEST, STATUSEST, QTD_APOSTILA_DIG, CANCELADOFRANQUEADORA, INCLUSAO, IMAGEM, OCULTO, MAPAKIDS, HORASCURSO, LINKARQUIVOS, LINKINDICE)
+                      VALUES (257, 'CORELDRAW 2021', 2, 2, 32, 'N', 'cursos/coreldraw2021', 0, 'S', NULL, 1, 'N', 'N', 0, 'N', 'S', 'ONLINE', 'N', 'N', 16, 'https://url.gratis/XjUWv1', NULL)
+                    ;
+INSERT INTO CURSOS (CODIGO, DESCRICAO, DURACAO, PARCELAS, N_HORAS, EXERVIRTUAIS, CAMINHO, QTD_APOSTILA, ATIVO, VALOR, REQUERAPOSTILA, POSEST, STATUSEST, QTD_APOSTILA_DIG, CANCELADOFRANQUEADORA, INCLUSAO, IMAGEM, OCULTO, MAPAKIDS, HORASCURSO, LINKARQUIVOS, LINKINDICE)
+                      VALUES (258, 'GESTÃO DE PESSOAS 3.0', 2, 2, 19, 'N', 'cursos/gestaopessoas3', 0, 'S', NULL, 1, 'N', 'N', 0, 'N', 'S', 'ONLINE', 'N', 'N', 19, 'https://url.gratis/XjUWv1', NULL)
+                    ;
+
+ALTER TRIGGER BI_CURSOS3 ACTIVE;
+ALTER TRIGGER BI_CURSOS2 ACTIVE;
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'HARDWARE',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 20,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/HARDWARE',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 20,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 77);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'BANCO DE DADOS',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 19,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/BancoDados',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 19,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 120);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'CSHARP MOD I',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 20,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/CSHARPI',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 20,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 121);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'CSHARP MOD II',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 18,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/CSHARPII',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 18,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 122);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'JAVA MOD I',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 21,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/JavaI',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 21,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 123);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'JAVA MOD II',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 18,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/JavaII',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 18,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 124);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'LOG. PROG. ORIENTADA A OBJETOS',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 17,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/LOGICA',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 16,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 125);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'UML',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 16,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/UML',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 16,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 126);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'TURISMO 2.0',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 20,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/TURISMO',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 20,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 138);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'OPERADOR DE CALDEIRA 2.0',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 15,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/OPERADORCALDEIRA',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 15,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 141);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'GESTÃO DE PESSOAS',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 19,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/gestaopessoas',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 19,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 144);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'MATEMÁTICA FINANCEIRA COM HP 12 C 2.0',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 15,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/Matematica2.0',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 15,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 147);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'ILLUSTRATOR CS6',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 18,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'C:\Arquivos de Programas\CURSOS\ADOBECS6\ILLUSTRATOR',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'S',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 18,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 163);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'MEU NOVO EMPREGO MOD II',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 22,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/meuEmpregoII',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 22,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 165);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'EMPREENDEDORISMO MOD I',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 5,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/empreendedorismoI',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 5,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 166);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'WINDOWS 10',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 17,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/windows10',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 17,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 179);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'GAMES MÓDULO I - HTML 5',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 13,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/gamesI',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 13,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 180);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'GAMES MÓDULO II - UNITY 3D',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 14,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/gamesII',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 14,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 181);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'PROGRAMADOR MOBILE - ANDROID',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 14,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/mobile',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 14,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 182);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'JAVA WEB',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 18,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/java',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 18,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 183);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'EXCEL 2016',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 14,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/excel2016',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 14,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 194);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'POWERPOINT 2016',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 14,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/power2016',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 14,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 195);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'WORD 2016 KIDS',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 19,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/kids/arquipelagoSaber/word',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'KIDS',
+    OCULTO = 'N',
+    MAPAKIDS = 'S',
+    HORASCURSO = 13,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 198);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'EXCEL 2016 KIDS',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 18,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/kids/arquipelagoSaber/excel',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'KIDS',
+    OCULTO = 'N',
+    MAPAKIDS = 'S',
+    HORASCURSO = 13,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 199);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'POWERPOINT 2016 KIDS',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 20,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/kids/arquipelagoSaber/powerpoint',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'KIDS',
+    OCULTO = 'N',
+    MAPAKIDS = 'S',
+    HORASCURSO = 13,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 200);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'AUTO CAD MÓDULO I 2018',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 36,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/autocad1',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 18,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = '../indice/AutoCADI.html'
+WHERE (CODIGO = 205);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'AUTO CAD MÓDULO II 2018',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 34,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/autocad2',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 17,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = '../indice/AutoCADII.html'
+WHERE (CODIGO = 206);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'REVIT 2018',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 38,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/revit',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 19,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = '../indice/REVIT.html'
+WHERE (CODIGO = 207);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'INDESIGN CC 2018',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 32,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/indesign2018',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 16,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = '../indice/InDesign.html'
+WHERE (CODIGO = 208);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'CORELDRAW X7',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 32,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/corelx7',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 16,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = '../indice/corel.html'
+WHERE (CODIGO = 209);
+
+UPDATE CURSOS SET 
+    DESCRICAO = '3D STUDIO MÓDULO I 2018',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 36,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/3d1',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 18,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = '../indice/3DStudioMaxI.html'
+WHERE (CODIGO = 210);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'PHOTOSHOP CC 2018',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 36,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/photoshop',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 18,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 211);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'ILLUSTRATOR CC 2018',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 32,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/illustrator',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 16,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 212);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'AFTER EFFECTS CC 2018',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 32,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/after',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 16,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 213);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'ROBÓTICA KIDS',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 36,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/kids/robotica',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'KIDS',
+    OCULTO = 'N',
+    MAPAKIDS = 'S',
+    HORASCURSO = 18,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = '../indice/Robotica.html'
+WHERE (CODIGO = 215);
+
+UPDATE CURSOS SET 
+    DESCRICAO = '3D STUDIO MÓDULO II 2018',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 36,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/3d2',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 18,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = '../indice/3DStudioMaxII.html'
+WHERE (CODIGO = 217);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'PREMIERE PRO CC',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 32,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/premiere',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'NORMAL',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 16,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = '../indice/PremiereProCC.html'
+WHERE (CODIGO = 218);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'EXCEL 2016 AVANÇADO',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 42,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/excelAvancado',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'ONLINE',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 21,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = '../indice/ExcelAvancado16.html'
+WHERE (CODIGO = 223);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'SKETCHUP 2019',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 28,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/sketchup2019',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'ONLINE',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 14,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 229);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'PHP COM LARAVEL 3.0',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 32,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/phplaravel',
+    ATIVO = 'N',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'ONLINE',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 16,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 231);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'SECRETARIADO 3.0',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 32,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/secretariado3',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'ONLINE',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 16,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 232);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'WORD 2019',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 16,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/word2019',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'ONLINE',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 16,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 248);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'EXCEL 2019',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 14,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/excel2019',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'ONLINE',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 14,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 249);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'POWERPOINT 2019',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 14,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/powerpoint2019',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'ONLINE',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 14,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 250);
+
+UPDATE CURSOS SET 
+    DESCRICAO = 'EXCEL AVANÇADO 2019',
+    DURACAO = 2,
+    PARCELAS = 2,
+    N_HORAS = 42,
+    EXERVIRTUAIS = 'N',
+    CAMINHO = 'cursos/excelAvancado2019',
+    ATIVO = 'S',
+    VALOR = NULL,
+    REQUERAPOSTILA = 1,
+    POSEST = 'N',
+    STATUSEST = 'N',
+    CANCELADOFRANQUEADORA = 'N',
+    INCLUSAO = 'S',
+    IMAGEM = 'ONLINE',
+    OCULTO = 'N',
+    MAPAKIDS = 'N',
+    HORASCURSO = 21,
+    LINKARQUIVOS = 'https://url.gratis/XjUWv1',
+    LINKINDICE = NULL
+WHERE (CODIGO = 251);
+
+UPDATE CURSOS SET 
+   CODIGO = 245
+WHERE (CODIGO = 235);
+
+UPDATE CURSOS SET 
+   CODIGO = 247
+WHERE (CODIGO = 237);
+
+UPDATE CURSOS SET 
+   CODIGO = 246
+WHERE (CODIGO = 236);
+
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/DELPHI1'
+WHERE (CODIGO = 4);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/DELPHI2'
+WHERE (CODIGO = 5);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/Windows7'
+WHERE (CODIGO = 62);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/BIOENERGIA'
+WHERE (CODIGO = 139);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/TECPRODSUCROALCOOLEIRA'
+WHERE (CODIGO = 140);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/TECADMLOGISTICA'
+WHERE (CODIGO = 142);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/TELEVENDAS'
+WHERE (CODIGO = 145);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/HTML5'
+WHERE (CODIGO = 146);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/PROPAGANDAMARKETING'
+WHERE (CODIGO = 148);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/ADMFINANCEIRA'
+WHERE (CODIGO = 149);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/meuEmpregoI'
+WHERE (CODIGO = 164);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/empreendedorismoII'
+WHERE (CODIGO = 167);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/empreendedorismoIII'
+WHERE (CODIGO = 168);
+
+UPDATE CURSOS SET 
+   CAMINHO = 'cursos/empreendedorismoIV'
+WHERE (CODIGO = 169);
+
+
+UPDATE cursos_modulo set cursos_modulo.curso =  245 where cursos_modulo.curso = 235;
+UPDATE cursos_modulo set cursos_modulo.curso =  247 where cursos_modulo.curso = 237;
+UPDATE cursos_modulo set cursos_modulo.curso =  246 where cursos_modulo.curso = 236;
+
+
+SET TERM !! ;
+EXECUTE BLOCK AS
+BEGIN
+
+
+if (not exists(select 1 from RDB$INDICES where RDB$INDEX_NAME = 'IDX_CURMATRI')) then
+execute statement
+'CREATE INDEX IDX_CURMATRI ON CUR_MATRI (MATRICULA,CURSO);';
+
+END!!
+
+EXECUTE BLOCK AS
+BEGIN
+
+
+if (not exists(select 1 from RDB$INDICES where RDB$INDEX_NAME = 'IDX_FREQ')) then
+execute statement
+'CREATE INDEX IDX_FREQ ON FREQUENCIA (DATA,MATRICULA,HORARIO,TIPO);';
+
+END!!
+
+EXECUTE BLOCK AS
+BEGIN
+
+
+if (not exists(select 1 from RDB$INDICES where RDB$INDEX_NAME = 'IDX_FREQ_PRESENTE')) then
+execute statement
+'CREATE INDEX IDX_FREQ_PRESENTE ON FREQUENCIA (MATRICULA,PRESENTE);';
+
+END!!
+
+EXECUTE BLOCK AS
+BEGIN
+
+
+if (not exists(select 1 from RDB$INDICES where RDB$INDEX_NAME = 'IDX_MATRI_SENHA')) then
+execute statement
+'CREATE INDEX IDX_MATRI_SENHA ON MATRICULAS (CODIGO, SENHA);';
+
+END!!
+
+EXECUTE BLOCK AS
+BEGIN
+
+
+if (not exists(select 1 from RDB$INDICES where RDB$INDEX_NAME = 'IDX_MENSALIDADES')) then
+execute statement
+'CREATE INDEX IDX_MENSALIDADES ON MENSALIDADES (MATRICULA, DTA_PGTO, DTA_VENC);';
+
+END!!
+
+EXECUTE BLOCK AS
+BEGIN
+
+
+if (not exists(select 1 from RDB$INDICES where RDB$INDEX_NAME = 'IDX_NOTAS')) then
+execute statement
+'CREATE INDEX IDX_NOTAS ON NOTAS (CURSO, MATRICULA);';
+
+END!!
+
+EXECUTE BLOCK AS
+BEGIN
+
+
+if (not exists(select 1 from RDB$INDICES where RDB$INDEX_NAME = 'IDX_NOTAS2')) then
+execute statement
+'CREATE INDEX IDX_NOTAS2 ON NOTAS (CURSO, MATRICULA, AULA);';
+
+END!!
+
+EXECUTE BLOCK AS
+BEGIN
+
+
+if (not exists(select 1 from RDB$INDICES where RDB$INDEX_NAME = 'IDX_TABHORARIOS')) then
+execute statement
+'CREATE INDEX IDX_TABHORARIOS ON TABHORARIOS (MATRICULA, HORARIO);';
+
+END!!
+
+EXECUTE BLOCK AS
+BEGIN
+
+
+if (not exists(select 1 from RDB$INDICES where RDB$INDEX_NAME = 'IDX_STATUSMATRI')) then
+execute statement
+'CREATE INDEX IDX_STATUSMATRI ON STATUSMATRICULA (MATRICULA,DATA,HORA)';
+
+END!!
+
+
+SET TERM ; !!
+
+
+
+COMMIT WORK;

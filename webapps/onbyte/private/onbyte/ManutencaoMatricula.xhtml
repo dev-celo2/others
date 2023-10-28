@@ -1,0 +1,758 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:form id="manutencaoMatricula" styleClass="edit">
+
+
+		<div class="panel panel-primary" style="width: 99.5%; margin: 0 auto;">
+			<div class="panel-heading">
+				<a:outputPanel id="pnlHeader">
+					<c:if test="#{tela.equals('cancelar')}">#{messages['manutencaoMatricula.cancelar']}: #{manutencaoMatriculaAction.matricula.codigo}</c:if>
+					<c:if test="#{tela.equals('reativar')}">#{messages['manutencaoMatricula.reativar']}: #{manutencaoMatriculaAction.matricula.codigo}</c:if>
+					<c:if test="#{tela.equals('finalizar')}">#{messages['manutencaoMatricula.finalizar']}: #{manutencaoMatriculaAction.matricula.codigo}</c:if>
+					<c:if test="#{tela.equals('trancar')}">#{messages['manutencaoMatricula.trancar']}: #{manutencaoMatriculaAction.matricula.codigo}</c:if>
+
+
+					<h:outputText size="15" style="float: right; font-size:20px;"
+						value="#{manutencaoMatriculaAction.matricula.status}">
+					</h:outputText>
+				</a:outputPanel>
+
+			</div>
+			<div class="panel-body">
+
+				<a:outputPanel id="pnlStatus">
+
+					<div class="col-xs-4">
+						<label for="ex1">CÓDIGO / ALUNO</label>
+
+						<table style="width: 100%">
+							<thead>
+								<tr>
+
+									<td width="20%"><h:inputText id="alunosField" size="5"
+											styleClass="form-control"
+											style="width:97%;font-size:12px;  text-align: center;"
+											readonly="true"
+											value="#{manutencaoMatriculaAction.matricula.alunos.codigo}">
+										</h:inputText></td>
+
+									<td><h:inputText size="5" readonly="true"
+											styleClass="form-control"
+											style="width:97%;font-size:12px;  text-align: center;"
+											value="#{manutencaoMatriculaAction.matricula.alunos.nome}">
+
+										</h:inputText></td>
+
+								</tr>
+							</thead>
+						</table>
+					</div>
+
+					<div class="col-xs-4">
+						<label for="ex1">CÓDIGO / MÓDULO</label>
+						<table style="width: 100%">
+							<thead>
+								<tr>
+
+									<td style="width: 18%"><h:inputText id="modulos" size="5"
+											styleClass="form-control" style="width:96%; font-size:12px;"
+											readonly="true"
+											value="#{manutencaoMatriculaAction.matricula.modulos.codigo}">
+										</h:inputText></td>
+
+									<td><h:inputText size="5" styleClass="form-control"
+											readonly="true" style="width:96%; font-size:12px;"
+											value="#{manutencaoMatriculaAction.matricula.modulos.descricao}">
+										</h:inputText></td>
+
+								</tr>
+							</thead>
+						</table>
+					</div>
+
+
+
+					<div class="col-xs-2">
+						<label for="ex1">INÍCIO CONTRATO</label>
+						<h:inputText size="10" maxlength="10" styleClass="form-control"
+							readonly="true"
+							value="#{manutencaoMatriculaAction.matricula.dtinicio}">
+						</h:inputText>
+
+					</div>
+
+					<div class="col-xs-2">
+						<label for="ex1">FIM CONTRATO</label>
+						<h:inputText size="10" maxlength="10" styleClass="form-control"
+							readonly="true"
+							value="#{manutencaoMatriculaAction.matricula.dttermino}">
+						</h:inputText>
+
+					</div>
+
+
+					<div class="col-xs-2">
+						<label for="ex1">QTD PARCELAS</label>
+						<h:inputText size="10" maxlength="10" styleClass="form-control"
+							readonly="true"
+							value="#{manutencaoMatriculaAction.matricula.qtparcelas}">
+						</h:inputText>
+
+					</div>
+
+
+					<div class="col-xs-2">
+						<label for="ex1">VL. MATRICULA</label>
+						<h:inputText size="10" maxlength="10" styleClass="form-control"
+							readonly="true" style="width:95%"
+							value="#{manutencaoMatriculaAction.matricula.vlmatricula}">
+						</h:inputText>
+
+					</div>
+
+
+					<div class="col-xs-2">
+						<label for="ex1">VL. PARCELA</label>
+						<h:inputText size="10" maxlength="10" styleClass="form-control"
+							readonly="true" style="width:95%"
+							value="#{manutencaoMatriculaAction.matricula.vlmensal}">
+							<f:convertNumber type="currency" maxFractionDigits="2"
+								minFractionDigits="2" />
+						</h:inputText>
+
+					</div>
+
+
+					<div class="col-xs-2">
+						<label for="ex1">VENC. 1ª PARCELA</label>
+						<h:inputText size="10" maxlength="10" styleClass="form-control"
+							readonly="true" style="width:95%"
+							value="#{manutencaoMatriculaAction.matricula.venc1mens}">
+						</h:inputText>
+					</div>
+
+
+					<div class="col-xs-4">
+						<label for="ex1">MARKETING</label>
+						<h:inputText size="40" readonly="true" styleClass="form-control"
+							value="#{manutencaoMatriculaAction.matricula.tipomark.descricao}">
+						</h:inputText>
+					</div>
+
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<br />
+
+					<div class="container" style="width: 100%">
+
+						<h:inputHidden>
+							<button type="button" class="btn btn-default"
+								data-toggle="collapse" data-target="#cancelamento">
+								<span class="glyphicon glyphicon-sort"></span> Motivo
+								Cancelamento
+							</button>
+						</h:inputHidden>
+						<p />
+						<div id="cancelamento" class="collapse">
+
+							<rich:panel style="width:100%">
+
+								<table width="100%">
+									<thead>
+										<tr>
+
+											<td>
+												<div class="col-xs-7">
+													<label for="ex1">DATA</label>
+
+													<h:inputText id="dtcancel" size="10" class="form-control"
+														enableManualInput="true" readonly="true"
+														value="#{manutencaoMatriculaAction.matricula.dtcancel}" />
+
+												</div>
+											</td>
+
+											<td><div class="col-xs-10">
+													<label for="ex1">MOTIVO</label>
+													<h:inputText id="notivocancel" size="33" maxlength="40"
+														readonly="true" class="form-control"
+														value="#{manutencaoMatriculaAction.matricula.notivocancel}">
+													</h:inputText>
+												</div></td>
+
+
+										</tr>
+
+									</thead>
+								</table>
+
+							</rich:panel>
+
+						</div>
+					</div>
+
+
+
+					<p />
+
+
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<center>
+								<label style="color: red;"><c:if
+										test="#{tela.equals('cancelar')}">#{messages['manutencaoMatricula.dadoscancelamento']}</c:if>
+								</label> <label style="color: blue;"><c:if
+										test="#{tela.equals('reativar')}">#{messages['manutencaoMatricula.dadosreativar']}</c:if></label>
+								<label style="color: green;"><c:if
+										test="#{tela.equals('finalizar')}">#{messages['manutencaoMatricula.dadosfinalizar']}</c:if></label>
+								<label style="color: orange;"> <c:if
+										test="#{tela.equals('trancar')}">#{messages['manutencaoMatricula.dadostrancar']}</c:if></label>
+							</center>
+						</div>
+						<div class="panel-body">
+
+							<div class="col-xs-3">
+
+								<label for="ex1"> <c:if
+										test="#{tela.equals('cancelar')}">#{messages['manutencaoMatricula.dtcancelamento']}</c:if>
+									<c:if test="#{tela.equals('reativar')}">#{messages['manutencaoMatricula.dtreativacao']}</c:if>
+									<c:if test="#{tela.equals('finalizar')}">#{messages['manutencaoMatricula.dtfinalizacao']}</c:if>
+									<c:if test="#{tela.equals('trancar')}">#{messages['manutencaoMatricula.dttrancar']}</c:if></label>
+								<h:inputText size="33" maxlength="40"
+									styleClass="datepickerDados form-control"
+									disabled="#{(manutencaoMatriculaAction.matricula == null) || (!manutencaoMatriculaAction.matricula.status.equals('ATIVA') &amp;&amp; !tela.equals('reativar')  &amp;&amp; (!tela.equals('cancelar') || !manutencaoMatriculaAction.matricula.status.equals('TRANCADA')))}"
+									value="#{manutencaoMatriculaAction.dt_manutecao_status}">
+								</h:inputText>
+
+							</div>
+
+							<h:inputHidden rendered="#{!tela.equals('reativar')}">
+
+								<div class="col-xs-4">
+									<label for="ex1">#{messages['matriculas.dtultalula']}</label>
+									<h:inputText size="33" maxlength="40" style="width:95%"
+										styleClass="datepickerDados form-control"
+										disabled="#{(manutencaoMatriculaAction.matricula == null) || (!manutencaoMatriculaAction.matricula.status.equals('ATIVA') &amp;&amp; (!tela.equals('cancelar') || !manutencaoMatriculaAction.matricula.status.equals('TRANCADA')) )}"
+										value="#{manutencaoMatriculaAction.dtultalula}">
+									</h:inputText>
+								</div>
+
+							</h:inputHidden>
+
+
+							<h:inputHidden rendered="#{!tela.equals('reativar')}">
+
+								<div class="col-xs-2">
+									<label for="ex1">DIGITAR MOTIVO</label>
+									<div class="input-group">
+										<span class="input-group-addon"> <h:selectBooleanCheckbox
+												type="checkbox" id="tipoField" style="height:20px;"
+												value="#{matriculasHome.tipo}">
+												<a:support event="onchange" limitToList="true"
+													reRender="tipoField, tipo " bypassUpdates="false"
+													ajaxSingle="true" />
+											</h:selectBooleanCheckbox>
+										</span>
+									</div>
+									<!-- /input-group -->
+								</div>
+
+								<div class="col-xs-3">
+									<label for="ex1">MOTIVO</label>
+
+									<a:outputPanel id="tipo" rendered="#{!tela.equals('reativar')}">
+
+										<h:selectOneMenu styleClass="form-control"
+											rendered="#{matriculasHome.tipo != true}"
+											disabled="#{(manutencaoMatriculaAction.matricula == null) || (!manutencaoMatriculaAction.matricula.status.equals('ATIVA') &amp;&amp; (!tela.equals('cancelar') || !manutencaoMatriculaAction.matricula.status.equals('TRANCADA')) )}"
+											value="#{manutencaoMatriculaAction.notivocancel}"
+											style="height:34px;font-size:12px; text-align:center;">
+											<f:selectItem />
+											<f:selectItems itemLabelEscaped="true"
+												value="#{manutencaoMatriculaAction.motivos}" var="_mot"
+												itemValue="#{_mot}" itemLabel="#{_mot}" />
+											
+										</h:selectOneMenu>
+
+										<h:inputText class="form-control"
+											rendered="#{matriculasHome.tipo == true}"
+											value="#{manutencaoMatriculaAction.notivocancel}">
+										</h:inputText>
+
+									</a:outputPanel>
+								</div>
+
+
+
+							</h:inputHidden>
+
+
+
+						</div>
+					</div>
+
+
+					<script> $(".datepickerDados").datepicker({
+				 showAnim: 'clip',
+				 changeMonth: true,
+				 changeYear:true,
+				 dateFormat: 'dd/mm/yy',
+				 dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+				 dayNamesMin: ['DOM','SEG','TER','QUA','QUI','SEX','SAB','DOM'],
+				 dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+				 monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+				 monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+				 nextText: 'Próximo',
+				 prevText: 'Anterior',
+				  });</script>
+
+
+
+				</a:outputPanel>
+
+			</div>
+			<div class="panel-footer">
+
+				<center>
+
+					<a:outputPanel id="pnlButtons">
+
+						<a:commandLink styleClass="btn btn-default"
+							onclick="$('#dialogPesAlun').modal('show');"
+							style="width:250px; white-space: normal;">
+							<i class="glyphicon glyphicon-search" />
+						BUSCAR MATRÍCULA
+						</a:commandLink>
+
+						<rich:spacer width="2px;" />
+
+						<a:commandLink onclick="cancelMatri();"
+							styleClass="btn btn-danger"
+							rendered="#{tela.equals('cancelar') &amp;&amp; rich:isUserInRole('CancelaMatricula1_A')}"
+							style="width:250px; white-space: normal;"
+							disabled="#{(manutencaoMatriculaAction.matricula == null) || (!manutencaoMatriculaAction.matricula.status.equals('ATIVA') &amp;&amp; (!tela.equals('cancelar') || !manutencaoMatriculaAction.matricula.status.equals('TRANCADA')) )}">
+							<i class="glyphicon glyphicon-remove" />
+						CANCELAR MATRÍCULA
+					</a:commandLink>
+						<a:jsFunction name="cancelMatri"
+							reRender="pnlDados, pnlHeader, msgGlobal" limitToList="true"
+							actionListener="#{manutencaoMatriculaAction.cancelarMatricula}"
+							data="#{manutencaoMatriculaAction.messageRetornoAjax}"
+							onbeforedomupdate="showMessageRetorno(data)">
+							<f:setPropertyActionListener value="#{null}"
+								target="#{pesquisaAluno.matriculas}" />
+						</a:jsFunction>
+
+
+						<a:commandLink onclick="reativaMatri();"
+							style="width:250px; white-space: normal;"
+							styleClass="btn btn-primary"
+							disabled="#{(manutencaoMatriculaAction.matricula == null) || (manutencaoMatriculaAction.matricula.status.equals('ATIVA'))}"
+							rendered="#{tela.equals('reativar') &amp;&amp; rich:isUserInRole('ReativaMatricula1_A')}">
+							<i class="glyphicon glyphicon-ok" />
+							REATIVAR MATRÍCULA
+						</a:commandLink>
+						<a:jsFunction name="reativaMatri"
+							actionListener="#{manutencaoMatriculaAction.reatiavarMatricula}"
+							data="#{manutencaoMatriculaAction.messageRetornoAjax}"
+							onbeforedomupdate="showMessageRetorno(data)"
+							reRender="pnlDados, pnlHeader, msgGlobal, matriculasList"
+							limitToList="true" oncomplete="inicializar();">
+							<f:setPropertyActionListener value="#{null}"
+								target="#{pesquisaAluno.matriculas}" />
+						</a:jsFunction>
+
+						<a:commandLink onclick="finalizaMatri();"
+							styleClass="btn btn-success"
+							style="width:250px; white-space: normal;"
+							disabled="#{(manutencaoMatriculaAction.matricula == null) || (!manutencaoMatriculaAction.matricula.status.equals('ATIVA'))}"
+							rendered="#{tela.equals('finalizar') &amp;&amp; rich:isUserInRole('FinalizaMatrcula1_A')}">
+							<i class="glyphicon glyphicon-ok" />
+							FINALIZAR MATRÍCULA							
+							</a:commandLink>
+
+						<a:jsFunction name="finalizaMatri"
+							reRender="pnlDados, pnlHeader, msgGlobal, matriculasList"
+							actionListener="#{manutencaoMatriculaAction.finalizarMatricula}"
+							data="#{manutencaoMatriculaAction.messageRetornoAjax}"
+							onbeforedomupdate="showMessageRetorno(data)" limitToList="true"
+							oncomplete="inicializar();">
+							<f:setPropertyActionListener value="#{null}"
+								target="#{pesquisaAluno.matriculas}" />
+						</a:jsFunction>
+
+						<a:commandLink onclick="trancaMatri();"
+							style="white-space: normal; width:250px;"
+							styleClass="btn btn-warning"
+							disabled="#{(manutencaoMatriculaAction.matricula == null) || (!manutencaoMatriculaAction.matricula.status.equals('ATIVA'))}"
+							rendered="#{tela.equals('trancar') &amp;&amp; rich:isUserInRole('TrancaMatricula1_A')}">
+							<i class="glyphicon glyphicon-lock" />
+							TRANCAR MATRÍCULA
+							</a:commandLink>
+						<a:jsFunction name="trancaMatri"
+							actionListener="#{manutencaoMatriculaAction.trancarMatricula}"
+							data="#{manutencaoMatriculaAction.messageRetornoAjax}"
+							onbeforedomupdate="showMessageRetorno(data)"
+							reRender="pnlDados, pnlHeader, matriculasList, msgGlobal"
+							limitToList="true" oncomplete="inicializar();">
+							<f:setPropertyActionListener value="#{null}"
+								target="#{pesquisaAluno.matriculas}" />
+						</a:jsFunction>
+
+						<rich:spacer width="2px;" />
+
+						<a:commandLink
+							rendered="#{manutencaoMatriculaAction.matricula != null}"
+							styleClass="btn btn-default" reRender="pnlDados"
+							onclick="setTimeout(function(){ $('#dialogStatus').modal('show'); }, 800);"
+							actionListener="#{manutencaoMatriculaAction.popularStatus}">
+						<i class="glyphicon glyphicon-th-list" />
+							MOVIMENTAÇÕES MATRÍCULA #{manutencaoMatriculaAction.matricula.codigo}						
+						</a:commandLink>
+
+
+					</a:outputPanel>
+
+				</center>
+
+			</div>
+		</div>
+
+
+		<!--Dialog Status -->
+		<div class="modal fade bd-example-modal-lg"
+			style="z-index: 1041 !important;" data-backdrop="static"
+			id="dialogStatus" role="dialog" aria-labelledby="myLargeModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg" style="width: 1020px !important;">
+				<div class="modal-content">
+
+					<div class="panel panel-default">
+						<!-- Default panel contents -->
+						<div class="panel-heading">DADOS</div>
+
+						<div class="panel-body">
+
+							<a:outputPanel id="pnlDados">
+
+								<table width="100%" id="tblHist"
+									style="text-align: center; text-transform: uppercase;"
+									class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover">
+									<thead>
+										<tr>
+
+											<th style="text-align: center;">DATA</th>
+											<th style="text-align: center;">HORA</th>
+											<th style="text-align: center;">FUNCIONÁRIO</th>
+											<th style="text-align: center;">STATUS</th>
+											<th style="text-align: center;">MOTIVO</th>
+
+										</tr>
+									</thead>
+
+									<tbody class="searchable" id="tbody">
+
+										<c:forEach
+											items="#{manutencaoMatriculaAction.statusMatriculas}"
+											var="_statusmatricula">
+											<tr>
+
+												<td class="center"><h:outputText
+														value="#{_statusmatricula.id.data}" /></td>
+
+												<td class="center"><h:outputText
+														value="#{_statusmatricula.id.hora}" /></td>
+
+												<td class="center"><h:outputText
+														value="#{_statusmatricula.funcionarios.nome}" /></td>
+
+												<td class="center"><h:outputText
+														value="#{combos.getStatusMatricula().get(_statusmatricula.status)}" /></td>
+
+												<td class="center"><h:outputText
+														value="#{_statusmatricula.motivo}" /></td>
+
+
+
+											</tr>
+
+										</c:forEach>
+
+									</tbody>
+								</table>
+
+
+
+								<script>																
+
+
+			$(document).ready(function() {
+
+				
+				 $.fn.dataTable.moment( 'DD/MM/YYYY' ); 
+			    $('#tblHist').DataTable( {
+
+			    	"order": [[ 0, "desc" ]],
+			    					    
+			        "language": {
+			        	"sEmptyTable": "Sem REGISTROS",
+			            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+			            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+			            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+			            "sInfoPostFix": "",
+			            "sInfoThousands": ".",
+			            "sLengthMenu": "_MENU_ resul. por pág.",
+			            "sLoadingRecords": "Carregando...",
+			            "sProcessing": "Processando...",
+			            "sZeroRecords": "Nenhum registro encontrado",
+			            "sSearch": "Pesquisar",
+			            "oPaginate": {
+			                "sNext": "Próximo",
+			                "sPrevious": "Anterior",
+			                "sFirst": "Primeiro",
+			                "sLast": "Último"
+			            },
+			            "oAria": {
+			                "sSortAscending": ": Ordenar colunas de forma descendente",
+			                "sSortDescending": ": Ordenar colunas de forma ascendente"
+			            }
+			        }
+			    } );
+
+				
+
+					} );
+
+		
+
+			
+
+  </script>
+
+
+							</a:outputPanel>
+
+
+						</div>
+						<div class="panel-footer" style="text-align: right;">
+
+							<a:commandLink styleClass="btn btn-default"
+								onclick="$('#dialogStatus').modal('hide');"
+								actionListener="#{manutencaoMatriculaAction.zerarStatus}">
+								<i class="glyphicon glyphicon-eye-close" />						
+						FECHAR
+						</a:commandLink>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<!--Pesquisa Alunos -->
+		<div class="modal fade bd-example-modal-lg"
+			style="z-index: 1041 !important;" data-backdrop="static"
+			id="dialogPesAlun" role="dialog" aria-labelledby="myLargeModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+
+					<div class="panel panel-default">
+						<!-- Default panel contents -->
+						<div class="panel-heading">Pesquisa Aluno</div>
+
+						<div class="panel-body">
+
+							<h:panelGrid columns="6">
+
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">Código</span>
+									<h:inputText styleClass="form-control" id="txtPesqAlunCod"
+										style="height: 30px; width:70px;"
+										value="#{alunosList.alunos.codigo}">										
+									</h:inputText>
+								</div>
+
+								<div class="input-group">
+
+									<span class="input-group-addon" id="basic-addon1">Nome
+										do Aluno</span>
+									<h:inputText styleClass="form-control" id="txtPesqAlun"
+										style="height: 30px;width:320px;"
+										value="#{alunosList.paramName}">										
+									</h:inputText>
+									<a:commandLink title="Buscar" style="height:30px;"
+										reRender="tblAlun" styleClass="btn btn-default">
+										<i class="glyphicon glyphicon-search" /> Buscar Aluno
+									</a:commandLink>
+									<a:commandLink title="Limpar Pesquisa" style="height:30px;"
+										reRender="tblAlun, txtPesqAlunCod, txtPesqAlun"
+										styleClass="btn btn-default"
+										actionListener="#{alunosList.limpaCampos}">
+										<i class="glyphicon glyphicon-erase" /> Limpar
+									</a:commandLink>
+								</div>
+							</h:panelGrid>
+
+							<a:outputPanel id="tblAlun">
+
+								<table width="100%"
+									style="text-align: center; text-transform: uppercase;"
+									class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover">
+									<thead>
+										<tr>
+
+											<th style="text-align: center; height: 26px;">CODIGO</th>
+											<th style="text-align: center; height: 26px;">NOME</th>
+											<th style="text-align: center; height: 26px;">SELECIONAR</th>
+
+										</tr>
+									</thead>
+
+									<tbody class="searchable" id="tbody">
+
+										<c:forEach items="#{alunosList.resultList}" var="prod">
+											<tr>
+
+												<td class="center"><h:outputText value="#{prod.codigo}" /></td>
+
+												<td class="center"><h:outputText value="#{prod.nome}" /></td>
+
+												<td class="center"><a:commandLink style="height:25px;"
+														actionListener="#{manutencaoMatriculaAction.setCodAluno(prod.codigo)}"
+														title="Vizualizar se o aluno(a) #{prod.nome} possui matricula"
+														action="#{manutencaoMatriculaAction.setTipoManuntecao(tela)}"
+														reRender="matAluno, msgGlobal" styleClass="btn btn-info">
+														<i class="glyphicon glyphicon-search" />
+														<f:setPropertyActionListener value="#{tela}"
+															target="#{manutencaoMatriculaAction.tipoManuntecao}" />
+													</a:commandLink></td>
+
+											</tr>
+
+										</c:forEach>
+
+									</tbody>
+								</table>
+
+							</a:outputPanel>
+
+							<a:outputPanel id="matAluno">
+								<center>
+									<strong><h:outputText value="MATRÍCULAS" /></strong>
+								</center>
+								<table width="100%"
+									style="text-align: center; text-transform: uppercase;"
+									class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover">
+									<thead>
+										<tr>
+											<th style="text-align: center;">MAT</th>
+											<th style="text-align: center;">#{messages['matriculas.dtinicio']}</th>
+											<th style="text-align: center;">#{messages['matriculas.dttermino']}</th>
+											<th style="text-align: center;">STATUS</th>
+											<th style="text-align: center;">#{messages['matriculas.modulosAbr']}</th>
+											<th style="text-align: center;">#{messages['modulos.descricao']}</th>
+											<th style="text-align: center;">SELECIONAR</th>
+
+										</tr>
+									</thead>
+
+
+									<tbody class="searchable" id="tbody">
+
+										<c:forEach
+											items="#{manutencaoMatriculaAction.matriculasAluno}"
+											var="mat">
+											<tr>
+
+												<td class="center"><h:outputText value="#{mat.codigo}" /></td>
+
+												<td class="center"><h:outputText
+														value="#{mat.dtinicio}" /></td>
+
+												<td class="center"><h:outputText
+														value="#{mat.dttermino}" /></td>
+
+												<td class="center"><h:outputText value="#{mat.status}" /></td>
+
+												<td class="center"><h:outputText
+														value="#{mat.modulos.codigo}" /></td>
+
+												<td class="center"><h:outputText
+														value="#{mat.modulos.descricao}" /></td>
+
+												<td><a:commandLink
+														onclick="$('#dialogPesAlun').modal('hide');"
+														actionListener="#{manutencaoMatriculaAction.setMatriculasCodigo(mat.codigo)}"
+														reRender="pnlHeader, pnlStatus, pnlButtons, pnlDados"
+														styleClass="btn btn-success">
+
+														<i class="glyphicon glyphicon-ok" />
+													</a:commandLink></td>
+
+											</tr>
+
+										</c:forEach>
+
+									</tbody>
+								</table>
+
+								<center>
+									<h:outputText value="ESTE ALUNO NÃO POSSUI MATRÍCULAS ATIVAS!"
+										rendered="#{manutencaoMatriculaAction.tipoManuntecao.contains('ATIVA') and manutencaoMatriculaAction.matriculasAluno.size == 0}" />
+									<h:outputText
+										value="ESTE ALUNO NÃO POSSUI MATRÍCULAS CANCELADAS OU TRANCADAS!"
+										rendered="#{manutencaoMatriculaAction.tipoManuntecao.contains('CANCELADA') and manutencaoMatriculaAction.matriculasAluno.size == 0}" />
+								</center>
+
+							</a:outputPanel>
+
+						</div>
+						<div class="panel-footer" style="text-align: right;">
+
+							<rich:spacer width="2px;" />
+							<a:commandLink styleClass="btn btn-default"
+								title="Fechar Pesquisa de Alunos"
+								onclick="$('#dialogPesAlun').modal('hide');">
+					               	Fechar <i class="glyphicon glyphicon-eye-close" />
+							</a:commandLink>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!--Fim Pesquisa Aluno Dialog -->
+
+		<script>
+
+		
+
+$( document ).ready(function() {
+
+$('#dialogPesAlun').modal('show');
+
+});
+
+</script>
+
+
+	</h:form>
+</ui:composition>

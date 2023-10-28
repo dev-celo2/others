@@ -1,0 +1,84 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="desconto" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{descontoHome.managed ? messages['global.edit'] : messages['global.insert']} Desconto</f:facet>
+
+
+            <s:decorate id="diaField" template="layout/edit.xhtml">
+                <ui:define name="label">Dia</ui:define>
+                <h:inputText id="dia"
+                       required="true"
+                       disabled="#{descontoHome.managed}"
+                          value="#{descontoHome.instance.dia}">
+                    <a:support event="onblur" reRender="diaField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="descontoField" template="layout/edit.xhtml">
+                <ui:define name="label">Desconto</ui:define>
+                <h:inputText id="desconto"
+                       required="true"
+                          value="#{descontoHome.instance.desconto}"
+                           size="13">
+                    <a:support event="onblur" reRender="descontoField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                #{messages['global.requiredField']}
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="#{messages['global.save']}"
+                         action="#{descontoHome.persist}"
+                       disabled="#{!descontoHome.wired}"
+                       rendered="#{!descontoHome.managed}"/>
+
+            <h:commandButton id="update"
+                          value="#{messages['global.save']}"
+                         action="#{descontoHome.update}"
+                       rendered="#{descontoHome.managed}"/>
+
+            <h:commandButton id="delete"
+                          value="#{messages['global.delete']}" onclick="return confirm('#{messages['global.confirmDelete']}')"
+                         action="#{descontoHome.remove}"
+                      immediate="true"
+                       rendered="#{descontoHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="#{messages['global.cancel']}"
+             propagation="end"
+                    view="/private/onbyte/Desconto.xhtml"
+                rendered="#{descontoHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="#{messages['global.cancel']}"
+             propagation="end"
+                    view="/private/onbyte/#{empty descontoFrom ? 'DescontoList' : descontoFrom}.xhtml"
+                rendered="#{!descontoHome.managed}"/>
+
+        </div>
+    </h:form>
+
+</ui:define>
+
+</ui:composition>

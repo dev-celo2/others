@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>TeleMarketing</title>
+
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/resources/menu/style.css" />
+
+
+<script type="text/javascript"
+	src="#{request.contextPath}/js/moniloc.js" />
+
+
+<script src="#{request.contextPath}/js/jquery-1.12.4.js"></script>
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/resources/bootstrap/css/bootstrap.min.css" />
+
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/css/styleTelemarketing.css" />
+	
+
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/css/skin/aristo/theme.css" />
+
+<script
+	src="#{request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" charset="utf8-encode"
+	src="#{request.contextPath}/resources/dataTable/js/jquery.dataTables.min.js"></script>
+
+
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/resources/dataTable/css/jquery.dataTables.min.css" />
+
+
+<link rel="" />
+<p:resources exclude="#{request.contextPath}/js/jquery-1.12.4.js" />
+
+
+<ui:insert name="head" />
+
+
+<script language="JavaScript">
+		function moveRelogio() {
+
+			dayName = new Array("Domingo", "Segunda", "Terça", "Quarta",
+					"Quinta", "Sexta", "Sábado")
+			monName = new Array("Janeiro", "Fevereiro", "Março", "Abril",
+					"Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
+					"Novembro", "Dezembro")
+
+			now = new Date()
+
+			hora = now.getHours()
+			minuto = now.getMinutes()
+			segundo = now.getSeconds()
+			diasemana = dayName[now.getDay()]
+
+			if (diasemana.toString() != "Sábado") {
+				diasemana = diasemana + "-Feira";
+			}
+
+			if (segundo.toString().length == 1) {
+				segundo = "0" + segundo
+			}
+
+			if (minuto.toString().length == 1) {
+				minuto = "0" + minuto
+			}
+
+			if (hora.toString().length == 1) {
+				hora = "0" + hora
+			}
+
+			//<![CDATA[
+
+			if (hora < 12) {
+
+				periodo = " - Bom Dia!"
+
+			} else if (hora >= 12 && hora < 18) {
+
+				periodo = " - Boa Tarde!"
+
+			} else {
+
+				periodo = " - Boa Noite!"
+
+			}
+
+			//]]>
+
+			horaImprimivel = diasemana + ", " + now.getDate() + " de "
+					+ monName[now.getMonth()] + " de " + now.getFullYear()
+					+ "  -  " + hora + ":" + minuto + ":" + segundo
+
+			document.form_relogio.relogio.value = horaImprimivel + periodo
+
+			setTimeout("moveRelogio()", 1000)
+		}
+
+		
+	</script>
+
+
+</head>
+
+
+<body onload="moveRelogio();">
+
+	<a:outputPanel id="msgGlobal">
+		<p:growl life="4000" />
+	</a:outputPanel>
+
+	<div id="page">
+
+		<div id="header" style="width: 100%; margin-top: 0px">
+			<ui:insert name="header" style="width: 100%;">
+
+				<ui:fragment rendered="#{identity.loggedIn}">
+
+					<ui:insert name="menu">
+						<ui:include src="/WEB-INF/facelets/layout/menuTelemarketing.xhtml" />
+					</ui:insert>
+
+				</ui:fragment>
+			</ui:insert>
+		</div>
+
+		<div id="content" style="width: 100%; margin-top: 10px;">
+
+
+
+			<ui:insert name="content" />
+
+		</div>
+
+
+
+	</div>
+
+
+
+
+</body>
+
+
+
+</html>

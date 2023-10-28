@@ -1,0 +1,83 @@
+@CHARSET "ISO-8859-1";
+
+.botao {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none !important;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.verde{
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+
+.verde:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.azul {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.azul:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+
+.vermelho {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #f44336;
+}
+
+.vermelho:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+.cinza {
+    background-color: white;
+    color: black;
+    border: 2px solid gray;
+}
+
+.cinza:hover {
+	background-color: gray;
+	color: white;
+}
+
+.preto {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+}
+
+.preto:hover {
+    background-color: #555555;
+    color: white;
+}
+
+.laranja {
+    background-color: white;
+    color: black;
+    border: 2px solid #337AB7;
+}
+
+.laranja:hover {
+	background-color: #337AB7;
+	color: white;
+}

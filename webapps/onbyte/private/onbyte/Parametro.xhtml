@@ -1,0 +1,241 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Parametro #{messages['global.Detalhes']}</f:facet>
+
+        <s:decorate id="abrecaixa" template="layout/display.xhtml">
+            <ui:define name="label">Abrecaixa</ui:define>
+            <h:outputText value="#{parametroHome.instance.abrecaixa}"/>
+        </s:decorate>
+        <s:decorate id="algo" template="layout/display.xhtml">
+            <ui:define name="label">Algo</ui:define>
+            <h:outputText value="#{parametroHome.instance.algo}"/>
+        </s:decorate>
+        <s:decorate id="avisoatrazo" template="layout/display.xhtml">
+            <ui:define name="label">Avisoatrazo</ui:define>
+            <h:outputText value="#{parametroHome.instance.avisoatrazo}"/>
+        </s:decorate>
+        <s:decorate id="bairro" template="layout/display.xhtml">
+            <ui:define name="label">Bairro</ui:define>
+            <h:outputText value="#{parametroHome.instance.bairro}"/>
+        </s:decorate>
+        <s:decorate id="bloatrazo" template="layout/display.xhtml">
+            <ui:define name="label">Bloatrazo</ui:define>
+            <h:outputText value="#{parametroHome.instance.bloatrazo}"/>
+        </s:decorate>
+        <s:decorate id="bloinativo" template="layout/display.xhtml">
+            <ui:define name="label">Bloinativo</ui:define>
+            <h:outputText value="#{parametroHome.instance.bloinativo}"/>
+        </s:decorate>
+        <s:decorate id="cabecalho1" template="layout/display.xhtml">
+            <ui:define name="label">Cabecalho1</ui:define>
+            <h:outputText value="#{parametroHome.instance.cabecalho1}"/>
+        </s:decorate>
+        <s:decorate id="capslock" template="layout/display.xhtml">
+            <ui:define name="label">Capslock</ui:define>
+            <h:outputText value="#{parametroHome.instance.capslock}"/>
+        </s:decorate>
+        <s:decorate id="cep" template="layout/display.xhtml">
+            <ui:define name="label">Cep</ui:define>
+            <h:outputText value="#{parametroHome.instance.cep}"/>
+        </s:decorate>
+        <s:decorate id="cidade" template="layout/display.xhtml">
+            <ui:define name="label">Cidade</ui:define>
+            <h:outputText value="#{parametroHome.instance.cidade}"/>
+        </s:decorate>
+        <s:decorate id="cnpj" template="layout/display.xhtml">
+            <ui:define name="label">Cnpj</ui:define>
+            <h:outputText value="#{parametroHome.instance.cnpj}"/>
+        </s:decorate>
+        <s:decorate id="contrato" template="layout/display.xhtml">
+            <ui:define name="label">Contrato</ui:define>
+            <h:outputText value="#{parametroHome.instance.contrato}"/>
+        </s:decorate>
+        <s:decorate id="datafrequencia" template="layout/display.xhtml">
+            <ui:define name="label">Datafrequencia</ui:define>
+            <h:outputText value="#{parametroHome.instance.datafrequencia}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+        <s:decorate id="descsistema" template="layout/display.xhtml">
+            <ui:define name="label">Descsistema</ui:define>
+            <h:outputText value="#{parametroHome.instance.descsistema}"/>
+        </s:decorate>
+        <s:decorate id="email" template="layout/display.xhtml">
+            <ui:define name="label">Email</ui:define>
+            <h:outputText value="#{parametroHome.instance.email}"/>
+        </s:decorate>
+        <s:decorate id="empresa" template="layout/display.xhtml">
+            <ui:define name="label">Empresa</ui:define>
+            <h:outputText value="#{parametroHome.instance.empresa}"/>
+        </s:decorate>
+        <s:decorate id="endereco" template="layout/display.xhtml">
+            <ui:define name="label">Endereco</ui:define>
+            <h:outputText value="#{parametroHome.instance.endereco}"/>
+        </s:decorate>
+        <s:decorate id="estado" template="layout/display.xhtml">
+            <ui:define name="label">Estado</ui:define>
+            <h:outputText value="#{parametroHome.instance.estado}"/>
+        </s:decorate>
+        <s:decorate id="fundo" template="layout/display.xhtml">
+            <ui:define name="label">Fundo</ui:define>
+            <h:outputText value="#{parametroHome.instance.fundo}"/>
+        </s:decorate>
+        <s:decorate id="insc" template="layout/display.xhtml">
+            <ui:define name="label">Insc</ui:define>
+            <h:outputText value="#{parametroHome.instance.insc}"/>
+        </s:decorate>
+        <s:decorate id="jurodia" template="layout/display.xhtml">
+            <ui:define name="label">Jurodia</ui:define>
+            <h:outputText value="#{parametroHome.instance.jurodia}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+        <s:decorate id="mensfincurso" template="layout/display.xhtml">
+            <ui:define name="label">Mensfincurso</ui:define>
+            <h:outputText value="#{parametroHome.instance.mensfincurso}"/>
+        </s:decorate>
+        <s:decorate id="mensrepaberto" template="layout/display.xhtml">
+            <ui:define name="label">Mensrepaberto</ui:define>
+            <h:outputText value="#{parametroHome.instance.mensrepaberto}"/>
+        </s:decorate>
+        <s:decorate id="nomefand" template="layout/display.xhtml">
+            <ui:define name="label">Nomefand</ui:define>
+            <h:outputText value="#{parametroHome.instance.nomefand}"/>
+        </s:decorate>
+        <s:decorate id="nomefanh" template="layout/display.xhtml">
+            <ui:define name="label">Nomefanh</ui:define>
+            <h:outputText value="#{parametroHome.instance.nomefanh}"/>
+        </s:decorate>
+        <s:decorate id="nomefantasia" template="layout/display.xhtml">
+            <ui:define name="label">Nomefantasia</ui:define>
+            <h:outputText value="#{parametroHome.instance.nomefantasia}"/>
+        </s:decorate>
+        <s:decorate id="numeroacertos" template="layout/display.xhtml">
+            <ui:define name="label">Numeroacertos</ui:define>
+            <h:outputText value="#{parametroHome.instance.numeroacertos}"/>
+        </s:decorate>
+        <s:decorate id="numlock" template="layout/display.xhtml">
+            <ui:define name="label">Numlock</ui:define>
+            <h:outputText value="#{parametroHome.instance.numlock}"/>
+        </s:decorate>
+        <s:decorate id="passesalaaula" template="layout/display.xhtml">
+            <ui:define name="label">Passesalaaula</ui:define>
+            <h:outputText value="#{parametroHome.instance.passesalaaula}"/>
+        </s:decorate>
+        <s:decorate id="pciniciocaixa" template="layout/display.xhtml">
+            <ui:define name="label">Pciniciocaixa</ui:define>
+            <h:outputText value="#{parametroHome.instance.pciniciocaixa}"/>
+        </s:decorate>
+        <s:decorate id="pcmatri" template="layout/display.xhtml">
+            <ui:define name="label">Pcmatri</ui:define>
+            <h:outputText value="#{parametroHome.instance.pcmatri}"/>
+        </s:decorate>
+        <s:decorate id="pcmensa" template="layout/display.xhtml">
+            <ui:define name="label">Pcmensa</ui:define>
+            <h:outputText value="#{parametroHome.instance.pcmensa}"/>
+        </s:decorate>
+        <s:decorate id="pcsaldoantcred" template="layout/display.xhtml">
+            <ui:define name="label">Pcsaldoantcred</ui:define>
+            <h:outputText value="#{parametroHome.instance.pcsaldoantcred}"/>
+        </s:decorate>
+        <s:decorate id="pcsaldoantdeb" template="layout/display.xhtml">
+            <ui:define name="label">Pcsaldoantdeb</ui:define>
+            <h:outputText value="#{parametroHome.instance.pcsaldoantdeb}"/>
+        </s:decorate>
+        <s:decorate id="pctranscaixa" template="layout/display.xhtml">
+            <ui:define name="label">Pctranscaixa</ui:define>
+            <h:outputText value="#{parametroHome.instance.pctranscaixa}"/>
+        </s:decorate>
+        <s:decorate id="pctranscaixadeb" template="layout/display.xhtml">
+            <ui:define name="label">Pctranscaixadeb</ui:define>
+            <h:outputText value="#{parametroHome.instance.pctranscaixadeb}"/>
+        </s:decorate>
+        <s:decorate id="perdescacima" template="layout/display.xhtml">
+            <ui:define name="label">Perdescacima</ui:define>
+            <h:outputText value="#{parametroHome.instance.perdescacima}"/>
+        </s:decorate>
+        <s:decorate id="perdescextra" template="layout/display.xhtml">
+            <ui:define name="label">Perdescextra</ui:define>
+            <h:outputText value="#{parametroHome.instance.perdescextra}"/>
+        </s:decorate>
+        <s:decorate id="referencia" template="layout/display.xhtml">
+            <ui:define name="label">Referencia</ui:define>
+            <h:outputText value="#{parametroHome.instance.referencia}"/>
+        </s:decorate>
+        <s:decorate id="rodape1" template="layout/display.xhtml">
+            <ui:define name="label">Rodape1</ui:define>
+            <h:outputText value="#{parametroHome.instance.rodape1}"/>
+        </s:decorate>
+        <s:decorate id="rodape2" template="layout/display.xhtml">
+            <ui:define name="label">Rodape2</ui:define>
+            <h:outputText value="#{parametroHome.instance.rodape2}"/>
+        </s:decorate>
+        <s:decorate id="senha" template="layout/display.xhtml">
+            <ui:define name="label">Senha</ui:define>
+            <h:outputText value="#{parametroHome.instance.senha}"/>
+        </s:decorate>
+        <s:decorate id="senhavend" template="layout/display.xhtml">
+            <ui:define name="label">Senhavend</ui:define>
+            <h:outputText value="#{parametroHome.instance.senhavend}"/>
+        </s:decorate>
+        <s:decorate id="telefone1" template="layout/display.xhtml">
+            <ui:define name="label">Telefone1</ui:define>
+            <h:outputText value="#{parametroHome.instance.telefone1}"/>
+        </s:decorate>
+        <s:decorate id="telefone2" template="layout/display.xhtml">
+            <ui:define name="label">Telefone2</ui:define>
+            <h:outputText value="#{parametroHome.instance.telefone2}"/>
+        </s:decorate>
+        <s:decorate id="valcursoextra" template="layout/display.xhtml">
+            <ui:define name="label">Valcursoextra</ui:define>
+            <h:outputText value="#{parametroHome.instance.valcursoextra}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+        <s:decorate id="valorcancela" template="layout/display.xhtml">
+            <ui:define name="label">Valorcancela</ui:define>
+            <h:outputText value="#{parametroHome.instance.valorcancela}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+        <s:decorate id="vendautomatico" template="layout/display.xhtml">
+            <ui:define name="label">Vendautomatico</ui:define>
+            <h:outputText value="#{parametroHome.instance.vendautomatico}"/>
+        </s:decorate>
+        <s:decorate id="versao" template="layout/display.xhtml">
+            <ui:define name="label">Versao</ui:define>
+            <h:outputText value="#{parametroHome.instance.versao}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/private/onbyte/ParametroEdit.xhtml"
+                    id="edit"
+                 value="#{messages['global.edit']}"/>
+
+        <s:button view="/private/onbyte/#{empty parametroFrom ? 'ParametroList' : parametroFrom}.xhtml"
+                    id="done"
+                 value="#{messages['global.done']}"/>
+
+    </div>
+
+</ui:define>
+
+</ui:composition>

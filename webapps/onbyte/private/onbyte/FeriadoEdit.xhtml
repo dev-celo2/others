@@ -1,0 +1,92 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="feriado" styleClass="edit">
+
+			<rich:panel>
+				<f:facet name="header">#{feriadoHome.managed ? messages['global.edit'] : messages['global.insert']} #{messages['menu.Feriado1']}</f:facet>
+
+
+				<s:decorate id="dtFeriadoField" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['feriado.dtFeriado']}</ui:define>
+					<rich:calendar id="dtFeriado" disabled="#{feriadoHome.managed}"
+						required="true" oncomplete="inicializar();" inputSize="10"
+						enableManualInput="true" value="#{feriadoHome.instance.dtFeriado}"
+						datePattern="#{messages.pattern}" />
+				</s:decorate>
+
+
+				<s:decorate id="dscFeriadoField" template="layout/edit.xhtml">
+					<ui:define name="label">#{messages['feriado.dscFeriado']}</ui:define>
+					<h:inputText id="dscFeriado" required="true" size="40"
+						maxlength="40" value="#{feriadoHome.instance.dscFeriado}">
+						<a:support event="onblur" reRender="dscFeriadoField"
+							bypassUpdates="true" ajaxSingle="true" />
+					</h:inputText>
+				</s:decorate>
+
+
+				<s:decorate id="dtCadastro" template="layout/display.xhtml">
+		            <ui:define name="label">#{messages['feriado.dtCadastro']}</ui:define>
+		            <h:outputText value="#{feriadoHome.instance.dtCadastro}">
+		                <s:convertDateTime type="both" dateStyle="medium"/>
+		            </h:outputText>
+		        </s:decorate>
+
+				<div style="clear: both">
+					<span class="required">*</span> #{messages['global.requiredField']}
+				</div>
+
+			</rich:panel>
+
+			<div class="actionButtons">
+
+				<h:commandButton id="save" value="#{messages['global.save']}"
+					action="#{feriadoHome.persist}" disabled="#{!feriadoHome.wired}"
+					rendered="#{!feriadoHome.managed &amp;&amp; rich:isUserInRole('Feriado1_A')}" />
+
+				<h:commandButton id="update" value="#{messages['global.save']}"
+					action="#{feriadoHome.update}"
+					rendered="#{feriadoHome.managed &amp;&amp; rich:isUserInRole('Feriado1_A')}" />
+
+				<h:commandButton id="delete" value="#{messages['global.delete']}"
+					onclick="return confirm('#{messages['global.confirmDelete']}')"
+					action="#{feriadoHome.remove}" immediate="true"
+					rendered="#{feriadoHome.managed &amp;&amp; rich:isUserInRole('Feriado1_R')}" />
+
+				<s:button id="cancelEdit" value="#{messages['global.cancel']}"
+					propagation="end" view="/private/onbyte/Feriado.xhtml"
+					rendered="#{feriadoHome.managed}" />
+
+				<s:button id="cancelAdd" value="#{messages['global.cancel']}"
+					propagation="end"
+					view="/private/onbyte/#{empty feriadoFrom ? 'FeriadoList' : feriadoFrom}.xhtml"
+					rendered="#{!feriadoHome.managed}" />
+
+			</div>
+			<script type="text/javascript"
+				src="#{request.contextPath}/js/jquery.maskedinput-1.3.min.js" />
+			<script>
+	        inicializar();
+	        function inicializar(){
+	            jQuery(function($){
+	            	$("#feriado\\:dtFeriadoField\\:dtFeriadoInputDate").mask("99/99/9999"); //maskedinput
+	            });
+	        }
+        
+        </script>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

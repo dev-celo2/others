@@ -1,0 +1,550 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+		<style>
+table {
+	border-collapse: collapse;
+	width: 190%;
+	border: 1px solid #ddd;
+}
+
+th,td {
+	border: none;
+	text-align: center;
+	padding: 8px;
+	height: 40px;
+}
+
+.table-hover tbody tr:hover td,.table-hover tbody tr:hover th {
+	background-color: #e6e6e6;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+</style>
+
+
+		<h:form>
+
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading" style="height:51px;">
+					RELATÓRIO PERFIL ALUNOS
+					<a:commandLink styleClass="btn btn-primary" style="float:right; border-color: #74a9d8; border-style: outset; "
+						actionListener="#{relPerfilAluno. setPerfilAlun(null)}"
+						action="#{relPerfilAluno.queryListPerfil('')}"
+						reRender="pnlTblPerfil, btns">
+						<i class="glyphicon glyphicon-erase"/>
+						LIMPAR FILTROS
+					</a:commandLink>
+				</div>
+				<div class="panel-body">
+
+
+
+					<div style="overflow-x: auto;">
+
+						<a:outputPanel id="pnlTblPerfil">
+							<table id="tblPerfil" width="200%"
+								style="text-align: center; text-transform: uppercase; font-size: 11px;"
+								class="table-responsive table-condensed  table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+								<thead>
+									<tr>
+
+										<th style="width: auto !important; text-align: center;">MATRÍCULA
+											<center>
+
+												<div class="col-lg-6" style="float: none;">
+
+													<div class="input-group">
+														<h:inputText styleClass="form-control"
+															style="height:28px; text-transform: uppercase; font-size: 11px;"
+															value="#{relPerfilAluno.perfilAlun.matriculas.codigo}" />
+														<span class="input-group-btn"> <a:commandLink
+																style="height:28px;" styleClass="btn btn-default"
+																actionListener="#{relPerfilAluno.queryListPerfil('')}"
+																reRender="pnlTblPerfil, btns">
+																<i class="glyphicon glyphicon-search" />
+															</a:commandLink>
+														</span>
+													</div>
+
+												</div>
+
+
+
+
+
+											</center>
+
+										</th>
+
+
+										<th style="width: auto; text-align: center;">SIT. CASA
+											<center>
+												<h:selectOneMenu
+													style="width: auto; text-transform: uppercase; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.sitMoradia}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="Moro em casa alugada"
+														itemLabel="ALUGADA" />
+													<f:selectItem itemValue="Mora em casa própria"
+														itemLabel="PRÓRIA" />
+													<f:selectItem itemValue="Moro com familiares"
+														itemLabel="C/ FAMILIARES" />
+													<f:selectItem itemValue="Moro em casa financiada"
+														itemLabel="FINANCIADA" />
+
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+
+										</th>
+
+
+										<th style="width: auto; text-align: center;">AT. FÍSICAS
+											<center>
+												<h:selectOneMenu style="width: auto; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.atFisicas}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="NUNCA" itemLabel="NUNCA" />
+													<f:selectItem itemValue="OCASIONALMENTE"
+														itemLabel="OCASIONALMENTE" />
+													<f:selectItem itemValue="RARAMENTE" itemLabel="RARAMENTE" />
+													<f:selectItem itemValue="SEMPRE" itemLabel="SEMPRE" />
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+
+										</th>
+
+
+										<th style="width: auto; text-align: center;">GÊN. LIVRO
+											<center>
+												<h:selectOneMenu
+													style="width: auto; text-transform: uppercase; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.livro}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="Guerra" itemLabel="Guerra" />
+													<f:selectItem itemValue="Terror" itemLabel="Terror" />
+													<f:selectItem itemValue="Comédia" itemLabel="Comédia" />
+													<f:selectItem itemValue="Ação" itemLabel="Ação" />
+													<f:selectItem itemValue="Romance" itemLabel="Romance" />
+													<f:selectItem itemValue="Aventura" itemLabel="Aventura" />
+													<f:selectItem itemValue="Suspense" itemLabel="Suspense" />
+													<f:selectItem itemValue="Fantasia" itemLabel="Fantasia" />
+													<f:selectItem itemValue="Faroeste" itemLabel="Faroeste" />
+													<f:selectItem itemValue="Animação" itemLabel="Animação" />
+													<f:selectItem itemValue="Policial" itemLabel="Policial" />
+													<f:selectItem itemValue="Ficção" itemLabel="Ficção" />
+													<f:selectItem itemValue="Drama" itemLabel="Drama" />
+													<f:selectItem itemValue="Musical" itemLabel="Musical" />
+													<f:selectItem itemValue="Outra" itemLabel="Outro" />
+
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+										</th>
+
+
+										<th style="width: auto; text-align: center;">INTERNET
+											<center>
+												<h:selectOneMenu
+													style="width: auto; text-transform: uppercase; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.internet}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="Pelo Celular" itemLabel="Celular" />
+													<f:selectItem itemValue="Em Casa" itemLabel="Em Casa" />
+													<f:selectItem itemValue="No trabalho"
+														itemLabel="No Trabalho" />
+													<f:selectItem itemValue="Na escola" itemLabel="Na Escola" />
+													<f:selectItem itemValue="Não tenho acesso" itemLabel="Não Tenho" />
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+
+										</th>
+
+										<th style="width: auto; text-align: center;">TEMPO LIVRE
+											<center>
+												<h:selectOneMenu
+													style="width: auto; text-transform: uppercase; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.tempoLivre}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="INTERNET" itemLabel="INTERNET" />
+													<f:selectItem itemValue="Televisão" itemLabel="TV" />
+													<f:selectItem itemValue="JOGOS" itemLabel="JOGOS" />
+													<f:selectItem itemValue="ESPORTE" itemLabel="ESPORTE" />
+													<f:selectItem itemValue="OUTROS" itemLabel="OUTROS" />
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+
+										</th>
+
+										<th style="width: auto; text-align: center;">FILME
+											<center>
+												<h:selectOneMenu
+													style="width: auto; text-transform: uppercase; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.filme}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="Guerra" itemLabel="Guerra" />
+													<f:selectItem itemValue="Terror" itemLabel="Terror" />
+													<f:selectItem itemValue="Comédia" itemLabel="Comédia" />
+													<f:selectItem itemValue="Ação" itemLabel="Ação" />
+													<f:selectItem itemValue="Romance" itemLabel="Romance" />
+													<f:selectItem itemValue="Aventura" itemLabel="Aventura" />
+													<f:selectItem itemValue="Suspense" itemLabel="Suspense" />
+													<f:selectItem itemValue="Fantasia" itemLabel="Fantasia" />
+													<f:selectItem itemValue="Faroeste" itemLabel="Faroeste" />
+													<f:selectItem itemValue="Animação" itemLabel="Animação" />
+													<f:selectItem itemValue="Policial" itemLabel="Policial" />
+													<f:selectItem itemValue="Ficção" itemLabel="Ficção" />
+													<f:selectItem itemValue="Drama" itemLabel="Drama" />
+													<f:selectItem itemValue="Musical" itemLabel="Musical" />
+													<f:selectItem itemValue="Outro" itemLabel="Outro" />
+
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+
+										</th>
+
+
+										<th style="width: auto; text-align: center;">COR
+											<center>
+												<h:selectOneMenu
+													style="width: auto; text-transform: uppercase; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.cor}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="Vermelho" itemLabel="Vermelho" />
+													<f:selectItem itemValue="Amarelo" itemLabel="Amarelo" />
+													<f:selectItem itemValue="Verde" itemLabel="Verde" />
+													<f:selectItem itemValue="Azul" itemLabel="Azul" />
+													<f:selectItem itemValue="Rosa" itemLabel="Rosa" />
+													<f:selectItem itemValue="Lilás" itemLabel="Lilás" />
+													<f:selectItem itemValue="Branco" itemLabel="Branco" />
+													<f:selectItem itemValue="Preto" itemLabel="Preto" />
+													<f:selectItem itemValue="Pink" itemLabel="Pink" />
+													<f:selectItem itemValue="Outra" itemLabel="Outra" />
+
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+
+										</th>
+
+
+										<th style="width: auto; text-align: center;">TIME CORAÇÃO
+											<center>
+												<h:selectOneMenu
+													style="width: auto; text-transform: uppercase; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.timeFut}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="Não tenho time" itemLabel="Nenhum" />
+													<f:selectItem itemValue="Avaí" itemLabel="Avaí" />
+													<f:selectItem itemValue="Bahia" itemLabel="Bahia" />
+													<f:selectItem itemValue="América Mineiro"
+														itemLabel="América Mineiro" />
+														<f:selectItem itemValue="Atlético Mineiro"
+														itemLabel="Atlético Mineiro" />
+													<f:selectItem itemValue="Atlético Goianiense"
+														itemLabel="Atlético Goianiense" />
+													<f:selectItem itemValue="Vitória Bahia"
+														itemLabel="Vitória Bahia" />
+													<f:selectItem itemValue="Botafogo" itemLabel="Botafogo" />
+													<f:selectItem itemValue="Ceará" itemLabel="Ceará" />
+													<f:selectItem itemValue="Vasco" itemLabel="Vasco" />
+													<f:selectItem itemValue="Coritiba" itemLabel="Coritiba" />
+													<f:selectItem itemValue="Corinthians"
+														itemLabel="Corinthians" />
+														<f:selectItem itemValue="Fluminense"
+														itemLabel="Fluminense" />
+													<f:selectItem itemValue="Chapecoense"
+														itemLabel="Chapecoense" />
+													<f:selectItem itemValue="Figueirense"
+														itemLabel="Figueirense" />
+													<f:selectItem itemValue="Goiás" itemLabel="Goiás" />
+													<f:selectItem itemValue="Sport" itemLabel="Sport" />
+													<f:selectItem itemValue="São Paulo" itemLabel="São Paulo" />
+													<f:selectItem itemValue="Santos" itemLabel="Santos" />
+													<f:selectItem itemValue="Grêmio" itemLabel="Grêmio" />
+													<f:selectItem itemValue="Paraná" itemLabel="Paraná" />
+													<f:selectItem itemValue="Paysandu" itemLabel="Paysandu" />
+													<f:selectItem itemValue="Palmeiras" itemLabel="Palmeiras" />
+													<f:selectItem itemValue="Ponte Preta"
+														itemLabel="Ponte Preta" />
+													<f:selectItem itemValue="Santa Cruz" itemLabel="Santa Cruz" />
+													<f:selectItem itemValue="Joinville" itemLabel="Joinville" />
+													<f:selectItem itemValue="Internacional"
+														itemLabel="Internacional" />
+													<f:selectItem itemValue="Naútico" itemLabel="Naútico" />
+													<f:selectItem itemValue="Juventude" itemLabel="Juventude" />
+													<f:selectItem itemValue="Atlético Paranaense"
+														itemLabel="Atlético Paranaense" />
+													<f:selectItem itemValue="Fortaleza" itemLabel="Fortaleza" />
+													<f:selectItem itemValue="Flamengo" itemLabel="Flamengo" />
+													<f:selectItem itemValue="Cruzeiro" itemLabel="Cruzeiro" />
+													<f:selectItem itemValue="Outro" itemLabel="Outro" />
+
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+
+										</th>
+
+
+										<th style="width: auto; text-align: center;">ESPORTE
+											<center>
+												<h:selectOneMenu
+													style="width: auto; text-transform: uppercase; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.esporte}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="Nenhum" itemLabel="Nenhum" />
+													<f:selectItem itemValue="Futebol" itemLabel="Futebol" />
+													<f:selectItem itemValue="Vôle" itemLabel="Vôlei" />
+													<f:selectItem itemValue="Skate" itemLabel="Skate" />
+													<f:selectItem itemValue="Tênis de Mesa"	itemLabel="Tênis de Mesa" />
+													<f:selectItem itemValue="Natação" itemLabel="Natação" />
+													<f:selectItem itemValue="Futsal" itemLabel="Futsal" />
+													<f:selectItem itemValue="Capoeira" itemLabel="Capoeira" />
+													<f:selectItem itemValue="Judô" itemLabel="Judô" />
+													<f:selectItem itemValue="Basquete" itemLabel="Basquete" />
+													<f:selectItem itemValue="Tênis" itemLabel="Tênis" />
+													<f:selectItem itemValue="Handball" itemLabel="Handball" />
+													<f:selectItem itemValue="Surfe" itemLabel="Surf" />
+													<f:selectItem itemValue="Atletismo" itemLabel="Atletismo" />
+													<f:selectItem itemValue="Outro" itemLabel="Outro" />
+
+
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+
+										</th>
+
+
+										<th style="width: 180px;; text-align: center;">NOVO CURSO
+											APÓS?
+											<center>
+												<h:selectOneMenu style="width: auto; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.aposCurso}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="true" itemLabel="SIM" />
+													<f:selectItem itemValue="false" itemLabel="NÃO" />
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+
+										</th>
+
+
+										<th style="width: auto; text-align: center;">OBTER C/
+											CURSO
+											<center>
+												<h:selectOneMenu
+													style="width: auto; text-transform: uppercase; font-size: 11px;"
+													styleClass="form-control"
+													value="#{relPerfilAluno.perfilAlun.obterCurso}">
+													<f:selectItem itemValue="" itemLabel="" />
+													<f:selectItem itemValue="Sentir-me realizado"
+														itemLabel="REALIZAÇÃO" />
+													<f:selectItem itemValue="Aumentar meus conhecimentos"
+														itemLabel="mAIS CONHECIMENTO" />
+													<f:selectItem itemValue="Conseguir um emprego"
+														itemLabel="EMPREGO" />
+													<f:selectItem
+														itemValue="Melhorar minha posição na empresa em que trabalho"
+														itemLabel="SUBIR DE CARGO" />
+													<f:selectItem itemValue="OUTRO" itemLabel="OUTRO" />
+													<a:support event="onchange"
+														actionListener="#{relPerfilAluno.queryListPerfil('')}"
+														reRender="pnlTblPerfil, btns" />
+												</h:selectOneMenu>
+											</center>
+
+										</th>
+
+
+									</tr>
+								</thead>
+
+
+
+								<tbody class="searchable" id="tbody">
+
+									<c:forEach items="#{relPerfilAluno.listaPerfil}" var="perfil">
+										<tr>
+
+											<td style="width: 400px !important;" class="center"><h:outputText
+													value="#{perfil.matriculas.codigo} - #{abreviarNome.abreviaNome(perfil.matriculas.alunos.nome)}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{perfil.sitMoradia}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{perfil.atFisicas}" /></td>
+
+											<td class="center"><h:outputText value="#{perfil.livro}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{perfil.internet}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{perfil.tempoLivre}" /></td>
+
+											<td class="center"><h:outputText value="#{perfil.filme}" /></td>
+
+											<td class="center"><h:outputText value="#{perfil.cor}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{perfil.timeFut}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{perfil.esporte}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{perfil.aposCurso.equals('true') ? 'SIM' : 'NÃO'}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{perfil.obterCurso}" /></td>
+
+										</tr>
+
+									</c:forEach>
+
+								</tbody>
+
+							</table>
+
+						</a:outputPanel>
+
+					</div>
+
+					<a:outputPanel id="btns">
+						<h:panelGrid columns="3" style="width:100%; text-align:center;">
+
+							<h:outputText styleClass="label label-default"
+								value="#{relPerfilAluno.perfilAluno.maxResults} REGISTROS POR PÁGINA" />
+
+							<h:outputText styleClass="label label-default"
+								value="PÁGINA #{relPerfilAluno.paginaAtual} DE UM TOTAL DE #{relPerfilAluno.perfilAluno.pageCount}" />
+
+							<h:outputText styleClass="label label-default"
+								value="#{relPerfilAluno.perfilAluno.resultCount} REGISTROS ENCONTRADOS" />
+
+						</h:panelGrid>
+
+						<h:panelGrid columns="1"
+							style="width:97%; text-align:center; border:none">
+							<a:outputPanel>
+								<a:commandButton image="/images/primeiro.png"
+									styleClass="btn btn-default" title="PRIMEIRA PÁGINA"
+									rendered="#{relPerfilAluno.perfilAluno.previousExists}"
+									actionListener="#{relPerfilAluno.queryListPerfil('')}"
+									reRender="pnlTblPerfil, btns" />
+
+								<a:commandButton image="/images/anterior.png"
+									styleClass="btn btn-default" title="PÁGINA ANTERIOR"
+									rendered="#{relPerfilAluno.perfilAluno.previousExists}"
+									actionListener="#{relPerfilAluno.queryListPerfil('PRIOR')}"
+									reRender="pnlTblPerfil, btns" />
+
+								<a:commandButton image="/images/proximo.png"
+									styleClass="btn btn-default" title="PRÓXIMA PÁGINA"
+									rendered="#{relPerfilAluno.perfilAluno.nextExists}"
+									actionListener="#{relPerfilAluno.queryListPerfil('NEXT')}"
+									reRender="pnlTblPerfil, btns" />
+
+								<a:commandButton image="/images/ultimo.png"
+									rendered="#{relPerfilAluno.perfilAluno.nextExists}"
+									styleClass="btn btn-default" title="ÚLTIMA PÁGINA"
+									actionListener="#{relPerfilAluno.queryListPerfil('LAST')}"
+									reRender="pnlTblPerfil, btns" />
+							</a:outputPanel>
+						</h:panelGrid>
+
+					</a:outputPanel>
+
+
+				</div>
+				<div class="panel-footer">
+				
+				
+				
+						<center>
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relPerfilAluno.exportarRelatorioPerfilAluno(1)}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/pdf.png" />
+							</h:commandLink>
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relPerfilAluno.exportarRelatorioPerfilAluno(2)}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/excel.png" />
+							</h:commandLink>
+
+
+						</center>
+
+				
+				
+				
+				</div>
+			</div>
+
+
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

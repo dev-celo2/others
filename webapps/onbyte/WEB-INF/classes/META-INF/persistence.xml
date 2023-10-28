@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+
+	<persistence-unit name="mainDatabase" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+<!--		
+
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/onbyte"/>			
+			<property name="hibernate.connection.username" value="postgres"/>
+			<property name="hibernate.connection.password" value="postgres"/> 
+
+--> 		
+		    <property name="hibernate.connection.driver_class" value="org.firebirdsql.jdbc.FBDriver"/>
+			<property name="hibernate.connection.url" value="jdbc:firebirdsql:localhost/3050:C:/Program Files (x86)/SistemaEscola/webapps/onbyte/banco.fdb"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.FirebirdDialect"/>
+			<property name="hibernate.connection.username" value="c78354f4adc210798096ec7294d6db75"/>
+			<property name="hibernate.connection.password" value="7031cb2cc2136867b7991f96ac4425a20284045c0f8abeeb"/>
+			
+			<property name="jboss.entity.manager.factory.jndi.name"  value="java:/EntityManagerFactories/mainData"/>
+			
+			 
+			<!-- C3P0 connection pool. -->
+            <property name="hibernate.c3p0.timeout" value="2400"/>
+            <!--property name="hibernate.c3p0.acquire_increment" value="1"/-->
+            <!--  property name="hibernate.c3p0.max_statements" value="30"/-->
+            <property name="hibernate.c3p0.max_size" value="30"/>  
+            <property name="hibernate.c3p0.min_size" value="3"/> 
+            <!--property name="hibernate.c3p0.idle_test_period" value="60"/-->
+            
+           
+            
+          
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.EhCacheProvider"/>
+			<property name="hibernate.cache.provider_configuration_file_resource_path" value="/ehcache.xml"/>	
+			
+				  		
+		</properties>
+	</persistence-unit>
+	
+	
+	<persistence-unit name="mainDatabase2" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+<!--		
+
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/onbyte"/>			
+			<property name="hibernate.connection.username" value="postgres"/>
+			<property name="hibernate.connection.password" value="postgres"/> 
+
+--> 		
+		    <property name="hibernate.connection.driver_class" value="org.firebirdsql.jdbc.FBDriver"/>
+			<property name="hibernate.connection.url" value="jdbc:firebirdsql:redirect.grupooportunidade.com.br/3050:C:/Program Files (x86)/SistemaInterno/webapps/onbyteInterno/Moniloc.fdb"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.FirebirdDialect"/>
+			<property name="hibernate.connection.username" value="08e02a9252d55861acecae29c75071d79657c5f6d0fbd881"/>
+			<property name="hibernate.connection.password" value="1c2f6298da926e237e73836bd4109e44676812890e4a9a2f"/>
+			
+			<property name="jboss.entity.manager.factory.jndi.name"  value="java:/EntityManagerFactories/mainData"/>
+			
+			 
+			<!-- C3P0 connection pool. -->
+            <property name="hibernate.c3p0.timeout" value="2400"/>
+            <!--property name="hibernate.c3p0.acquire_increment" value="1"/-->
+            <!--  property name="hibernate.c3p0.max_statements" value="30"/-->
+            <property name="hibernate.c3p0.max_size" value="30"/>  
+            <property name="hibernate.c3p0.min_size" value="3"/> 
+            <!--property name="hibernate.c3p0.idle_test_period" value="60"/-->
+            
+           
+            
+          
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.cache.provider_class" value="net.sf.ehcache.hibernate.EhCacheProvider"/>
+			<property name="hibernate.cache.provider_configuration_file_resource_path" value="/ehcache.xml"/>	
+			
+				  		
+		</properties>
+	</persistence-unit>
+	
+
+
+
+</persistence>

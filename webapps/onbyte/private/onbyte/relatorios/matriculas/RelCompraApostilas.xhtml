@@ -1,0 +1,155 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<link rel="stylesheet" type="text/css"
+			href="#{request.contextPath}/css/buttons.css" />
+
+		<a:form id="relCompraApostilasSearch" styleClass="edit">
+
+
+			<p:panel header="#{messages['menu.RelCompraApostilas1']}"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:50px">
+					<h:panelGrid style="margin: 0px auto; width: 30%" columns="3"
+						id="pgFiltros">
+
+						<p:panel style="width:455px; height:30px;" id="pnDatas">
+							<h:panelGroup>
+								<s:span style=" font-weight:bold;">Data Inicial: </s:span>
+								<rich:calendar id="dataInicial" inputSize="10"
+									enableManualInput="true"
+									value="#{relCompraApostilas.dataInicial}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+
+							<h:panelGroup>
+								<s:span style="font-weight: bold;">Data Final: </s:span>
+								<rich:calendar id="dataFinal" inputSize="10"
+									enableManualInput="true"
+									value="#{relCompraApostilas.dataFinal}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+
+							<p:commandButton id="botaoFiltrar"
+								value="#{messages['global.bntFilrar']}" image="localizar"
+								style="width:100px; margin: 0; height:19px;"
+								onclick="filtrar();" />
+
+							<a:jsFunction name="filtrar"
+								reRender="relCompraApostilas, botaoFiltrar, tablerelCompraApostilas "
+								limitToList="true" oncomplete="inicializar();"
+								actionListener="#{relCompraApostilas.listarCompraApostilas}">
+							</a:jsFunction>
+
+						</p:panel>
+
+					</h:panelGrid>
+				</p:panel>
+
+
+
+
+
+
+				<p:panel id="relCompraApostilas"
+					header="#{messages['relCompraApostilas.apostilas']} #{messages['global.searchResults']}: #{empty relCompraApostilas.listCompraApostilas ? 0 : relCompraApostilas.listCompraApostilas.size}">
+
+					<p:dataTable emptyMessage="#{messages['global.naoHaDados']}"
+						id="tablerelCompraApostilas" var="_apostilas"
+						paginatorPosition="bottom" rows="12" paginator="true"
+						rowsPerPageTemplate="12,18"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="true" selectionMode="single" style="text-align:center;"
+						value="#{relCompraApostilas.listCompraApostilas}">
+						<p:column>
+							<f:facet name="header">#{messages['itemPedido.cursos']}</f:facet>
+							<h:outputText value="#{_apostilas.descricao}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['pedidoHome.estoque']}</f:facet>
+							<h:outputText value="#{_apostilas.qtd_apostila}" />
+						</p:column>
+						<p:column rendered="false">
+							<f:facet name="header">#{messages['relCompraApostilas.necessidade']}</f:facet>
+							<h:outputText value="#{_apostilas.necessidade}" />
+						</p:column>
+						<p:column rendered="false">
+							<f:facet name="header">#{messages['relCompraApostilas.sugestao']}</f:facet>
+							<h:outputText value="#{_apostilas.sugestaoCompra}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relCompraApostilas.aluAguardado']}</f:facet>
+							<h:outputText value="#{_apostilas.aluAguardado}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['relCompraApostilas.compImediata']}</f:facet>
+							<h:outputText value="#{_apostilas.compImediata}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['relCompraApostilas.prevFutura']}</f:facet>
+							<h:outputText value="#{_apostilas.prevFutura}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['relCompraApostilas.compraFutura']}</f:facet>
+							<h:outputText value="#{_apostilas.compraFutura}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['relCompraApostilas.totalComprar']}</f:facet>
+							<h:outputText value="#{_apostilas.totalComprar}" />
+						</p:column>
+						<p:column rendered="false">
+							<f:facet name="header">#{messages['relCompraApostilas.inicioPrevisto']}</f:facet>
+							<h:outputText value="#{_apostilas.dtInicioPrevisto}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+
+					<div class="panel-footer">
+						<div style="float: right; margin-right: 10px;">
+							<h:commandLink limitToList="true"
+								actionListener="#{relCompraApostilas.exportarRelatorioPDF}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/pdf.png" />
+							</h:commandLink>
+							<h:commandLink limitToList="true"
+								actionListener="#{relCompraApostilas.exportarRelatorioExcel}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/excel.png" />
+							</h:commandLink>
+						</div>
+
+						<div style="margin-left: 10px;">
+							<h:commandButton value="Ir para Pedidos Apostila"
+								styleClass="botao azul" style="border-radius: 4px;"
+								action="#{relCompraApostilas.redirecionar('/private/onbyte/PedidoList')}" />
+						</div>
+					</div>
+
+
+				</p:panel>
+
+			</p:panel>
+
+
+		</a:form>
+	</ui:define>
+</ui:composition>

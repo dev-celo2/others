@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd">
+   
+	 <navigation from-action="#{identity.login}">
+	 	<rule if="#{authenticatorAction.user==null}" >
+             <redirect view-id="/index.xhtml"/>           
+        </rule>
+	    <rule if="#{identity.loggedIn and authenticatorAction.user==null}" >
+             <redirect view-id="/private/onbyte/SetFuncionario.jsf"/>
+        </rule>
+		<rule if="#{identity.loggedIn and  !authenticatorAction.finalizandoMatricula}" >
+			<redirect view-id="/index.xhtml">
+				<param name="user.id" value="#{user.id}"/> 
+			</redirect>
+		</rule>
+		
+	</navigation>
+	
+	<navigation from-action="#{authenticatorAction.setFuncionario}">
+        <rule if-outcome="funcionarioSet">
+            <end-conversation />
+            <redirect view-id="/index.xhtml" />
+        </rule>
+    </navigation>  
+</page>

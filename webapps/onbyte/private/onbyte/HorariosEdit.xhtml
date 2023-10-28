@@ -1,0 +1,161 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="horarios" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{horariosHome.managed ? messages['global.edit'] : messages['global.insert']} Horarios</f:facet>
+
+
+            <s:decorate id="codigoField" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['horarios.codigo']}</ui:define>
+                <h:inputText id="codigo"
+                       required="true"
+                       disabled="#{horariosHome.managed}"
+                          value="#{horariosHome.instance.codigo}">
+                    <a:support event="onblur" reRender="codigoField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="diasemanaField" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['horarios.diasemana']}</ui:define>
+                <h:inputText id="diasemana"
+                           size="7"
+                      maxlength="7"
+                          value="#{horariosHome.instance.diasemana}">
+                    <a:support event="onblur" reRender="diasemanaField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="inicioField" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['horarios.inicio']}</ui:define>
+                <h:inputText id="inicio"
+                           size="5"
+                      maxlength="5"
+                          value="#{horariosHome.instance.inicio}">
+                    <a:support event="onblur" reRender="inicioField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="final_Field" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['horarios.final']}</ui:define>
+                <h:inputText id="final_"
+                           size="5"
+                      maxlength="5"
+                          value="#{horariosHome.instance.final_}">
+                    <a:support event="onblur" reRender="final_Field" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <s:decorate id="lab1Field" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['horarios.lab1']}</ui:define>
+                <h:inputText id="lab1"
+                           size="1"
+                      maxlength="1"
+                          value="#{horariosHome.instance.lab1}">
+                    <a:support event="onblur" reRender="lab1Field" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="lab2Field" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['horarios.lab2']}</ui:define>
+                <h:inputText id="lab2"
+                           size="1"
+                      maxlength="1"
+                          value="#{horariosHome.instance.lab2}">
+                    <a:support event="onblur" reRender="lab2Field" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="lab3Field" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['horarios.lab3']}</ui:define>
+                <h:inputText id="lab3"
+                           size="1"
+                      maxlength="1"
+                          value="#{horariosHome.instance.lab3}">
+                    <a:support event="onblur" reRender="lab3Field" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="lab4Field" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['horarios.lab4']}</ui:define>
+                <h:inputText id="lab4"
+                           size="1"
+                      maxlength="1"
+                          value="#{horariosHome.instance.lab4}">
+                    <a:support event="onblur" reRender="lab4Field" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="lab5Field" template="layout/edit.xhtml">
+                <ui:define name="label">#{messages['horarios.lab5']}</ui:define>
+                <h:inputText id="lab5"
+                           size="1"
+                      maxlength="1"
+                          value="#{horariosHome.instance.lab5}">
+                    <a:support event="onblur" reRender="lab5Field" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                #{messages['global.requiredField']}
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="#{messages['global.save']}"
+                         action="#{horariosHome.persist}"
+                       disabled="#{!horariosHome.wired}"
+                       rendered="#{!horariosHome.managed}"/>
+
+            <h:commandButton id="update"
+                          value="#{messages['global.save']}"
+                         action="#{horariosHome.update}"
+                       rendered="#{horariosHome.managed}"/>
+
+            <h:commandButton id="delete"
+                          value="#{messages['global.delete']}" onclick="return confirm('#{messages['global.confirmDelete']}')"
+                         action="#{horariosHome.remove}"
+                      immediate="true"
+                       rendered="#{horariosHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="#{messages['global.cancel']}"
+             propagation="end"
+                    view="/private/onbyte/Horarios.xhtml"
+                rendered="#{horariosHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="#{messages['global.cancel']}"
+             propagation="end"
+                    view="/private/onbyte/#{empty horariosFrom ? 'HorariosList' : horariosFrom}.xhtml"
+                rendered="#{!horariosHome.managed}"/>
+
+        </div>
+    </h:form>
+</ui:define>
+
+</ui:composition>

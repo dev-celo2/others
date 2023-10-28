@@ -1,0 +1,232 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="movcaixaSearch" styleClass="edit">
+
+        <rich:simpleTogglePanel label="Movcaixa #{messages['global.searchFilter']}" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Hora</ui:define>
+                <h:inputText id="hora" value="#{movcaixaList.movcaixa.id.hora}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Codbol</ui:define>
+                <h:inputText id="codbol" value="#{movcaixaList.movcaixa.codbol}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Descricao</ui:define>
+                <h:inputText id="descricao" value="#{movcaixaList.movcaixa.descricao}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Tipo</ui:define>
+                <h:inputText id="tipo" value="#{movcaixaList.movcaixa.tipo}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['global.match']}</ui:define>
+                <h:selectOneRadio id="logic" value="#{movcaixaList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="#{messages['global.all']}" itemValue="and"/>
+                    <f:selectItem itemLabel="#{messages['global.any']}" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:simpleTogglePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['global.search']}" action="/private/onbyte/MovcaixaList.xhtml"/>
+            <s:button id="reset" value="#{messages['global.clear']}" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">Movcaixa #{messages['global.searchResults']} (#{empty movcaixaList.resultList ? 0 : (movcaixaList.paginated ? movcaixaList.resultCount : movcaixaList.resultList.size)})</f:facet>
+    <div class="results" id="movcaixaList">
+
+    <h:outputFormat value="#{messages['global.NoSearchResults']}"
+               rendered="#{empty movcaixaList.resultList}"/>
+
+    <rich:dataTable id="movcaixaList" onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                var="_movcaixa"
+              value="#{movcaixaList.resultList}"
+           rendered="#{not empty movcaixaList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Caixa"/>
+                    <ui:param name="propertyPath" value="movcaixa.id.caixa"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movcaixa.id.caixa}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Hora"/>
+                    <ui:param name="propertyPath" value="movcaixa.id.hora"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movcaixa.id.hora}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Caixas numero"/>
+                    <ui:param name="propertyPath" value="movcaixa.caixas.numero"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movcaixa.caixas.numero}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Codbol"/>
+                    <ui:param name="propertyPath" value="movcaixa.codbol"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movcaixa.codbol}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Descricao"/>
+                    <ui:param name="propertyPath" value="movcaixa.descricao"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movcaixa.descricao}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Funcionarios codigo"/>
+                    <ui:param name="propertyPath" value="movcaixa.funcionarios.codigo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movcaixa.funcionarios.codigo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Planocontas codigo"/>
+                    <ui:param name="propertyPath" value="movcaixa.planocontas.codigo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movcaixa.planocontas.codigo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Tipo"/>
+                    <ui:param name="propertyPath" value="movcaixa.tipo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movcaixa.tipo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Valor"/>
+                    <ui:param name="propertyPath" value="movcaixa.valor"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movcaixa.valor}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">#{messages['global.action']}</f:facet>
+            <s:link view="/private/onbyte/#{empty from ? 'Movcaixa' : from}.xhtml"
+                   value="#{empty from ? messages['global.view'] : messages['global.select']}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="movcaixaViewId">
+                <f:param name="movcaixaCaixa"
+                        value="#{_movcaixa.id.caixa}"/>
+                <f:param name="movcaixaHora"
+                        value="#{_movcaixa.id.hora}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/private/onbyte/MovcaixaEdit.xhtml"
+                   value="#{messages['global.edit']}"
+             propagation="none"
+                      id="movcaixaEdit"
+                rendered="#{empty from}">
+                <f:param name="movcaixaCaixa"
+                        value="#{_movcaixa.id.caixa}"/>
+                <f:param name="movcaixaHora"
+                        value="#{_movcaixa.id.hora}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/private/onbyte/MovcaixaList.xhtml"
+            rendered="#{movcaixaList.previousExists}"
+               value="#{messages.left}#{messages.left} #{messages['global.firstPage']}"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/MovcaixaList.xhtml"
+            rendered="#{movcaixaList.previousExists}"
+               value="#{messages.left} #{messages['global.previousPage']}"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{movcaixaList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/MovcaixaList.xhtml"
+            rendered="#{movcaixaList.nextExists}"
+               value="#{messages['global.nextPage']} #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{movcaixaList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/MovcaixaList.xhtml"
+            rendered="#{movcaixaList.nextExists}"
+               value="#{messages['global.lastPage']} #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{movcaixaList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/private/onbyte/MovcaixaEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="#{messages['global.create']} movcaixa">
+            <f:param name="movcaixaCaixa"/>
+            <f:param name="movcaixaHora"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

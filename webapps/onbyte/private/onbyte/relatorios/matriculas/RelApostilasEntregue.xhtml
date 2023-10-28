@@ -1,0 +1,134 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+		<h:form id="relApostilasEntregueSearch" styleClass="edit">
+
+
+			<p:panel header="#{messages['relApostilasEntregue.title']}"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:60px">
+					<h:panelGrid style="margin: 0px auto; width: 50%" columns="3"
+						id="pgFiltros">
+
+						<p:panel style="width:370px; height:30px;" id="pnDatas">
+
+							<h:panelGroup>
+								<s:span style=" font-weight:bold;">Data Inicial: </s:span>
+								<rich:calendar id="dataInicial" inputSize="10"
+									enableManualInput="true"
+									value="#{relApostilasEntregue.dataInicial}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+
+							<h:panelGroup>
+								<s:span style="font-weight: bold;">Data Final: </s:span>
+								<rich:calendar id="dataFinal" inputSize="10"
+									enableManualInput="true"
+									value="#{relApostilasEntregue.dataFinal}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+
+							<a:jsFunction name="filtrar" reRender="relApostilasEntregue"
+								limitToList="true" oncomplete="inicializar();" >
+								<f:setPropertyActionListener
+									target="#{relApostilasEntregue.curMatri}" value="#{null}" />
+							</a:jsFunction>
+
+						</p:panel>
+						<p:panel style="width:300px ;"> 
+							<h:panelGrid columns="2">
+								<h:selectOneRadio value="#{relApostilasEntregue.tipoApostila}">
+									<f:selectItem
+										itemValue="#{messages['matriculasHome.tipoApostila']}"
+										itemLabel="#{messages['matriculasHome.tipoApostila']}" />
+									<f:selectItem itemValue="DIGITAL" itemLabel="DIGITAL" />
+									<a:support event="onchange" reRender="pnlRel, relApostilasEntregue" />
+								</h:selectOneRadio>
+
+								<p:commandButton value="#{messages['global.bntFilrar']}"
+									image="localizar" style="width:100px; margin: 0;"
+									onclick="filtrar();" />
+							</h:panelGrid>
+						</p:panel>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:panel id="relApostilasEntregue"
+					header="#{messages['relApostilasEntregue.title']}: #{empty relApostilasEntregue.curMatri ? 0 : relApostilasEntregue.curMatri.size}">
+
+					<p:dataTable emptyMessage="#{messages['global.naoHaDados']}"
+						id="tablerelApostilasEntregue" var="_curMatri"
+						paginatorPosition="bottom" rows="12" paginator="true"
+						rowsPerPageTemplate="12,18"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="true" selectionMode="single" style="text-align:center;"
+						value="#{relApostilasEntregue.curMatri}">
+						
+						<p:column>
+							<f:facet name="header">#{messages['matriculas.codigo']}</f:facet>
+							<h:outputText value="#{_curMatri.matriculas.codigo}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+							<h:outputText value="#{_curMatri.matriculas.alunos.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['cursos.descricao']}</f:facet>
+							<h:outputText value="#{_curMatri.cursos.descricao}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['curMatri.dataEntregaApostila']}</f:facet>
+							<h:outputText value="#{_curMatri.dataEntregaApostila}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['mensalidades.funcionario']}</f:facet>
+							<h:outputText
+								value="#{_curMatri.funcionarioEntregaApostila.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['curMatri.apostilaReEntregue']}</f:facet>
+							<h:outputText
+								value="#{combos.getSimNaoAbr().get(_curMatri.apostilaReEntregue)}" />
+						</p:column>
+					</p:dataTable>
+
+					<h:panelGrid columns="3">
+						<s:div styleClass="actionButtons" rendered="#{empty from}">
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relApostilasEntregue.exportarRelatorioPDF}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/pdf.png" />
+							</h:commandLink>
+
+							<h:commandLink limitToList="true" 
+								actionListener="#{relApostilasEntregue.exportarRelatorioExcel}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/excel.png" />
+							</h:commandLink>
+
+						</s:div>
+					</h:panelGrid>
+
+				</p:panel>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

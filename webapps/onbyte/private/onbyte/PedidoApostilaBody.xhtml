@@ -1,0 +1,122 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<a:form id="inserir_cursos" styleClass="edit" ajaxSubmit="true">
+		<p:panel>
+			<h:inputHidden id="scrollPos" value="#{defaultBean.scrollPosCurso}" />
+			<s:label styleClass="name" style="white-space: nowrap;">
+	            #{messages['global.pesquisaCaracteres']}:
+	            <s:span styleClass="required" rendered="#{required}">*</s:span>
+			</s:label>
+			<h:inputText id="pesquisacurso" value="#{defaultBean.pesquisacurso}"
+				autocomplete="false" style="text-transform:uppercase; width:513px;">
+				<a:support event="onkeyup" reRender="cursosList,scrollPos"
+					oncomplete="scrollPosCurso()" ajaxSingle="true"
+					bypassUpdates="false" requestDelay="100" ignoreDupResponses="true"
+					limitToList="true" />
+				<f:converter converterId="convertToUpper" />
+			</h:inputText>
+
+
+			<rich:extendedDataTable
+				noDataLabel="#{messages['global.naoHaDados']}"
+				value="#{defaultBean.itensPedidoNew}" var="_cursos" height="250px"
+				 enableContextMenu="false"
+				selection="#{defaultBean.selectionCurso}" id="cursosList">
+				<a:support event="onselectionchange"
+					actionListener="#{defaultBean.selectionListenerCurso}"
+					ajaxSingle="true" bypassUpdates="false" limitToList="true">
+				</a:support>
+
+				<c:if test="#{defaultBean.cursosPesquisaPor.equals('2')}">
+					<rich:column width="280px">
+						<f:facet name="header">#{messages['cursos.descricao']}</f:facet>
+						<h:outputText value="#{_cursos.cursos.descricao}" />
+					</rich:column>
+					<rich:column width="60px">
+						<f:facet name="header">#{messages['cursos.codigo']}</f:facet>
+						<h:outputText value="#{_cursos.cursos.codigo}" />
+					</rich:column>
+				</c:if>
+				<c:if test="#{defaultBean.cursosPesquisaPor.equals('1')}">
+					<rich:column width="60px">
+						<f:facet name="header">#{messages['cursos.codigo']}</f:facet>
+						<h:outputText value="#{_cursos.cursos.codigo}" />
+					</rich:column>
+					<rich:column width="280px">
+						<f:facet name="header">#{messages['cursos.descricao']}</f:facet>
+						<h:outputText value="#{_cursos.cursos.descricao}" />
+					</rich:column>
+				</c:if>
+				<rich:column width="60px">
+					<f:facet name="header">#{messages['pedidoHome.estoque']}</f:facet>
+					<h:outputText value="#{_cursos.cursos.qtd_apostila}"
+						style="float: right;" />
+				</rich:column>
+				<rich:column width="80px">
+					<f:facet name="header">#{messages['itemPedido.qtdItemPedido']}</f:facet>
+					<h:inputText styleClass="flat" id="qtdItemPedido"
+						value="#{_cursos.qtdItemPedido}" size="5" style="font-size: 11px;">
+						<f:convertNumber maxFractionDigits="0" minFractionDigits="0" />
+					</h:inputText>
+				</rich:column>
+				<rich:column width="60px">
+					<f:facet name="header">#{messages['pedidoHome.estoque']}</f:facet>
+					<h:outputText value="#{_cursos.cursos.qtd_apostila_dig}"
+						style="float: right;" />
+				</rich:column>
+				<rich:column width="105px">
+					<f:facet name="header">#{messages['itemPedido.qtdItemPedido']} Dig.</f:facet>
+					<h:inputText styleClass="flat" id="qtdItemDigital"
+						value="#{_cursos.qtdItemDigital}" size="5" style="font-size: 11px;">
+						<f:convertNumber maxFractionDigits="0" minFractionDigits="0" />
+					</h:inputText>
+				</rich:column>
+			</rich:extendedDataTable>
+			<s:label styleClass="name" style="white-space: nowrap; width:100%">#{messages['global.pesquisaPor']}:</s:label>
+			<h:selectOneMenu value="#{defaultBean.cursosPesquisaPor}"
+				style="width:515px;">
+				<f:selectItem itemValue="1" itemLabel="#{messages['cursos.codigo']}" />
+				<f:selectItem itemValue="2"
+					itemLabel="#{messages['cursos.descricao']}" />
+				<a:support event="onchange" reRender="cursosList" ajaxSingle="true"
+					bypassUpdates="false" limitToList="true" />
+			</h:selectOneMenu>
+		</p:panel>
+		<center>
+			<p:panel>
+				<p:commandButton value="#{messages['global.ok']}" image="confirma"
+					style="width:100px; height:25px;" onclick="okCurso();"/>
+
+				<p:commandButton value="#{messages['global.cancel']}"
+					style="width:100px; height:25px;" image="excluir"
+					onclick="Richfaces.hideModalPanel('BuscarCursoPanel'); return false;" />
+					
+				<a:jsFunction name="okCurso" reRender="#{id_render}"
+					limitToList="true" process="@form"
+					oncomplete="if(data.length==0){Richfaces.hideModalPanel('BuscarCursoPanel');} "
+					actionListener="#{defaultBean.incluirItens}"
+					data="#{defaultBean.messageRetornoAjax}"
+					onbeforedomupdate="showMessageRetorno(data)">
+					<s:conversationId />
+				</a:jsFunction>
+
+
+			</p:panel>
+		</center>
+	</a:form>
+	<script>
+		function scrollPosCurso(){
+			document.getElementById('inserir_cursos:cursosList:sd').scrollTop=23*eval(document.getElementById('inserir_cursos:scrollPos').value);
+		}
+	</script>
+</ui:composition>

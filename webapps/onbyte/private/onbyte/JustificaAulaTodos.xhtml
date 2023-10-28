@@ -1,0 +1,291 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+		<h:form>
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-ok" /> JUSTIFICAR FALTAS
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<a:outputPanel id="abaFreqTodos">
+
+							<table width="100%"
+								class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+
+								<tr>
+									<th class="center" width="30%"><div class="input-group">
+											<span class="input-group-addon" id="basic-addon1">POR PERÍODO</span>
+											<h:selectOneMenu styleClass="form-control"
+												value="#{justificaFaltaTodosAction.periodo}" 
+												style="height:34px;font-size:12px; text-align:center;">
+												<f:selectItem itemLabel="SIM" itemValue="SIM" />
+												<f:selectItem itemLabel="NÃO" itemValue="NÃO" />
+												<a:support event="onchange" reRender="periodo" />
+											</h:selectOneMenu>
+										</div></th>
+
+									<th class="center">  <h:panelGrid width="100%" columns="2" id="periodo"
+											>
+
+											<a:outputPanel>
+
+												<div class="input-group" style="width: 95%">
+													<span class="input-group-addon" id="basic-addon1">#{justificaFaltaTodosAction.periodo.equals('SIM')
+														? 'DATA INICIAL' : 'DATA'}</span>
+													<h:inputText styleClass="datepicker form-control"
+														value="#{justificaFaltaTodosAction.data}"
+														style="width:95%;">
+													</h:inputText>
+												</div>
+
+												<script>
+
+											 $(".datepicker").datepicker({
+
+											 changeMonth: true,
+											 changeYear:true,
+											 dateFormat: 'dd/mm/yy',
+											 dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+											 dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+											 dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+											 monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+											 monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+											 nextText: 'Próximo',
+											 prevText: 'Anterior',
+																						 
+																						   
+																						   
+											});
+
+											</script>
+
+											</a:outputPanel>
+
+											<a:outputPanel
+												rendered="#{justificaFaltaTodosAction.periodo.equals('SIM')}">
+
+												<div class="input-group" style="width: 95%">
+													<span class="input-group-addon" id="basic-addon1">DATA
+														FINAL</span>
+													<h:inputText styleClass="datepicker2 form-control"
+														value="#{justificaFaltaTodosAction.dataFinal}"
+														style="width:95%;">
+													</h:inputText>
+												</div>
+
+												<script>
+
+											 $(".datepicker2").datepicker({
+
+											 changeMonth: true,
+											 changeYear:true,
+											 dateFormat: 'dd/mm/yy',
+											 dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+											 dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+											 dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+											 monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+											 monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+											 nextText: 'Próximo',
+											 prevText: 'Anterior',
+																						 
+																						   
+																						   
+											});
+
+											</script>
+
+											</a:outputPanel>
+
+
+
+										</h:panelGrid></th>
+								</tr>
+							</table>
+
+
+							<table width="100%"
+								class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+
+								<tr>
+
+
+
+
+									<th class="center"><div class="input-group"
+											style="width: 95%">
+											<span class="input-group-addon" id="basic-addon1">HORA
+												INICIAL</span>
+											<p:inputMask mask="99:99" styleClass="form-control"
+												value="#{justificaFaltaTodosAction.horaInicio}" />
+										</div></th>
+
+									<th class="center">
+
+										<div class="input-group" style="width: 95%">
+											<span class="input-group-addon" id="basic-addon1">HORA
+												FINAL</span>
+											<p:inputMask mask="99:99" styleClass="form-control"
+												value="#{justificaFaltaTodosAction.horaFinal}" />
+										</div>
+
+									</th>
+									
+									
+									<th class="center">
+
+										<div class="input-group" style="width: 95%">
+											<span class="input-group-addon" id="basic-addon1">MOTIVO</span>
+											<h:inputText  styleClass="form-control"
+												value="#{justificaFaltaTodosAction.motivo}" />
+										</div>
+
+									</th>
+
+
+
+
+
+								</tr>
+
+
+							</table>
+
+							<div class="well">
+								<center>
+									<a:commandLink style="width: 150px; height:35px;"
+										styleClass="btn btn-success" reRender="abaFreqTodos, msgGlobal"
+										actionListener="#{justificaFaltaTodosAction.justificarTodos}">JUSTIFICAR <i
+											class="glyphicon glyphicon-ok" />
+									</a:commandLink>
+								</center>
+							</div>
+
+							<rich:separator height="2" />
+							<p />
+
+
+							<table width="100%" id="tblFreq"
+								style="text-align: center; text-transform: uppercase;"
+								class="table-responsive table-condensed table-striped tbody table-bordered bootstrap-datatable datatable table-hover">
+								<thead>
+									<tr>
+										<th style="text-align: center;">DATA</th>
+										<th style="text-align: center;">MATRÍCULA <i
+											class="glyphicon glyphicon-sort" /></th>
+										<th style="text-align: center;">ALUNO <i
+											class="glyphicon glyphicon-sort" /></th>
+										<th style="text-align: center;">INICIO <i
+											class="glyphicon glyphicon-sort" /></th>
+										<th style="text-align: center;">FINAL <i
+											class="glyphicon glyphicon-sort" /></th>
+										<th style="text-align: center;">TIPO <i
+											class="glyphicon glyphicon-sort" /></th>
+										<th style="text-align: center;">STATUS</th>
+
+
+									</tr>
+								</thead>
+
+
+								<tbody class="searchable" id="tbody">
+
+									<c:forEach items="#{justificaFaltaTodosAction.frequenciasList}"
+										var="freq">
+										<tr>
+
+											<td class="center"><h:outputText value="#{freq.id.data}" /></td>
+											<td class="center"><h:outputText
+													value="#{freq.id.matricula}" /></td>
+											<td class="center"><h:outputText
+													value="#{freq.matriculas.alunos.nome}" /></td>
+											<td class="center"><h:outputText
+													value="#{freq.horarios.inicio}" /></td>
+											<td class="center"><h:outputText
+													value="#{freq.horarios.final_}" /></td>
+											<td class="center"><h:outputText value="#{freq.tipo}" /></td>
+											<td class="center"><h:outputText
+													styleClass="label label-info"
+													value="#{freq.presente.equals('J') ? 'JUSTIFICADO' : ''}" /></td>
+
+
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+
+
+
+							<script>	
+
+			$(document).ready(function() {
+			    $('#tblFreq').DataTable( {
+				    
+			        "language": {
+			        	"sEmptyTable": "Sem REGISTROS",
+			            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+			            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+			            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+			            "sInfoPostFix": "",
+			            "sInfoThousands": ".",
+			            "sLengthMenu": "_MENU_ resul. por pág.",
+			            "sLoadingRecords": "Carregando...",
+			            "sProcessing": "Processando...",
+			            "sZeroRecords": "Nenhum registro encontrado",
+			            "sSearch": "Pesquisar",
+			            "oPaginate": {
+			                "sNext": "Próximo",
+			                "sPrevious": "Anterior",
+			                "sFirst": "Primeiro",
+			                "sLast": "Último"
+			            },
+			            "oAria": {
+			                "sSortAscending": ": Ordenar colunas de forma ascendente",
+			                "sSortDescending": ": Ordenar colunas de forma descendente"
+			            }
+			        }
+			    } );
+
+             
+
+					} );
+			
+
+	</script>
+
+
+						</a:outputPanel>
+
+						<p />
+
+					</div>
+
+				</div>
+			</div>
+
+			<p />
+
+
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,225 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+	<a:form id="relMediaPorMatricula" styleClass="edit">
+			<p:panel header="#{messages['relMediaPorMatricula.title']}"
+				style="width:99.5%">
+
+				<p:panel style="width:99.5%;">
+					<h:panelGrid columns="4" id="pgFiltros" style="margin: 0px auto; width: 50%">
+						<h:panelGrid columns="2">
+						
+							<p:panel style="width:350px; height:60px; border: none">
+								<h:panelGrid columns="30">
+								
+									<label for="ex1">ALUNO<span
+										style="color: red;"> *</span></label>
+									<table style="width: 100%" >
+										<thead>
+											<tr>
+	
+												<td><h:selectOneMenu id="alunosField2"
+													styleClass="form-control"
+													value="#{relMediaPorMatricula.alunoCodigo}"
+													required="true"
+													style="width:330px; height:34px; font-size:12px; text-align:center;">
+													<f:selectItem itemLabel="TODOS" itemValue="0" />
+													<f:selectItems itemLabelEscaped="true"
+														value="#{relMediaPorMatricula.alunosList}" var="_alunos"
+														itemValue="#{_alunos.codigo}"
+														itemLabel="#{_alunos.nome}" />
+														<a:support event="onchange" limitToList="true" bypassUpdates="false"
+														ajaxSingle="true" />
+												</h:selectOneMenu></td>
+											</tr>
+										</thead>
+									</table>
+	
+								</h:panelGrid>
+							</p:panel>
+	
+	
+							<p:panel style="width:350px; height:60px; border: none">
+								<h:panelGrid style="width:100%;" columns="5">
+								
+									<label for="ex1">MÓDULO<span
+										style="color: red;"> *</span></label>
+									<table style="width: 100%">
+										<thead>
+											<tr>
+												<td><h:selectOneMenu id="modulosselect"
+													styleClass="form-control"
+													value="#{relMediaPorMatricula.moduloCodigo}"
+													required="true"
+													style="width:330px; text-align:center; font-size:12px; height:34px;">
+													<f:selectItem itemLabel="TODOS" itemValue="0" />
+													<f:selectItems itemLabelEscaped="true"
+														value="#{relMediaPorMatricula.listModulos}" var="_modulos"
+														itemValue="#{_modulos.codigo}"
+														itemLabel="#{_modulos.descricao}" />
+														<a:support event="onchange" limitToList="true" bypassUpdates="false"
+														ajaxSingle="true" />
+												</h:selectOneMenu></td>
+											</tr>
+										</thead>
+									</table>
+									
+								</h:panelGrid>
+							</p:panel>
+						</h:panelGrid>
+						
+						<p:panel style="width:350px; height:60px; border: none">
+							<h:panelGrid style="width:100%; text-align:center;" columns="2">
+							
+								<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relMatCanceladas.status']}:</s:span>
+								<h:selectOneRadio value="#{relMediaPorMatricula.statusMatricula}"
+									style="width:100%">
+									<f:selectItems itemLabelEscaped="true"
+										value="#{matriculasList.listStatusMatricula}" />
+									<f:selectItem itemValue="TODAS"
+										itemLabel="#{messages['global.all']}" />
+									<a:support event="onchange" 
+										limitToList="true" oncomplete="inicializar();"
+										bypassUpdates="false">
+									</a:support>
+								</h:selectOneRadio>
+								
+							</h:panelGrid>
+						</p:panel>
+							
+						<p:commandButton value="#{messages['global.bntFilrar']}"
+								image="localizar" style="width:100px; margin:10%;" onclick="filtrar();" />
+											
+						<a:jsFunction name="filtrar"
+								reRender="relMediaPorMatri" limitToList="true"
+								actionListener="#{relMediaPorMatricula.listarMedias}">
+						</a:jsFunction>
+						
+					</h:panelGrid>
+				</p:panel>
+			</p:panel>
+
+
+			<p:panel id="relMediaPorMatri" style="width:100%"
+				header="#{messages['menu.Vendas1']} #{messages['global.searchResults']}: #{empty relMatAtivas.matriculas ? 0 : relMatAtivas.matriculas.size}">
+
+				<p:dataTable emptyMessage="Nenhum Registro Encontrado."
+					id="tablerelMediaPorMatri" paginator="true" rows="12"
+					value="#{relMediaPorMatricula.mediasList}" paginatorPosition="bottom"
+					rowsPerPageTemplate="12,18" lazy="true" 
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					style="text-align: center;" var="_matriculas"
+					widgetVar="clientesTable">
+
+					<p:column>
+						<f:facet name="header">#{messages['matriculas.codigo']}</f:facet>
+						<h:outputText value="#{_matriculas.matricula}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">#{messages['matriculas.status']}</f:facet>
+						<h:outputText value="#{_matriculas.statusMatri}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+						<h:outputText value="#{_matriculas.nome}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">#{messages['matriculas.modulos']}</f:facet>
+						<h:outputText value="#{_matriculas.descModulo}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">#{messages['relMediaPorMatricula.cursoAtual']}</f:facet>
+						<h:outputText value="#{_matriculas.cursoAtual}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">#{messages['relMediaPorMatricula.cursoOrdem']}</f:facet>
+						<h:outputText value="#{_matriculas.ordem}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">#{messages['relMediaPorMatricula.qtdCursosConcluidos']}</f:facet>
+						<h:outputText value="#{_matriculas.cursosConc}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">#{messages['relMediaPorMatricula.qtdCursosModulo']}</f:facet>
+						<h:outputText value="#{_matriculas.cursosMod}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">#{messages['relMediaPorMatricula.mediaAluno']}</f:facet>
+						<h:outputText value="#{_matriculas.media}" />
+					</p:column>
+					
+					
+					<p:column>
+
+						<f:facet name="header">#{messages['global.view']}</f:facet>
+						<s:link
+							view="/private/onbyte/#{empty from ? 'MatriculasEdit' : from}.xhtml"
+							propagation="#{empty from ? 'none' : 'default'}"
+							id="matriculasViewId">
+							<p:graphicImage value="/images/lupa.png" />
+							<f:param name="matriculasCodigo" value="#{_matriculas.matricula}" />
+						</s:link>
+                            #{' '}
+                            <s:link
+							view="/private/onbyte/MatriculasEdit.xhtml"
+							value="#{messages['global.edit']}" propagation="none"
+							id="matriculasEdit" rendered="#{false}">
+							<f:param name="matriculasCodigo" value="#{_matriculas.matricula}" />
+						</s:link>
+
+					</p:column>
+
+
+				</p:dataTable>
+
+				<h:panelGrid columns="15" style="width:100%;">
+
+					<s:div styleClass="actionButtons" rendered="#{empty from}">
+						<h:commandLink limitToList="true"
+							actionListener="#{relMediaPorMatricula.exportarRelatorioPDF}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/pdf.png" />
+
+						</h:commandLink>
+						<h:commandLink limitToList="true"
+							actionListener="#{relMediaPorMatricula.exportarRelatorioExcel}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/excel.png" />
+
+						</h:commandLink>
+					</s:div>
+					
+					<h:panelGrid>
+						<h1 style="text-align: right; font-size:12px; color:red;" >Obs: É necessário que a matrícula tenha ao menos um curso com status 
+							em Andamento ou Concluído.</h1>
+								
+					</h:panelGrid>
+					
+				</h:panelGrid>
+
+			</p:panel>
+
+
+		</a:form>
+	</ui:define>
+</ui:composition>

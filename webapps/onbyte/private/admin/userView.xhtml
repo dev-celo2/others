@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:rich="http://richfaces.org/rich"
+		xmlns:a4j="http://richfaces.org/a4j"
+		xmlns:gui="http://intelinet.com.br/gui"
+		template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<f:metadata>
+	<f:viewParam name="id" value="#{userInfoAction.userId}" required="true"/>
+</f:metadata>
+
+<ui:define name="trail">
+	<h:outputText value="#{messages['trail.separator']} "/>
+	<h:link outcome="/private/admin/userList" value="#{messages['user.sectionTitle']}"/>
+	<h:outputText value=" #{messages['trail.separator']} "/>
+	<h:outputText value="#{userInfoAction.user.name}"/>
+</ui:define>
+
+<ui:define name="body">
+<a4j:queue requestDelay="#{ajaxQueueBean.requestDelay}" ignoreDupResponses="#{ajaxQueueBean.ignoreDupResponces}"/>
+
+	<gui:section title="#{messages['user.sectionTitle']}">
+		<h:link outcome="/private/admin/userForm" value="#{messages['global.edit']}" rendered="#{identity.hasRole('manager','USER','SYSMGMT')}">
+			<f:param name="id" value="#{userInfoAction.user.id}"/>
+		</h:link>
+		<gui:panelGrid>			
+			<gui:panelGroup label="#{messages['user.name']}">
+				<h:outputText value="#{userInfoAction.user.name}"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['user.email']}">
+				<h:outputText value="#{userInfoAction.user.email}"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['user.active']}">				
+				<h:outputText value="#{messages['global.nao']}" rendered="#{userInfoAction.user.active eq 0}"/>
+				<h:outputText value="#{messages['global.sim']}" rendered="#{userInfoAction.user.active eq 1}"/>				
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['user.profile']}">
+				<h:outputText value="#{userInfoAction.user.profile.name}"/>
+			</gui:panelGroup>
+		</gui:panelGrid>
+	</gui:section>
+
+</ui:define>
+
+</ui:composition>

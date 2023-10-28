@@ -1,0 +1,239 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="userSearch" styleClass="edit">
+
+        <rich:simpleTogglePanel label="User #{messages['global.searchFilter']}" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Email</ui:define>
+                <h:inputText id="email" value="#{userList.user.email}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Login</ui:define>
+                <h:inputText id="login" value="#{userList.user.login}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Name</ui:define>
+                <h:inputText id="name" value="#{userList.user.name}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Passwd</ui:define>
+                <h:inputText id="passwd" value="#{userList.user.passwd}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['global.match']}</ui:define>
+                <h:selectOneRadio id="logic" value="#{userList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="#{messages['global.all']}" itemValue="and"/>
+                    <f:selectItem itemLabel="#{messages['global.any']}" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:simpleTogglePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['global.search']}" action="/private/onbyte/UserList.xhtml"/>
+            <s:button id="reset" value="#{messages['global.clear']}" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">User #{messages['global.searchResults']} (#{empty userList.resultList ? 0 : (userList.paginated ? userList.resultCount : userList.resultList.size)})</f:facet>
+    <div class="results" id="userList">
+
+    <h:outputFormat value="#{messages['global.NoSearchResults']}"
+               rendered="#{empty userList.resultList}"/>
+
+    <rich:dataTable id="userList" onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                var="_user"
+              value="#{userList.resultList}"
+           rendered="#{not empty userList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{userList}"/>
+                    <ui:param name="propertyLabel" value="Id"/>
+                    <ui:param name="propertyPath" value="user.id"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_user.id}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{userList}"/>
+                    <ui:param name="propertyLabel" value="Creation time"/>
+                    <ui:param name="propertyPath" value="user.creationTime"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_user.creationTime}">
+                <s:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{userList}"/>
+                    <ui:param name="propertyLabel" value="Last modification"/>
+                    <ui:param name="propertyPath" value="user.lastModification"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_user.lastModification}">
+                <s:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{userList}"/>
+                    <ui:param name="propertyLabel" value="Modified by id"/>
+                    <ui:param name="propertyPath" value="user.modifiedBy.id"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_user.modifiedBy.id}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{userList}"/>
+                    <ui:param name="propertyLabel" value="Active"/>
+                    <ui:param name="propertyPath" value="user.active"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_user.active}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{userList}"/>
+                    <ui:param name="propertyLabel" value="Email"/>
+                    <ui:param name="propertyPath" value="user.email"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_user.email}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{userList}"/>
+                    <ui:param name="propertyLabel" value="Login"/>
+                    <ui:param name="propertyPath" value="user.login"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_user.login}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{userList}"/>
+                    <ui:param name="propertyLabel" value="Name"/>
+                    <ui:param name="propertyPath" value="user.name"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_user.name}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{userList}"/>
+                    <ui:param name="propertyLabel" value="Passwd"/>
+                    <ui:param name="propertyPath" value="user.passwd"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_user.passwd}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{userList}"/>
+                    <ui:param name="propertyLabel" value="Profile id"/>
+                    <ui:param name="propertyPath" value="user.profile.id"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_user.profile.id}"/>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">#{messages['global.action']}</f:facet>
+            <s:link view="/private/onbyte/#{empty from ? 'User' : from}.xhtml"
+                   value="#{empty from ? messages['global.view'] : messages['global.select']}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="userViewId">
+                <f:param name="userId"
+                        value="#{_user.id}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/private/onbyte/UserEdit.xhtml"
+                   value="#{messages['global.edit']}"
+             propagation="none"
+                      id="userEdit"
+                rendered="#{empty from}">
+                <f:param name="userId"
+                        value="#{_user.id}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/private/onbyte/UserList.xhtml"
+            rendered="#{userList.previousExists}"
+               value="#{messages.left}#{messages.left} #{messages['global.firstPage']}"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/UserList.xhtml"
+            rendered="#{userList.previousExists}"
+               value="#{messages.left} #{messages['global.previousPage']}"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{userList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/UserList.xhtml"
+            rendered="#{userList.nextExists}"
+               value="#{messages['global.nextPage']} #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{userList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/UserList.xhtml"
+            rendered="#{userList.nextExists}"
+               value="#{messages['global.lastPage']} #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{userList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/private/onbyte/UserEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="#{messages['global.create']} user">
+            <f:param name="userId"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

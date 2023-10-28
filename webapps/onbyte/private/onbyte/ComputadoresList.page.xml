@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+   <param name="firstResult" value="#{computadoresList.firstResult}"/>
+   <param name="sort" value="#{computadoresList.orderColumn}"/>
+   <param name="dir" value="#{computadoresList.orderDirection}"/>
+   <param name="logic" value="#{computadoresList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="descricao" value="#{computadoresList.computadores.descricao}"/>
+   <param name="horaatual" value="#{computadoresList.computadores.horaatual}"/>
+   <param name="ip" value="#{computadoresList.computadores.ip}"/>
+   <param name="mensagem" value="#{computadoresList.computadores.mensagem}"/>
+   <param name="status" value="#{computadoresList.computadores.status}"/>
+   <param name="tempo" value="#{computadoresList.computadores.tempo}"/>
+
+</page>

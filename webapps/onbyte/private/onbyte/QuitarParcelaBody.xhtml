@@ -1,0 +1,235 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+
+
+	<script language="JavaScript">
+					function disableEnterKey(e)
+					{
+					     var key;		      
+					     if(window.event)
+					          key = window.event.keyCode; //IE
+					     else
+					          key = e.which; //firefox     
+					
+					     return (key != 13);
+					}
+					function showPanelQuitacao(message)
+					{
+						if (((message==null) || (message.length==0))){
+							if (#{facesMessages.currentMessages.size()==0}) {
+							 Richfaces.showModalPanel('printQuitacaoPanel');
+							 fn_LimparTela();
+							}
+						}
+					}
+
+					function setFocusCodigoBarras()
+                    {
+						document.getElementById("#{rich:clientId('codigobarras')}").focus();
+                    }
+				    
+				</script>
+
+	<s:div id="divQuitarMensalidade">
+		<div class="well" style="height: 100px;">
+
+
+
+			<div class="col-xs-3">
+				<label for="ex1">CÓD. DE BARRAS PARCELA</label>
+
+				<h:inputText id="codigobarras" required="true" size="10"
+					styleClass="form-control" maxlength="8"
+					value="#{mensalidadesHome.codigobarras}">
+
+					<a:support event="onchange"
+						reRender="div_messages,quitar_mensalidades,buttons,printQuitacaoForm, printQuitacaoForm2"
+						ajaxSingle="true" bypassUpdates="false"
+						oncomplete="setFormatDtpgtoField();setFocusCodigoBarras();"
+						limitToList="true" />
+				</h:inputText>
+
+			</div>
+
+
+
+		</div>
+
+		<p:panel id="printQuitacaoForm" style="height:210px;">
+
+
+			<div class="col-xs-2">
+				<label for="ex1">CÓDIGO</label>
+				<h:inputText size="5" readonly="true" styleClass="form-control"
+					value="#{mensalidadesHome.instance.matriculas.alunos.codigo}">
+				</h:inputText>
+
+			</div>
+
+			<div class="col-xs-4">
+				<label for="ex1">NOME ALUNO</label>
+				<h:inputText size="40" readonly="true" styleClass="form-control"
+					value="#{mensalidadesHome.instance.matriculas.alunos.nome}">
+				</h:inputText>
+
+			</div>
+
+
+			<div class="col-xs-2">
+				<label for="ex1">MATRÍCULA</label>
+				<h:inputText size="5" readonly="true" styleClass="form-control"
+					value="#{mensalidadesHome.instance.matriculas.codigo}">
+				</h:inputText>
+			</div>
+
+
+			<div class="col-xs-2">
+				<label for="ex1">PARCELA</label>
+
+				<h:inputText size="5" readonly="true" styleClass="form-control"
+					value="#{mensalidadesHome.instance.id.parcela}">
+				</h:inputText>
+
+			</div>
+
+			<div class="col-xs-2">
+				<label for="ex1">TIPO</label>
+				<h:inputText size="15" readonly="true" styleClass="form-control"
+					value="#{combos.getMensalidadesTipo().get(mensalidadesHome.instance.tipo)}">
+				</h:inputText>
+
+			</div>
+
+
+			<div class="col-xs-2">
+				<label for="ex1">VENCIMENTO</label>
+				<h:inputText value="#{mensalidadesHome.instance.dtaVenc}"
+					readonly="true" styleClass="form-control">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt" />
+				</h:inputText>
+			</div>
+
+
+			<div class="col-xs-4">
+				<label for="ex1">MÓDULO</label>
+				<h:inputText size="40" readonly="true" styleClass="form-control"
+					value="#{mensalidadesHome.instance.matriculas.modulos.descricao}">
+				</h:inputText>
+
+			</div>
+
+			<div class="col-xs-4">
+				<label for="ex1">FUNCIONÁRIO</label>
+				<h:inputText id="funcionario" required="true" size="50"
+					readonly="true" styleClass="form-control"
+					value="#{mensalidadesHome.funcionarioconectado.nome}">
+				</h:inputText>
+
+			</div>
+
+
+			<div class="col-xs-2">
+				<label for="ex1">VALOR</label>
+				<h:inputText value="#{mensalidadesHome.instance.valor}"
+					styleClass="form-control" style="text-align: right;" size="10"
+					readonly="true">
+					<f:convertNumber type="currency" maxFractionDigits="2"
+						minFractionDigits="2"></f:convertNumber>
+				</h:inputText>
+			</div>
+
+			<div class="col-xs-2">
+				<label for="ex1">ACRÉSCIMO</label>
+				<h:inputText value="#{mensalidadesHome.valoracrescimo}"
+					styleClass="form-control" style="text-align: right;" size="10"
+					readonly="true">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+				</h:inputText>
+
+			</div>
+
+			<div class="col-xs-2">
+				<label for="ex1">DIFERENÇA</label>
+				<h:inputText value="#{mensalidadesHome.valordiferenca}"
+					id="diferenca"
+					style="#{mensalidadesHome.valordiferenca != 0 ? 'color:red; font-weight:bold' : ''}"
+					styleClass="form-control"  size="10"
+					readonly="true">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+				</h:inputText>
+			</div>
+
+
+
+
+		</p:panel>
+
+
+		<p:panel style="height:80px;" id="printQuitacaoForm2">
+
+			<div class="col-xs-2">
+				<label for="ex1">TIPO PAGTO.</label>
+				<h:selectOneMenu value="#{mensalidadesHome.instance.tipopg}"
+					styleClass="form-control" required="true">
+					<f:selectItems itemLabelEscaped="true"
+						value="#{mensalidadesHome.tipospgto}" />
+				</h:selectOneMenu>
+
+			</div>
+
+			<div class="col-xs-2">
+				<label for="ex1">DATA PAGTO.</label>
+				<h:inputText value="#{mensalidadesHome.dtaPgto}" readonly="true"
+					styleClass="form-control">
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt" />
+				</h:inputText>
+			</div>
+
+			<div class="col-xs-2">
+				<label for="ex1">VALOR PAGO</label>
+
+				<h:inputText value="#{mensalidadesHome.valorPg}"
+					style="text-align: right;" size="10" styleClass="form-control"
+					readonly="#{!mensalidadesHome.managed}" required="true">
+					<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+					<a:support event="onkeyup" reRender="diferencaField, diferenca" />
+				</h:inputText>
+
+			</div>
+
+
+			<div class="col-xs-6">
+				<label for="ex1">TIPO DIFERENÇA</label>
+				<h:selectOneMenu layout="pageDirection" id="diferencaField"
+					styleClass="form-control"
+					disabled="#{mensalidadesHome.valordiferenca == 0}"
+					value="#{mensalidadesHome.diferenca}" required="true">
+					<f:selectItem itemValue="1" itemLabel="DESCONTO" />
+
+					<f:selectItem itemValue="2" itemLabel="DIFERENÇA À PAGAR" />
+
+					<f:selectItem itemValue="0" itemLabel="SELECIONE O TIPO DIFERENÇA" />
+
+					<a:support event="onchange" reRender="diferenca" />
+				</h:selectOneMenu>
+			</div>
+
+
+
+
+
+
+
+		</p:panel>
+	</s:div>
+</ui:composition>

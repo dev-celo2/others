@@ -1,0 +1,983 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+		<h:form>
+
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading" style="height: 55px;">
+					<i class="glyphicon glyphicon-th-large" /> DADOS MATRÍCULA
+
+
+					<div class="input-group" style="float: right; width: 300px;">
+						<span class="input-group-addon" id="basic-addon1">MATRÍCULA</span>
+						<table style="width: 100%">
+							<thead>
+								<tr>
+
+									<td><h:inputText id="codigoMatricula" size="10"
+											maxlength="8" styleClass="form-control"
+											value="#{lancamentoFrequenciaAction.matriculasCodigo}">
+											<a:support event="onchange" styleClass="form-control"
+												reRender="pnlDados,  abaFreq2, abaHorariosAg2, abaMens2"
+												ajaxSingle="true" bypassUpdates="false" limitToList="true" />
+										</h:inputText></td>
+
+									<td><a:commandLink title="Buscar Matrícula"
+											styleClass="btn btn-default" ajaxSingle="true"
+											limitToList="true"
+											reRender="alunosList,matriculasList,pesquisaaluno"
+											oncomplete="$('#dialogPesAlun').modal('show');"
+											style="margin: 0; height:34px; "
+											disabled="#{!matriculasHome.editable}">
+											<f:setPropertyActionListener
+												target="#{pesquisaAluno.pesquisaAluno}" value="#{null}" />
+											<i class="glyphicon glyphicon-search" />
+										</a:commandLink></td>
+
+								</tr>
+							</thead>
+						</table>
+					</div>
+
+
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+
+						<a:outputPanel id="pnlDados">
+
+							<div class="col-xs-2">
+								<label for="ex1">CÓD. ALUNO</label>
+								<h:inputText size="5" readonly="true" styleClass="form-control"
+									value="#{lancamentoFrequenciaAction.instance.alunos.codigo}">
+								</h:inputText>
+							</div>
+
+							<div class="col-xs-4">
+								<label for="ex1">NOME</label>
+								<h:inputText size="40" readonly="true" styleClass="form-control"
+									value="#{lancamentoFrequenciaAction.instance.alunos.nome}">
+								</h:inputText>
+							</div>
+
+
+							<div class="col-xs-2">
+								<label for="ex1">CÓD. MÓDULO</label>
+								<h:inputText readonly="true" styleClass="form-control"
+									value="#{lancamentoFrequenciaAction.instance.modulos.codigo}">
+								</h:inputText>
+							</div>
+
+
+							<div class="col-xs-4">
+								<label for="ex1">DESCRIÇÃO</label>
+								<h:inputText readonly="true" styleClass="form-control"
+									value="#{lancamentoFrequenciaAction.instance.modulos.descricao}">
+								</h:inputText>
+							</div>
+
+
+							<div class="col-xs-2">
+								<label for="ex1">INÍCIO CONTRATO</label>
+								<h:inputText readonly="true" styleClass="form-control"
+									value="#{lancamentoFrequenciaAction.instance.dtinicio}">
+								</h:inputText>
+							</div>
+
+							<div class="col-xs-2">
+								<label for="ex1">QTD. MESES</label>
+								<h:inputText readonly="true" styleClass="form-control"
+									value="#{lancamentoFrequenciaAction.instance.qtmeses}">
+								</h:inputText>
+							</div>
+
+							<div class="col-xs-2">
+								<label for="ex1">FIM CONTRATO</label>
+								<h:inputText readonly="true" styleClass="form-control"
+									value="#{lancamentoFrequenciaAction.instance.dttermino}">
+								</h:inputText>
+							</div>
+
+
+							<div class="col-xs-2">
+								<label for="ex1">STATUS</label>
+								<h:inputText readonly="true" styleClass="form-control"
+									value="#{combos.getStatusMatricula().get(lancamentoFrequenciaAction.instance.status)}">
+								</h:inputText>
+							</div>
+
+
+							<div class="col-xs-4">
+								<label for="ex1">TIPO MARKETING</label>
+								<h:inputText readonly="true" styleClass="form-control"
+									value="#{lancamentoFrequenciaAction.instance.tipomark.descricao}">
+								</h:inputText>
+							</div>
+
+						</a:outputPanel>
+					</div>
+				</div>
+			</div>
+
+			<p />
+
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading" style="height: 55px;">
+					<i class="glyphicon glyphicon-clock" /> FREQUÊNCIAS
+
+
+
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+						<a:outputPanel id="container">
+
+							<div class="container" style="width: 100%">
+								<ul class="nav nav-tabs">
+
+									<li><a data-toggle="tab" href="#abaHorariosAg">HORARIOS
+											AGENDADOS</a></li>
+									<li class="active"><a data-toggle="tab" href="#abaFreq">FREQUÊNCIAS</a></li>
+									<li><a data-toggle="tab" href="#abaHorario">HORÁRIO</a></li>
+									<li><a data-toggle="tab" href="#abaMens">MENSALIDADES
+											ATRASADAS</a></li>
+
+								</ul>
+
+								<div class="tab-content">
+									<div id="abaHorariosAg" class="tab-pane fade">
+
+										<a:outputPanel id="abaHorariosAg2">
+
+
+											<table id="tblHorariosAg"
+												style="text-align: center; text-transform: uppercase; font-size: 12px;"
+												class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+												<thead>
+													<tr>
+
+														<th style="text-align: center;">DIA</th>
+														<th style="text-align: center;">INÍCIO</th>
+														<th style="text-align: center;">FIM</th>
+
+													</tr>
+												</thead>
+
+												<tbody class="searchable" id="tbodyHora">
+
+													<c:forEach
+														items="#{lancamentoFrequenciaAction.horariosAgendados}"
+														var="_horariosAgendados">
+														<tr>
+
+															<td class="center"><h:outputText
+																	value="#{combos.getDiasSemanaAbr().get(_horariosAgendados.horarios.diasemana)}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{_horariosAgendados.horarios.inicio}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{_horariosAgendados.horarios.final_}" /></td>
+
+
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+
+
+											<script>																
+
+
+			$(document).ready(function() {
+			    $('#tblHorariosAg').DataTable( {
+				    
+			        "language": {
+			        	"sEmptyTable": "Sem REGISTROS",
+			            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+			            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+			            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+			            "sInfoPostFix": "",
+			            "sInfoThousands": ".",
+			            "sLengthMenu": "_MENU_ resul. por pág.",
+			            "sLoadingRecords": "Carregando...",
+			            "sProcessing": "Processando...",
+			            "sZeroRecords": "Nenhum registro encontrado",
+			            "sSearch": "Pesquisar",
+			            "oPaginate": {
+			                "sNext": "Próximo",
+			                "sPrevious": "Anterior",
+			                "sFirst": "Primeiro",
+			                "sLast": "Último"
+			            },
+			            "oAria": {
+			                "sSortAscending": ": Ordenar colunas de forma ascendente",
+			                "sSortDescending": ": Ordenar colunas de forma descendente"
+			            }
+			        }
+			    } );
+
+             
+
+					} );
+			
+
+  </script>
+
+
+
+
+										</a:outputPanel>
+
+									</div>
+
+
+									<div id="abaFreq" class="tab-pane fade in active">
+
+
+										<a:outputPanel id="abaFreq2">
+
+											<table width="100%">
+												<tr>
+
+													<td width="45%"><h5>
+															<span class="label label-default">#{lancamentoFrequenciaAction.descPag}</span>
+														</h5></td>
+
+
+
+
+													<td><a:commandButton image="/images/primeiro.png"
+															title="PRIMEIRA PÁGINA" reRender="abaFreq2"
+															styleClass="btn btn-default"
+															actionListener="#{lancamentoFrequenciaAction.setListFrequencia(null, 'FIRST')}"
+															id="firstPage" /> <a:commandButton
+															image="/images/anterior.png" title="PÁGINA ANTERIOR"
+															reRender="abaFreq2" styleClass="btn btn-default"
+															actionListener="#{lancamentoFrequenciaAction.setListFrequencia(null, 'PRIOR')}"
+															id="previousPage" /> <a:commandButton
+															image="/images/proximo.png" title="PRÓXIMA PÁGINA"
+															reRender="abaFreq2" styleClass="btn btn-default"
+															actionListener="#{lancamentoFrequenciaAction.setListFrequencia(null, 'NEXT')}"
+															id="nextPage" /> <a:commandButton
+															image="/images/ultimo.png" reRender="abaFreq2"
+															styleClass="btn btn-default dropdown-toggle"
+															title="ÚLTIMA PÁGINA"
+															actionListener="#{lancamentoFrequenciaAction.setListFrequencia(null, 'LAST')}" /></td>
+
+												</tr>
+											</table>
+
+											<table width="100%"
+												style="text-align: center; text-transform: uppercase; font-size: 12px;"
+												class="table-responsive table-condensed table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+												<thead>
+													<tr>
+
+														<th style="text-align: center;"><a:commandLink
+																actionListener="#{lancamentoFrequenciaAction.setOrder(1)}"
+																action="#{lancamentoFrequenciaAction.setListFrequencia(null, 'FIRST')}"
+																reRender="abaFreq2 ">
+																<i class="glyphicon glyphicon-arrow-down" />
+															</a:commandLink> DATA <a:commandLink reRender="abaFreq2"
+																action="#{lancamentoFrequenciaAction.setListFrequencia(null, 'FIRST')}"
+																actionListener="#{lancamentoFrequenciaAction.setOrder(0)}">
+																<i class="glyphicon glyphicon-arrow-up" />
+															</a:commandLink></th>
+														<th style="text-align: center;">DIA</th>
+														<th style="text-align: center;">TIPO</th>
+														<th style="text-align: center;">STATUS</th>
+														<th style="text-align: center;">INÍCIO</th>
+														<th style="text-align: center;">FIM.</th>
+														<th style="text-align: center;">COMP.</th>
+
+														<th style="text-align: center;">AÇÃO</th>
+
+													</tr>
+												</thead>
+
+												<tbody class="searchable" id="tbodyHora">
+
+													<c:forEach
+														items="#{lancamentoFrequenciaAction.listFrequencia}"
+														var="_frequencia">
+														<tr>
+
+															<td class="center"><h:outputText
+																	value="#{_frequencia.id.data}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{combos.getDiasSemanaAbr().get(_frequencia.diaSemana)}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{combos.getFrequenciasTipo().get(_frequencia.tipo)}" /></td>
+
+
+															<td class="center"><c:if
+																	test="#{combos.getSimNaoAbr().get(_frequencia.presente) == 'S'}">
+																	<h:outputText styleClass="label label-success"
+																		value="PRESENTE" /><rich:spacer width="50px"/>
+																</c:if> <c:if
+																	test="#{combos.getSimNaoAbr().get(_frequencia.presente) == 'N'}">
+																	<h:outputText styleClass="label label-danger"
+																		value="AUSENTE" /><rich:spacer width="55px"/>
+																</c:if> <c:if
+																	test="#{combos.getSimNaoAbr().get(_frequencia.presente) == ''}">
+																	<h:outputText value="" />
+																</c:if> <c:if test="#{_frequencia.presente == 'J'}">
+																	<h:outputText value="JUSTIFICADA"
+																		styleClass="label label-info" />
+																		<rich:spacer width="2px;"></rich:spacer>
+																					<a:commandLink title="Viualizar Motivo"
+																						reRender="formJustificaFalta" ajaxSingle="true" styleClass="btn btn-default"
+																						onclick="setTimeout(function(){ $('#justificativaFalta').modal('show'); }, 200);"
+																						actionListener="#{lancamentoFrequenciaAction.setFrequencia(_frequencia)}">
+																						<i class="glyphicon glyphicon-question-sign"/>
+																						</a:commandLink>
+																</c:if></td>
+
+															<td class="center"><h:outputText
+																	value="#{_frequencia.horarios.inicio}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{_frequencia.horarios.final_}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{_frequencia.computador}" /></td>
+
+
+															<td class="center"><a:commandLink
+																	title="REGISTRAR FREQUENCIA"
+																	actionListener="#{lancamentoFrequenciaAction.registraPresenca(_frequencia)}"
+																	rendered="#{rich:isUserInRole('Frequncia1_A')}"
+																	reRender="abaFreq2, msgGlobal"
+																	styleClass="btn btn-success">
+																	<i class="glyphicon glyphicon-plus" />
+
+																</a:commandLink> <rich:spacer width="2px;" /> <a:commandLink
+																	rendered="#{rich:isUserInRole('Frequncia1_R')}"
+																	title="REGISTRAR FALTA"
+																	actionListener="#{lancamentoFrequenciaAction.registraFalta(_frequencia)}"
+																	reRender="abaFreq2, msgGlobal"
+																	styleClass="btn btn-danger">
+																	<i class="glyphicon glyphicon-minus" />
+
+																</a:commandLink> <rich:spacer width="2px;" /> <a:commandLink
+																	title="JUSTIFICAR FALTA"
+																	rendered="#{rich:isUserInRole('Frequncia1_R')}"
+																	actionListener="#{lancamentoFrequenciaAction.setarFreqJustif(_frequencia)}"
+																	onclick="$('#justificativaFalta').modal('show');"
+																	reRender="formJustificaFalta"
+																	styleClass="btn btn-info">
+																	<i class="glyphicon glyphicon-ok" />
+
+																</a:commandLink> <rich:spacer width="2px;" /> <a:commandLink
+																	title="APAGAR REGISTRO"
+																	rendered="#{rich:isUserInRole('Frequncia1_R')}"
+																	actionListener="#{lancamentoFrequenciaAction.removeFrequencia(_frequencia)}"
+																	reRender="abaFreq2, msgGlobal"
+																	styleClass="btn btn-warning">
+																	<i class="glyphicon glyphicon-trash" />
+
+																</a:commandLink></td>
+
+
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+
+
+
+
+										</a:outputPanel>
+
+
+										<!-- Modal MOTIVO JUSTIFICATIVA-->
+										<div id="justificativaFalta" class="modal fade"
+											data-backdrop="static" role="dialog">
+											<div class="modal-dialog modal-sm">
+												<!-- Modal content-->
+												<a:outputPanel id="formJustificaFalta">
+													<div class="modal-content">
+														<div class="modal-header">
+
+															<center>
+																<h4 style="color: gray; font-weight: bold;"
+																	class="modal-title">
+																	<i class="fa fa-sticky-note-o" style="font-size: 20px;" />
+																	MOTIVO
+																</h4>
+															</center>
+
+														</div>
+														<div class="modal-body">
+															<div class="box-content">
+																<center>
+
+
+
+																	<h:inputTextarea
+																		readonly="#{!lancamentoFrequenciaAction.novaJustificativa}"
+																		styleClass="form-control" cols="5"
+																		value="#{lancamentoFrequenciaAction.frequencia.motivo}" />
+
+
+																</center>
+															</div>
+														</div>
+														<div class="modal-footer">
+															<center>
+
+																<a:commandLink title="JUSTIFICAR FALTA"
+																	rendered="#{lancamentoFrequenciaAction.novaJustificativa}"
+																	onclick="$('#justificativaFalta').modal('hide');"
+																	actionListener="#{lancamentoFrequenciaAction.justificaFalta}"
+																	reRender="abaFreq2, msgGlobal"
+																	style="width:120px;" styleClass="btn btn-success">
+																	<i class="glyphicon glyphicon-ok" /> GRAVAR
+									
+																				</a:commandLink>
+
+
+
+																<rich:spacer width="2" />
+
+																<a:commandLink style="width:120px;"
+																	rendered="#{lancamentoFrequenciaAction.novaJustificativa}"
+																	ajaxSingle="true"
+																	onclick="$('#justificativaFalta').modal('hide');"
+																	title="NÃO" styleClass="btn btn-danger">
+																	<i class="glyphicon glyphicon-remove" /> CANCELAR
+																			</a:commandLink>
+
+																<a:commandLink style="width:120px;"
+																	rendered="#{!lancamentoFrequenciaAction.novaJustificativa}"
+																	ajaxSingle="true"
+																	onclick="$('#justificativaFalta').modal('hide');"
+																	title="NÃO" styleClass="btn btn-default">
+																	<i class="glyphicon glyphicon-log-out" /> FECHAR
+																			</a:commandLink>
+
+															</center>
+														</div>
+
+													</div>
+												</a:outputPanel>
+
+											</div>
+										</div>
+										<!-- FIM Modal MOTIVO JUSTIFICATIVA-->
+
+
+									</div>
+
+
+									<div id="abaHorario" class="tab-pane fade">
+
+										<a:outputPanel id="abaHorario2">
+
+											<div class="well">
+
+												<table>
+
+													<tbody>
+														<tr>
+
+															<td width="30px;"><h:outputText value="DIA"
+																	style="border:1px;" /></td>
+
+
+															<td><h:inputText
+																	styleClass="datepicker form-control"
+																	value="#{lancamentoFrequenciaAction.dataLancNovaFreq}"
+																	style="width:95%;">
+																	<a:support event="onchange" limitToList="true"
+																		reRender="abaHorario2" bypassUpdates="false"
+																		ajaxSingle="true">
+																	</a:support>
+																</h:inputText></td>
+
+															<td><h:outputText id="diaSemana" style="color:blue;"
+																	value="#{combos.getDiasSemanaAbr().get(lancamentoFrequenciaAction.diaSemana)}" /></td>
+
+
+														</tr>
+
+													</tbody>
+
+												</table>
+
+											</div>
+
+											<table id="tblHorar"
+												style="text-align: center; text-transform: uppercase; font-size: 12px;"
+												class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+												<thead>
+													<tr>
+
+														<th style="text-align: center;">HORÁRIO</th>
+														<th style="text-align: center;">INÍCIO</th>
+														<th style="text-align: center;">FIM</th>
+														<th style="text-align: center;">AÇÃO</th>
+
+													</tr>
+												</thead>
+
+												<tbody class="searchable" id="tbodyHora">
+
+													<c:forEach
+														items="#{lancamentoFrequenciaAction.horariosDisp}"
+														var="_horarios">
+														<tr>
+
+															<td class="center"><h:outputText
+																	value="#{_horarios.codigo}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{_horarios.inicio}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{_horarios.final_}" /></td>
+
+
+															<td class="center"><a:commandLink
+																	styleClass="btn btn-info"
+																	title="NOVA FREQUÊNCIA AULA NORMAL"
+																	rendered="#{rich:isUserInRole('Frequncia1_A')}"
+																	reRender="msgGlobal, abaFreq2, container"
+																	actionListener="#{lancamentoFrequenciaAction.lancarFrequencia(_horarios,5)}">
+																	<i class="glyphicon glyphicon-ok" />
+																	<span style="font-size: 10px;">JUST. AULA</span>
+																</a:commandLink> <rich:spacer width="2px;" /> <a:commandLink
+																	styleClass="btn btn-success"
+																	title="NOVA FREQUÊNCIA AULA NORMAL"
+																	rendered="#{rich:isUserInRole('Frequncia1_A')}"
+																	reRender="msgGlobal, abaFreq2, container"
+																	actionListener="#{lancamentoFrequenciaAction.lancarFrequencia(_horarios, 1)}">
+																	<i class="glyphicon glyphicon-plus" />
+																	<span style="font-size: 10px;">FREQ. AULA</span>
+																</a:commandLink> <rich:spacer width="2px;" /> <a:commandLink
+																	styleClass="btn btn-danger"
+																	title="NOVA FALTA AULA NORMAL"
+																	rendered="#{rich:isUserInRole('Frequncia1_A')}"
+																	reRender="msgGlobal, abaFreq2, container"
+																	actionListener="#{lancamentoFrequenciaAction.lancarFrequencia(_horarios, 3)}">
+																	<i class="glyphicon glyphicon-minus" />
+																	<span style="font-size: 10px;">FALTA AULA</span>
+																</a:commandLink> <rich:spacer width="20px;" /> <a:commandLink
+																	styleClass="btn btn-warning"
+																	title="NOVA FREQUÊNCIA REPOSIÇÃO"
+																	rendered="#{rich:isUserInRole('Frequncia1_A')}"
+																	reRender="msgGlobal, abaFreq2, container"
+																	actionListener="#{lancamentoFrequenciaAction.lancarFrequencia(_horarios, 2)}">
+																	<i class="glyphicon glyphicon-plus" />
+																	<span style="font-size: 10px;">FREQ. REP.</span>
+																</a:commandLink> <rich:spacer width="2px;" /> <a:commandLink
+																	styleClass="btn btn-danger"
+																	title="NOVA FALTA REPOSIÇÃO"
+																	reRender="msgGlobal, abaFreq2, container"
+																	rendered="#{rich:isUserInRole('Frequncia1_A')}"
+																	actionListener="#{lancamentoFrequenciaAction.lancarFrequencia(_horarios, 4)}">
+																	<i class="glyphicon glyphicon-minus" />
+																	<span style="font-size: 10px;">FALTA REP.</span>
+																</a:commandLink></td>
+
+
+
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+
+
+											<script>	
+
+
+ $(".datepicker").datepicker({
+
+ changeMonth: true,
+ changeYear:true,
+ dateFormat: 'dd/mm/yy',
+ dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+ dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+ dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+ monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+ monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+ nextText: 'Próximo',
+ prevText: 'Anterior',
+											 
+											   
+											   
+});															
+
+
+			$(document).ready(function() {
+			    $('#tblHorar').DataTable( {
+				    
+			        "language": {
+			        	"sEmptyTable": "Sem REGISTROS",
+			            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+			            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+			            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+			            "sInfoPostFix": "",
+			            "sInfoThousands": ".",
+			            "sLengthMenu": "_MENU_ resul. por pág.",
+			            "sLoadingRecords": "Carregando...",
+			            "sProcessing": "Processando...",
+			            "sZeroRecords": "Nenhum registro encontrado",
+			            "sSearch": "Pesquisar",
+			            "oPaginate": {
+			                "sNext": "Próximo",
+			                "sPrevious": "Anterior",
+			                "sFirst": "Primeiro",
+			                "sLast": "Último"
+			            },
+			            "oAria": {
+			                "sSortAscending": ": Ordenar colunas de forma ascendente",
+			                "sSortDescending": ": Ordenar colunas de forma descendente"
+			            }
+			        }
+			    } );
+
+             
+
+					} );
+
+	
+			
+
+  </script>
+
+
+
+
+										</a:outputPanel>
+
+									</div>
+
+
+
+									<div id="abaMens" class="tab-pane fade">
+
+
+										<a:outputPanel id="abaMens2">
+
+
+											<table id="tblMensAtrasadas"
+												style="text-align: center; text-transform: uppercase; font-size: 12px;"
+												class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+												<thead>
+													<tr>
+
+														<th style="text-align: center;">PARCELA</th>
+														<th style="text-align: center;">VENCIMENTO</th>
+														<th style="text-align: center;">TIPO</th>
+														<th style="text-align: center;">VALOR</th>
+
+													</tr>
+												</thead>
+
+												<tbody class="searchable" id="tbodyHora">
+
+													<c:forEach
+														items="#{lancamentoFrequenciaAction.mensalidadesesAPagarAtrasada}"
+														var="_mensalidadesesAtrasadas">
+														<tr>
+
+															<td class="center"><h:outputText
+																	value="#{_mensalidadesesAtrasadas.id.parcela}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{_mensalidadesesAtrasadas.dtaVenc}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{combos.getMensalidadesTipo().get(_mensalidadesesAtrasadas.tipo)}" /></td>
+
+															<td class="center"><h:outputText
+																	value="#{_mensalidadesesAtrasadas.valor}">
+
+																	<f:convertNumber type="currency" maxFractionDigits="2"
+																		minFractionDigits="2" />
+
+																</h:outputText></td>
+
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+
+
+											<script>																
+
+
+			$(document).ready(function() {
+			    $('#tblMensAtrasadas').DataTable( {
+				    
+			        "language": {
+			        	"sEmptyTable": "Sem REGISTROS",
+			            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+			            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+			            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+			            "sInfoPostFix": "",
+			            "sInfoThousands": ".",
+			            "sLengthMenu": "_MENU_ resul. por pág.",
+			            "sLoadingRecords": "Carregando...",
+			            "sProcessing": "Processando...",
+			            "sZeroRecords": "Nenhum registro encontrado",
+			            "sSearch": "Pesquisar",
+			            "oPaginate": {
+			                "sNext": "Próximo",
+			                "sPrevious": "Anterior",
+			                "sFirst": "Primeiro",
+			                "sLast": "Último"
+			            },
+			            "oAria": {
+			                "sSortAscending": ": Ordenar colunas de forma ascendente",
+			                "sSortDescending": ": Ordenar colunas de forma descendente"
+			            }
+			        }
+			    } );
+
+             
+
+					} );
+
+	
+			
+
+  </script>
+										</a:outputPanel>
+
+
+									</div>
+
+
+
+								</div>
+							</div>
+
+
+
+						</a:outputPanel>
+
+
+					</div>
+				</div>
+			</div>
+
+			<script>
+
+	
+
+
+$(".datepicker2").datepicker({
+
+changeMonth: true,
+changeYear:true,
+dateFormat: 'dd/mm/yy',
+dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+nextText: 'Próximo',
+prevText: 'Anterior',
+											 
+											   
+											   
+});	
+
+</script>
+
+		</h:form>
+
+
+		<h:form>
+			<!--Pesquisa Alunos -->
+			<div class="modal fade bd-example-modal-lg"
+				style="z-index: 1041 !important;" data-backdrop="static"
+				id="dialogPesAlun" role="dialog" aria-labelledby="myLargeModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+
+						<div class="panel panel-default">
+							<!-- Default panel contents -->
+							<div class="panel-heading">Pesquisa Aluno</div>
+
+							<div class="panel-body">
+
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">Nome
+										do Aluno</span>
+									<h:inputText styleClass="form-control" id="txtPesqAlun"
+										style="height: 30px;width:395px;"
+										value="#{alunosList.paramName}">
+										<a:support event="onkeyup"
+											onsubmit="if (event.keyCode != 13) { return false}"
+											reRender="tblAlun" />
+									</h:inputText>
+									<a:commandLink title="Buscar" style="height:30px;"
+										reRender="tblAlun" styleClass="btn btn-default">
+										<i class="glyphicon glyphicon-search" /> Buscar Aluno
+									</a:commandLink>
+									<a:commandLink title="Limpar Pesquisa" style="height:30px;"
+										reRender="tblAlun, txtPesqAlun" styleClass="btn btn-default"
+										actionListener="#{alunosList.limpaCampos}">
+										<i class="glyphicon glyphicon-erase" /> Limpar Pesquisa
+									</a:commandLink>
+								</div>
+
+								<a:outputPanel id="tblAlun">
+
+									<table width="100%"
+										style="text-align: center; text-transform: uppercase;"
+										class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover">
+										<thead>
+											<tr>
+
+												<th style="text-align: center; height: 26px;">CODIGO</th>
+												<th style="text-align: center; height: 26px;">NOME</th>
+												<th style="text-align: center; height: 26px;">SELECIONAR</th>
+
+											</tr>
+										</thead>
+
+										<tbody class="searchable" id="tbody">
+
+											<c:forEach items="#{alunosList.resultList}" var="prod">
+												<tr>
+
+													<td class="center"><h:outputText
+															value="#{prod.codigo}" /></td>
+
+													<td class="center"><h:outputText value="#{prod.nome}" /></td>
+
+													<td class="center"><a:commandLink style="height:25px;"
+															title="Vizualizar se o aluno(a) #{prod.nome} possui matricula"
+															actionListener="#{matriculasHome.matriculasAluno(prod)}"
+															reRender="matAluno" styleClass="btn btn-info">
+															<i class="glyphicon glyphicon-search" />
+														</a:commandLink></td>
+
+												</tr>
+
+											</c:forEach>
+
+										</tbody>
+									</table>
+
+								</a:outputPanel>
+
+								<a:outputPanel id="matAluno">
+									<center>
+										<strong><h:outputText
+												value="#{messages['pesquisaAlunos.todasMatriculas']}" /></strong>
+									</center>
+									<table width="100%"
+										style="text-align: center; text-transform: uppercase;"
+										class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover">
+										<thead>
+											<tr>
+												<th style="text-align: center;">MAT</th>
+												<th style="text-align: center;">#{messages['matriculas.dtinicio']}</th>
+												<th style="text-align: center;">#{messages['matriculas.dttermino']}</th>
+												<th style="text-align: center;">STATUS</th>
+												<th style="text-align: center;">#{messages['matriculas.modulosAbr']}</th>
+												<th style="text-align: center;">#{messages['modulos.descricao']}</th>
+												<th style="text-align: center;">SELECIONAR</th>
+
+											</tr>
+										</thead>
+
+
+										<tbody class="searchable" id="tbody">
+
+											<c:forEach items="#{matriculasHome.matAluno}" var="mat">
+												<tr>
+
+													<td class="center"><h:outputText value="#{mat.codigo}" /></td>
+
+													<td class="center"><h:outputText
+															value="#{mat.dtinicio}" /></td>
+
+													<td class="center"><h:outputText
+															value="#{mat.dttermino}" /></td>
+
+													<td class="center"><h:outputText value="#{mat.status}" /></td>
+
+													<td class="center"><h:outputText
+															value="#{mat.modulos.codigo}" /></td>
+
+													<td class="center"><h:outputText
+															value="#{mat.modulos.descricao}" /></td>
+
+													<td><a:commandLink
+															onclick="$('#dialogPesAlun').modal('hide');"
+															reRender="codigoMatricula, pnlDados, abaFreq2, abaMens2"
+															styleClass="btn btn-success">
+															<f:setPropertyActionListener
+																target="#{lancamentoFrequenciaAction.matriculasCodigo}"
+																value="#{mat.codigo}" />
+															<i class="glyphicon glyphicon-ok" />
+														</a:commandLink></td>
+
+												</tr>
+
+											</c:forEach>
+
+										</tbody>
+									</table>
+
+									<center>
+										<h:outputText
+											value="#{matriculasHome.matAluno.size == 0 ? 'ALUNO SEM MATRICULAS' : ''}" />
+									</center>
+
+
+
+								</a:outputPanel>
+
+							</div>
+							<div class="panel-footer" style="text-align: right;">
+
+								<rich:spacer width="2px;" />
+								<a:commandLink styleClass="btn btn-default"
+									title="Fechar Pesquisa de Alunos"
+									onclick="$('#dialogPesAlun').modal('hide');">
+					               	Fechar <i class="glyphicon glyphicon-eye-close" />
+								</a:commandLink>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!--Fim Pesquisa Aluno Dialog -->
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>

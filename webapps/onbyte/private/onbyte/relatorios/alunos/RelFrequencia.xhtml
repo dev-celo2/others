@@ -1,0 +1,194 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<a:form id="relFrequenciaSearch" styleClass="edit">
+
+			<p:panel header="#{messages['relFrequencias.titleReport']}"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:90px">
+					<h:panelGrid style="margin: 0px auto; width: 50%; " columns="6"
+						id="pgFiltros">
+						
+						<p:panel style="width:450px; height:60px" id="pnDatas" bodyClass="panelPaddingZero">
+							<h:panelGrid columns="8" style="margin: 10px auto;">
+							
+								<s:span styleClass="name"
+									style="font-weight:bold; font-size:15px;float:none; clear:none; vertical-align: baseline;">#{messages['global.periodo']}: </s:span>
+	
+								<rich:spacer width="5px" />
+	
+								<s:span style="font-weight: bold;">Data Inicial :</s:span>
+									<rich:calendar id="dataInicial" inputSize="10"										
+										enableManualInput="true" value="#{relFrequencia.dataInicial}"
+										datePattern="#{messages.pattern}" />
+									<rich:spacer width="5px" />
+									<s:span style="font-weight: bold;">Data Final :</s:span>
+									<rich:calendar id="dataFinal" inputSize="10"
+										enableManualInput="true" value="#{relFrequencia.dataFinal}"
+										datePattern="#{messages.pattern}" />
+											 
+	
+							</h:panelGrid>
+						</p:panel>
+						
+						<h:panelGrid>
+							<p:panel style="width:350px; height:60px">
+
+								<h:panelGrid style="width:100%; text-align:center;" columns="2">
+									<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relMatCanceladas.status']}:</s:span>
+									<h:selectOneRadio value="#{relFrequencia.statusMatricula}"
+										style="width:100%">
+										<f:selectItems itemLabelEscaped="true"
+											value="#{matriculasList.listStatusMatricula}" />
+										<f:selectItem itemValue="TODAS"
+											itemLabel="#{messages['global.all']}" />
+										<a:support event="onchange"
+											limitToList="true" oncomplete="inicializar();"
+											bypassUpdates="false">
+											<f:setPropertyActionListener
+												target="#{relMatPorMarketing.tipomark}" value="#{null}" />
+										</a:support>
+									</h:selectOneRadio>
+								</h:panelGrid>
+							</p:panel>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="2" >
+							<s:span style="font-weight: bold;">Presente: </s:span>
+							<h:selectOneMenu id="statusCurso" 
+								value="#{relFrequencia.statusPresente}"
+								style="width: 210px; height: 21px;" >
+								<f:selectItem itemLabel="Todos" itemValue="TODOS"/>
+								<f:selectItem itemLabel="Sim" itemValue="S" />
+								<f:selectItem itemLabel="Não" itemValue="N" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+						
+						
+						<p:commandButton value="#{messages['global.bntFilrar']}"
+								image="localizar" style="width:100px; margin:10px" onclick="filtrar();" />
+								
+						<a:jsFunction name="filtrar"
+							reRender="relFrequencias" limitToList="true"
+							oncomplete="inicializar();"
+							actionListener="#{relFrequencia.listarFrequencias}">
+						</a:jsFunction>
+								
+					</h:panelGrid>
+				</p:panel>
+
+
+				<p:panel id="relFrequencias"
+					header="#{messages['relFrequencias.resultados']}: #{empty relFrequencia.frequenciasList ? 0 : relFrequencia.frequenciasList.size}">
+
+					<p:dataTable emptyMessage="#{messages['global.naoHaDados']}"
+						id="tablerelFrequencias" var="_frequenciaObj"
+						paginatorPosition="bottom" rows="12" paginator="true"
+						rowsPerPageTemplate="12,18"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="false" style="text-align:center;"
+						value="#{relFrequencia.frequenciasList}">
+						
+						<p:column sortBy="#{_frequenciaObj.frequencia.id.data}">
+							<f:facet name="header">#{messages['relMatCanceladas.dtcancel']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.id.data}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['matriculas.codigo']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.matriculas.codigo}" />
+						</p:column>
+						<p:column >
+							<f:facet name="header">#{messages['relFrequencias.status']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.matriculas.status}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.matriculas.alunos.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relFrequencias.tipoAula']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.tipo}"/>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relFrequencias.computador']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.computador}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['horarios.inicio']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.horarios.inicio}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['horarios.final']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.horarios.final_}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relFrequencias.presente']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.presente == 'S' ? 'SIM' : 'NÃO'}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relFrequencias.saiucedo']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.saiucedo}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relFrequencias.motivo']}</f:facet>
+							<h:outputText value="#{_frequenciaObj.frequencia.motivo}" />
+						</p:column>
+					</p:dataTable>
+
+					<h:panelGrid columns="4">
+						<s:div styleClass="actionButtons" rendered="#{empty from}">
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relFrequencia.exportarRelatorioPDF}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/pdf.png" />
+							</h:commandLink>
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relFrequencia.exportarRelatorioExcel}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/excel.png" />
+							</h:commandLink>
+
+						</s:div>
+						<rich:spacer width="15px" />
+					</h:panelGrid>
+
+
+				</p:panel>
+
+			</p:panel>
+			
+
+			<script type="text/javascript"
+				src="#{request.contextPath}/js/jquery.maskedinput-1.3.min.js" />
+			<script>
+			inicializar();
+			function inicializar(){
+				jQuery(function($){
+			
+				$("#relFrequenciaSearch\\:dataInicialInputDate").mask("99/99/9999"); //maskedinput
+				$("#relFrequenciaSearch\\:dataFinalInputDate").mask("99/99/9999"); //maskedinput
+			
+				});
+			}
+		
+			</script>
+		</a:form>
+	</ui:define>
+</ui:composition>

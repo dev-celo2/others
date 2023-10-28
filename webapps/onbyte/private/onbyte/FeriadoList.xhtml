@@ -1,0 +1,154 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="feriadoSearch" styleClass="edit">
+
+        <rich:simpleTogglePanel label="#{messages['menu.Feriado1']} #{messages['global.searchFilter']}" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['feriado.dscFeriado']}</ui:define>
+                <h:inputText id="dscFeriado" value="#{feriadoList.feriado.dscFeriado}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['global.match']}</ui:define>
+                <h:selectOneRadio id="logic" value="#{feriadoList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="#{messages['global.all']}" itemValue="and"/>
+                    <f:selectItem itemLabel="#{messages['global.any']}" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:simpleTogglePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['global.search']}" action="/private/onbyte/FeriadoList.xhtml"/>
+            <s:button id="reset" value="#{messages['global.clear']}" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">#{messages['menu.Feriado1']} #{messages['global.searchFilter']} (#{empty feriadoList.resultList ? 0 : (feriadoList.paginated ? feriadoList.resultCount : feriadoList.resultList.size)})</f:facet>
+    <div class="results" id="feriadoList">
+
+    <h:outputText value="#{messages['global.NoSearchResults']}"
+               rendered="#{empty feriadoList.resultList}"/>
+
+    <rich:dataTable id="feriadoList"
+                var="_feriado"
+              value="#{feriadoList.resultList}"
+           rendered="#{not empty feriadoList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{feriadoList}"/>
+                    <ui:param name="propertyLabel" value="#{messages['feriado.dtFeriado']}"/>
+                    <ui:param name="propertyPath" value="feriado.dtFeriado"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_feriado.dtFeriado}">
+                <s:convertDateTime type="date" dateStyle="medium"/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{feriadoList}"/>
+                    <ui:param name="propertyLabel" value="#{messages['feriado.dscFeriado']}"/>
+                    <ui:param name="propertyPath" value="feriado.dscFeriado"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_feriado.dscFeriado}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{feriadoList}"/>
+                    <ui:param name="propertyLabel" value="#{messages['feriado.dtCadastro']}"/>
+                    <ui:param name="propertyPath" value="feriado.dtCadastro"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_feriado.dtCadastro}">
+                <s:convertDateTime type="both" dateStyle="medium"/>
+            </h:outputText>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">#{messages['global.action']}</f:facet>
+            <s:link view="/private/onbyte/#{empty from ? 'Feriado' : from}.xhtml"
+                   value="#{empty from ? messages['global.view'] : messages['global.select']}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="feriadoViewId">
+                <f:param name="feriadoDtFeriado"
+                        value="#{_feriado.dtFeriado}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/private/onbyte/FeriadoEdit.xhtml"
+                   value="#{messages['global.edit']}"
+             propagation="none"
+                      id="feriadoEdit"
+                rendered="#{empty from &amp;&amp; rich:isUserInRole('Feriado1_A')}">
+                <f:param name="feriadoDtFeriado"
+                        value="#{_feriado.dtFeriado}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/private/onbyte/FeriadoList.xhtml"
+            rendered="#{feriadoList.previousExists}"
+               value="#{messages.left}#{messages.left} Primeira Pagina"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/FeriadoList.xhtml"
+            rendered="#{feriadoList.previousExists}"
+               value="#{messages.left} Pagina Anterior"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{feriadoList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/FeriadoList.xhtml"
+            rendered="#{feriadoList.nextExists}"
+               value="Pr�xima Pagina #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{feriadoList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/FeriadoList.xhtml"
+            rendered="#{feriadoList.nextExists}"
+               value="Ultima Pagina #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{feriadoList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/private/onbyte/FeriadoEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="Gerar feriado">
+            <f:param name="feriadoDtFeriado"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

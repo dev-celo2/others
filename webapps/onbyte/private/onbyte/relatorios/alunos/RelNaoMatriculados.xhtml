@@ -1,0 +1,178 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="relNaoMatriculadosSearch" styleClass="edit">
+
+			<p:panel header="#{messages['relNaoMatriculados.title']}"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:90px">
+					<h:panelGrid style="margin: 0px auto; width: 50%" columns="5"
+						id="pgFiltros">
+
+						<h:panelGrid>
+							<p:panel style=" height:70px; position: relative; top: -6px;">
+								<s:span style="font-weight: bold;">#{messages['relParcelasAReceber.filtroDatas']}:</s:span>
+								<h:selectOneRadio value="#{relNaoMatriculados.tipoPeriodo}"
+									layout="pageDirection" style="width:100px">
+									<f:selectItem itemValue="1"
+										itemLabel="#{messages['global.all']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{messages['global.periodo']}" />
+									<a:support event="onchange" reRender="pgFiltros"
+										limitToList="true" oncomplete="inicializar();"
+										bypassUpdates="false" />
+								</h:selectOneRadio>
+							</p:panel>
+						</h:panelGrid>
+
+
+						<p:panel
+							style="width:355px; height:30px; display:#{relNaoMatriculados.tipoPeriodo.intValue()==2?'block':'none'};"
+							id="pnDatas">
+							<h:panelGroup>
+								<s:span style=" font-weight:bold;">Data Inicial: </s:span>
+								<rich:calendar id="dataInicial" inputSize="10"
+									enableManualInput="true"
+									value="#{relNaoMatriculados.dataInicial}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+
+							<h:panelGroup>
+								<s:span style="font-weight: bold;">Data Final: </s:span>
+								<rich:calendar id="dataFinal" inputSize="10"
+									enableManualInput="true"
+									value="#{relNaoMatriculados.dataFinal}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+
+						</p:panel>
+
+						<h:panelGrid columns="2">
+							<p:panel style="width:350px; height:50px">
+
+								<h:panelGrid style="width:100%; text-align:center;" columns="2">
+									<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relParcelasAReceber.matriculas']}</s:span>
+									<h:selectOneRadio value="#{relNaoMatriculados.situacaoAluno}"
+										style="width:100%">
+										<f:selectItem itemValue="Ativo"
+											itemLabel="#{messages['relNaoMatriculados.ativos']}" />
+										<f:selectItem itemValue="Inativo"
+											itemLabel="#{messages['relNaoMatriculados.inativos']}" />
+										<f:selectItem itemValue="#{null}"
+											itemLabel="#{messages['global.all']}" />
+										<a:support event="onchange" reRender="relNaoMatriculados"
+											limitToList="true" oncomplete="inicializar();"
+											bypassUpdates="false">
+											<f:setPropertyActionListener
+												target="#{relNaoMatriculados.alunos}" value="#{null}" />
+										</a:support>
+									</h:selectOneRadio>
+								</h:panelGrid>
+							</p:panel>
+
+
+							<p:commandButton value="#{messages['global.bntFilrar']}"
+								image="localizar" style="width:100px; margin: 0;"
+								onclick="filtrar();" />
+
+							<a:jsFunction name="filtrar"
+								reRender="relNaoMatriculados, vlTotalDevido" limitToList="true"
+								oncomplete="inicializar();">
+								<f:setPropertyActionListener
+									target="#{relNaoMatriculados.alunos}" value="#{null}" />
+							</a:jsFunction>
+
+						</h:panelGrid>
+
+
+
+
+
+					</h:panelGrid>
+				</p:panel>
+
+
+				<p:panel id="relNaoMatriculados"
+					header="#{messages['menu.Produtos1']} #{messages['global.searchResults']}: #{empty relNaoMatriculados.alunos ? 0 : relNaoMatriculados.alunos.size}">
+
+
+					<p:dataTable emptyMessage="#{messages['global.naoHaDados']}"
+						id="tablerelNaoMatriculados" var="_alunos"
+						paginatorPosition="bottom" rows="12" paginator="true"
+						rowsPerPageTemplate="12,18"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="true" selectionMode="single" style="text-align:center;"
+						value="#{relNaoMatriculados.alunos}">
+						<p:column>
+							<f:facet name="header">#{messages['alunos.codigo']}</f:facet>
+							<h:outputText value="#{_alunos.codigo}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+							<h:outputText value="#{_alunos.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.dtnasc']}</f:facet>
+							<h:outputText value="#{_alunos.dtnasc}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.telres']}</f:facet>
+							<h:outputText value="#{_alunos.telres}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.telcel']}</f:facet>
+							<h:outputText value="#{_alunos.telcel}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.email']}</f:facet>
+							<h:outputText value="#{_alunos.email}" />
+						</p:column>
+					</p:dataTable>
+
+					<h:panelGrid columns="3">
+						<s:div styleClass="actionButtons" rendered="#{empty from}">
+
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relNaoMatriculados.exportarRelatorioPDF}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/pdf.png" />
+							</h:commandLink>
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relNaoMatriculados.exportarRelatorioExcel}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/excel.png" />
+							</h:commandLink>
+
+
+						</s:div>
+
+					</h:panelGrid>
+
+
+				</p:panel>
+
+			</p:panel>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

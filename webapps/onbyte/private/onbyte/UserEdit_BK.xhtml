@@ -1,0 +1,221 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="user" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{userHome.managed ? messages['global.edit'] : messages['global.insert']} User</f:facet>
+
+
+
+            <s:decorate id="creationTimeField" template="layout/edit.xhtml">
+                <ui:define name="label">Creation time</ui:define>
+                <rich:calendar id="creationTime"
+                          value="#{userHome.instance.creationTime}" datePattern="dd/MM/yyyy hh:mm a"/>
+            </s:decorate>
+
+
+            <s:decorate id="lastModificationField" template="layout/edit.xhtml">
+                <ui:define name="label">Last modification</ui:define>
+                <rich:calendar id="lastModification"
+                          value="#{userHome.instance.lastModification}" datePattern="dd/MM/yyyy hh:mm a"/>
+            </s:decorate>
+
+
+
+            <s:decorate id="activeField" template="layout/edit.xhtml">
+                <ui:define name="label">Active</ui:define>
+                <h:inputText id="active"
+                          value="#{userHome.instance.active}">
+                    <a:support event="onblur" reRender="activeField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="emailField" template="layout/edit.xhtml">
+                <ui:define name="label">Email</ui:define>
+                <h:inputTextarea id="email"
+                               cols="80"
+                               rows="3"
+                              value="#{userHome.instance.email}"/>
+            </s:decorate>
+
+
+            <s:decorate id="loginField" template="layout/edit.xhtml">
+                <ui:define name="label">Login</ui:define>
+                <h:inputTextarea id="login"
+                               cols="80"
+                               rows="3"
+                              value="#{userHome.instance.login}"/>
+            </s:decorate>
+
+
+            <s:decorate id="nameField" template="layout/edit.xhtml">
+                <ui:define name="label">Name</ui:define>
+                <h:inputTextarea id="name"
+                               cols="80"
+                               rows="3"
+                              value="#{userHome.instance.name}"/>
+            </s:decorate>
+
+
+            <s:decorate id="passwdField" template="layout/edit.xhtml">
+                <ui:define name="label">Passwd</ui:define>
+                <h:inputTextarea id="passwd"
+                               cols="80"
+                               rows="3"
+                              value="#{userHome.instance.passwd}"/>
+            </s:decorate>
+
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                #{messages['global.requiredField']}
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="#{messages['global.save']}"
+                         action="#{userHome.persist}"
+                       disabled="#{!userHome.wired}"
+                       rendered="#{!userHome.managed}"/>
+
+            <h:commandButton id="update"
+                          value="#{messages['global.save']}"
+                         action="#{userHome.update}"
+                       rendered="#{userHome.managed}"/>
+
+            <h:commandButton id="delete"
+                          value="#{messages['global.delete']}" onclick="return confirm('#{messages['global.confirmDelete']}')"
+                         action="#{userHome.remove}"
+                      immediate="true"
+                       rendered="#{userHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="#{messages['global.cancel']}"
+             propagation="end"
+                    view="/private/onbyte/User.xhtml"
+                rendered="#{userHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="#{messages['global.cancel']}"
+             propagation="end"
+                    view="/private/onbyte/#{empty userFrom ? 'UserList' : userFrom}.xhtml"
+                rendered="#{!userHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="ajax">
+
+    <rich:tab label="Modified by">
+    <div class="association" id="modifiedByParent">
+
+        <h:outputFormat value="There is no modifiedBy associado a este user."
+                   rendered="#{userHome.instance.modifiedBy == null}"/>
+
+        <rich:dataTable var="_user"
+                   value="#{userHome.instance.modifiedBy}"
+                rendered="#{userHome.instance.modifiedBy != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="modifiedByTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_user.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Creation time</f:facet>
+                <h:outputText value="#{_user.creationTime}">
+                    <s:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Last modification</f:facet>
+                <h:outputText value="#{_user.lastModification}">
+                    <s:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Modified by id</f:facet>
+                <h:outputText value="#{_user.modifiedBy.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Active</f:facet>
+                <h:outputText value="#{_user.active}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{_user.email}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Login</f:facet>
+                <h:outputText value="#{_user.login}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_user.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Passwd</f:facet>
+                <h:outputText value="#{_user.passwd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Profile id</f:facet>
+                <h:outputText value="#{_user.profile.id}"/>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab label="Profile">
+    <div class="association" id="profileParent">
+
+        <h:outputFormat value="There is no profile associado a este user."
+                   rendered="#{userHome.instance.profile == null}"/>
+
+        <rich:dataTable var="_profile"
+                   value="#{userHome.instance.profile}"
+                rendered="#{userHome.instance.profile != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="profileTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_profile.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_profile.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Tag</f:facet>
+                <h:outputText value="#{_profile.tag}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{userHome.instance.profile != null ? 'changeParent' : 'selectParent'}" value="#{userHome.instance.profile != null ? 'Alterar' : 'Selecionar'} profile"
+                       view="/private/onbyte/ProfileList.xhtml">
+                <f:param name="from" value="UserEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

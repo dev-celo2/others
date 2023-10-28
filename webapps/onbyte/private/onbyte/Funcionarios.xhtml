@@ -1,0 +1,229 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+		<h:form id="funcionariosSearch" styleClass="edit">
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-list" /> FUNCIONÁRIO DETALHES
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<table width="100%">
+							<thead>
+								<tr>
+
+									<td>
+
+										<div class="col-xs-3">
+											<label for="ex1">CODIGO</label>
+											<h:inputText id="codigo" styleClass="form-control"
+												readonly="true" value="#{funcionariosHome.instance.codigo}" />
+										</div>
+
+										<div class="col-xs-5">
+											<label for="ex1">NOME</label>
+											<h:inputText id="nome" styleClass="form-control"
+												readonly="true" value="#{funcionariosHome.instance.nome}" />
+										</div>
+
+										<div class="col-xs-4">
+											<label for="ex1">PERFIL</label>
+
+											<h:inputText id="perfil" styleClass="form-control"
+												readonly="true"
+												value="#{funcionariosHome.instance.perfil.nome}" />
+
+										</div>
+
+									</td>
+
+								</tr>
+							</thead>
+						</table>
+
+						<table width="100%">
+							<thead>
+								<tr>
+
+									<td>
+
+
+										<div class="col-xs-3">
+											<label for="ex1">STATUS</label>
+											<h:inputText value="#{messages['global.Ativo']}"
+												styleClass="form-control" readonly="true"
+												rendered="#{funcionariosHome.instance.ativo==1}" />
+											<h:inputText value="#{messages['global.Inativo']}"
+												styleClass="form-control" readonly="true"
+												rendered="#{funcionariosHome.instance.ativo==0}" />
+										</div>
+
+										<div class="col-xs-5">
+											<label for="ex1">ENDEREÇO</label>
+											<h:inputText id="endereco" styleClass="form-control"
+												readonly="true"
+												value="#{funcionariosHome.instance.endereco}" />
+										</div>
+
+										<div class="col-xs-4">
+											<label for="ex1">BAIRRO</label>
+
+											<h:inputText id="bairro" styleClass="form-control"
+												readonly="true" value="#{funcionariosHome.instance.bairro}" />
+
+										</div>
+
+									</td>
+								</tr>
+							</thead>
+						</table>
+
+						<table width="100%">
+							<thead>
+								<tr>
+
+									<td>
+
+
+										<div class="col-xs-3">
+											<label for="ex1">CIDADE</label>
+											<h:inputText id="cidade" styleClass="form-control"
+												readonly="true" value="#{funcionariosHome.instance.cidade}" />
+										</div>
+
+										<div class="col-xs-1">
+											<label for="ex1">ESTADO</label>
+											<h:inputText id="uf" styleClass="form-control"
+												readonly="true" value="#{funcionariosHome.instance.uf}" />
+										</div>
+
+										<div class="col-xs-2">
+											<label for="ex1">CEP</label>
+
+											<p:inputMask mask="99.999-999" id="cep" readonly="true"
+												styleClass="form-control"
+												value="#{funcionariosHome.instance.cep}" />
+
+										</div>
+
+										<div class="col-xs-2">
+											<label for="ex1">RG</label>
+
+											<h:inputText id="rg" styleClass="form-control"
+												readonly="true" value="#{funcionariosHome.instance.rg}" />
+										</div>
+
+										<div class="col-xs-4">
+											<label for="ex1">CPF</label>
+
+											<p:inputMask mask="999.999.999-99" id="cpf" readonly="true"
+												styleClass="form-control"
+												value="#{funcionariosHome.instance.cpf}" />
+										</div>
+
+
+
+
+									</td>
+								</tr>
+							</thead>
+						</table>
+
+						<table width="100%">
+							<thead>
+								<tr>
+
+									<td>
+
+
+										<div class="col-xs-3">
+											<label for="ex1">LOGIN</label>
+											<h:inputText id="login" styleClass="form-control"
+												readonly="true" value="#{funcionariosHome.instance.login}" />
+										</div>
+
+										<div class="col-xs-3">
+											<label for="ex1">TELEFONE</label>
+											<p:inputMask mask="(99)9999-9999" id="fone" styleClass="form-control"
+												readonly="true" value="#{funcionariosHome.instance.fone}" />
+										</div>
+
+										<div class="col-xs-2">
+											<label for="ex1">CELULAR</label>
+											<p:inputMask mask="(99)99999-9999" id="fone2" styleClass="form-control"
+												readonly="true" value="#{funcionariosHome.instance.fone2}" />
+										</div>
+
+										<div class="col-xs-4">
+											<label for="ex1">E-M@IL</label>
+
+											<h:inputText  id="email" readonly="true"
+												styleClass="form-control"
+												value="#{funcionariosHome.instance.email}" />
+
+										</div>
+
+
+									</td>
+								</tr>
+							</thead>
+						</table>
+
+
+
+					</div>
+				</div>
+				<div class="panel-footer">
+
+					<center>
+					
+					
+					
+						<s:link view="/private/onbyte/FuncionariosEdit.xhtml" id="edit"
+							rendered="#{rich:isUserInRole('Funcionrios1_A')}"
+							styleClass="btn btn-info" style="width:150px;">
+							<i class="glyphicon glyphicon-pencil" />
+							Editar
+						</s:link>
+
+						<rich:spacer width="2px;" />
+
+						<s:link style="width:150px;" styleClass="btn btn-success"
+							view="/private/onbyte/#{empty funcionariosFrom ? 'FuncionariosList' : funcionariosFrom}.xhtml"
+							id="done">
+							<i class="glyphicon glyphicon-ok" />
+							Concluído
+						</s:link>
+
+
+
+					</center>
+
+				</div>
+			</div>
+
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

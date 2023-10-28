@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+   <param name="firstResult" value="#{funcionariosList.firstResult}"/>
+   <param name="sort" value="#{funcionariosList.orderColumn}"/>
+   <param name="dir" value="#{funcionariosList.orderDirection}"/>
+   <param name="logic" value="#{funcionariosList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="bairro" value="#{funcionariosList.funcionarios.bairro}"/>
+   <param name="cep" value="#{funcionariosList.funcionarios.cep}"/>
+   <param name="cidade" value="#{funcionariosList.funcionarios.cidade}"/>
+   <param name="cpf" value="#{funcionariosList.funcionarios.cpf}"/>
+   <param name="endereco" value="#{funcionariosList.funcionarios.endereco}"/>
+   <param name="fone" value="#{funcionariosList.funcionarios.fone}"/>
+   <param name="fone2" value="#{funcionariosList.funcionarios.fone2}"/>
+   <param name="nome" value="#{funcionariosList.funcionarios.nome}"/>
+   <param name="passe" value="#{funcionariosList.funcionarios.passe}"/>
+   <param name="rg" value="#{funcionariosList.funcionarios.rg}"/>
+   <param name="tipo" value="#{funcionariosList.funcionarios.tipo}"/>
+   <param name="uf" value="#{funcionariosList.funcionarios.uf}"/>
+   <param name="login" value="#{funcionariosList.funcionarios.login}"/>
+   <param name="senha" value="#{funcionariosList.funcionarios.senha}"/>
+   <param name="email" value="#{funcionariosList.funcionarios.email}"/>
+   <param name="ativo" value="#{funcionariosList.funcionarios.ativo}"/>
+   <param name="idPerfil" value="#{funcionariosList.idPerfil}"/>
+
+</page>

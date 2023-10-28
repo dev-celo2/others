@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BoletimComentarios" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="40852580-7d25-4733-833a-be787199d20e">
+	<property name="ireport.zoom" value="1.1269722013523664"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nomeAluno" class="java.lang.String"/>
+	<parameter name="dtnascAluno" class="java.util.Date"/>
+	<parameter name="rgAluno" class="java.lang.String"/>
+	<parameter name="cpfAluno" class="java.lang.String"/>
+	<field name="cursoCodigo" class="java.lang.Integer"/>
+	<field name="cursoDescricao" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="notasAula" class="java.lang.Integer"/>
+	<field name="notasNota" class="java.math.BigDecimal"/>
+	<field name="notasData" class="java.util.Date"/>
+	<field name="comentario" class="java.lang.String"/>
+	<variable name="nota_Media" class="java.math.BigDecimal" resetType="Group" resetGroup="curso" calculation="Average">
+		<variableExpression><![CDATA[$F{notasNota}]]></variableExpression>
+	</variable>
+	<group name="curso">
+		<groupExpression><![CDATA[$F{cursoCodigo}]]></groupExpression>
+		<groupHeader>
+			<band height="71">
+				<textField>
+					<reportElement uuid="56fb406d-996b-4c36-9466-a67fb11487aa" x="13" y="5" width="40" height="18"/>
+					<textElement markup="none">
+						<font fontName="Calibri" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{modulos.curso}+":"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="82160ee3-7d9c-491d-b358-58ee0acb3840" x="53" y="5" width="317" height="18"/>
+					<textElement markup="none">
+						<font fontName="Calibri" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cursoDescricao}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="d6d408fe-966e-49d9-8a73-db929b54f4e1" x="13" y="26" width="50" height="18"/>
+					<textElement markup="none">
+						<font fontName="Calibri" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{curMatri.status}+":"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="df034774-12f3-47c1-b32c-e4ca487743e4" x="63" y="26" width="317" height="18"/>
+					<textElement markup="none">
+						<font fontName="Calibri" size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{status}.equals("E")?$R{curMatri.status.E}:
+$F{status}.equals("C")?$R{curMatri.status.C}:$R{curMatri.status.A}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="0b393343-3068-43b1-a4b7-74e832c55c9d" x="12" y="52" width="66" height="18"/>
+					<textElement markup="none">
+						<font fontName="Calibri" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{boletimComentario.aula}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="95221c73-898f-4503-ba4c-2d0a74f16e85" x="162" y="52" width="70" height="18"/>
+					<textElement markup="none">
+						<font fontName="Calibri" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{boletimComentario.comentario}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="6fe55ec3-24be-42a8-b509-a14e779af5c3" x="78" y="52" width="84" height="18"/>
+					<textElement markup="none">
+						<font fontName="Calibri" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{global.date}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="5a9e71ce-4c92-401d-8c69-ad9dde37b55e" x="0" y="0" width="539" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.75"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="83ecf740-aa35-4e41-8af5-c8cc33b00b39" x="0" y="70" width="539" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.5"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="124" splitType="Stretch">
+			<textField>
+				<reportElement uuid="3a495557-874d-4160-8623-211ed50a0c99" x="0" y="5" width="539" height="31"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Calibri" size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{boletimComentario.title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e616a8e3-5233-4bb5-8aee-ba5e6942a416" x="6" y="52" width="40" height="18"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.alunos}+":"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c18d1d44-d377-48b8-9fb7-9029021ab5ff" x="46" y="52" width="317" height="18"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeAluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="977c4f39-cb0b-4c53-a1aa-1ec42793660a" x="6" y="76" width="123" height="18"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{boletimComentario.dtnasc}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="8e7edb6a-b31a-43d9-b1a7-db1ff9394c8e" x="129" y="76" width="63" height="18"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dtnascAluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5ca561b6-0ac1-4fba-ac1e-b4f00070d69f" x="6" y="99" width="77" height="25"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Calibri" size="20" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{parametroHome.cursos}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="64b037fc-5032-4ff9-a3f6-6a3dff9598c3" x="208" y="76" width="39" height="18"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{alunos.rg}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="22b950fe-5548-4f5a-96ec-a1d9e687f9c5" x="247" y="76" width="106" height="18"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rgAluno}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="b1edc64a-c8ad-45df-b350-fc546cc6d67b" x="411" y="76" width="106" height="18"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cpfAluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4a2c0fdb-5eda-4319-93b0-c7dd08f7cf09" x="378" y="76" width="33" height="18"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{alunos.cpf}+":"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a605fdd4-0675-4ca0-a6eb-0e1ef5eeb087" x="12" y="0" width="66" height="15"/>
+				<textElement markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notasAula}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="c3e62c95-2baa-4e55-b817-93feeba4f55c" x="78" y="0" width="84" height="15"/>
+				<textElement markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{notasData}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="e79973ff-c316-4a37-a7e4-0987d4944c24" x="162" y="0" width="376" height="43"/>
+				<textElement markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comentario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="15">
+			<textField>
+				<reportElement uuid="9cd3a8fe-a4a3-4589-a484-e0454aa3e6e1" x="499" y="0" width="40" height="15"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

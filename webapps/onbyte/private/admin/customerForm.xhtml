@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:rich="http://richfaces.org/rich"
+		xmlns:a4j="http://richfaces.org/a4j"
+		xmlns:gui="http://intelinet.com.br/gui"
+		template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<f:metadata>
+	<f:viewParam name="id" value="#{customerAction.customerId}"/>
+</f:metadata>
+
+<ui:define name="trail">
+	<h:outputText value="#{messages['trail.separator']} "/>
+	<h:link outcome="/private/admin/customerList" value="#{messages['customer.sectionTitle']}"/>
+	<h:outputText value=" #{messages['trail.separator']} "/>
+	<ui:fragment rendered="#{customerAction.customer.id != null}">
+		<h:link outcome="/private/admin/customerView" value="#{customerAction.customer.name}">
+			<f:param name="id" value="#{customerAction.customer.id}"/>
+		</h:link>
+		<h:outputText value=" #{messages['trail.separator']} "/>
+		<h:outputText value="#{messages['global.edit']}"/>
+	</ui:fragment>
+	<h:outputText value="#{messages['global.add']}" rendered="#{customerAction.customer.id == null}"/>
+</ui:define>
+
+<ui:define name="body">
+<a4j:queue requestDelay="#{ajaxQueueBean.requestDelay}" ignoreDupResponses="#{ajaxQueueBean.ignoreDupResponces}"/>
+	<gui:section title="#{messages['customer.sectionTitle']}">
+	<h:form id="form1">
+		<gui:panelGrid>
+			<gui:panelGroup label="#{messages['customer.cpf']}" required="true">
+				<h:inputText id="cpf" value="#{customerAction.customer.cpf}" size="15" label="#{messages['customer.cpf']}" required="true">
+					<f:validator validatorId="validator.CpfValidator" />
+				</h:inputText>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['customer.name']}">
+				<h:inputText value="#{customerAction.customer.name}" size="40"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['customer.email']}">
+				<h:inputText value="#{customerAction.customer.email}" size="30"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['customer.address']}">
+				<h:inputText value="#{customerAction.customer.address}" size="50"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['customer.zipCode']}">
+				<h:inputText id="zipCode" value="#{customerAction.customer.zipCode}" size="10" maxlength="10"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['customer.birthDate']}">
+				<rich:calendar id="birthDate" datePattern="dd/MM/yyyy" styleClass="TextField" popup="true" inputClass="rich-textarea txtData" inputSize="10"  enableManualInput="true" value="#{customerAction.customer.birthDate}"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['customer.fatherName']}">
+				<h:inputText value="#{customerAction.customer.fatherName}" size="40"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['customer.motherName']}">
+				<h:inputText value="#{customerAction.customer.motherName}" size="40"/>
+			</gui:panelGroup>
+			<gui:panelFooter>
+				<h:commandButton value="#{messages['global.save']}" action="#{customerAction.save()}"/>
+				<h:button outcome="/private/admin/customerList" value="#{messages['global.cancel']}" rendered="#{customerAction.customerId eq null}"/>								
+				<h:button outcome="/private/admin/customerView" value="#{messages['global.cancel']}" rendered="#{!(customerAction.customerId eq null)}">
+					<f:param name="id" value="#{customerAction.customerId}"/>
+				</h:button>
+			</gui:panelFooter>
+		</gui:panelGrid>
+	<script type="text/javascript" src="#{request.contextPath}/js/jquery.maskedinput-1.3.min.js"/>
+	<script>
+
+	jQuery(function($){
+
+	$("#form1\\:birthDateInputDate").mask("99/99/9999"); //maskedinput
+	$("#form1\\:cpf").mask("999.999.999-99"); //maskedinput
+	$("#form1\\:zipCode").mask("99.999-999"); //maskedinput
+
+	});
+
+	</script>
+	<!--  <rich:jQuery id="mskData" selector="#form1\\:birthDateInputDate" timing="immediate" query="mask('99/99/9999',{placeholder:' '})" /> -->
+	</h:form>
+	</gui:section>
+</ui:define>
+
+</ui:composition>

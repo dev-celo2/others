@@ -1,0 +1,105 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+	<h:form id="frm#{cont.index}">
+
+	<div id="DialogEditConvalu#{cont.index}" style="z-index: 4041;"
+		class="modal fade " data-backdrop="static" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<center>
+						<h4 style="color: gray; font-weight: bold;" class="modal-title">
+							<i class="glyphicon glyphicon-pencil" style="font-size: 20px;" />
+							EDITAR CONTATO
+						</h4>
+					</center>
+				</div>
+				<div class="modal-body">
+					<div class="box-content">
+
+
+						<rich:panel id="pnlEditCont#{cont.index}"
+							style="border:none; height:190px; width:100%;">
+
+
+							<div class="row">
+								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+									<label for="ex1">DATA</label>
+									<h:inputText required="true" readonly="true"
+										class="form-control"
+										value="#{matriculasHome.contatoMatricula.data}">
+									</h:inputText>
+								</div>
+
+
+								<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+									<label for="ex1">HORA</label>
+									<h:inputText required="true" readonly="true"
+										class="form-control"
+										value="#{matriculasHome.contatoMatricula.hora}">
+									</h:inputText>
+								</div>
+
+
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+									<label for="ex1">FUNCIONÁRIO</label>
+									<h:inputText required="true" readonly="true"
+										class="form-control"
+										value="#{matriculasHome.contatoMatricula.funcionarios.nome}">
+									</h:inputText>
+								</div>
+
+							</div>
+
+							<rich:spacer height="15px;" />
+
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<center>
+										<label for="ex1">CONVERSA</label>
+									</center>
+									<h:inputTextarea id="conversa#{cont.index}" value="#{matriculasHome.conversaEditAluno}"
+										class="form-control" style="height:80px;"
+										readonly="#{!rich:isUserInRole('Vendas1_A')}" />
+								</div>
+
+							</div>
+
+
+						</rich:panel>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<center>
+						<a:commandLink
+							reRender="pnlEditCont#{cont.index}, grpContatos, msgGlobal"
+							style="width:200px;"
+							onclick="$('#DialogEditConvalu#{cont.index}').modal('hide');"
+							actionListener="#{matriculasHome.salvarEditConvalu(matriculasHome.contatoMatricula.id)}"
+							title="Gravar" styleClass="btn btn-success">
+							<i class="glyphicon glyphicon-floppy-disk" /> Gravar
+					</a:commandLink>
+						<button type="button" style="width: 200px;"
+							class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove" /> Cancelar</button>
+					</center>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</h:form>
+
+</ui:composition>

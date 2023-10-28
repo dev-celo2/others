@@ -1,0 +1,447 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Sugestao #{messages['global.Detalhes']}</f:facet>
+
+        <s:decorate id="codigo" template="layout/display.xhtml">
+            <ui:define name="label">Codigo</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.codigo}"/>
+        </s:decorate>
+
+        <s:decorate id="cp1" template="layout/display.xhtml">
+            <ui:define name="label">Cp1</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.cp1}"/>
+        </s:decorate>
+
+        <s:decorate id="cp2" template="layout/display.xhtml">
+            <ui:define name="label">Cp2</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.cp2}"/>
+        </s:decorate>
+
+        <s:decorate id="cp3" template="layout/display.xhtml">
+            <ui:define name="label">Cp3</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.cp3}"/>
+        </s:decorate>
+
+        <s:decorate id="cp4" template="layout/display.xhtml">
+            <ui:define name="label">Cp4</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.cp4}"/>
+        </s:decorate>
+
+        <s:decorate id="data" template="layout/display.xhtml">
+            <ui:define name="label">Data</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.data}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="p1" template="layout/display.xhtml">
+            <ui:define name="label">P1</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.p1}"/>
+        </s:decorate>
+
+        <s:decorate id="p2" template="layout/display.xhtml">
+            <ui:define name="label">P2</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.p2}"/>
+        </s:decorate>
+
+        <s:decorate id="p3" template="layout/display.xhtml">
+            <ui:define name="label">P3</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.p3}"/>
+        </s:decorate>
+
+        <s:decorate id="p4" template="layout/display.xhtml">
+            <ui:define name="label">P4</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.p4}"/>
+        </s:decorate>
+
+        <s:decorate id="sugestao" template="layout/display.xhtml">
+            <ui:define name="label">Sugestao</ui:define>
+            <h:outputText value="#{sugestaoHome.instance.sugestao}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/private/onbyte/SugestaoEdit.xhtml"
+                    id="edit"
+                 value="#{messages['global.edit']}"/>
+
+        <s:button view="/private/onbyte/#{empty sugestaoFrom ? 'SugestaoList' : sugestaoFrom}.xhtml"
+                    id="done"
+                 value="#{messages['global.done']}"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Alunos</h:panelGroup>
+        </f:facet>
+    <div class="association" id="alunosParent">
+
+        <h:outputFormat value="There is no alunos associado a este sugestao."
+                   rendered="#{sugestaoHome.instance.alunos == null}"/>
+
+        <rich:dataTable var="_alunos"
+                   value="#{sugestaoHome.instance.alunos}"
+                rendered="#{sugestaoHome.instance.alunos != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="alunosTable">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_alunos.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Bairro</f:facet>
+                <h:outputText value="#{_alunos.bairro}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Bairrocom</f:facet>
+                <h:outputText value="#{_alunos.bairrocom}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cadastro</f:facet>
+                <h:outputText value="#{_alunos.cadastro}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cep</f:facet>
+                <h:outputText value="#{_alunos.cep}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cepcom</f:facet>
+                <h:outputText value="#{_alunos.cepcom}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cidade</f:facet>
+                <h:outputText value="#{_alunos.cidade}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cpf</f:facet>
+                <h:outputText value="#{_alunos.cpf}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cpfresp</f:facet>
+                <h:outputText value="#{_alunos.cpfresp}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dtcadastro</f:facet>
+                <h:outputText value="#{_alunos.dtcadastro}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dtnasc</f:facet>
+                <h:outputText value="#{_alunos.dtnasc}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dtnascresp</f:facet>
+                <h:outputText value="#{_alunos.dtnascresp}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{_alunos.email}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Endereco</f:facet>
+                <h:outputText value="#{_alunos.endereco}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Enderecocom</f:facet>
+                <h:outputText value="#{_alunos.enderecocom}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Escola</f:facet>
+                <h:outputText value="#{_alunos.escola}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Estado</f:facet>
+                <h:outputText value="#{_alunos.estado}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Foto</f:facet>
+                <h:outputText value="#{_alunos.foto}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nome</f:facet>
+                <h:outputText value="#{_alunos.nome}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nome mae</f:facet>
+                <h:outputText value="#{_alunos.nomeMae}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nome pai</f:facet>
+                <h:outputText value="#{_alunos.nomePai}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Recados</f:facet>
+                <h:outputText value="#{_alunos.recados}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Resppgto</f:facet>
+                <h:outputText value="#{_alunos.resppgto}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Rg</f:facet>
+                <h:outputText value="#{_alunos.rg}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Situacao</f:facet>
+                <h:outputText value="#{_alunos.situacao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Telcel</f:facet>
+                <h:outputText value="#{_alunos.telcel}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Telcom</f:facet>
+                <h:outputText value="#{_alunos.telcom}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Telres</f:facet>
+                <h:outputText value="#{_alunos.telres}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Template1</f:facet>
+                <h:outputText value="#{_alunos.template1}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Template2</f:facet>
+                <h:outputText value="#{_alunos.template2}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Template3</f:facet>
+                <h:outputText value="#{_alunos.template3}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewalunos"
+                     value="Visualizar"
+                      view="/private/onbyte/Alunos.xhtml">
+                    <f:param name="alunosCodigo"
+                           value="#{_alunos.codigo}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Cursos</h:panelGroup>
+        </f:facet>
+    <div class="association" id="cursosParent">
+
+        <h:outputFormat value="There is no cursos associado a este sugestao."
+                   rendered="#{sugestaoHome.instance.cursos == null}"/>
+
+        <rich:dataTable var="_cursos"
+                   value="#{sugestaoHome.instance.cursos}"
+                rendered="#{sugestaoHome.instance.cursos != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="cursosTable">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_cursos.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">N horas</f:facet>
+                <h:outputText value="#{_cursos.NHoras}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Caminho</f:facet>
+                <h:outputText value="#{_cursos.caminho}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Descricao</f:facet>
+                <h:outputText value="#{_cursos.descricao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Duracao</f:facet>
+                <h:outputText value="#{_cursos.duracao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Exervirtuais</f:facet>
+                <h:outputText value="#{_cursos.exervirtuais}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Parcelas</f:facet>
+                <h:outputText value="#{_cursos.parcelas}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewcursos"
+                     value="Visualizar"
+                      view="/private/onbyte/Cursos.xhtml">
+                    <f:param name="cursosCodigo"
+                           value="#{_cursos.codigo}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Matriculas</h:panelGroup>
+        </f:facet>
+    <div class="association" id="matriculasParent">
+
+        <h:outputFormat value="There is no matriculas associado a este sugestao."
+                   rendered="#{sugestaoHome.instance.matriculas == null}"/>
+
+        <rich:dataTable var="_matriculas"
+                   value="#{sugestaoHome.instance.matriculas}"
+                rendered="#{sugestaoHome.instance.matriculas != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="matriculasTable">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_matriculas.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{messages['menu.Produtos1']} codigo</f:facet>
+                <h:outputText value="#{_matriculas.alunos.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Anotacao</f:facet>
+                <h:outputText value="#{_matriculas.anotacao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dtcancel</f:facet>
+                <h:outputText value="#{_matriculas.dtcancel}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dtinicio</f:facet>
+                <h:outputText value="#{_matriculas.dtinicio}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dtmatri</f:facet>
+                <h:outputText value="#{_matriculas.dtmatri}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dttermino</f:facet>
+                <h:outputText value="#{_matriculas.dttermino}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Dtultalula</f:facet>
+                <h:outputText value="#{_matriculas.dtultalula}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Funcionario</f:facet>
+                <h:outputText value="#{_matriculas.funcionario}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Funcionarios codigo</f:facet>
+                <h:outputText value="#{_matriculas.funcionarios.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Modulos codigo</f:facet>
+                <h:outputText value="#{_matriculas.modulos.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Notivocancel</f:facet>
+                <h:outputText value="#{_matriculas.notivocancel}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Qtdhoras</f:facet>
+                <h:outputText value="#{_matriculas.qtdhoras}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Qtmeses</f:facet>
+                <h:outputText value="#{_matriculas.qtmeses}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Qtparcelas</f:facet>
+                <h:outputText value="#{_matriculas.qtparcelas}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Senha</f:facet>
+                <h:outputText value="#{_matriculas.senha}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Status</f:facet>
+                <h:outputText value="#{_matriculas.status}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Tipomark codigo</f:facet>
+                <h:outputText value="#{_matriculas.tipomark.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Venc1mens</f:facet>
+                <h:outputText value="#{_matriculas.venc1mens}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Vencmatri</f:facet>
+                <h:outputText value="#{_matriculas.vencmatri}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Vlmatricula</f:facet>
+                <h:outputText value="#{_matriculas.vlmatricula}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Vlmensal</f:facet>
+                <h:outputText value="#{_matriculas.vlmensal}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Vlpacote</f:facet>
+                <h:outputText value="#{_matriculas.vlpacote}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewmatriculas"
+                     value="Visualizar"
+                      view="/private/onbyte/Matriculas.xhtml">
+                    <f:param name="matriculasCodigo"
+                           value="#{_matriculas.codigo}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

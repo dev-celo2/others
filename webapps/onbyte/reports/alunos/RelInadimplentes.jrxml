@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelInadimplentes" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="808" leftMargin="17" rightMargin="17" topMargin="20" bottomMargin="20" uuid="38f93e3e-617e-47f1-a556-7dfefb21b797">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="periodo" class="java.lang.String"/>
+	<parameter name="title_rel" class="java.lang.String"/>
+	<field name="matricula" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="telres" class="java.lang.String"/>
+	<field name="telcel" class="java.lang.String"/>
+	<field name="qtd_parcelas" class="java.lang.Integer"/>
+	<field name="qtd_parcelas_pagas" class="java.lang.Integer"/>
+	<field name="total_devido" class="java.lang.Float"/>
+	<field name="qtd_Parcelas_Atras" class="java.lang.Integer"/>
+	<field name="qtd_Parcelas_Atras_Per" class="java.lang.Integer"/>
+	<field name="dta_Ultimo_Venc" class="java.util.Date"/>
+	<field name="parcela" class="java.lang.Integer"/>
+	<variable name="DETAIL_COUNT" class="java.lang.Integer" calculation="Count"/>
+	<variable name="SUM_TOTAL_DEVIDO" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_devido}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="58" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement uuid="39028c2d-4d4c-4e05-9c50-efe2c3e92f9a" x="0" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="91ffa7cd-1601-4823-8fde-3e2cdf43c3e8" x="708" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<patternExpression><![CDATA[$R{global.reportPagina}+": "]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c4a10c41-6737-427a-b3c1-138040bb339e" x="0" y="22" width="808" height="18"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="15" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title_rel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="aa4f7b11-5847-457c-8546-170bce1fe051" x="236" y="0" width="336" height="23"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="ZurichCalligraphic" size="20" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5430838d-fe61-46ef-b2f8-aa9275b3ce03" mode="Transparent" x="0" y="40" width="808" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="15" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e8e27e3d-3e72-4968-9a58-e60c7c8a46af" x="111" y="0" width="290" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="none">
+					<font size="10" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{alunos.codigo}+" / "+$R{alunos.nome}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="65e59fb8-0822-48ee-a72d-979e6afec6b9" x="664" y="0" width="73" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="none">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{alunos.telres}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="90c0c712-ed9d-4d08-9f63-ece2fc72deaa" x="737" y="0" width="73" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="none">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{alunos.telcel}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5a59222c-2041-4fbe-aee8-bdc5c39d00d0" mode="Transparent" x="401" y="0" width="45" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relInadimplentes.parcelas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f211d4e7-0143-4113-9cf7-102ca3f46af0" mode="Transparent" x="446" y="0" width="32" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relInadimplentes.pagas}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e7925c33-155e-40de-bbc2-d3febed99107" mode="Transparent" x="478" y="0" width="60" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relInadimplentes.totAtrasadasPer}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="db1bdd7b-400b-4309-a215-ea4f155c7b9b" x="589" y="0" width="75" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="none">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relATerminar.valorDebito}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="718c57ae-c669-402d-9b5c-d6bf1c630023" x="0" y="0" width="62" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="none">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relInadimplentes.dtaUltVenc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="92075a6a-012c-4159-a179-048fdf29cfc1" x="62" y="0" width="49" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="none">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relInadimplentes.parcela}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c1b1e512-17af-4dbe-ba13-d4c2f9fcaf21" mode="Transparent" x="538" y="0" width="51" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relInadimplentes.totAtrasadas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement uuid="92162d6c-4822-437e-a8f1-8351d72efab7" x="111" y="0" width="43" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6df6561c-ec7a-4476-a246-9596d02eb8d5" x="154" y="0" width="247" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3a155266-9be7-4602-92e4-7bface916a24" x="664" y="0" width="73" height="13"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{telres}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="10244b73-ffb6-4126-8a4c-6787c5f8aaf3" x="737" y="0" width="73" height="13"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{telcel}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="0f3ce154-f0e4-4c96-8366-975e71989436" x="401" y="0" width="45" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{qtd_parcelas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="ece8a39e-2af4-447b-b595-f598fcf2492e" x="446" y="0" width="32" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{qtd_parcelas_pagas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="0ae27bc5-9f5a-4dc3-86c4-c403de7b343a" x="478" y="0" width="60" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{qtd_Parcelas_Atras_Per}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="b504f972-a1a5-422d-b4b4-7375c4d3f6b8" x="589" y="0" width="75" height="13"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{total_devido}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="da083f73-e54a-40d1-af27-088e3aeb29fe" x="0" y="0" width="62" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{dta_Ultimo_Venc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4d26c546-0776-49f8-ac3f-b4bbd6bf291d" x="62" y="0" width="49" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{parcela}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="f9e6f1c3-889b-430e-935c-1f6b1dd5472c" x="538" y="0" width="51" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{qtd_Parcelas_Atras}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="13">
+			<textField>
+				<reportElement uuid="a755911f-1471-405e-9cd1-c6e948933240" x="474" y="0" width="94" height="13"/>
+				<textElement markup="none">
+					<font size="10" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relATerminar.totalDebito}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="e8b990c9-fcbc-47d9-920b-5b41b0b2fa5c" x="568" y="0" width="96" height="13"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{SUM_TOTAL_DEVIDO}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="e02f45a2-39be-4091-9503-dcfefb925fe6" x="0" y="0" width="808" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

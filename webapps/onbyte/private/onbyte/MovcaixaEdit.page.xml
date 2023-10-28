@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
+      no-conversation-view-id="/private/onbyte/MovcaixaList.xhtml"
+      login-required="true">
+
+   <begin-conversation join="true" flush-mode="MANUAL"/>
+
+   <action execute="#{movcaixaHome.wire}"/>
+
+   <param name="movcaixaFrom"/>
+   <param name="movcaixaCaixa" value="#{movcaixaHome.movcaixaId.caixa}"/>
+   <param name="movcaixaHora" value="#{movcaixaHome.movcaixaId.hora}"/>
+   <param name="caixasFrom"/>
+   <param name="caixasNumero" value="#{caixasHome.caixasNumero}"/>
+   <param name="funcionariosFrom"/>
+   <param name="funcionariosCodigo" value="#{funcionariosHome.funcionariosCodigo}"/>
+
+
+   <param name="planocontasFrom"/>
+   <param name="planocontasCodigo" value="#{planocontasHome.planocontasCodigo}"/>
+
+
+
+   <navigation from-action="#{movcaixaHome.persist}">
+      <rule if-outcome="persisted">
+         <end-conversation/>
+         <redirect view-id="/private/onbyte/Movcaixa.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{movcaixaHome.update}">
+      <rule if-outcome="updated">
+         <end-conversation/>
+         <redirect view-id="/private/onbyte/Movcaixa.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{movcaixaHome.remove}">
+      <rule if-outcome="removed">
+         <end-conversation/>
+         <redirect view-id="/private/onbyte/MovcaixaList.xhtml"/>
+      </rule>
+   </navigation>
+
+</page>

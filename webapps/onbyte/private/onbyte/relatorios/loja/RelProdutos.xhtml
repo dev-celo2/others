@@ -1,0 +1,346 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayoutoncash.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">PESQUISAR PEDIDOS POR:</div>
+				<div class="panel-body" id="pnl">
+
+
+					<h:panelGrid columns="4" width="100%">
+
+
+						<rich:panel style="width: 301px;" id="periodo">
+
+							<h:panelGrid columns="5">
+								<h:selectOneRadio layout="pageDirection"
+									value="#{relprodutos.interval}"
+									style="height:59px; width:100px" styleClass="form-control">
+									<f:selectItem itemValue="1" itemLabel="Tudo" />
+									<rich:spacer width="10px" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{messages['global.periodo']}" />
+									<a:support event="onchange" reRender="periodo" />
+								</h:selectOneRadio>
+
+								<rich:spacer width="10px;" />
+
+
+								<h:panelGrid columns="4">
+									<s:span style="font-weight: bold;">#{messages['relFaltantes.dtInicial']}:</s:span>
+									<rich:calendar id="dataInicial" inputSize="10"
+										value="#{relprodutos.dtInicial}" required="true"
+										disabled="#{relprodutos.interval == 1}"
+										enableManualInput="true" datePattern="#{messages.pattern}">
+										<a:support event="onchange" reRender="dataInicial" />
+									</rich:calendar>
+
+									<rich:spacer width="0px" />
+
+									<rich:spacer height="30px;" />
+
+									<s:span style="font-weight: bold;">#{messages['relFaltantes.dtFinal']}:</s:span>
+									<rich:calendar id="dataFinal" inputSize="10"
+										value="#{relprodutos.dtFinal}" required="true"
+										disabled="#{relprodutos.interval == 1}"
+										enableManualInput="true" datePattern="#{messages.pattern}">
+										<a:support event="onchange" reRender="dataFinal" />
+									</rich:calendar>
+
+								</h:panelGrid>
+
+							</h:panelGrid>
+
+						</rich:panel>
+
+
+						<a:outputPanel styleClass="input-group" id="selectAluno">
+							<h:outputText value="Aluno" styleClass="input-group-addon"
+								style="width:20px" />
+							<h:inputText id="nameAlun" styleClass="form-control"
+								disabled="true" style="width:259px;"
+								value="#{relprodutos.aluno.nome}" />
+							<a:commandLink styleClass="btn btn-default" style="height:34px;"
+								title="Pesquisar Aluno"
+								onclick="$JQuery('#dialogPesAlun').modal('show').draggable();">
+								<i class="glyphicon glyphicon-search" />
+							</a:commandLink>
+							<a:commandLink styleClass="btn btn-default" style="height:34px;"
+								reRender="nameAlun, pnlTblAlun" title="Limpar Aluno"
+								actionListener="#{relprodutos.limpaAluno}">
+								<i class="glyphicon glyphicon-erase" />
+							</a:commandLink>
+						</a:outputPanel>
+
+						<a:outputPanel styleClass="input-group" id="selectStatus">
+							<h:outputText value="Status" styleClass="input-group-addon"
+								style="width:12px" />
+							<h:selectOneMenu id="tpPesqAlunos" style="width:221px;"
+								styleClass="form-control btn btn-default"
+								value="#{relprodutos.status}">
+								<f:selectItem itemLabel="Selecione o Status" itemValue="N" />
+								<f:selectItem itemLabel="Entregue" itemValue="E" />
+								<f:selectItem itemLabel="Pendente" itemValue="A" />
+								<f:selectItem itemLabel="Cancelado" itemValue="C" />
+								<f:selectItem itemLabel="Aguardando Cancelamento" itemValue="S" />
+								<a:support event="onchange" />
+							</h:selectOneMenu>
+						</a:outputPanel>
+
+					</h:panelGrid>
+
+				</div>
+
+				<div class="panel-footer">
+					<center>
+
+
+
+						<a:commandLink styleClass="btn btn-success" reRender="pnlTblAlun">
+						  Filtrar  <i class="glyphicon glyphicon-filter" />
+						</a:commandLink>
+						<rich:spacer width="2px" />
+						<a:commandLink styleClass="btn btn-warning"
+							reRender="pnlTblAlun, periodo, selectAluno, selectStatus "
+							actionListener="#{relprodutos.limpaFiltro}">
+						  Limpar Filtro  <i class="glyphicon glyphicon-erase" />
+						</a:commandLink>
+
+
+
+					</center>
+				</div>
+
+			</div>
+
+			<rich:spacer height="5px;" />
+
+			<div class="panel panel-danger" style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-body">
+					<a:outputPanel id="pnlTblAlun">
+
+
+						<table id="tblProd" width="100%"
+							style="text-align: center; text-transform: uppercase;"
+							class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+							<thead>
+								<tr>
+									<th style="width: 10%; text-align: center;">Pedido</th>
+									<th style="text-align: center;">Produto</th>
+									<th style="text-align: center;">Aluno</th>
+									<th style="text-align: center;">Solicitado</th>
+									<th style="text-align: center;">Finalizado</th>
+									<th style="text-align: center;">Status</th>
+
+								</tr>
+							</thead>
+
+
+							<tbody class="searchable" id="tbody">
+
+								<c:forEach items="#{relprodutos.relProd}" var="prod">
+									<tr>
+
+										<td class="center"><h:outputText value="#{prod.id}" /></td>
+
+										<td class="center"><h:outputText
+												value="#{prod.produtomoeda.descricao}" /></td>
+
+										<td class="center"><h:outputText
+												value="#{prod.alunos.nome}" /></td>
+
+										<td class="center"><h:outputText
+												value="#{prod.dataSolicitado}"
+												converter="javax.faces.DateTime" /></td>
+
+										<td class="center"><h:outputText
+												value="#{prod.dataVenda}" converter="javax.faces.DateTime" /></td>
+
+										<td class="center"><c:if test='#{prod.status == "A"}'>
+												<h:outputText styleClass="label label-info" value="PENDENTE" />
+											</c:if> <c:if test='#{prod.status == "E"}'>
+												<h:outputText styleClass="label label-success"
+													value="ENTREGUE" />
+											</c:if> <c:if test='#{prod.status == "C"}'>
+												<h:outputText styleClass="label label-danger"
+													value="CANCELADO" />
+											</c:if> <c:if test='#{prod.status == "S"}'>
+												<h:outputText styleClass="label label-warning"
+													value="SOLICITADO CANCELAMENTO" />
+											</c:if></td>
+
+									</tr>
+
+								</c:forEach>
+
+							</tbody>
+
+
+							<h:panelGrid columns="3" style="width:100%; text-align:center;">
+
+								<a:outputPanel>
+									<h:selectOneMenu id="perPage" value="#{relprodutos.qtdRegPag}">
+										<f:selectItem itemValue="10" itemLabel="10" />
+										<f:selectItem itemValue="15" itemLabel="20" />
+										<f:selectItem itemValue="20" itemLabel="30" />
+										<a:support event="onchange" reRender="pnlTblAlun" />
+									</h:selectOneMenu>
+									<span class="label label-default">REGISTROS POR
+										#{messages['produtomoeda.pagina']}</span>
+								</a:outputPanel>
+
+								<a:outputPanel>
+									<span class="label label-default">#{relprodutos.page} </span>
+
+								</a:outputPanel>
+
+
+								<h:outputText
+									styleClass="#{relprodutos.totReg == 0 ? 'label label-danger' : 'label label-default'}"
+									value="#{relprodutos.totReg} REGISTROS ENCONTRADOS" />
+
+
+								<a:outputPanel />
+
+								<a:outputPanel>
+									<rich:spacer height="40px" />
+									<a:commandButton image="/images/primeiro.png" title="PRIMEIRO"
+										reRender="pnlTblAlun" styleClass="btn btn-default"
+										action="#{relprodutos.paginacion('first')}" id="firstPage" />
+
+									<a:commandButton image="/images/anterior.png" title="ANTERIOR"
+										reRender="pnlTblAlun" styleClass="btn btn-default"
+										action="#{relprodutos.paginacion('prior')}" id="previousPage" />
+
+									<a:commandButton image="/images/proximo.png"
+										title="#{messages['global.proximo']}" reRender="pnlTblAlun"
+										styleClass="btn btn-default"
+										action="#{relprodutos.paginacion('next')}" id="nextPage" />
+
+									<a:commandButton image="/images/ultimo.png"
+										reRender="pnlTblAlun"
+										styleClass="btn btn-default dropdown-toggle"
+										title="#{messages['global.ultimo']}"
+										action="#{relprodutos.paginacion('last')}" />
+								</a:outputPanel>
+
+							</h:panelGrid>
+
+
+
+						</table>
+
+						<h:commandLink limitToList="true"
+							action="#{relprodutos.exportarRelatorio(1)}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/pdf.png" />
+
+						</h:commandLink>
+
+						<h:commandLink limitToList="true"
+							actionListener="#{relprodutos.exportarRelatorio(2)}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/excel.png" />
+
+						</h:commandLink>
+
+					</a:outputPanel>
+				</div>
+			</div>
+
+			<!-- Modal Pesquisar Alunos -->
+			<div id="dialogPesAlun" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h4 class="modal-title">PESQUISAR ALUNO</h4>
+						</div>
+						<div class="modal-body">
+
+
+							<div class="input-group">
+								<span class="input-group-addon" id="basic-addon1">Nome do
+									Aluno</span>
+								<h:inputText styleClass="form-control" style="width:445px;"
+									value="#{alunosList.paramName}">
+									<a:support event="onkeyup" reRender="tblAlun" />
+								</h:inputText>
+							</div>
+
+							<a:outputPanel id="tblAlun">
+
+								<table width="100%"
+									style="text-align: center; text-transform: uppercase;"
+									class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover">
+									<thead>
+										<tr>
+
+											<th style="text-align: center;">CODIGO</th>
+											<th style="text-align: center;">NOME</th>
+											<th style="text-align: center;">SELECIONAR</th>
+
+										</tr>
+									</thead>
+
+
+									<tbody class="searchable" id="tbody">
+
+										<c:forEach items="#{alunosList.resultList}" var="prod">
+											<tr>
+
+												<td class="center"><h:outputText value="#{prod.codigo}" /></td>
+
+												<td class="center"><h:outputText value="#{prod.nome}" /></td>
+
+												<td class="center"><a:commandLink
+														title="SELECIONAR #{prod.nome}"
+														oncomplete="$JQuery('#dialogPesAlun').modal('hide');"
+														actionListener="#{relprodutos.selectionListenerAluno(prod)}"
+														reRender="nameAlun" styleClass="btn btn-success">
+														<i class="glyphicon glyphicon-ok" />
+													</a:commandLink></td>
+
+											</tr>
+
+										</c:forEach>
+
+									</tbody>
+								</table>
+
+							</a:outputPanel>
+
+						</div>
+
+						<div class="modal-footer">
+
+							<a:commandLink styleClass="btn btn-default"
+								title="Fechar Pesquisa de Alunos"
+								onclick="$JQuery('#dialogPesAlun').modal('hide');">
+						Fechar <i class="glyphicon glyphicon-eye-close" />
+							</a:commandLink>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

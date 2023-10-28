@@ -1,0 +1,1428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+
+		<h:form id="alunosEdit" styleClass="edit">
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-edit" /> #{alunosHome.managed ?
+					'EDITAR ALUNO' : 'INSERIR ALUNO'}
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<div class="container" style="width: 100%; height: 100%;">
+							<ul class="nav nav-tabs">
+								<li class="active"><a data-toggle="tab" href="#dados"><i
+										class="glyphicon glyphicon-user" style="font-size: 20px;" />
+										#{alunosHome.managed ? 'EDITAR ALUNO': 'INSERIR ALUNO'}
+										#{alunosHome.instance.codigo}</a></li>
+
+								<li><a data-toggle="tab" href="#foto"><i
+										class="glyphicon glyphicon-camera" style="font-size: 20px;" />
+										FOTO</a></li>
+
+								<h:inputHidden
+									rendered="#{alunosHome.managed and alunosHome.perfilAluno != null}">
+									<li><a data-toggle="tab" href="#perfil"><i
+											class="glyphicon glyphicon-paste" style="font-size: 20px;" />
+											PERFIL ALUNO</a></li>
+								</h:inputHidden>
+
+							</ul>
+
+							<div class="tab-content">
+
+								<!--Início Aba Dados  -->
+								<div id="dados" class="tab-pane fade in active"
+									style="text-transform: uppercase;">
+
+									<div class="panel panel-default">
+										<div class="panel-body">
+
+											<table width="100%">
+												<thead>
+													<tr>
+
+														<td>
+
+															<div class="col-xs-3">
+																<label for="ex1">DATA</label>
+
+																<h:inputText styleClass="datepickerDados form-control"
+																	value="#{alunosHome.instance.dtcadastro}"
+																	disabled="#{!alunosHome.editable}" />
+
+															</div>
+
+															<div class="col-xs-5">
+																<label for="ex1">NOME <span style="color: red;">*</span></label>
+																<h:inputText id="nome" styleClass="form-control"
+																	maxlength="50" size="50"
+																	readonly="#{!alunosHome.editable}"
+																	value="#{alunosHome.instance.nome}">
+
+																</h:inputText>
+															</div>
+
+															<div class="col-xs-4">
+																<label for="ex1">SITUAÇÃO</label>
+
+																<h:selectOneMenu value="#{alunosHome.instance.situacao}"
+																	styleClass="form-control"
+																	disabled="#{!alunosHome.editable}">
+																	<f:selectItem itemValue="Ativo" itemLabel="ATIVO" />
+																	<f:selectItem itemValue="Inativo" itemLabel="INATIVO" />
+
+																</h:selectOneMenu>
+
+															</div>
+
+														</td>
+
+													</tr>
+												</thead>
+											</table>
+
+											<table width="100%">
+												<thead>
+													<tr>
+
+														<td>
+
+															<div class="col-xs-3">
+																<label for="ex1">CADASTRO</label>
+																<h:selectOneMenu value="#{alunosHome.instance.cadastro}"
+																	styleClass="form-control"
+																	disabled="#{!alunosHome.editable}">
+																	<f:selectItem itemValue="Completo" itemLabel="COMPLETO" />
+																	<f:selectItem itemValue="Incompleto"
+																		itemLabel="INCOMPLETO" />
+																</h:selectOneMenu>
+																<ui:param name="showMessageError" value="#{false}" />
+															</div>
+
+															<div class="col-xs-5">
+																<label for="ex1">ENDEREÇO</label>
+																<h:inputText id="endereco" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="40"
+																	size="40" value="#{alunosHome.instance.endereco}" />
+															</div>
+
+															<div class="col-xs-4">
+																<label for="ex1">BAIRRO</label>
+
+																<h:inputText id="bairro" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="30"
+																	size="30" value="#{alunosHome.instance.bairro}" />
+
+															</div>
+
+														</td>
+													</tr>
+												</thead>
+											</table>
+
+											<table width="100%">
+												<thead>
+													<tr>
+
+														<td>
+
+
+															<div class="col-xs-3">
+																<label for="ex1">CIDADE</label>
+																<h:inputText id="cidade" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="30"
+																	size="30" value="#{alunosHome.instance.cidade}" />
+															</div>
+
+															<div class="col-xs-1">
+																<label for="ex1">ESTADO</label>
+																<h:inputText id="uf" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="2"
+																	size="2" value="#{alunosHome.instance.estado}" />
+															</div>
+
+															<div class="col-xs-2">
+																<label for="ex1">CEP</label>
+
+																<p:inputMask mask="99.999-999" id="cep"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.cep}" />
+
+															</div>
+
+															<div class="col-xs-2">
+																<label for="ex1">RG</label>
+
+																<h:inputText id="rg" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}"
+																	value="#{alunosHome.instance.rg}" />
+															</div>
+
+															<div class="col-xs-4">
+																<label for="ex1">CPF</label>
+
+																<p:inputMask mask="999.999.999-99" id="cpf"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.cpf}" />
+															</div>
+
+
+														</td>
+													</tr>
+												</thead>
+											</table>
+
+											<table width="100%">
+												<thead>
+													<tr>
+
+														<td>
+
+															<div class="col-xs-3">
+																<label for="ex1">NASCIMENTO - <h:outputText
+																		id="dtnascField" style="color:blue;"
+																		value=" #{alunosHome.instance.idade} ANOS" /></label>
+
+																<h:inputText styleClass="form-control datepickerDados"
+																	id="dtnasc" disabled="#{!alunosHome.editable}"
+																	value="#{alunosHome.instance.dtnasc}">
+																	<a:support event="onblur" reRender="dtnascField"
+																		bypassUpdates="false" ajaxSingle="true" />
+																	<a:support event="onchange" reRender="dtnascField"
+																		bypassUpdates="false" ajaxSingle="true" />
+																</h:inputText>
+
+															</div>
+
+															<div class="col-xs-2">
+																<label for="ex1">TELEFONE</label>
+																<p:inputMask mask="(99)9999-9999" id="fone"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.telres}" />
+															</div>
+
+															<div class="col-xs-3">
+																<label for="ex1">CELULAR</label>
+																<p:inputMask mask="(99)99999-9999" id="fone2"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.telcel}" />
+															</div>
+
+															<div class="col-xs-4">
+																<label for="ex1">E-M@IL</label>
+
+																<h:inputText id="email" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="50"
+																	size="50" value="#{alunosHome.instance.email}" />
+
+															</div>
+
+
+														</td>
+
+
+
+													</tr>
+												</thead>
+											</table>
+
+											<table width="100%">
+												<thead>
+													<tr>
+
+														<td>
+
+															<div class="col-xs-3">
+																<label for="ex1">ESCOLA</label>
+
+																<h:inputText id="escola" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="30"
+																	size="30" value="#{alunosHome.instance.escola}" />
+
+
+															</div>
+
+															<div class="col-xs-5">
+																<label for="ex1">ENDEREÇO TRABALHO</label>
+																<h:inputText id="enderecocom" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="40"
+																	size="40" value="#{alunosHome.instance.enderecocom}" />
+															</div>
+
+															<div class="col-xs-4">
+																<label for="ex1">BAIRRO TRABALHO</label>
+																<h:inputText id="bairrocom" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="30"
+																	size="30" value="#{alunosHome.instance.bairrocom}" />
+															</div>
+
+
+														</td>
+
+													</tr>
+												</thead>
+											</table>
+
+
+											<table width="100%">
+												<thead>
+													<tr>
+
+														<td>
+
+
+															<div class="col-xs-3">
+																<label for="ex1">CEP TRABALHO</label>
+
+																<p:inputMask mask="99.999-999" id="cepcom"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.cepcom}" />
+
+															</div>
+
+															<div class="col-xs-2">
+																<label for="ex1">TEL.TRABALHO</label>
+																<p:inputMask mask="(99)9999-9999" id="fonecom"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.telcom}" />
+															</div>
+
+															<div class="col-xs-3">
+																<label for="ex1">TEL. RESP.</label>
+																<p:inputMask mask="(99)9999-9999" id="foneresp"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.telresponsavel}" />
+															</div>
+
+															<div class="col-xs-4">
+																<label for="ex1">NOME MÃE</label>
+
+																<h:inputText id="mae" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="40"
+																	size="40" value="#{alunosHome.instance.nomeMae}" />
+
+															</div>
+
+														</td>
+
+													</tr>
+												</thead>
+											</table>
+
+
+											<table width="100%">
+												<thead>
+													<tr>
+
+														<td>
+
+															<div class="col-xs-3">
+																<label for="ex1">NOME PAI</label>
+
+																<h:inputText id="pai" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="40"
+																	size="40" value="#{alunosHome.instance.nomePai}" />
+
+															</div>
+
+
+															<div class="col-xs-5">
+																<label for="ex1">CPF/CNPJ RESPONSÁVEL</label>
+
+																<table style="width: 100%">
+																	<thead>
+																		<tr>
+
+																			<td><h:selectOneMenu
+																					value="#{alunosHome.tp_Doc}" style="width:97%"
+																					styleClass="form-control" id="cpfRespon1"
+																					disabled="#{!alunosHome.editable}"
+																					readonly="#{!alunosHome.editable}">
+																					<f:selectItem itemLabel="CPF" itemValue="1" />
+																					<f:selectItem itemLabel="CNPJ" itemValue="2" />
+																					<a:support event="onchange" reRender="cpfRespon"
+																						limitToList="true" bypassUpdates="false"
+																						ajaxSingle="true" />
+																				</h:selectOneMenu></td>
+
+																			<td><a:outputPanel id="cpfRespon">
+																					<p:inputMask
+																						mask="#{alunosHome.tp_Doc == 1 ? '999.999.999-99' : '99.999.999/9999-99'}"
+																						styleClass="form-control"
+																						readonly="#{!alunosHome.editable}"
+																						value="#{alunosHome.instance.cpfresp}">
+																						<f:validator validatorId="cpfValidator" />
+																					</p:inputMask>
+																				</a:outputPanel></td>
+
+																		</tr>
+																	</thead>
+																</table>
+
+															</div>
+
+
+															<div class="col-xs-4">
+																<label for="ex1">RESP. PGTO.<span style="color: red;">*</span></label>
+																<h:inputText id="respPgto" styleClass="form-control"
+																	readonly="#{!alunosHome.editable}" maxlength="40"
+																	size="40" value="#{alunosHome.instance.resppgto}" />
+															</div>
+
+															<div class="col-xs-3">
+																<label for="ex1">NASC. RESP.</label>
+
+																<h:inputText styleClass="form-control datepickerDados"
+																	id="dtnascresp" disabled="#{!alunosHome.editable}"
+																	value="#{alunosHome.instance.dtnascresp}"
+																	readonly="#{!alunosHome.editable}" />
+
+																<script> $(".datepickerDados").datepicker({
+																	showAnim: 'clip',
+																	 changeMonth: true,
+																	 changeYear:true,
+																	 dateFormat: 'dd/mm/yy',
+																	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+																	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+																	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+																	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+																	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+																	    nextText: 'Próximo',
+																	    prevText: 'Anterior',
+																	 															   
+																	   
+																	});</script>
+																<ui:param name="showMessageError" value="#{false}" />
+															</div>
+
+															<div class="col-xs-2">
+																<label for="ex1">RG RESP.</label>
+
+																<h:inputText styleClass="form-control "
+																	value="#{alunosHome.instance.rgresp}"
+																	readonly="#{!alunosHome.editable}" />
+															</div>
+
+
+															<div class="col-xs-3">
+																<label for="ex1">CEL. PAI.</label>
+
+																<p:inputMask mask="(99)99999-9999"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.celPai}" />
+															</div>
+
+															<div class="col-xs-4">
+																<label for="ex1">CEL. MÃE.</label>
+
+																<p:inputMask mask="(99)99999-9999"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.celMae}" />
+															</div>
+
+
+														</td>
+
+													</tr>
+												</thead>
+											</table>
+
+											<div class="col-xs-12">
+												<label for="ex1">RECADOS</label>
+												<h:inputTextarea id="recados" styleClass="form-control"
+													readonly="#{!alunosHome.editable}"
+													value="#{alunosHome.recados}">
+
+												</h:inputTextarea>
+
+											</div>
+											<br /> <br /> <br /> <br /> <br /> <span
+												style="color: red">*</span> Campos Obrigatórios
+
+										</div>
+										<!--Fim Aba Dados  -->
+
+										<div class="panel-footer">
+
+											<center>
+
+												<a:commandLink id="save" styleClass="btn btn-success"
+													style="width:150px;" action="#{alunosHome.persist}"
+													disabled="#{!alunosHome.wired}" reRender="msgGlobal"
+													rendered="#{!alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}">
+													<i class="glyphicon glyphicon-floppy-disk" />
+													Gravar
+											</a:commandLink>
+
+												<h:commandLink id="update" styleClass="btn btn-success"
+													style="width:150px;" action="#{alunosHome.update}"
+													disabled="#{!alunosHome.editable || !rich:isUserInRole('Produtos1_A')}"
+													rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}">
+													<i class="glyphicon glyphicon-floppy-disk" />
+												Gravar
+											</h:commandLink>
+
+												<rich:spacer width="2px;" />
+
+											<!--  	<a:commandLink id="delete" styleClass="btn btn-warning"
+													style="width:150px;"
+													onclick="$('#modalDelAlun').modal('show');"
+													rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_R')}">
+													<i class="glyphicon glyphicon-trash" />
+												Excluir
+											</a:commandLink> -->
+
+												<rich:spacer width="2px;" />
+
+												<h:commandLink id="cancelEdit" styleClass="btn btn-danger"
+													style="width:150px;" immediate="true"
+													action="#{alunosHome.cancelUpdate}"
+													rendered="#{alunosHome.managed}">
+													<i class="glyphicon glyphicon-remove" />
+												Cancelar
+											</h:commandLink>
+
+
+												<s:link id="cancelAdd" styleClass="btn btn-danger"
+													style="width:150px;" immediate="true" propagation="end"
+													view="/private/onbyte/#{empty alunosFrom ? 'AlunosList' : alunosFrom}.xhtml"
+													rendered="#{!alunosHome.managed}">
+													<i class="glyphicon glyphicon-remove" />
+												Cancelar
+											</s:link>
+
+												<rich:spacer width="2px;" />
+
+												<a:commandLink id="editable" styleClass="btn btn-info"
+													style="width:150px;" limitToList="true" ajaxSingle="true"
+													reRender="alunosEdit" oncomplete="inicializar();"
+													disabled="#{alunosHome.editable}"
+													rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}">
+													<f:setPropertyActionListener
+														target="#{alunosHome.editable}" value="#{true}" />
+													<i class="glyphicon glyphicon-pencil" />
+												Editar
+											</a:commandLink>
+
+
+											</center>
+
+
+										</div>
+
+									</div>
+
+									<a:outputPanel rendered="#{alunosHome.managed}">
+										<div class="panel panel-primary"
+											style="width: 99.5%; margin: 0 auto;">
+											<div class="panel-heading">
+												<i class="glyphicon glyphicon-record" /> MATRÍCULAS
+											</div>
+											<div class="panel-body">
+												<div class="box-content">
+
+													<table id="tblCursos2" width="100%"
+														style="text-align: center; text-transform: uppercase; font-size: 12px;"
+														class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+														<thead>
+															<tr>
+
+																<th style="text-align: center;">matrícula</th>
+																<th style="text-align: center;">Data</th>
+																<th style="text-align: center;">Início</th>
+																<th style="text-align: center;">Fim</th>
+																<th style="text-align: center;">status</th>
+																<th style="text-align: center;">módulo</th>
+																<th style="text-align: center;">Vl. Pacote</th>
+																<th style="text-align: center;">Ação</th>
+
+															</tr>
+														</thead>
+
+														<tbody class="searchable" id="tbody">
+
+															<c:forEach items="#{alunosHome.matriculases}"
+																var="matriculases">
+																<tr>
+
+																	<td class="center"><h:outputText
+																			value="#{matriculases.codigo}" /></td>
+
+																	<td class="center"><h:outputText
+																			value="#{matriculases.dtmatri}" /></td>
+
+																	<td class="center"><h:outputText
+																			value="#{matriculases.dtinicio}" /></td>
+
+																	<td class="center"><h:outputText
+																			value="#{matriculases.dttermino}" /></td>
+
+																	<td class="center"><h:outputText
+																			value="#{matriculases.status}" /></td>
+
+																	<td class="center"><h:outputText
+																			value="#{matriculases.modulos.descricao}" /></td>
+
+																	<td class="center"><h:outputText
+																			value="#{matriculases.vlpacote}">
+																			<f:convertNumber type="currency"
+																				maxFractionDigits="2" minFractionDigits="2" />
+																		</h:outputText></td>
+
+																	<td class="center"><s:link
+																			view="/private/onbyte/MatriculasEdit.xhtml"
+																			title="Visualizar Matrícula #{matriculases.codigo}"
+																			styleClass="btn btn-default">
+																			<f:param name="matriculasCodigo"
+																				value="#{matriculases.codigo}" />
+																			<i class="glyphicon glyphicon-search" />
+																		</s:link></td>
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+
+
+												</div>
+											</div>
+										</div>
+									</a:outputPanel>
+								</div>
+
+								<!--Início Aba Fotos  -->
+								<div id="foto" class="tab-pane fade">
+
+									<p />
+
+									<a:outputPanel id="pnlFoto" rendered="#{alunosHome.managed}">
+										<center>
+											<h:outputText styleClass="label label-default"
+												rendered="#{alunosHome.instance.codigo == null}"
+												value="A FOTO SÓ PODERÁ
+												SER CAPTURADA APÓS TER SALVO O REGISTRO DO ALUNO!" />
+											<p />
+
+											<a:outputPanel rendered="#{alunosHome.fotoNoBanco()}">
+
+												<s:graphicImage id="picture"
+													rendered="#{alunosHome.instance.foto != null}"
+													style="width: 320px; height: 240px;"
+													value="#{alunosHome.instance.foto}" />
+
+												<h:graphicImage id="picture2"
+													rendered="#{alunosHome.instance.foto == null}"
+													style="width: 420px; height: 240px;"
+													value="/images/semFotoo.jpg" />
+
+											</a:outputPanel>
+
+											<a:outputPanel rendered="#{!alunosHome.fotoNoBanco()}">
+
+												<h:graphicImage id="fotoAluno"
+													rendered="#{alunosHome.verificaSePossuiFoto()}"
+													value="/foto/#{alunosHome.instance.codigo}.jpg" />
+
+												<h:graphicImage id="fotoAlunoVazia"
+													rendered="#{!alunosHome.verificaSePossuiFoto()}"
+													style="width: 420px; height: 240px;"
+													value="/images/semFotoo.jpg" />
+
+											</a:outputPanel>
+											<p />
+
+											<a:commandLink style="width:250px;"
+												rendered="#{alunosHome.instance.codigo != null}"
+												styleClass="btn btn-default"
+												onclick="ligarWebCam(); $('#capturarImagemPanel').modal('show');">
+												<i class="glyphicon glyphicon-camera" />
+												Tirar Foto Com WebCam
+											</a:commandLink>
+
+											<rich:spacer width="2px;" />
+
+											<a:commandLink style="width:250px;"
+												reRender="pnlFoto, msgGlobal"
+												actionListener="#{alunosHome.excluirFoto}"
+												rendered="#{alunosHome.instance.foto != null}"
+												styleClass="btn btn-warning">
+												Excluir Foto
+											<i class="glyphicon glyphicon-trash" />
+											</a:commandLink>
+
+
+										</center>
+
+									</a:outputPanel>
+
+
+								</div>
+								<!--Fim Aba Fotos  -->
+
+								<!--Início Aba Perfil  -->
+								<div id="perfil" class="tab-pane fade">
+
+									<p />
+									<a:outputPanel id="perfilId">
+
+										<div class="panel panel-default">
+											<div class="panel-heading"
+												style="color: #990000; font-weight: bold;">
+												<center>PESSOAIS</center>
+											</div>
+											<div class="panel-body">
+
+												<table width="100%">
+													<thead>
+														<tr>
+
+															<td>
+
+																<div class="col-xs-2">
+																	<label for="ex1">CADASTRO</label>
+
+																	<h:inputText styleClass="datepickerDados form-control"
+																		value="#{alunosHome.perfilAluno.dataCadastro}"
+																		disabled="#{!alunosHome.editablePerfilAluno}" />
+																</div>
+
+																<div class="col-xs-3">
+																	<label for="ex1">RESIDEM COMIGO</label>
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.numPessoas}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="1" itemLabel="UMA PESSOA" />
+																		<f:selectItem itemValue="2" itemLabel="DUAS PESSOAS" />
+																		<f:selectItem itemValue="3" itemLabel="TRÊS PESSOAS" />
+																		<f:selectItem itemValue="4" itemLabel="QUATRO PESSOAS" />
+																		<f:selectItem itemValue="5" itemLabel="CINCO OU MAIS" />
+																	</h:selectOneMenu>
+
+																</div>
+
+																<div class="col-xs-3">
+																	<label for="ex1">MORADIA</label>
+
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.sitMoradia}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="PRÓPRIA" itemLabel="PRÓPRIA" />
+																		<f:selectItem itemValue="ALUGADA" itemLabel="ALUGADA" />
+																		<f:selectItem itemValue="FINANCIADA"
+																			itemLabel="FINANCIADA" />
+																		<f:selectItem itemValue="FAMILIARES"
+																			itemLabel="COM FAMILIARES" />
+																	</h:selectOneMenu>
+
+																</div>
+
+																<div class="col-xs-2">
+																	<label for="ex1">TEMPO LIVRE</label>
+
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.tempoLivre}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="INTERNET"
+																			itemLabel="INTERNET" />
+																		<f:selectItem itemValue="TV" itemLabel="TV" />
+																		<f:selectItem itemValue="JOGOS" itemLabel="JOGOS" />
+																		<f:selectItem itemValue="ESPORTES"
+																			itemLabel="ESPORTES" />
+																		<f:selectItem itemValue="OUTROS" itemLabel="OUTROS" />
+																	</h:selectOneMenu>
+
+																</div>
+
+																<div class="col-xs-2">
+																	<label for="ex1">INTERNET POR</label>
+
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.internet}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="CASA" itemLabel="CASA" />
+																		<f:selectItem itemValue="TRABALHO"
+																			itemLabel="TRABALHO" />
+																		<f:selectItem itemValue="CELULAR" itemLabel="CELULAR" />
+																		<f:selectItem itemValue="NÃO POSSUO"
+																			itemLabel="NÃO TENHO" />
+																	</h:selectOneMenu>
+
+																</div>
+
+
+															</td>
+
+														</tr>
+													</thead>
+												</table>
+
+											</div>
+										</div>
+
+
+										<div class="panel panel-default">
+											<div class="panel-heading"
+												style="color: #004d00; font-weight: bold;">
+												<center>CULTURAIS</center>
+											</div>
+											<div class="panel-body">
+
+												<table width="100%">
+													<thead>
+														<tr>
+
+															<td>
+
+
+																<div class="col-xs-3">
+																	<label for="ex1">GÊNERO DE FILME</label>
+
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.filme}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="GUERRA" itemLabel="GUERRA" />
+																		<f:selectItem itemValue="TERROR" itemLabel="TERROR" />
+																		<f:selectItem itemValue="COMÉDIA" itemLabel="COMÉDIA" />
+																		<f:selectItem itemValue="AÇÃO" itemLabel="AÇÃO" />
+																		<f:selectItem itemValue="ROMANCE" itemLabel="ROMANCE" />
+																		<f:selectItem itemValue="AVENTURA"
+																			itemLabel="AVENTURA" />
+																		<f:selectItem itemValue="SUSPENSE"
+																			itemLabel="SUSPENSE" />
+																		<f:selectItem itemValue="FANTASIA"
+																			itemLabel="FANTASIA" />
+																		<f:selectItem itemValue="FAROESTE"
+																			itemLabel="FAROESTE" />
+																		<f:selectItem itemValue="ANIMAÇÃO"
+																			itemLabel="ANIMAÇÃO" />
+																		<f:selectItem itemValue="POLICIAL"
+																			itemLabel="POLICIAL" />
+																		<f:selectItem itemValue="FICÇÃO" itemLabel="FICÇÃO" />
+																		<f:selectItem itemValue="DRAMA" itemLabel="DRAMA" />
+																		<f:selectItem itemValue="MUSICAL" itemLabel="MUSICAL" />
+																		<f:selectItem itemValue="OUTRO" itemLabel="OUTRO" />
+
+																	</h:selectOneMenu>
+
+																</div>
+
+
+
+																<div class="col-xs-9">
+																	<label for="ex1">DICAS DE FILMES</label>
+																	<h:inputText id="dicas" styleClass="form-control"
+																		readonly="#{!alunosHome.editablePerfilAluno}"
+																		value="#{alunosHome.perfilAluno.dicaFilme}">
+																	</h:inputText>
+																</div>
+
+
+
+																<div class="col-xs-3">
+																	<label for="ex1">TIPO LIVRO FAVORITO</label>
+
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.livro}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="GUERRA" itemLabel="GUERRA" />
+																		<f:selectItem itemValue="TERROR" itemLabel="TERROR" />
+																		<f:selectItem itemValue="COMÉDIA" itemLabel="COMÉDIA" />
+																		<f:selectItem itemValue="AÇÃO" itemLabel="AÇÃO" />
+																		<f:selectItem itemValue="ROMANCE" itemLabel="ROMANCE" />
+																		<f:selectItem itemValue="AVENTURA"
+																			itemLabel="AVENTURA" />
+																		<f:selectItem itemValue="SUSPENSE"
+																			itemLabel="SUSPENSE" />
+																		<f:selectItem itemValue="FANTASIA"
+																			itemLabel="FANTASIA" />
+																		<f:selectItem itemValue="POLICIAL"
+																			itemLabel="POLICIAL" />
+																		<f:selectItem itemValue="FICÇÃO" itemLabel="FICÇÃO" />
+																		<f:selectItem itemValue="DRAMA" itemLabel="DRAMA" />
+																		<f:selectItem itemValue="POESIA" itemLabel="POESIA" />
+																		<f:selectItem itemValue="OUTRO" itemLabel="OUTRO" />
+
+																	</h:selectOneMenu>
+
+																</div>
+
+																<div class="col-xs-9">
+																	<label for="ex1">DICAS DE LIVROS</label>
+																	<h:inputText id="dicasLivro" styleClass="form-control"
+																		readonly="#{!alunosHome.editablePerfilAluno}"
+																		value="#{alunosHome.perfilAluno.dicaLivro}">
+																	</h:inputText>
+																</div>
+
+																<div class="col-xs-12">
+																	<label for="ex1">VIAGEM DOS SONHOS</label>
+																	<h:inputText id="viagem" styleClass="form-control"
+																		readonly="#{!alunosHome.editablePerfilAluno}"
+																		value="#{alunosHome.perfilAluno.viagemSonhos}">
+																	</h:inputText>
+																</div>
+
+															</td>
+
+														</tr>
+													</thead>
+												</table>
+
+											</div>
+										</div>
+
+										<div class="panel panel-default">
+											<div class="panel-heading"
+												style="color: #ff6600; font-weight: bold;">
+												<center>CURSO</center>
+											</div>
+											<div class="panel-body">
+
+												<table width="100%">
+													<thead>
+														<tr>
+
+															<td>
+
+
+																<div class="col-xs-6">
+																	<label for="ex1">ESCOLHA DO CURSO</label>
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.motivoCurso}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="INDICAÇÃO DE AMIGOS"
+																			itemLabel="INDICAÇÃO DE AMIGOS" />
+																		<f:selectItem itemValue="EU JÁ QUERIA"
+																			itemLabel="EU JÁ QUERIA" />
+																		<f:selectItem itemValue="APROVEITEI A PROMOÇÃO"
+																			itemLabel="APROVEITEI A PROMOÇÃO" />
+																		<f:selectItem itemValue="OUTRO" itemLabel="OUTRO" />
+																		<f:selectItem itemValue="NENHUM" itemLabel="NENHUM" />
+																	</h:selectOneMenu>
+
+																</div>
+
+																<div class="col-xs-6">
+																	<label for="ex1">ESPERO OBTER APÓS CURSO</label>
+
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.obterCurso}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="CONHECIMENTO"
+																			itemLabel="CONHECIMENTO" />
+																		<f:selectItem itemValue="EMPREGO" itemLabel="EMPREGO" />
+																		<f:selectItem itemValue="SUBIR DE CARGO"
+																			itemLabel="SUBIR DE CARGO" />
+																		<f:selectItem itemValue="REALIZAÇÃO"
+																			itemLabel="REALIZAÇÃO" />
+																		<f:selectItem itemValue="OUTRO" itemLabel="OUTRO" />
+
+																	</h:selectOneMenu>
+
+																</div>
+
+
+																<div class="col-xs-3">
+																	<label for="ex1">NOVO CURSO APÓS ESTE?</label>
+
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.aposCurso}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="SIM" itemLabel="SIM" />
+																		<f:selectItem itemValue="NÃO" itemLabel="NÃO" />
+
+																	</h:selectOneMenu>
+
+																</div>
+
+																<div class="col-xs-9">
+																	<label for="ex1">DESEJO FAZER OS CURSOS DE</label>
+																	<h:inputText styleClass="form-control"
+																		value="#{alunosHome.perfilAluno.qualCurso}"
+																		disabled="#{!alunosHome.editablePerfilAluno}" />
+																</div>
+
+
+															</td>
+
+														</tr>
+													</thead>
+												</table>
+
+											</div>
+										</div>
+
+
+										<div class="panel panel-default">
+											<div class="panel-heading"
+												style="color: #4d004d; font-weight: bold;">
+												<center>ESPORTE</center>
+											</div>
+											<div class="panel-body">
+
+												<table width="100%">
+													<thead>
+														<tr>
+
+															<td>
+
+
+																<div class="col-xs-4">
+																	<label for="ex1">ATIVIDADES FÍSICAS</label>
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.atFisicas}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="SEMPRE"
+																			itemLabel="PRATICO SEMPRE" />
+																		<f:selectItem itemValue="OCASIONALMENTE"
+																			itemLabel="PRATICO OCASIONALMENTE" />
+																		<f:selectItem itemValue="RARAMENTE"
+																			itemLabel="RARAMENTE" />
+																		<f:selectItem itemValue="NUNCA" itemLabel="NUNCA" />
+																	</h:selectOneMenu>
+
+																</div>
+
+																<div class="col-xs-4">
+																	<label for="ex1">TIME DO CORAÇÃO</label>
+
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.timeFut}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+
+																		<f:selectItem itemValue="NENHUM" itemLabel="NENHUM" />
+																		<f:selectItem itemValue="AMÉRICA MINEIRO"
+																			itemLabel="AMÉRICA MINEIRO" />
+																		<f:selectItem itemValue="ATLÉTICO GOIANIENSE"
+																			itemLabel="ATLÉTICO GOIANIENSE" />
+																		<f:selectItem itemValue="VITÓRIA BAHIA"
+																			itemLabel="VITÓRIA BAHIA" />
+																		<f:selectItem itemValue="AVAÍ" itemLabel="AVAÍ" />
+																		<f:selectItem itemValue="BAHIA" itemLabel="BAHIA" />
+																		<f:selectItem itemValue="BOTAFOGO"
+																			itemLabel="BOTAFOGO" />
+																		<f:selectItem itemValue="CEARÁ" itemLabel="CEARÁ" />
+																		<f:selectItem itemValue="VASCO" itemLabel="VASCO" />
+																		<f:selectItem itemValue="CORITIBA"
+																			itemLabel="CORITIBA" />
+																		<f:selectItem itemValue="CORINTHIANS"
+																			itemLabel="CORINTHIANS" />
+																		<f:selectItem itemValue="CHAPECOENSE"
+																			itemLabel="CHAPECOENSE" />
+																		<f:selectItem itemValue="FIGUEIRENSE"
+																			itemLabel="FIGUEIRENSE" />
+																		<f:selectItem itemValue="GOIÁS" itemLabel="GOIÁS" />
+																		<f:selectItem itemValue="SPORT" itemLabel="SPORT" />
+																		<f:selectItem itemValue="SÃO PAULO"
+																			itemLabel="SÃO PAULO" />
+																		<f:selectItem itemValue="SANTOS" itemLabel="SANTOS" />
+																		<f:selectItem itemValue="GRÊMIO" itemLabel="GRÊMIO" />
+																		<f:selectItem itemValue="PARANÁ" itemLabel="PARANÁ" />
+																		<f:selectItem itemValue="PAYSANDU"
+																			itemLabel="PAYSANDU" />
+																		<f:selectItem itemValue="PALMEIRAS"
+																			itemLabel="PALMEIRAS" />
+																		<f:selectItem itemValue="PONTE PRETA"
+																			itemLabel="PONTE PRETA" />
+																		<f:selectItem itemValue="SANTA CRUZ"
+																			itemLabel="SANTA CRUZ" />
+																		<f:selectItem itemValue="JOINVILLE"
+																			itemLabel="JOINVILLE" />
+																		<f:selectItem itemValue="INTERNACIONAL"
+																			itemLabel="INTERNACIONAL" />
+																		<f:selectItem itemValue="NAÚTICO" itemLabel="NAÚTICO" />
+																		<f:selectItem itemValue="JUVENTUDE"
+																			itemLabel="JUVENTUDE" />
+																		<f:selectItem itemValue="ATLÉTICO PARANAENSE"
+																			itemLabel="ATLÉTICO PARANAENSE" />
+																		<f:selectItem itemValue="FORTALEZA"
+																			itemLabel="FORTALEZA" />
+																		<f:selectItem itemValue="FLAMENGO"
+																			itemLabel="FLAMENGO" />
+																		<f:selectItem itemValue="CRUZEIRO"
+																			itemLabel="CRUZEIRO" />
+																		<f:selectItem itemValue="OUTRO" itemLabel="OUTRO" />
+																	</h:selectOneMenu>
+
+																</div>
+
+
+																<div class="col-xs-4">
+																	<label for="ex1">ESPORTE PREFERIDO</label>
+
+																	<h:selectOneMenu
+																		value="#{alunosHome.perfilAluno.esporte}"
+																		styleClass="form-control"
+																		disabled="#{!alunosHome.editablePerfilAluno}">
+																		<f:selectItem itemValue="NENHUM" itemLabel="NENHUM" />
+																		<f:selectItem itemValue="FUTEBOL" itemLabel="FUTEBOL" />
+																		<f:selectItem itemValue="VOLEY" itemLabel="VOLEY" />
+																		<f:selectItem itemValue="SKATE" itemLabel="SKATE" />
+																		<f:selectItem itemValue="TÊNIS DE MESA"
+																			itemLabel="TÊNIS DE MESA" />
+																		<f:selectItem itemValue="NATAÇÃO" itemLabel="NATAÇÃO" />
+																		<f:selectItem itemValue="FUTSAL" itemLabel="FUTSAL" />
+																		<f:selectItem itemValue="CAPOEIRA"
+																			itemLabel="CAPOEIRA" />
+																		<f:selectItem itemValue="JUDÔ" itemLabel="JUDÔ" />
+																		<f:selectItem itemValue="BASQUETE"
+																			itemLabel="BASQUETE" />
+																		<f:selectItem itemValue="TÊNIS" itemLabel="TÊNIS" />
+																		<f:selectItem itemValue="HANDBALL"
+																			itemLabel="HANDBALL" />
+																		<f:selectItem itemValue="SURF" itemLabel="SURF" />
+																		<f:selectItem itemValue="ATLETISMO"
+																			itemLabel="ATLETISMO" />
+																		<f:selectItem itemValue="OUTRO" itemLabel="OUTRO" />
+																	</h:selectOneMenu>
+
+																</div>
+
+
+
+
+															</td>
+
+														</tr>
+													</thead>
+												</table>
+
+											</div>
+										</div>
+
+										<div class="panel panel-default">
+											<div class="panel-heading"
+												style="color: #000099; font-weight: bold;">
+												<center>PREFERÊNCIAS</center>
+											</div>
+											<div class="panel-body">
+
+												<div class="col-xs-4">
+													<label for="ex1">COR FAVORITA</label>
+													<h:selectOneMenu value="#{alunosHome.perfilAluno.cor}"
+														styleClass="form-control"
+														disabled="#{!alunosHome.editablePerfilAluno}">
+														<f:selectItem itemValue="NENHUMA" itemLabel="NENHUMA" />
+														<f:selectItem itemValue="VERMELHO" itemLabel="VERMELHO" />
+														<f:selectItem itemValue="AMARELA" itemLabel="AMARELA" />
+														<f:selectItem itemValue="VERDE" itemLabel="VERDE" />
+														<f:selectItem itemValue="AZUL" itemLabel="AZUL" />
+														<f:selectItem itemValue="ROSA" itemLabel="ROSA" />
+														<f:selectItem itemValue="LILÁS" itemLabel="LILÁS" />
+														<f:selectItem itemValue="BRANCO" itemLabel="BRANCO" />
+														<f:selectItem itemValue="PRETO" itemLabel="PRETO" />
+														<f:selectItem itemValue="PINK" itemLabel="PINK" />
+														<f:selectItem itemValue="OUTRA" itemLabel="OUTRA" />
+													</h:selectOneMenu>
+												</div>
+
+											</div>
+										</div>
+
+
+									</a:outputPanel>
+
+
+
+									<div class="well well-lg" style="height: 70px;">
+
+										<center>
+											<h:panelGrid columns="5">
+												<a:commandLink
+													actionListener="#{alunosHome.setEditablePerfilAluno(true)}"
+													reRender="perfilId, btnSalvar, btnEdit, btnCancel"
+													id="btnEdit" styleClass="btn btn-info"
+													style="width:150px; display:#{!alunosHome.editablePerfilAluno?'block':'none'};">
+													<i class="glyphicon glyphicon-pencil" />
+												Editar</a:commandLink>
+
+												<rich:spacer width="2px" />
+
+												<a:commandLink
+													reRender="perfilId, btnSalvar, btnEdit, btnCancel"
+													id="btnSalvar"
+													actionListener="#{alunosHome.setEditablePerfilAluno(false)}"
+													action="#{alunosHome.updatePerfil}"
+													styleClass="btn btn-success"
+													style="width:150px; display:#{alunosHome.editablePerfilAluno?'block':'none'};">
+													<i class="glyphicon glyphicon-floppy-disk" />
+												Salvar</a:commandLink>
+
+												<rich:spacer width="2px" />
+
+												<a:commandLink
+													reRender="perfilId, btnEdit, btnSalvar, btnCancel"
+													id="btnCancel"
+													actionListener="#{alunosHome.setEditablePerfilAluno(false)}"
+													styleClass="btn btn-danger"
+													style="width:150px; display:#{alunosHome.editablePerfilAluno?'block':'none'};">
+													<i class="glyphicon glyphicon-remove" />
+												Cancelar</a:commandLink>
+
+											</h:panelGrid>
+
+										</center>
+
+									</div>
+
+
+
+								</div>
+
+								<!--FIM Aba Perfil  -->
+
+							</div>
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+			<!-- Modal Delete Aluno-->
+			<div id="modalDelAlun" class="modal fade" data-backdrop="static"
+				role="dialog">
+				<div class="modal-dialog modal-sm">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="color: gray; font-weight: bold;" class="modal-title">
+									<i class="glyphicon glyphicon-erase" style="font-size: 20px;" />
+									DELETAR ALUNO
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<center>
+
+									<h4 style="font-weight: bold; color: gray;" class="modal-title">
+										CONFIRMA A AÇÃO <i class="glyphicon glyphicon-question-sign"
+											style="font-size: 40px;" />
+									</h4>
+
+								</center>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<center>
+
+								<h:commandLink styleClass="btn btn-default" style="width:100px;"
+									action="#{alunosHome.remove}" immediate="true">
+									<i class="glyphicon glyphicon-ok" />
+							Sim
+							</h:commandLink>
+
+								<rich:spacer width="2xp;" />
+
+								<a:commandLink styleClass="btn btn-default" style="width:100px;"
+									onclick="$('#modalDelAlun').modal('hide');" immediate="true">
+									<i class="glyphicon glyphicon-ban-circle" />
+							Não
+							</a:commandLink>
+
+							</center>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!--FIM Modal Delete Aluno -->
+
+			<!-- Modal Capturar Imagem Cam-->
+			<div id="capturarImagemPanel" class="modal fade"
+				data-backdrop="static" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="color: gray; font-weight: bold;" class="modal-title">
+									<i class="glyphicon glyphicon-camera" style="font-size: 20px;" />
+									CAPTURAR IMAGEM
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+
+								<a:jsFunction name="fn_capturarImagemPanel" reRender="foto"
+									limitToList="true" />
+								<a:jsFunction name="fn_setFoto" reRender="picture1, picture2"
+									actionListener="#{alunosHome.setFoto}" />
+
+
+								<h:panelGroup>
+									<rich:componentControl for="capturarImagemPanel"
+										attachTo="hidelink_CapturarImagem" operation="hide"
+										event="onclick" />
+								</h:panelGroup>
+
+
+								<center>
+
+									<h:panelGrid>
+
+										<rich:panel style="width: 350px; height: 265px;">
+											<center>
+												<a:outputPanel id="swfLink"
+													style="width: 330px; height: 260px;" />
+											</center>
+										</rich:panel>
+
+									</h:panelGrid>
+
+								</center>
+
+							</div>
+						</div>
+
+						<div class="modal-footer">
+
+							<center>
+
+								<s:link style="width:150px;" styleClass="btn btn-warning"
+									onclick="webcam.configure(); return false;">
+									<i class="glyphicon glyphicon-cog" />	
+									Configure
+								</s:link>
+
+								<rich:spacer width="2px;" />
+
+								<s:link style="width:150px;" styleClass="btn btn-default"
+									onclick="webcam.freeze(); return false;">
+									<i class="glyphicon glyphicon-camera" />	
+									Capturar
+								</s:link>
+
+								<rich:spacer width="2px;" />
+
+								<s:link onclick="webcam.reset(); return false;"
+									style="width:150px;" styleClass="btn btn-info">
+									<i class="glyphicon glyphicon-erase" />	
+									Reset
+								</s:link>
+
+								<rich:spacer width="2px;" />
+
+								<a:commandLink style="width:150px;" styleClass="btn btn-success"
+									reRender="msgGlobal"
+									onclick="webcam.upload(); fn_capturarImagemPanel(); setTimeout(refresh, 500);">
+									<i class="glyphicon glyphicon-floppy-disk" />	
+									Salvar								
+								</a:commandLink>
+
+								<rich:spacer width="2px;" />
+
+								<s:link style="width:150px;" styleClass="btn btn-default"
+									onclick="$('#capturarImagemPanel').modal('hide');">
+									<i class="glyphicon glyphicon-log-out" />	
+									Sair
+								</s:link>
+
+							</center>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+		</h:form>
+
+		<script type="text/javascript"
+			src="#{request.contextPath}/js/webcam.js" />
+		<!-- Configure a few settings -->
+		<script language="JavaScript">
+		function ligarWebCam(){
+			
+			//webcam.set_api_url( 'test.php' );
+			webcam.set_api_url( '#{request.contextPath}/FotoCaptura/' );			
+			webcam.set_swf_url( '#{request.contextPath}/swf/webcam.swf' );
+			webcam.set_quality( 90 ); // JPEG quality (1 - 100)
+			webcam.set_shutter_sound( false ); // play shutter click sound
+			//webcam.set_hook( 'onLoad', 'my_load_handler' );
+			webcam.set_hook( 'onComplete', 'my_completion_handler' );
+			#{rich:element('swfLink')}.innerHTML = webcam.get_html(320, 240);			
+		}
+		
+		function my_load_handler() {
+			webcam.configure( 'privacy' );
+		}
+		function take_snapshot() {
+			
+			// take snapshot and upload to server
+			webcam.snap();
+		}
+
+		function my_completion_handler(msg) {
+			// extract URL out of PHP output
+			fn_setFoto();
+			//if (msg.match(/(http\:\/\/\S+)/)) {}
+			//else alert("PHP Error: " + msg);		
+		}
+	</script>
+		<script>
+function refresh(){ 
+  history.go(0); 
+}
+</script>
+
+
+
+
+
+	</ui:define>
+
+</ui:composition>

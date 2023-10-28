@@ -1,0 +1,53 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">#{messages['menu.Feriado1']} #{messages['global.Detalhes']}</f:facet>
+
+        <s:decorate id="dtFeriado" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['feriado.dtFeriado']}</ui:define>
+            <h:outputText value="#{feriadoHome.instance.dtFeriado}">
+                <s:convertDateTime type="date" dateStyle="medium"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="dscFeriado" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['feriado.dscFeriado']}</ui:define>
+            <h:outputText value="#{feriadoHome.instance.dscFeriado}"/>
+        </s:decorate>
+
+        <s:decorate id="dtCadastro" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['feriado.dtCadastro']}</ui:define>
+            <h:outputText value="#{feriadoHome.instance.dtCadastro}">
+                <s:convertDateTime type="both" dateStyle="medium"/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/private/onbyte/FeriadoEdit.xhtml"
+                    id="edit"
+                 value="#{messages['global.edit']}"/>
+
+        <s:button view="/private/onbyte/#{empty feriadoFrom ? 'FeriadoList' : feriadoFrom}.xhtml"
+                    id="done"
+                 value="#{messages['global.done']}"/>
+
+    </div>
+
+</ui:define>
+
+</ui:composition>

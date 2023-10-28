@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<c:if test="#{empty required}">
+	<c:set var="required" value="false" />
+</c:if>
+
+<tr>
+<c:if test="#{required == 'true'}">
+<td class="gl"><b>#{label}:</b></td>
+<td class="gv"><ui:insert /></td>
+</c:if>
+<c:if test="#{required != 'true'}">
+<td class="gl">#{label}:</td>
+<td class="gv"><ui:insert /></td>
+</c:if>
+</tr>
+
+</ui:composition>

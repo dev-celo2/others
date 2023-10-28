@@ -1,0 +1,200 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+	
+
+
+	<!-- Modal INFORMAR ID CLIENTE-->
+	<h:form>
+		<div id="modalIdCliente"
+			style="z-index: 5041; top: calc(50% - 200px) !important;"
+			class="modal fade " data-backdrop="static" role="dialog">
+			<div class="modal-dialog" style="width: 850px;">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<center>
+							<h4 style="font-weight: bold;" class="text text-primary">
+								<i class="glyphicon glyphicon-lock" style="font-size: 20px;" />
+								INFORMAR ID CLIENTE - VERSÃO
+								#{authenticatorAction.versaoAplicacao}
+							</h4>
+						</center>
+					</div>
+					<div class="modal-body">
+						<div class="box-content">
+
+							<table width="100%">
+
+								<thead>
+									<tr>
+
+										<td style="text-align: center;">
+
+											<div class="input-group">
+												<span class="input-group-addon" id="basic-addon1"><b>CONTROLE
+														INTERNO</b></span>
+												<h:inputText id="controleInterno" readonly="true"
+													styleClass="form-control"
+													value="#{authenticatorAction.controleInterno}" size="11" />
+											</div>
+
+										</td>
+
+										<td style="text-align: center;">
+
+											<div class="input-group">
+												<span class="input-group-addon" id="basic-addon1"><b>ID
+														CLIENTE</b></span>
+												<h:inputText id="idClienteChange" required="true" size="50" styleClass="form-control"
+													value="#{authenticatorAction.idClienteChange}">
+													<a:support event="onblur" limitToList="true"
+														reRender="idClienteChangeField" bypassUpdates="false"
+														ajaxSingle="true" />
+												</h:inputText>
+											</div>
+
+										</td>
+
+
+									</tr>
+								</thead>
+							</table>
+
+
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<center>
+
+							<a:commandLink style="width:200px; height:35px;" styleClass="btn btn-success"
+								onclick="liberarId();">
+								<i class="glyphicon glypfhicon-ok" />							
+								LIBERAR
+							</a:commandLink>
+							
+							<rich:spacer width="2px;"/>
+							
+							<a:jsFunction name="liberarId"
+							actionListener="#{authenticatorAction.informarIdCliente}"
+							limitToList="true" ajaxSingle="false"
+							process="formInformarIdCliente" reRender="idClienteChangeField"
+							data="#{authenticatorAction.messageRetornoAjax}"
+							onbeforedomupdate="showMessageRetorno(data);"
+							oncomplete="if(data.length==0 &amp;&amp; #{authenticatorAction.idClienteChange!=null}){alert('#{messages['liberacaoSistema.liberado']}'); if(#{authenticatorAction.user!=null}){fn_RedirectIndex(); }else{fn_RedirectSetFuncionario();} }" />
+
+
+							<rich:spacer width="2px;" />
+
+							<a:commandLink styleClass="btn btn-danger"
+								action="#{authenticatorAction.logout}"
+								style="width:200px; height:35px;" immediate="true"
+								onclick="$('#modalIdCliente').modal('hide')">
+								<i class="glyphicon glyphicon-remove" />		     
+					     			CANCELAR
+							</a:commandLink>
+
+
+
+						</center>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+
+
+	<!--  	<rich:modalPanel id="informarIdCliente" width="390" height="260"
+		onshow="inicializar();" resizeable="false">
+
+		<p:panel header="#{messages['informarIdCliente.title']}">
+
+			<a:form id="formInformarIdCliente">
+				<h:panelGrid>
+					<p:panel style="width:340px;height:130px"
+						bodyClass="panelPaddingZero">
+
+						<center>
+							<h1>#{messages['informarIdCliente.title']}</h1>
+						</center>
+
+						<s:div style="position: relative; top: -0px;">
+							<h:panelGrid>
+								<h:panelGrid columns="2">
+									<s:decorate template="layout/edit_top.xhtml">
+										<ui:define name="label">#{messages['liberacaoSistema.versao']}:</ui:define>
+										<h:inputText readonly="true"
+											value="#{authenticatorAction.versaoAplicacao}"
+											style="text-align: center;" size="11">
+										</h:inputText>
+										<ui:param name="styleName" value="width:auto;"></ui:param>
+									</s:decorate>
+
+									<s:decorate template="layout/edit_top.xhtml">
+										<ui:define name="label">#{messages['liberacaoSistema.controleInterno']}:</ui:define>
+										<h:inputText readonly="true"
+											value="#{authenticatorAction.controleInterno}" size="11">
+										</h:inputText>
+										<ui:param name="styleName" value="width:auto;"></ui:param>
+									</s:decorate>
+
+								</h:panelGrid>
+
+								<s:decorate id="idClienteChangeField"
+									template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['liberacaoSistema.informarIdCliente']}:</ui:define>
+									<h:inputText id="idClienteChange" required="true" size="50"
+										value="#{authenticatorAction.idClienteChange}">
+										<a:support event="onblur" limitToList="true"
+											reRender="idClienteChangeField" bypassUpdates="false"
+											ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+									<ui:param name="styleName"
+										value="white-space: nowrap; width:auto;"></ui:param>
+								</s:decorate>
+							</h:panelGrid>
+						</s:div>
+					</p:panel>
+				</h:panelGrid>
+			</a:form>
+		</p:panel>
+		<p:panel>
+			<center>
+				<div class="actionButtons">
+					<h:form>
+						<p:commandButton value="#{messages['liberacaoSistema.liberar']}" onclick="liberarId();" image="confirma"
+							style="width:100px; height: 25px; white-space: normal;" />
+
+						<a:jsFunction name="liberarId"
+							actionListener="#{authenticatorAction.informarIdCliente}"
+							limitToList="true" ajaxSingle="false"
+							process="formInformarIdCliente" reRender="idClienteChangeField"
+							data="#{authenticatorAction.messageRetornoAjax}"
+							onbeforedomupdate="showMessageRetorno(data);"
+							oncomplete="if(data.length==0 &amp;&amp; #{authenticatorAction.idClienteChange!=null}){alert('#{messages['liberacaoSistema.liberado']}'); if(#{authenticatorAction.user!=null}){fn_RedirectIndex(); }else{fn_RedirectSetFuncionario();} }" />
+
+
+						<p:commandButton action="#{authenticatorAction.logout}" image="sair"
+							style="width:100px; height: 25px; white-space: normal;"
+							immediate="true" value="#{messages['liberacaoSistema.encerrar']}"
+							oncomplete="/index.xhtml"
+							onclick="Richfaces.hideModalPanel('informarIdCliente');" />
+					</h:form>
+				</div>
+			</center>
+		</p:panel>
+
+	</rich:modalPanel> -->
+</ui:composition>

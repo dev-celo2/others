@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+	
+	
+	
+	
+	
+	<body>
+
+<a:jsFunction name="refreshHorarios"
+			reRender="grpGrade"
+			ajaxSingle="true" limitToList="true" />
+		<a:jsFunction name="setParametros" limitToList="true"
+			 ajaxSingle="true"
+			oncomplete="marcar_horario();">
+			<a:actionparam name="param1" assignTo="#{gradeHorariosAction.coluna}" />
+			<a:actionparam name="param2" assignTo="#{gradeHorariosAction.linha}" />
+		</a:jsFunction>
+		<a:jsFunction name="marcar_horario"
+			actionListener="#{gradeHorariosAction.marcar_horario}"
+			limitToList="true" ajaxSingle="true"
+			data="#{gradeHorariosAction.messageRetornoAjax}"
+			onbeforedomupdate="showMessageRetorno(data)"
+			oncomplete="if(data.length==0){refreshHorarios();}">
+		</a:jsFunction>
+
+		
+
+			<a:jsFunction name="fn_refresh"
+				reRender="diaSemana2, grpGrade, totalAlunosField, totalVagasField"
+				ajaxSingle="false" limitToList="true" bypassUpdates="false">
+				<f:setPropertyActionListener value="#{null}"
+					target="#{gradeHorariosAction.computadores}" />
+				<f:setPropertyActionListener value="#{null}"
+					target="#{gradeHorariosAction.horarios}" />
+				<f:setPropertyActionListener value="#{null}"
+					target="#{gradeHorariosAction.gradeHorarios}" />
+			</a:jsFunction>
+
+
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-th" /> GRADE HORÁRIOS
+					  <button type="button" class="close glyphicon glyphicon-remove" data-dismiss="modal"/>
+				</div>
+				<div class="panel-body">
+					<div class="box-content" id="content">
+
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1">DATA</span>
+									
+									
+									<p:calendar disabled="#{gradeHorariosAction.alterado}" inputStyleClass="form-control" value="#{gradeHorariosAction.dtSelected}"/>
+									
+
+									<span class="input-group-addon" id="basic-addon1"
+										style="color: blue;"><h:outputText id="diaSemana2"
+											value="#{combos.getDiasSemanaAbr().get(gradeHorariosAction.diaSemana.toUpperCase())}" /></span>
+
+
+									<span class="input-group-addon" id="basic-addon1">LABORATÓRIO</span>
+
+									<span class="input-group-addon" id="basic-addon1"
+										style="width: 75%;"><h:panelGroup id="laboratorioGroup">
+											<t:selectOneRadio layout="spread" id="laboratorio"
+												disabled="#{gradeHorariosAction.alterado}"
+												value="#{gradeHorariosAction.laboratorio}"
+												onchange="fn_refresh();">
+												<f:selectItem itemValue="0"
+													itemLabel="#{messages['global.all']}" />
+												<f:selectItem itemValue="1"
+													itemLabel="#{messages['global.um']}" />
+												<f:selectItem itemValue="2"
+													itemLabel="#{messages['global.dois']}" />
+												<f:selectItem itemValue="3"
+													itemLabel="#{messages['global.tres']}" />
+												<f:selectItem itemValue="4"
+													itemLabel="#{messages['global.quatro']}" />
+												<f:selectItem itemValue="5"
+													itemLabel="#{messages['global.cinco']}" />
+											</t:selectOneRadio>
+											<h:panelGrid columns="6" width="100%">
+												<t:radio for="laboratorio" index="0" />
+												<t:radio for="laboratorio" index="1" />
+												<t:radio for="laboratorio" index="2" />
+												<t:radio for="laboratorio" index="3" />
+												<t:radio for="laboratorio" index="4" />
+												<t:radio for="laboratorio" index="5" />
+											</h:panelGrid>
+
+										</h:panelGroup> </span>
+								</div>
+							</div>
+						</div>
+
+
+
+						<p />
+
+						<a:outputPanel id="grpGrade">
+
+							<table id="gradeList" width="100%"
+								style="text-align: center; text-transform: uppercase; font-size: 12px;"
+								class="display nowrap table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+								<thead>
+									<tr>
+
+										<th style="text-align: center;">DESCRIÇÃO</th>
+
+										<c:forEach var="_horarios2"
+											items="#{gradeHorariosAction.horarios}">
+
+											<th style="text-align: center;">#{_horarios2.inicio} -
+												#{_horarios2.final_}</th>
+
+										</c:forEach>
+
+
+									</tr>
+								</thead>
+
+								<tbody class="searchable" id="tbody">
+
+
+									<c:forEach items="#{gradeHorariosAction.gradeHorarios}"
+										varStatus="row" var="_gradeHorarios">
+
+
+										<p />
+
+										<tr style="font-size: 11px;">
+
+
+											<td
+												style="background-color: #527a7a; border-color: white; color: white;"
+												width="15%">LAB#{gradeHorariosAction.computadores.get(row.index).laboratorio} - #{gradeHorariosAction.computadores.get(row.index).descricao}
+												
+												</td>
+
+
+											<c:forEach items="#{gradeHorariosAction.horarios}"
+												varStatus="loopstatus">
+
+
+												<td
+													style="#{(_gradeHorarios.get(loopstatus.index)!=null &amp;&amp;  _gradeHorarios.get(loopstatus.index).matricula!=0 &amp;&amp;  _gradeHorarios.get(loopstatus.index).matricula!=-2?
+													(_gradeHorarios.get(loopstatus.index).tipo.equals('R')?'background-color:#e62e00;':'background-color:#009933;'):(_gradeHorarios.get(loopstatus.index)!=null?'':'rich-std-header-row'))}">
+
+
+													<c:if
+														test="#{_gradeHorarios.get(loopstatus.index)!=null  and  _gradeHorarios.get(loopstatus.index).matricula!=0}">
+
+														<span style="color: white;">#{_gradeHorarios.get(loopstatus.index).matriculas.codigo}
+															-
+															#{_gradeHorarios.get(loopstatus.index).matriculas.alunos.nome}
+														</span>
+
+													</c:if> 
+
+
+												</td>
+
+											</c:forEach>
+
+
+										</tr>
+									</c:forEach>
+
+
+								</tbody>
+							</table>
+
+
+
+
+							<script>
+
+										
+		$(document).ready(function() {
+			    $('#gradeList').DataTable( {
+
+			    	"bAutoWidth" : true,
+			    	"scrollX": true,
+			    	"scrollY": true,
+			    	"sScrollY" : "550",
+			    	"lengthMenu": [[-1], ["TODOS"]],
+
+    	
+			    	
+			        "language": {
+			        	"sEmptyTable": "Nenhum registro encontrado",
+			            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+			            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+			            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+			            "sInfoPostFix": "",
+			            "sInfoThousands": ".",
+			            "sLengthMenu": "_MENU_ resultados por página",
+			            "sLoadingRecords": "Carregando...",
+			            "sProcessing": "Processando...",
+			            "sZeroRecords": "Nenhum registro encontrado",
+			            "sSearch": "Pesquisar",
+			            "oPaginate": {
+			                "sNext": "Próximo",
+			                "sPrevious": "Anterior",
+			                "sFirst": "Primeiro",
+			                "sLast": "Último"
+			            },
+			            "oAria": {
+			                "sSortAscending": ": Ordenar colunas de forma ascendente",
+			                "sSortDescending": ": Ordenar colunas de forma descendente"
+			            }
+			        }
+			    } );
+
+             
+
+					} );
+
+
+	
+
+
+					
+  </script>
+
+							<span><i class="glyphicon glyphicon-stop"
+								style="color: #009933;" /> AULA</span>
+
+							<span style="font-weight: bold;"><i
+								class="glyphicon glyphicon-stop" style="color: #e62e00;" />
+								REPOSIÇÃO</span>
+
+						</a:outputPanel>
+					</div>
+				</div>
+				<div class="panel-footer">
+
+					<center>
+
+
+						<table width="80%">
+							<tbody class="searchable" id="tbody">
+								<tr>
+
+									<td>
+
+										<div class="input-group" style="width: 95%;">
+											<span class="input-group-addon" id="basic-addon1">TOTAL
+												ALUNOS</span>
+											<h:inputText id="totalAlunosField" styleClass="form-control"
+												value="#{gradeHorariosAction.totalAlunos}" readonly="true"
+												style="color:blue;font-weight: bold;" size="12">
+												<f:convertNumber type="number" minFractionDigits="0"
+													maxFractionDigits="0" />
+											</h:inputText>
+										</div>
+
+									</td>
+
+									<td>
+
+										<div class="input-group" style="width: 95%;">
+											<span class="input-group-addon" id="basic-addon1">HORÁRIOS
+												DISPONÍVEIS</span>
+											<h:inputText id="totalVagasField" styleClass="form-control"
+												value="#{gradeHorariosAction.totalVagas}" readonly="true"
+												style="color:blue;font-weight: bold;" size="12">
+												<f:convertNumber type="number" minFractionDigits="0"
+													maxFractionDigits="0" />
+											</h:inputText>
+										</div>
+
+									</td>
+
+									<td style="float: right;"><h:commandLink
+											limitToList="true" title="Exportar PDF"
+											actionListener="#{gradeHorariosAction.exportarRelatorioPDF}"
+											style="width:80px; height: 40px; white-space: normal; ">
+											<p:graphicImage value="/images/pdf.png" />
+
+										</h:commandLink> <h:commandLink limitToList="true" title="Exportar EXCEL"
+											actionListener="#{gradeHorariosAction.exportarRelatorioExcel}"
+											style="width:80px; height: 40px; white-space: normal;">
+											<p:graphicImage value="/images/excel.png" />
+
+										</h:commandLink></td>
+
+
+								</tr>
+							</tbody>
+						</table>
+
+
+
+
+					</center>
+
+
+
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+</body>
+</html>

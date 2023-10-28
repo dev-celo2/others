@@ -1,0 +1,184 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<a:form id="relAcompAlunosSearch" styleClass="edit">
+
+			<p:panel header="Relatório Acompanhamento Alunos Por Módulo"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:80px">
+					<h:panelGrid style="margin: 0px auto; width: 100%" columns="2"
+						id="pgFiltros">
+
+						<p:panel style="width:350px; height:50px; margin: 0px auto;">
+							<center>
+								<h:panelGrid columns="2">
+									<s:span style="font-weight: bold;">Adiant. / Atras.:</s:span>
+									<h:selectOneMenu id="alunosField2" styleClass="form-control"
+										value="#{relAcompAlunosModulo.situacaoAluno}" required="true"
+										style="width:200px; height:34px;font-size:12px; text-align:center;"
+										disabled="#{!matriculasHome.editable}">
+										<f:selectItem itemValue="0" itemLabel="SELECIONE O TIPO" />
+										<f:selectItem itemValue="1"
+											itemLabel="ADIANTADOS" />
+										<f:selectItem itemValue="2"
+											itemLabel="ATRASADOS" />
+										<a:support event="onchange"
+											reRender="relAcompAlunos, relAcompAlunosSearch"
+											limitToList="true" bypassUpdates="false">
+											<f:setPropertyActionListener
+												target="#{relAcompAlunosModulo.acompAlunos}" value="#{null}" />
+										</a:support>
+									</h:selectOneMenu>
+								</h:panelGrid>
+							</center>
+
+						</p:panel>
+
+						<p:panel style="width:390px; height:50px; margin: 0px auto;">
+							<center>
+								<h:panelGrid columns="2">
+									<s:span style="font-weight: bold;">#{messages['matriculas.modulos']}:</s:span>
+									<h:selectOneMenu id="moduloField" styleClass="form-control"
+										value="#{relAcompAlunosModulo.moduloCodigo}"
+										style="width:330px; height:34px;font-size:12px; text-align:center;">
+										<f:selectItem itemLabel="TODOS" itemValue="9999" />
+										<f:selectItems itemLabelEscaped="true"
+											value="#{relAcompAlunosModulo.modulos}" />
+										<a:support event="onchange"
+											reRender="relAcompAlunos, relAcompAlunosSearch"
+											limitToList="true" bypassUpdates="false">
+											<f:setPropertyActionListener
+												target="#{relAcompAlunosModulo.acompAlunos}" value="#{null}" />
+										</a:support>
+									</h:selectOneMenu>
+								</h:panelGrid>
+							</center>
+
+						</p:panel>
+
+					</h:panelGrid>
+
+
+
+					<a:jsFunction name="filtrar"
+						reRender="relAcompAlunos, vlTotalDevido, relAcompAlunosAdiantadosAtrasados, relAcompAlunosSearch"
+						limitToList="true">
+
+					</a:jsFunction>
+				</p:panel>
+
+
+
+				<p:panel id="relAcompAlunos">
+
+
+					<p:dataTable emptyMessage="#{messages['global.naoHaDados']}"
+						id="tablerelAcompAlunos" var="matri" paginatorPosition="bottom"
+						rows="12" paginator="true" rowsPerPageTemplate="12,18"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="true" selectionMode="single" style="text-align:center;"
+						value="#{relAcompAlunosModulo.acompAlunos}">
+
+						<p:column>
+							<f:facet name="header">MAT.</f:facet>
+							<h:outputText value="#{matri.matricula}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+							<h:outputText value="#{matri.aluno}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Curso Atual</f:facet>
+							<h:outputText value="#{matri.cursoAtual}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Aula Atual</f:facet>
+							<h:outputText value="#{matri.aulaAtual}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Curso Deveria Estar</f:facet>
+							<h:outputText value="#{matri.cursoDeveriaEstar}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Aula Dev. Estar</f:facet>
+							<h:outputText value="#{matri.aulaDeveriaEstar}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Módulo</f:facet>
+							<h:outputText value="#{matri.modulo}" />
+						</p:column>
+						
+						<p:column>
+							<f:facet name="header">Inic. Módulo</f:facet>
+							<h:outputText value="#{matri.inicioModulo}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Prev. Ant.</f:facet>
+							<h:outputText value="#{matri.prevAnterior}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Nova Prev.</f:facet>
+							<h:outputText value="#{matri.novaPrev}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">Abrir</f:facet>
+							<s:link view="/private/onbyte/MatriculasEdit.xhtml"
+								target="_blank" propagation="none">
+								<h:graphicImage value="/images/folderOpen.png" />
+								<f:param name="matriculasCodigo" value="#{matri.matricula}" />
+							</s:link>
+
+						</p:column>
+
+					</p:dataTable>
+
+				</p:panel>
+
+
+
+				<h:panelGrid columns="3">
+					<s:div styleClass="actionButtons" rendered="#{empty from}">
+
+						<h:commandLink limitToList="true"
+							actionListener="#{relAcompAlunosModulo.exportarRelatorio(1)}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/pdf.png" />
+						</h:commandLink>
+
+						<h:commandLink limitToList="true"
+							actionListener="#{relAcompAlunosModulo.exportarRelatorio(2)}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/excel.png" />
+						</h:commandLink>
+
+
+					</s:div>
+
+				</h:panelGrid>
+
+
+			</p:panel>
+
+		</a:form>
+	</ui:define>
+</ui:composition>

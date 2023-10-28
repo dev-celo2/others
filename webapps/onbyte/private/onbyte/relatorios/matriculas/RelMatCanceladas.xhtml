@@ -1,0 +1,205 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<a:form id="relMatCanceladasSearch" styleClass="edit">
+
+
+			<p:panel header="#{messages['relMatCanceladas.title']}"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:70px">
+					<h:panelGrid style="margin: 0px auto; width: 50%" columns="5"
+						id="pgFiltros">
+
+
+						<p:panel style="width:355px; height:30px;" id="pnDatas">
+							<h:panelGroup>
+								<s:span style=" font-weight:bold;">Data Inicial: </s:span>
+								<rich:calendar id="dataInicial" inputSize="10"
+									enableManualInput="true"
+									value="#{relMatCanceladas.dataInicial}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+
+							<h:panelGroup>
+								<s:span style="font-weight: bold;">Data Final: </s:span>
+								<rich:calendar id="dataFinal" inputSize="10"
+									enableManualInput="true" value="#{relMatCanceladas.dataFinal}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+
+						</p:panel>
+
+						<h:panelGrid columns="1">
+							<p:panel style="width:350px; height:50px">
+
+								<h:panelGrid style="width:100%; text-align:center;" columns="2">
+									<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relMatCanceladas.status']}:</s:span>
+									<h:selectOneRadio value="#{relMatCanceladas.statusMatricula}"
+										style="width:100%">
+										<f:selectItem itemValue="#{null}"
+											itemLabel="#{messages['global.all']}" />
+										<f:selectItem itemValue="CANCELADA"
+											itemLabel="#{messages['matriculas.status.CANCELADA']}" />
+										<f:selectItem itemValue="TRANCADA"
+											itemLabel="#{messages['matriculas.status.TRANCADA']}" />
+										<a:support event="onchange"
+											reRender="relMatCanceladas, vlTotalDevido" limitToList="true"
+											oncomplete="inicializar();" bypassUpdates="false">
+											<f:setPropertyActionListener
+												target="#{relMatCanceladas.matriculas}" value="#{null}" />
+										</a:support>
+									</h:selectOneRadio>
+								</h:panelGrid>
+							</p:panel>
+						</h:panelGrid>
+
+						<p:commandButton value="#{messages['global.bntFilrar']}"
+							image="localizar" style="width:100px; margin: 0;"
+							onclick="filtrar();" />
+
+						<a:jsFunction name="filtrar"
+							reRender="relMatCanceladas, vlTotalDevido" limitToList="true"
+							oncomplete="inicializar();">
+							<f:setPropertyActionListener
+								target="#{relMatCanceladas.matriculas}" value="#{null}" />
+						</a:jsFunction>
+					</h:panelGrid>
+				</p:panel>
+			</p:panel>
+
+
+
+			<p:panel id="relMatCanceladas">
+				<f:facet name="header">#{messages['menu.Vendas1']} #{messages['global.searchResults']}: #{empty relMatCanceladas.matriculas ? 0 : relMatCanceladas.matriculas.size}</f:facet>
+
+				<p:dataTable emptyMessage="#{messages['global.naoHaDados']}"
+					id="tablerelMatCanceladas" var="_matriculas"
+					paginatorPosition="bottom" rows="12" paginator="true"
+					rowsPerPageTemplate="12,18"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					selection="true" selectionMode="single" style="text-align:center;"
+					value="#{relMatCanceladas.matriculas}">
+
+					<p:column>
+						<f:facet name="header">#{messages['matriculas.codigo']}</f:facet>
+						<h:outputText value="#{_matriculas.matricula}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+						<h:outputText value="#{_matriculas.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatCanceladas.status']}</f:facet>
+						<h:outputText
+							value="#{combos.getStatusMatricula().get(_matriculas.status)}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatCanceladas.dtcancel']}</f:facet>
+						<h:outputText value="#{_matriculas.dtcancel}">
+							<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+								timeZone="#{timeZoneSelector.timeZone}"
+								pattern="#{messages.pattern}" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatCanceladas.motivo']}</f:facet>
+						<h:outputText value="#{_matriculas.notivocancel}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatCanceladas.parcelas']}</f:facet>
+						<h:outputText value="#{_matriculas.qtd_parcelas}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatCanceladas.pagas']}</f:facet>
+						<h:outputText value="#{_matriculas.qtd_parcelas_pagas}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatCanceladas.aPagar']}</f:facet>
+						<h:outputText value="#{_matriculas.qtd_parcelas_a_pagar}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatCanceladas.totalDevido']}</f:facet>
+						<h:outputText value="#{_matriculas.total_devido}"
+							style="float: right;">
+							<f:convertNumber type="currency" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['alunos.telres']}</f:facet>
+						<h:outputText value="#{_matriculas.telres}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['alunos.telcel']}</f:facet>
+						<h:outputText value="#{_matriculas.telcel}" />
+					</p:column>
+					<p:column breakBefore="true" />
+				</p:dataTable>
+
+				<h:panelGrid columns="3">
+					<s:div styleClass="actionButtons" rendered="#{empty from}">
+						
+						<h:commandLink limitToList="true"
+							actionListener="#{relMatCanceladas.exportarRelatorioPDF}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/pdf.png" />
+						</h:commandLink>
+
+						<h:commandLink limitToList="true"
+							actionListener="#{relMatCanceladas.exportarRelatorioExcel}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/excel.png" />
+						</h:commandLink>
+
+					</s:div>
+					
+					<rich:spacer width="15px"/>
+					
+					<h:panelGrid columns="2">
+						
+							<h1>#{messages['relMatCanceladas.totalDevido']}:</h1>
+						
+						<h:inputText id="vlTotalDevido"
+							value="#{relMatCanceladas.totalDevido}" readonly="true"
+							style="text-align: right; color:font-weight: bold;" size="15">
+							<f:convertNumber type="currency" minFractionDigits="2"
+								maxFractionDigits="2" />
+						</h:inputText>
+					</h:panelGrid>
+				</h:panelGrid>
+
+
+			</p:panel>
+
+
+
+
+
+			<script type="text/javascript"
+				src="#{request.contextPath}/js/jquery.maskedinput-1.3.min.js" />
+			<script>
+			inicializar();
+			function inicializar(){
+				jQuery(function($){
+			
+				$("#relMatCanceladasSearch\\:dataInicialInputDate").mask("99/99/9999"); //maskedinput
+				$("#relMatCanceladasSearch\\:dataFinalInputDate").mask("99/99/9999"); //maskedinput
+			
+				});
+			}
+		
+			</script>
+		</a:form>
+	</ui:define>
+</ui:composition>

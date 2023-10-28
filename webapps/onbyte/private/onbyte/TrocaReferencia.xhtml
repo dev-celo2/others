@@ -1,0 +1,82 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+		<rich:modalPanel id="trocaReferencia" autosized="true"
+			onshow="inicializar();" resizeable="false">
+			<p:panel header="#{messages['trocaReferencia.title']}">
+
+				<a:form id="formTrocaReferencia">
+					<h:panelGrid>
+						<rich:panel style="width:250px;height:30px"
+							bodyClass="panelPaddingZero">
+							<s:decorate id="referenciaField" template="layout/edit.xhtml">
+								<ui:define name="label">#{messages['trocaReferencia.refAtual']}:</ui:define>
+								<h:inputText id="novaReferencia" size="7" maxlength="7"
+									readonly="true" style="color: blue; font-weight: bold;"
+									value="#{parametroHome.instance.referencia}" />
+							</s:decorate>
+						</rich:panel>
+						<div style="clear: both" />
+						<rich:panel style="width:250px;height:30px"
+							bodyClass="panelPaddingZero">
+							<s:decorate id="novaReferenciaField" template="layout/edit.xhtml">
+								<ui:define name="label">#{messages['trocaReferencia.refNova']}:</ui:define>
+								<h:inputText id="referencia" size="7" maxlength="7"
+									readonly="true" style="color: red; font-weight: bold;"
+									value="#{parametroHome.novaReferencia}" />
+							</s:decorate>
+						</rich:panel>
+					</h:panelGrid>
+					<center>
+						<p:commandButton id="btnTrocar" value="#{messages['global.ok']}"
+							image="confirma"
+							onclick="trocaRefDlg.show();"
+							style="width:100px; height: 25px; white-space: normal;"/>
+
+							<p:confirmDialog widgetVar="trocaRefDlg"
+								id="trocaRefDlg" hideEffect="explode"
+								header="Trocar Referencia"
+								message="Deseja trocar para a referencia #{parametroHome.novaReferencia}?" width="400"
+								showEffect="clip"  closable="false"
+								closeOnEscape="true" severity="alert">
+								<h:panelGroup layout="block" style="text-align: right">
+									<p:commandButton value="Sim"
+										onclick="trocarReferencia(); trocaRefDlg.hide();" />
+									<p:commandButton value="#{messages['global.nao']}"
+										onclick="trocaRefDlg.hide();" />
+								</h:panelGroup>
+							</p:confirmDialog>
+
+							<a:jsFunction name="trocarReferencia"
+								actionListener="#{parametroHome.trocaReferencia}"
+								limitToList="true" ajaxSingle="false"
+								data="#{parametroHome.messageRetornoAjax}"
+								onbeforedomupdate="showMessageRetorno(data)"
+								oncomplete="if(data.length==0){Richfaces.hideModalPanel('trocaReferencia');}" />
+
+
+							<p:commandButton
+								style="width:100px; height: 25px; white-space: normal;"
+								value="#{messages['trocaReferencia.bntFechar']}"
+								action="/index.xhtml" image="sair" ajax="false"
+								onclick="Richfaces.hideModalPanel('trocaReferencia')" />
+					</center>
+				</a:form>
+			</p:panel>
+		</rich:modalPanel>
+		<script type="text/javascript">
+			Richfaces.showModalPanel('trocaReferencia');		
+		</script>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,359 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+	<h:form>
+		<!-- Modal ABRIR CAIXA-->
+		<div id="openBox"
+			style="z-index: 4041; top: calc(50% -     300px) !important;"
+			class="modal fade " data-backdrop="static" role="dialog">
+			<div class="modal-dialog" style="width: 500px;">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<center>
+							<h4 style="font-weight: bold;" class="text text-primary">
+								<i class="glyphicon glyphicon-transfer" style="font-size: 20px;" />
+								ABERTURA DO CAIXA
+							</h4>
+						</center>
+					</div>
+					<div class="modal-body">
+						<div class="box-content">
+
+
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<center>
+										<b>ÚLTIMO CAIXA ABERTO</b>
+									</center>
+								</div>
+								<div class="panel-body">
+
+									<table width="100%">
+
+										<thead>
+											<tr>
+
+												<td style="text-align: center;"><h:outputText
+														style="font-weight: bold;"
+														value="NÚMERO: #{caixasAberturaAction.lastCaixa.numero}"
+														size="5" /></td>
+
+												<td style="text-align: center;"><b>ABERTO EM: </b> <h:outputText
+														style="font-weight: bold;"
+														value="#{caixasAberturaAction.lastCaixa.dtAbre}" size="10">
+														<f:convertDateTime pattern="dd/MM/yyyy" locale="pt" />
+													</h:outputText></td>
+
+												<td style="text-align: center;"><h:outputText
+														value="ÀS: #{caixasAberturaAction.lastCaixa.hrAbre}"
+														style="font-weight: bold;" size="10">
+														<f:convertDateTime type="time"
+															locale="#{localeSelector.locale}"
+															timeZone="#{timeZoneSelector.timeZone}" />
+													</h:outputText></td>
+
+
+											</tr>
+
+										</thead>
+									</table>
+
+									<p />
+
+									<table width="100%">
+										<thead>
+											<tr>
+
+												<td style="text-align: center;"><h:outputText
+														style="font-weight: bold;"
+														value="ABERTO POR: #{caixasAberturaAction.lastCaixa.funcionariosByFuncAbre.nome}" /></td>
+											</tr>
+										</thead>
+									</table>
+
+									<p />
+
+									<table width="100%">
+										<thead>
+											<tr>
+
+												<td style="text-align: center;"><b>FECHADO EM: </b> <h:outputText
+														style="font-weight: bold;"
+														value="#{caixasAberturaAction.lastCaixa.dtFecha}"
+														size="10">
+														<f:convertDateTime type="date"
+															locale="#{localeSelector.locale}"
+															timeZone="#{timeZoneSelector.timeZone}"
+															pattern="#{messages.pattern}" />
+													</h:outputText></td>
+
+												<td style="text-align: center;"><h:outputText
+														value="ÀS: #{caixasAberturaAction.lastCaixa.hrFecha}"
+														style="font-weight: bold;" size="10">
+														<f:convertDateTime type="time"
+															locale="#{localeSelector.locale}"
+															timeZone="#{timeZoneSelector.timeZone}" />
+													</h:outputText></td>
+													
+													<h:inputHidden value="#{caixasAberturaAction.lastCaixaNumero}" />
+
+											</tr>
+										</thead>
+									</table>
+
+
+								</div>
+							</div>
+
+
+
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<center>
+										<b>NOVO CAIXA A SER ABERTO</b>
+									</center>
+								</div>
+								<div class="panel-body">
+
+									<table width="100%">
+										<thead>
+											<tr>
+
+												<td style="text-align: center;"><b>DATA ABERTURA</b> <h:inputText
+														styleClass="datepicker form-control"
+														value="#{caixasAberturaAction.newCaixa.dtAbre}" /></td>
+
+												<td style="text-align: center;"><b>HORA</b> <h:inputText
+														styleClass="form-control" id="hrAbre" size="8"
+														required="true" readonly="true"
+														style="vertical-align: middle;" requiredMessage=""
+														value="#{caixasAberturaAction.newCaixa.hrAbre}">
+														<a:support event="onblur" limitToList="true"
+															reRender="dtAberturaField" bypassUpdates="false" />
+														<f:convertDateTime type="time" pattern="HH:mm:ss"
+															locale="#{localeSelector.locale}"
+															timeZone="#{timeZoneSelector.timeZone}" />
+													</h:inputText></td>
+
+												<td style="text-align: center;"><b>VALOR </b> <h:inputText
+														id="vlInicio" required="true" styleClass="form-control"
+														value="#{caixasAberturaAction.newCaixa.vlInicio}"
+														style="text-align: right;" size="11">
+														<f:convertNumber maxFractionDigits="2"
+															minFractionDigits="2" />
+														<a:support event="onblur" limitToList="true"
+															reRender="vlInicioField" bypassUpdates="false"
+															ajaxSingle="true" />
+													</h:inputText></td>
+
+											</tr>
+										</thead>
+									</table>
+
+
+
+
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<center>
+
+							<a:commandLink styleClass="btn btn-success"
+								onclick="$('#finalizaAbCxDlg').modal('show')"
+								style="width:200px; height:35px;">
+								<i class="glyphicon glyphicon-ok" />				     
+					     	ABRIR					     
+					     </a:commandLink>
+
+							<rich:spacer width="2px;" />
+
+							<a:commandLink styleClass="btn btn-danger"
+								onclick="$('#fechaAbCxDlg2').modal('show')"
+								style="width:200px; height:35px;">
+								<i class="glyphicon glyphicon-remove" />				     
+					     	CANCELAR					     
+					     </a:commandLink>
+
+							<a:jsFunction name="abrirCaixa"
+								actionListener="#{caixasAberturaAction.abreCaixa}"
+								limitToList="true" ajaxSingle="false"
+								reRender="dtAberturaField, hrAbreField, vlInicioField, msgGlobal"
+								data="#{caixasAberturaAction.messageRetornoAjax}"
+								oncomplete="if(data!=null &amp;&amp; data.status==1){finalizar();}; $('#openBox').modal('hide');"
+								onbeforedomupdate="if(data!=null){showMessageRetorno(data.msgErro + data.msgSucesso)};" />
+							<a:jsFunction name="finalizar"
+								action="#{caixasAberturaAction.finalizar}" />
+
+
+						</center>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!--FIM Modal ABRE CAIXA-->
+
+
+		<!-- Modal Modal PERGUNTA FINALIZA CAIXA-->
+		<div id="finalizaAbCxDlg" class="modal fade"
+			style="z-index: 4042; top: calc(50% -     200px) !important;"
+			data-backdrop="static" role="dialog">
+			<div class="modal-dialog" style="width: 400px;">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<center>
+							<h4 style="color: gray; font-weight: bold;" class="modal-title">
+								FINALIZAR ABERTURA DO CAIXA</h4>
+						</center>
+					</div>
+					<div class="modal-body">
+						<div class="box-content">
+
+							<center>
+
+								<h4 style="font-weight: bold; color: gray;" class="modal-title">
+									FINALIZA A ABERTURA DO CAIXA<i
+										class="glyphicon glyphicon-question-sign"
+										style="font-size: 20px;" />
+								</h4>
+
+							</center>
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<center>
+
+							<a:commandLink styleClass="btn btn-default" style="width:100px;"								
+								onclick="abrirCaixa(); $('#finalizaAbCxDlg').modal('hide');">
+								<i class="glyphicon glyphicon-ok" />
+							Sim
+							</a:commandLink>
+
+							<rich:spacer width="2xp;" />
+
+							<a:commandLink styleClass="btn btn-default" style="width:100px;"
+								onclick="$('#finalizaAbCxDlg').modal('hide');" immediate="true">
+								<i class="glyphicon glyphicon-ban-circle" />
+							Não
+							</a:commandLink>
+
+						</center>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!--FIM Modal PERGUNTA FINALIZAR CAIXA-->
+
+
+		<!-- Modal Modal PERGUNTA CANCELAR ABERTURA CAIXA-->
+		<div id="fechaAbCxDlg2" class="modal fade"
+			style="z-index: 4042; top: calc(50% -     200px) !important;"
+			data-backdrop="static" role="dialog">
+			<div class="modal-dialog" style="width: 400px;">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<center>
+							<h4 style="color: gray; font-weight: bold;" class="modal-title">
+								CANCELAR ABERTURA DO CAIXA</h4>
+						</center>
+					</div>
+					<div class="modal-body">
+						<div class="box-content">
+
+							<center>
+
+								<h4 style="font-weight: bold; color: gray;" class="modal-title">
+									DESEJA CANCELAR A ABERTURA DO CAIXA<i
+										class="glyphicon glyphicon-question-sign"
+										style="font-size: 20px;" />
+								</h4>
+
+							</center>
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<center>
+						
+
+							<a:commandLink styleClass="btn btn-default" style="width:100px;"
+								reRender="pnlDados"
+								onclick="cancelar(); $('#fechaAbCxDlg2').modal('hide');">
+								<i class="glyphicon glyphicon-ok" />
+							Sim
+							</a:commandLink>
+
+							<rich:spacer width="2xp;" />
+
+							<a:commandLink styleClass="btn btn-default" style="width:100px;"
+								onclick="$('#fechaAbCxDlg2').modal('hide');" immediate="true">
+								<i class="glyphicon glyphicon-ban-circle" />
+							Não
+							</a:commandLink>
+							
+							<a:jsFunction name="cancelar" immediate="true"
+								action="/index.xhtml"
+								actionListener="#{authenticatorAction.logout}"
+								oncomplete="$('#openBox').modal('hide');" />
+
+						</center>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!--FIM Modal PERGUNTA CANCELA ABERTURA CAIXA-->
+
+
+
+		<script> $(".datepicker").datepicker({
+																	 showAnim: 'clip',
+																	 changeMonth: true,
+																	 changeYear:true,
+																	 dateFormat: 'dd/mm/yy',
+																	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+																	    dayNamesMin: ['DOM','SEG','TER','QUA','QUI','SEX','SAB','DOM'],
+																	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+																	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+																	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+																	    nextText: 'Próximo',
+																	    prevText: 'Anterior',
+																	 															   
+																	   
+																	});</script>
+
+
+
+
+
+	</h:form>
+
+</ui:composition>

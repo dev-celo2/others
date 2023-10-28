@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+   <param name="firstResult" value="#{parametroList.firstResult}"/>
+   <param name="sort" value="#{parametroList.orderColumn}"/>
+   <param name="dir" value="#{parametroList.orderDirection}"/>
+   <param name="logic" value="#{parametroList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="abrecaixa" value="#{parametroList.parametro.abrecaixa}"/>
+   <param name="bairro" value="#{parametroList.parametro.bairro}"/>
+   <param name="bloatrazo" value="#{parametroList.parametro.bloatrazo}"/>
+   <param name="bloinativo" value="#{parametroList.parametro.bloinativo}"/>
+   <param name="cabecalho1" value="#{parametroList.parametro.cabecalho1}"/>
+   <param name="capslock" value="#{parametroList.parametro.capslock}"/>
+   <param name="cep" value="#{parametroList.parametro.cep}"/>
+   <param name="cidade" value="#{parametroList.parametro.cidade}"/>
+   <param name="cnpj" value="#{parametroList.parametro.cnpj}"/>
+   <param name="descsistema" value="#{parametroList.parametro.descsistema}"/>
+   <param name="email" value="#{parametroList.parametro.email}"/>
+   <param name="empresa" value="#{parametroList.parametro.empresa}"/>
+   <param name="endereco" value="#{parametroList.parametro.endereco}"/>
+   <param name="estado" value="#{parametroList.parametro.estado}"/>
+   <param name="insc" value="#{parametroList.parametro.insc}"/>
+   <param name="mensfincurso" value="#{parametroList.parametro.mensfincurso}"/>
+   <param name="mensrepaberto" value="#{parametroList.parametro.mensrepaberto}"/>
+   <param name="nomefand" value="#{parametroList.parametro.nomefand}"/>
+   <param name="nomefanh" value="#{parametroList.parametro.nomefanh}"/>
+   <param name="nomefantasia" value="#{parametroList.parametro.nomefantasia}"/>
+   <param name="numlock" value="#{parametroList.parametro.numlock}"/>
+   <param name="passesalaaula" value="#{parametroList.parametro.passesalaaula}"/>
+   <param name="pciniciocaixa" value="#{parametroList.parametro.pciniciocaixa}"/>
+   <param name="pcmatri" value="#{parametroList.parametro.pcmatri}"/>
+   <param name="pcmensa" value="#{parametroList.parametro.pcmensa}"/>
+   <param name="pcsaldoantcred" value="#{parametroList.parametro.pcsaldoantcred}"/>
+   <param name="pcsaldoantdeb" value="#{parametroList.parametro.pcsaldoantdeb}"/>
+   <param name="pctranscaixa" value="#{parametroList.parametro.pctranscaixa}"/>
+   <param name="pctranscaixadeb" value="#{parametroList.parametro.pctranscaixadeb}"/>
+   <param name="perdescacima" value="#{parametroList.parametro.perdescacima}"/>
+   <param name="perdescextra" value="#{parametroList.parametro.perdescextra}"/>
+   <param name="referencia" value="#{parametroList.parametro.referencia}"/>
+   <param name="rodape1" value="#{parametroList.parametro.rodape1}"/>
+   <param name="rodape2" value="#{parametroList.parametro.rodape2}"/>
+   <param name="senha" value="#{parametroList.parametro.senha}"/>
+   <param name="senhavend" value="#{parametroList.parametro.senhavend}"/>
+   <param name="telefone1" value="#{parametroList.parametro.telefone1}"/>
+   <param name="telefone2" value="#{parametroList.parametro.telefone2}"/>
+
+</page>

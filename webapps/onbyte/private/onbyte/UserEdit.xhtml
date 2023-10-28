@@ -1,0 +1,231 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+		<script language="JavaScript">
+			function hidePanel(painel, msg)
+			{
+				if (msg.length==0){
+					if (painel.length!=0){
+						Richfaces.hideModalPanel(painel);
+					}
+					fn_refresh();
+				}
+			}
+		
+		</script>
+		<h:form id="userForm" styleClass="edit">
+			<a:jsFunction name="fn_refresh" reRender="userForm" limitToList="true" ajaxSingle="true">
+				<f:setPropertyActionListener value="#{null}" target="#{userHome.users}"/>
+			</a:jsFunction>	   			
+			<rich:panel>
+				<f:facet name="header">Controle de Acesso</f:facet>
+
+				<h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+					<rich:extendedDataTable noDataLabel="#{messages['global.naoHaDados']}"
+						value="#{userHome.opcoesMenu}"
+						var="_menuList" height="400px" width="465px" enableContextMenu="false"
+						id="menuList">
+						<rich:column width="350px">
+							<f:facet name="header">Descrição do Programa</f:facet>
+							<rich:spacer width="#{(_menuList.nivel-1)*15}px"/>
+							<h:outputText value="#{_menuList.descricao}"  style="#{_menuList.nivel==1?'font-weight: bold; color: #FF0000;':''}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+							</h:outputText>
+						</rich:column>
+						<rich:column width="100px">
+							<f:facet name="header">Direitos</f:facet>
+							<rich:inplaceSelect value="#{_menuList.direitoOpcao}"  layout="block" listWidth="110px" saveControlIcon="../../img/pixel.gif" cancelControlIcon="../../img/pixel.gif">
+								<f:selectItems itemLabelEscaped="true" value="#{userHome.opcoesPermissao}"/>
+								<a:support event="onchange" reRender="users,gravar,novo,cancelar" ajaxSingle="true" limitToList="true" bypassUpdates="false">
+									<f:setPropertyActionListener value="#{true}" target="#{userHome.alterado}"/>
+								</a:support>
+							</rich:inplaceSelect>
+						</rich:column>
+					</rich:extendedDataTable>
+					<h:panelGroup>
+						<rich:panel>
+							<s:decorate id="loginField" template="layout/edit_top.xhtml">
+				                <ui:define name="label">Usuários Cadastrados</ui:define>
+								<h:selectOneMenu id="users" value="#{userHome.login}" style="width:200px" disabled="#{userHome.alterado}">
+									<f:selectItems itemLabelEscaped="true" value="#{userHome.users}"/>
+									<a:support event="onchange" reRender="menuList" ajaxSingle="true" limitToList="true" bypassUpdates="false"/>
+								</h:selectOneMenu> 
+							</s:decorate>
+						</rich:panel>
+						<rich:spacer height="5px"/>
+						<rich:panel styleclass="actionButtons">
+							<h:panelGrid columns="2">
+								<a:commandButton id="novo" value="Novo" limitToList="true" ajaxSingle="true" reRender="newUser" disabled="#{userHome.alterado}" rendered="#{rich:isUserInRole('Usurios1_A')}"
+									style="width:80px; height:25px;" oncomplete="Richfaces.showModalPanel('newUserPanel');">
+									<f:setPropertyActionListener value="#{null}" target="#{userHome.loginNew}"/>
+									<f:setPropertyActionListener value="#{null}" target="#{userHome.passwordNew}"/>
+									<f:setPropertyActionListener value="#{null}" target="#{userHome.rePasswordNew}"/>
+								</a:commandButton>
+								<h:panelGroup>
+									<h:selectBooleanCheckbox value="#{userHome.verSenha}" > Ver Senha
+										<a:support event="onchange" ajaxSingle="true" limitToList="true"/>
+									</h:selectBooleanCheckbox>
+								</h:panelGroup>
+								
+								<a:commandButton id="alterar" value="Alterar" limitToList="true" ajaxSingle="true" reRender="updateUser"
+									style="width:80px; height:25px;" oncomplete="Richfaces.showModalPanel('updateUserPanel');" rendered="#{rich:isUserInRole('Usurios1_A')}"/>
+								
+								<a:commandButton id="gravar" value="#{messages['global.save']}" reRender="userForm" limitToList="true" disabled="#{!userHome.alterado}"
+									actionListener="#{userHome.updateUser}" style="width:80px; height:25px;" rendered="#{rich:isUserInRole('Usurios1_A')}"/>
+				
+								<s:button  id="delete" value="#{messages['global.delete']}"  rendered="#{rich:isUserInRole('Usurios1_R')}"
+								    style="width:80px; height:25px;"
+									onclick="if(confirm('#{messages['global.confirmDelete']}')){fn_Apagar();} return false;" />
+									
+								<a:commandButton id="cancelar" value="#{messages['global.cancel']}" reRender="userForm"  limitToList="true" ajaxSingle="true" disabled="#{!userHome.alterado}" style="width:80px; height:25px;" rendered="#{rich:isUserInRole('Usurios1_R')}">
+									<f:setPropertyActionListener value="#{null}" target="#{userHome.users}"/>
+									<f:setPropertyActionListener value="#{null}" target="#{userHome.permissoesMenu}"/>
+									<f:setPropertyActionListener value="#{false}" target="#{userHome.alterado}"/>
+								</a:commandButton>
+								
+								<a:jsFunction  name="fn_Apagar" limitToList="true" ajaxSingle="true" 
+                                    actionListener="#{userHome.deleteUser}"
+                                    data="#{userHome.messageRetornoAjax}"
+                                    onbeforedomupdate="showMessageRetorno(data)"
+                                    oncomplete="hidePanel('',data);" />
+							</h:panelGrid>
+			
+			
+						</rich:panel>
+					</h:panelGroup>
+				</h:panelGrid>
+			</rich:panel>
+
+		</h:form>
+		<rich:modalPanel id="newUserPanel" width="350" height="200" onshow="#{rich:element('loginNew')}.focus();"
+			resizeable="false">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="Novo Usuário" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/false.png" styleClass="hidelink"
+						id="hidelink_newUserPanel" />
+					<rich:componentControl for="newUserPanel"
+						attachTo="hidelink_newUserPanel" operation="hide"
+						event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<h:form id="newUser">
+				<h:panelGrid>
+					<s:decorate id="loginNewField" template="layout/edit_top.xhtml">
+		                <ui:define name="label">Nome do Usuário:</ui:define>
+						<h:inputText id="loginNew" value="#{userHome.loginNew}" size="48" maxlength="15" style="text-transform:uppercase">
+							<f:converter converterId="convertToUpper" />
+						</h:inputText>
+					</s:decorate>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<s:decorate id="passwordNewField" template="layout/edit_top.xhtml">
+		                <ui:define name="label">Senha:</ui:define>
+						<h:inputSecret redisplay="true" value="#{userHome.passwordNew}" size="18" maxlength="15" style="text-transform:uppercase" rendered="#{!userHome.verSenha}">
+							<f:converter converterId="convertToUpper" />
+						</h:inputSecret>
+						<h:inputText redisplay="true" value="#{userHome.passwordNew}" size="18" maxlength="15" style="text-transform:uppercase" rendered="#{userHome.verSenha}">
+							<f:converter converterId="convertToUpper" />
+						</h:inputText>
+					</s:decorate>
+					
+					<s:decorate id="rePasswordNewField" template="layout/edit_top.xhtml">
+		                <ui:define name="label">Confirmar Senha:</ui:define>
+						<h:inputSecret redisplay="true"  value="#{userHome.rePasswordNew}" size="18" maxlength="15" style="text-transform:uppercase" rendered="#{!userHome.verSenha}">
+							<f:converter converterId="convertToUpper" />
+						</h:inputSecret> 
+						<h:inputText redisplay="true"  value="#{userHome.rePasswordNew}" size="18" maxlength="15" style="text-transform:uppercase" rendered="#{userHome.verSenha}">
+							<f:converter converterId="convertToUpper" />
+						</h:inputText> 
+					</s:decorate>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<a:commandButton value="#{messages['global.ok']}" limitToList="true"
+						actionListener="#{userHome.createNewUser}"
+						style="width:80px; height:25px;"
+						data="#{userHome.messageRetornoAjax}"
+						onbeforedomupdate="showMessageRetorno(data)"
+						oncomplete="hidePanel('newUserPanel',data);" />
+	
+					<s:button value="#{messages['global.cancel']}" style="width:80px; height:25px;" onclick="Richfaces.hideModalPanel('newUserPanel'); return false;" />
+				</h:panelGrid>
+			</h:form>
+		</rich:modalPanel>
+		
+		<rich:modalPanel id="updateUserPanel" width="350" height="200" onshow="#{rich:element('login')}.focus();"
+			resizeable="false">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="Alterar Senha" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/false.png" styleClass="hidelink"
+						id="hidelink_updateUserPanel" />
+					<rich:componentControl for="updateUserPanel"
+						attachTo="hidelink_updateUserPanel" operation="hide"
+						event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<h:form id="updateUser">
+				<h:panelGrid>
+					<s:decorate id="loginField" template="layout/edit_top.xhtml">
+		                <ui:define name="label">Nome do Usuário:</ui:define>
+						<h:inputText id="login" value="#{userHome.login}" readonly="true" size="48" maxlength="15" style="text-transform:uppercase">
+							<f:converter converterId="convertToUpper" />
+						</h:inputText>
+					</s:decorate>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<s:decorate id="passwordField" template="layout/edit_top.xhtml">
+		                <ui:define name="label">Senha:</ui:define>
+						<h:inputSecret redisplay="true" value="#{userHome.password}" size="18" maxlength="15" style="text-transform:uppercase" rendered="#{!userHome.verSenha}">
+							<f:converter converterId="convertToUpper" />
+						</h:inputSecret>
+						<h:inputText redisplay="true" value="#{userHome.password}" size="18" maxlength="15" style="text-transform:uppercase" rendered="#{userHome.verSenha}">
+							<f:converter converterId="convertToUpper" />
+						</h:inputText>
+					</s:decorate>
+					
+					<s:decorate id="rePasswordField" template="layout/edit_top.xhtml">
+		                <ui:define name="label">Confirmar Senha:</ui:define>
+						<h:inputSecret redisplay="true"  value="#{userHome.rePassword}" size="18" maxlength="15" style="text-transform:uppercase" rendered="#{!userHome.verSenha}">
+							<f:converter converterId="convertToUpper" />
+						</h:inputSecret> 
+						<h:inputText redisplay="true"  value="#{userHome.rePassword}" size="18" maxlength="15" style="text-transform:uppercase" rendered="#{userHome.verSenha}">
+							<f:converter converterId="convertToUpper" />
+						</h:inputText> 
+					</s:decorate>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<a:commandButton value="#{messages['global.ok']}" limitToList="true" reRender="users,gravar,novo,cancelar"
+						actionListener="#{userHome.alterarSenha}"						
+						style="width:80px; height:25px;"
+						data="#{userHome.messageRetornoAjax}"
+						onbeforedomupdate="showMessageRetorno(data)"
+						oncomplete="if(data.length==0){Richfaces.hideModalPanel('updateUserPanel');}" >
+						<f:setPropertyActionListener value="#{true}" target="#{userHome.alterado}"/>
+					</a:commandButton>
+	
+					<s:button value="#{messages['global.cancel']}" style="width:80px; height:25px;" onclick="Richfaces.hideModalPanel('updateUserPanel'); return false;" />
+				</h:panelGrid>
+			</h:form>
+		</rich:modalPanel>
+		
+	</ui:define>
+
+</ui:composition>

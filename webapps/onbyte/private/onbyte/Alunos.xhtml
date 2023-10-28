@@ -1,0 +1,370 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">#{messages['menu.Produtos1']} #{messages['global.Detalhes']}</f:facet>
+
+        <table style="width: 100%">
+		<tr><td>
+        <s:decorate id="codigo" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.codigo']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.codigo}"/>
+        </s:decorate>
+
+        <s:decorate id="nome" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.nome']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.nome}"/>
+        </s:decorate>
+
+        <s:decorate id="endereco" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.endereco']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.endereco}"/>
+        </s:decorate>
+
+        <s:decorate id="bairro" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.bairro']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.bairro}"/>
+        </s:decorate>
+
+        <s:decorate id="cidade" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.cidade']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.cidade}"/>
+        </s:decorate>
+
+        <s:decorate id="estado" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.estado']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.estado}"/>
+        </s:decorate>
+
+        <s:decorate id="cep" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.cep']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.cep}"/>
+        </s:decorate>
+
+        <s:decorate id="telres" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.telres']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.telres}"/>
+        </s:decorate>
+        
+        <s:decorate id="telcel" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.telcel']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.telcel}"/>
+        </s:decorate>
+
+        <s:decorate id="dtnasc" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.dtnasc']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.dtnasc}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+            <rich:spacer width="2px"/>|<rich:spacer width="2px"/><h:outputText value="#{alunosHome.instance.idade}" /><s:span> anos de idade</s:span>
+        </s:decorate>
+
+        <s:decorate id="cpf" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.cpf']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.cpf}"/>
+        </s:decorate>
+
+        <s:decorate id="rg" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.rg']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.rg}"/>
+        </s:decorate>
+
+        <s:decorate id="dtcadastro" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.dtcadastro']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.dtcadastro}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="cadastro" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.cadastro']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.cadastro}"/>
+        </s:decorate>
+
+        <s:decorate id="situacao" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.situacao']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.situacao}"/>
+        </s:decorate>
+        
+        <s:decorate id="email" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.email']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.email}"/>
+        </s:decorate>
+
+        <s:decorate id="escola" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.escola']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.escola}"/>
+        </s:decorate>
+
+        <s:decorate id="enderecocom" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.enderecocom']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.enderecocom}"/>
+        </s:decorate>
+
+        <s:decorate id="bairrocom" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.bairrocom']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.bairrocom}"/>
+        </s:decorate>
+
+        <s:decorate id="cepcom" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.cepcom']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.cepcom}"/>
+        </s:decorate>
+
+        <s:decorate id="telcom" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.telcom']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.telcom}"/>
+        </s:decorate>
+        
+        <s:decorate id="nomeMae" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.nomeMae']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.nomeMae}"/>
+        </s:decorate>
+
+        <s:decorate id="nomePai" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.nomePai']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.nomePai}"/>
+        </s:decorate>
+
+        <s:decorate id="resppgto" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.resppgto']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.resppgto}"/>
+        </s:decorate>
+
+        <s:decorate id="dtnascresp" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.dtnascresp']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.dtnascresp}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="cpfresp" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.cpfresp']}</ui:define>
+            <h:outputText value="#{alunosHome.instance.cpfresp}"/>
+        </s:decorate>
+
+		<s:decorate id="recados" template="layout/display.xhtml">
+            <ui:define name="label">#{messages['alunos.recados']}</ui:define>
+            <h:outputText value="#{alunosHome.recados}"/>
+        </s:decorate>
+
+        
+
+        
+<!--         <s:decorate id="template1" template="layout/display.xhtml">
+            <ui:define name="label">Template1</ui:define>
+            <h:outputText value="#{alunosHome.instance.template1}"/>
+        </s:decorate>
+
+        <s:decorate id="template2" template="layout/display.xhtml">
+            <ui:define name="label">Template2</ui:define>
+            <h:outputText value="#{alunosHome.instance.template2}"/>
+        </s:decorate>
+
+        <s:decorate id="template3" template="layout/display.xhtml">
+            <ui:define name="label">Template3</ui:define>
+            <h:outputText value="#{alunosHome.instance.template3}"/>
+        </s:decorate> -->
+		</td>
+		<td style="vertical-align: top; text-align: right; width: 250px;">		
+            <!-- <h:graphicImage id="foto"  style="float: left; padding-right: 10px; width: 240px; height: 200px;"  
+                		 value="/ImageServlet/?class=Alunos&amp;method=getFoto&amp;id=#{alunosHome.instance.codigo}">
+            </h:graphicImage> -->            
+          	<rich:panel style="float: left; padding-right: 10px; width: 330px; height: 260px;">	                
+          		<s:graphicImage id="foto" style="float: left; padding-right: 10px; width: 320px; height: 240px;"  
+        			 value="#{alunosHome.instance.foto}"/>
+  			</rich:panel>
+                    
+        </td></tr>
+        </table>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/private/onbyte/AlunosEdit.xhtml"
+                    id="edit"
+                 value="#{messages['global.edit']}"/>
+
+        <s:button view="/private/onbyte/#{empty alunosFrom ? 'AlunosList' : alunosFrom}.xhtml"
+                    id="done"
+                 value="#{messages['global.done']}"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Matriculases</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="matriculasesChildren">
+
+        <h:outputFormat value="Não há matriculases associado a este alunos."
+                   rendered="#{empty alunosHome.matriculases}"/>
+
+        <rich:dataTable value="#{alunosHome.matriculases}"
+                       var="_matriculas"
+                  rendered="#{not empty alunosHome.matriculases}"
+                 onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                        id="matriculasesTable">
+            <rich:column sortBy="#{_matriculas.codigo}" sortOrder="ASCENDING">
+                <f:facet name="header">#{messages['matriculas.codigo']}</f:facet>
+                <h:outputText value="#{_matriculas.codigo}"/>
+            </rich:column>
+            <rich:column sortBy="#{_matriculas.dtinicio}">
+                <f:facet name="header">#{messages['matriculas.dtinicio']}</f:facet>
+                <h:outputText value="#{_matriculas.dtinicio}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_matriculas.dtmatri}">
+                <f:facet name="header">#{messages['matriculas.dtmatri']}</f:facet>
+                <h:outputText value="#{_matriculas.dtmatri}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_matriculas.dttermino}">
+                <f:facet name="header">#{messages['matriculas.dttermino']}</f:facet>
+                <h:outputText value="#{_matriculas.dttermino}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_matriculas.status}">
+                <f:facet name="header">#{messages['matriculas.status']}</f:facet>
+                <h:outputText value="#{_matriculas.status}"/>
+            </rich:column>
+            <rich:column sortBy="#{_matriculas.modulos.descricao}">
+                <f:facet name="header">#{messages['matriculas.modulos']}</f:facet>
+                <h:outputText value="#{_matriculas.modulos.descricao}"/>
+            </rich:column>
+            <rich:column sortBy="#{_matriculas.vlpacote}">
+                <f:facet name="header">#{messages['matriculas.vlpacote']}</f:facet>
+                <h:outputText value="#{_matriculas.vlpacote}" style="float: right;">
+                    <f:convertNumber  maxFractionDigits="2" minFractionDigits="2"/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="selectmatriculas"
+                     value="#{messages['global.select']}"
+                      view="/private/onbyte/Matriculas.xhtml">
+                    <f:param name="matriculasCodigo"
+                            value="#{_matriculas.codigo}"/>
+                    <f:param name="matriculasFrom" value="Alunos"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="#{messages['global.insert']} matriculas"
+                view="/private/onbyte/MatriculasEdit">
+            <f:param name="alunosCodigo"
+                    value="#{alunosHome.instance.codigo}"/>
+            <f:param name="matriculasFrom" value="Alunos"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab rendered="false">
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Sugestaos</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="sugestaosChildren">
+
+        <h:outputFormat value="Não há sugestaos associado a este alunos."
+                   rendered="#{empty alunosHome.sugestaos}"/>
+
+        <rich:dataTable value="#{alunosHome.sugestaos}"
+                       var="_sugestao"
+                  rendered="#{not empty alunosHome.sugestaos}"
+                 onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                        id="sugestaosTable">
+            <rich:column sortBy="#{_sugestao.codigo}">
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_sugestao.codigo}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.cp1}">
+                <f:facet name="header">Cp1</f:facet>
+                <h:outputText value="#{_sugestao.cp1}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.cp2}">
+                <f:facet name="header">Cp2</f:facet>
+                <h:outputText value="#{_sugestao.cp2}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.cp3}">
+                <f:facet name="header">Cp3</f:facet>
+                <h:outputText value="#{_sugestao.cp3}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.cp4}">
+                <f:facet name="header">Cp4</f:facet>
+                <h:outputText value="#{_sugestao.cp4}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.data}">
+                <f:facet name="header">Data</f:facet>
+                <h:outputText value="#{_sugestao.data}">
+                    <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.p1}">
+                <f:facet name="header">P1</f:facet>
+                <h:outputText value="#{_sugestao.p1}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.p2}">
+                <f:facet name="header">P2</f:facet>
+                <h:outputText value="#{_sugestao.p2}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.p3}">
+                <f:facet name="header">P3</f:facet>
+                <h:outputText value="#{_sugestao.p3}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.p4}">
+                <f:facet name="header">P4</f:facet>
+                <h:outputText value="#{_sugestao.p4}"/>
+            </rich:column>
+            <rich:column sortBy="#{_sugestao.sugestao}">
+                <f:facet name="header">Sugestao</f:facet>
+                <h:outputText value="#{_sugestao.sugestao}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="selectsugestao"
+                     value="#{messages['global.select']}"
+                      view="/private/onbyte/Sugestao.xhtml">
+                    <f:param name="sugestaoCodigo"
+                            value="#{_sugestao.codigo}"/>
+                    <f:param name="sugestaoFrom" value="Alunos"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="#{messages['global.insert']} sugestao"
+                view="/private/onbyte/SugestaoEdit.xhtml">
+            <f:param name="alunosCodigo"
+                    value="#{alunosHome.instance.codigo}"/>
+            <f:param name="sugestaoFrom" value="Alunos"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

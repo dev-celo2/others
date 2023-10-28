@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelPlMovimentacaoSintetico" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="561" leftMargin="17" rightMargin="17" topMargin="20" bottomMargin="20" uuid="1988d189-54df-41c3-91e4-c4adcf53bc53">
+	<property name="ireport.zoom" value="1.6105100000000028"/>
+	<property name="ireport.x" value="188"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<subDataset name="formasPagamento" uuid="b7aff4dc-f48f-4f31-92b8-291b127bf35f">
+		<parameter name="listFormaPagamento" class="java.util.List" isForPrompting="false"/>
+		<field name="formaPagamento" class="java.lang.String"/>
+		<field name="valor" class="java.lang.Float"/>
+		<field name="qtd" class="java.lang.Integer"/>
+	</subDataset>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="title_periodo" class="java.lang.String"/>
+	<parameter name="PCSALDOCREDITO" class="java.lang.String"/>
+	<parameter name="PCSALDODEBITO" class="java.lang.String"/>
+	<parameter name="PCTRANSFCREDITO" class="java.lang.String"/>
+	<parameter name="PCTRANSFDEBITO" class="java.lang.String"/>
+	<parameter name="PCMATR" class="java.lang.String"/>
+	<parameter name="PCMENSA" class="java.lang.String"/>
+	<parameter name="PCCANCEL" class="java.lang.String"/>
+	<parameter name="listFormaPagamentoByPlano" class="java.util.HashMap" isForPrompting="false"/>
+	<field name="planocontas.planoContasNiv1.descricao" class="java.lang.String"/>
+	<field name="planocontas.planoContasNiv2.descricao" class="java.lang.String"/>
+	<field name="planocontas.descricao" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="valor" class="java.math.BigDecimal"/>
+	<field name="planocontas.codigo" class="java.lang.String"/>
+	<field name="planocontas.planoContasNiv2.codigo" class="java.lang.String"/>
+	<field name="planocontas.planoContasNiv1.codigo" class="java.lang.String"/>
+	<field name="quitadoMesMatricula" class="java.lang.String"/>
+	<variable name="DETAIL_COUNT" class="java.lang.Integer" calculation="Count"/>
+	<variable name="SUM_VALOR_NIV1" class="java.lang.Double" resetType="Group" resetGroup="Nivel1" calculation="Sum">
+		<variableExpression><![CDATA[($F{tipo}.equals("C")?1.0:-1.0)*$F{valor}.floatValue()]]></variableExpression>
+	</variable>
+	<variable name="SUM_VALOR_NIV2" class="java.lang.Double" resetType="Group" resetGroup="Nivel2" calculation="Sum">
+		<variableExpression><![CDATA[($F{tipo}.equals("C")?1.0:-1.0)*$F{valor}.floatValue()]]></variableExpression>
+	</variable>
+	<variable name="SUM_VALOR_NIV3" class="java.lang.Double" resetType="Group" resetGroup="Nivel3" calculation="Sum">
+		<variableExpression><![CDATA[($F{tipo}.equals("C")?1.0:-1.0)*$F{valor}.floatValue()]]></variableExpression>
+	</variable>
+	<variable name="SUM_CREDITO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[($F{tipo}.equals("C")
+    &&!$F{planocontas.codigo}.equals($P{PCSALDOCREDITO})
+    &&!$F{planocontas.codigo}.equals($P{PCTRANSFCREDITO})
+    ?$F{valor}:new BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="SUM_DEBITO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[($F{tipo}.equals("D")
+    &&!$F{planocontas.codigo}.equals($P{PCSALDODEBITO})
+    &&!$F{planocontas.codigo}.equals($P{PCTRANSFDEBITO})
+    ?$F{valor}.floatValue():new BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="SUM_INICIAL" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[($F{planocontas.codigo}.equals($P{PCSALDOCREDITO})||$F{planocontas.codigo}.equals($P{PCSALDODEBITO})?$F{valor}:new BigDecimal(0))]]></variableExpression>
+	</variable>
+	<variable name="SUM_VALOR_ZERO" class="java.lang.Integer" resetType="Group" resetGroup="Nivel2" calculation="Sum">
+		<variableExpression><![CDATA[$F{planocontas.codigo}.equals($P{PCMENSA})&&$F{valor}.doubleValue()==0?1:0]]></variableExpression>
+	</variable>
+	<variable name="AVG_VALOR_NIV3" class="java.lang.Double" resetType="Group" resetGroup="Nivel3" calculation="Average">
+		<variableExpression><![CDATA[($F{tipo}.equals("C")?1.0:-1.0)*$F{valor}.floatValue()]]></variableExpression>
+	</variable>
+	<variable name="SUM_MENS_MES_MATRICULA" class="java.lang.Double" resetType="Group" resetGroup="Nivel3" calculation="Sum">
+		<variableExpression><![CDATA[$F{planocontas.codigo}.equals($P{PCMENSA})&&$F{quitadoMesMatricula}.equals("S")?$F{valor}:0]]></variableExpression>
+	</variable>
+	<variable name="QTD_MENS_MES_MATRICULA" class="java.lang.Integer" resetType="Group" resetGroup="Nivel3" calculation="Sum">
+		<variableExpression><![CDATA[$F{planocontas.codigo}.equals($P{PCMENSA})&&$F{quitadoMesMatricula}.equals("S")?1:0]]></variableExpression>
+	</variable>
+	<group name="Nivel1">
+		<groupExpression><![CDATA[$F{planocontas.planoContasNiv1.codigo}]]></groupExpression>
+		<groupHeader>
+			<band height="17">
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement uuid="ba1ca9c0-424c-42a2-a076-24131f754819" mode="Transparent" x="0" y="0" width="59" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.planoContasNiv1.codigo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="70c1377a-41ac-4596-8176-9024b686a572" x="59" y="0" width="253" height="17"/>
+					<textElement>
+						<font fontName="Times New Roman" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.planoContasNiv1.descricao}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="16">
+				<printWhenExpression><![CDATA[false]]></printWhenExpression>
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="9aa96505-a787-429a-accf-3032b22f538d" x="487" y="0" width="74" height="16"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SUM_VALOR_NIV1}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="5ce405bc-f660-4049-9cfe-49e61bf64a51" x="234" y="0" width="253" height="16"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.planoContasNiv1.descricao}+":"]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="c048def4-772b-425a-836d-00ae3bf2efe2" x="312" y="0" width="249" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Nivel2">
+		<groupExpression><![CDATA[$F{planocontas.planoContasNiv2.codigo}]]></groupExpression>
+		<groupHeader>
+			<band height="14">
+				<textField>
+					<reportElement uuid="826b2250-33f1-4e28-8737-0904f970e277" x="108" y="0" width="253" height="14"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.planoContasNiv2.descricao}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="40ce08b8-b43a-4735-82c2-86281f632c7d" x="59" y="0" width="49" height="14"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.planoContasNiv2.codigo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="8b28d047-3bb9-496d-b43a-00ddebf82402" x="497" y="0" width="63" height="14"/>
+					<textElement markup="none">
+						<font fontName="Times New Roman" size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{caixasMovimento.media}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="13">
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="a6a92ecf-a47b-4524-aa4d-60f3f71dbb7e" x="423" y="0" width="74" height="13"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SUM_VALOR_NIV2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="2d4ac9a4-0293-41aa-a5a3-b65838a103fa" x="170" y="0" width="253" height="13"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.planoContasNiv2.descricao}+":"]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="11a494e8-2ec0-4b2b-96b1-7db01e2597da" x="248" y="0" width="249" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Nivel3">
+		<groupExpression><![CDATA[$F{planocontas.codigo}]]></groupExpression>
+		<groupFooter>
+			<band height="12" splitType="Stretch">
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="127cb20e-f45b-435a-b0b7-a3718eeeeb8c" x="189" y="0" width="234" height="12"/>
+					<textElement>
+						<font fontName="Times New Roman" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.descricao}+($V{SUM_VALOR_ZERO}.intValue()>0?" "+msg($R{relPlMovimentacao.valorZero}, $V{SUM_VALOR_ZERO}):"")+
+($F{planocontas.codigo}.equals($P{PCMENSA})?"\n"+msg($R{relPlMovimentacao.mensMesMatricula}, $V{QTD_MENS_MES_MATRICULA}, String.format("%1$,.2f", $V{SUM_MENS_MES_MATRICULA}) ):"")]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="8ab35c42-f387-4a4a-a721-bf425863e7fb" x="157" y="0" width="32" height="12"/>
+					<textElement>
+						<font fontName="Times New Roman" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Nivel3_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="ac91329c-4975-46ab-908c-1740087c23ec" x="423" y="0" width="74" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SUM_VALOR_NIV3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="4a244f2f-9779-4c6e-8fa0-417561f50d47" x="108" y="0" width="49" height="12"/>
+					<textElement>
+						<font fontName="Times New Roman" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.codigo}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="ac91329c-4975-46ab-908c-1740087c23ec" x="497" y="0" width="63" height="12">
+						<printWhenExpression><![CDATA[$F{planocontas.codigo}.equals($P{PCMATR}) ||
+$F{planocontas.codigo}.equals($P{PCMENSA}) ||
+$F{planocontas.codigo}.equals($P{PCCANCEL})]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{AVG_VALOR_NIV3}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="16">
+				<printWhenExpression><![CDATA[$F{planocontas.codigo}.equals($P{PCMATR}) ||
+$F{planocontas.codigo}.equals($P{PCMENSA}) ||
+$F{planocontas.codigo}.equals($P{PCCANCEL})]]></printWhenExpression>
+				<componentElement>
+					<reportElement uuid="e0be1bb2-cb39-4ca8-aa2d-b3af9362cb9a" positionType="Float" x="160" y="3" width="274" height="12"/>
+					<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+						<datasetRun subDataset="formasPagamento" uuid="dc1b6122-002b-4361-9ea7-5af68ba9f475">
+							<datasetParameter name="listFormaPagamento">
+								<datasetParameterExpression><![CDATA[$P{listFormaPagamentoByPlano}]]></datasetParameterExpression>
+							</datasetParameter>
+							<dataSourceExpression><![CDATA[new JRBeanCollectionDataSource(((java.util.List) $P{listFormaPagamentoByPlano}.get($F{planocontas.codigo})))]]></dataSourceExpression>
+						</datasetRun>
+						<jr:listContents height="12" width="274">
+							<textField pattern="" isBlankWhenNull="true">
+								<reportElement uuid="7b09a4d2-2ffa-4d08-8a6f-b610359021df" key="textField" x="0" y="0" width="36" height="12"/>
+								<box rightPadding="2">
+									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Right" verticalAlignment="Top">
+									<font fontName="Times New Roman" size="10"/>
+									<paragraph spacingAfter="4"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{qtd}]]></textFieldExpression>
+							</textField>
+							<textField pattern="" isBlankWhenNull="true">
+								<reportElement uuid="7c18db26-8c74-4750-accf-05ca59c20608" key="textField" x="36" y="0" width="148" height="12"/>
+								<box>
+									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement verticalAlignment="Top">
+									<font fontName="Times New Roman" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{formaPagamento}]]></textFieldExpression>
+							</textField>
+							<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+								<reportElement uuid="7b09a4d2-2ffa-4d08-8a6f-b610359021df" key="textField" x="184" y="0" width="80" height="12"/>
+								<box rightPadding="2">
+									<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Right" verticalAlignment="Top">
+									<font fontName="Times New Roman" size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+							</textField>
+						</jr:listContents>
+					</jr:list>
+				</componentElement>
+				<line>
+					<reportElement uuid="c048def4-772b-425a-836d-00ae3bf2efe2" positionType="Float" x="162" y="2" width="259" height="1">
+						<printWhenExpression><![CDATA[((java.util.List) $P{listFormaPagamentoByPlano}.get($F{planocontas.codigo})).size()>0]]></printWhenExpression>
+					</reportElement>
+				</line>
+				<line>
+					<reportElement uuid="c048def4-772b-425a-836d-00ae3bf2efe2" positionType="Float" x="162" y="15" width="259" height="1">
+						<printWhenExpression><![CDATA[((java.util.List) $P{listFormaPagamentoByPlano}.get($F{planocontas.codigo})).size()>0]]></printWhenExpression>
+					</reportElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement uuid="ad86c210-1f4c-47a6-9833-e60130eb8e74" x="0" y="0" width="87" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="4a77cfcf-4855-42ca-b0da-edef6501ddbd" x="517" y="0" width="44" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<patternExpression><![CDATA[$R{global.reportPagina}+": "]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="177d70f3-6bef-485a-9141-262d61613661" x="69" y="0" width="422" height="25"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Monotype Corsiva" size="22" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relPlMovimentacao.title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="19d0dfd9-aab7-4053-92a6-c124c1d4cfbc" mode="Transparent" x="0" y="25" width="561" height="23" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Monotype Corsiva" size="20" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title_periodo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="da94227c-3f85-4d61-8c3e-fe5beee2d32b" x="0" y="49" width="561" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="14">
+			<line>
+				<reportElement uuid="4e5618da-e711-49c4-b2c5-50423745f61f" x="0" y="0" width="561" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="94acaeb7-db41-487a-8810-0fc344d4ce1f" x="0" y="0" width="85" height="14"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relPlMovimentacao.saldoAnterior}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="27267183-1288-4f64-ae3f-7ae404f166de" mode="Transparent" x="85" y="0" width="72" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_INICIAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b4bb00ce-18c5-4ec9-ad32-840ce1c14914" x="165" y="0" width="58" height="14"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{caixasMovimento.totalCredito}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="745f5da0-8497-4a92-862d-b39de029d705" x="304" y="0" width="55" height="14"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{caixasMovimento.totalDebito}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="41425730-2ed9-4b55-aa7c-909ef4030243" mode="Transparent" x="223" y="0" width="72" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_CREDITO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="9e866417-5d1c-452f-b676-3b01e67156ca" mode="Transparent" x="359" y="0" width="70" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_DEBITO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2702fec6-9616-40b5-a3f4-cb541e89b1c4" x="434" y="0" width="55" height="14"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relPlMovimentacao.saldo}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="f86c661c-10fa-4773-aae6-1c39c20efa3b" mode="Transparent" x="489" y="0" width="72" height="14" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_INICIAL}+$V{SUM_CREDITO}-$V{SUM_DEBITO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

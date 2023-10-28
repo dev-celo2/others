@@ -1,0 +1,336 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+		<a:keepAlive beanName="relQuadroHorarios" />
+		<h:form id="relQuadroHorariosSearch" styleClass="edit">
+
+			<p:panel header="#{messages['relQuadroHorarios.title']}"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:170px">
+					<h:panelGrid style="margin: 0px auto; width: 30%" columns="3"
+						id="pgFiltros">
+
+						<p:panel style="width:955px; height:140px;" id="pnDatas">
+							<h:panelGrid columns="7">
+
+								<h:panelGrid columns="2">
+									<s:span style="font-weight: bold;">#{messages['horarios.diasemana']}:</s:span>
+									<h:selectOneMenu id="diaSemanaField"
+										value="#{relQuadroHorarios.diaSemana}" style="height: 21px;">
+										<f:selectItem
+											itemLabel="#{messages['global.todos'].toUpperCase()}"
+											itemValue="" />
+										<f:selectItems itemLabelEscaped="true"
+											value="#{relQuadroHorarios.listDiasSemana}" />
+										<a:support event="onchange" reRender="horarioField"
+											limitToList="true" bypassUpdates="false" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+								<rich:spacer width="10px" />
+								<h:panelGrid columns="2">
+									<s:span style="font-weight: bold;">#{messages['relQuadroHorarios.horarios']}:</s:span>
+									<h:selectOneMenu id="horarioField"
+										disabled="#{relQuadroHorarios.diaSemana==null||relQuadroHorarios.diaSemana.length()==0}"
+										value="#{relQuadroHorarios.horariosCodigo}"
+										style="width: 140px; height: 21px;">
+										<f:selectItem
+											itemLabel="#{messages['global.todos'].toUpperCase()}"
+											itemValue="" />
+										<f:selectItems itemLabelEscaped="true"
+											value="#{relQuadroHorarios.horariosDisp}" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+								<rich:spacer width="10px" />
+								<h:panelGrid columns="2">
+									<s:span style="font-weight: bold;">#{messages['relQuadroHorarios.faixaEtaria']}:</s:span>
+									<h:selectOneMenu id="faixaEtariaField"
+										value="#{relQuadroHorarios.faixaCodigo}"
+										style="width: 220px; height: 21px;">
+										<f:selectItem itemLabel="#{messages['global.all']}"
+											itemValue="" />
+										<f:selectItems itemLabelEscaped="true"
+											value="#{relQuadroHorarios.faixaetaria}" />
+										<a:support event="onchange" reRender="selectedNiv2Field"
+											limitToList="true" bypassUpdates="false" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+								<rich:spacer width="10px" />
+								<h:panelGrid columns="2">
+									<s:span style="font-weight: bold;">#{messages['matriculas.modulos']}:</s:span>
+									<h:selectOneMenu id="moduloField"
+										value="#{relQuadroHorarios.moduloCodigo}"
+										style="width: 220px; height: 21px;">
+										<f:selectItem itemLabel="#{messages['global.all']}"
+											itemValue="" />
+										<f:selectItems itemLabelEscaped="true"
+											value="#{relQuadroHorarios.modulos}" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+
+
+							</h:panelGrid>
+
+
+
+							<h:panelGrid
+								style="margin: 0px auto; position: relative; top: 15px; width: 50%"
+								columns="5">
+
+								<h:panelGrid columns="2">
+									<s:span style="font-weight: bold;">#{messages['menu.Clientes1']}:</s:span>
+									<h:selectOneMenu id="cursoField"
+										value="#{relQuadroHorarios.cursoCodigo}"
+										style="width: 240px; height: 21px;">
+										<f:selectItem itemLabel="#{messages['global.all']}"
+											itemValue="" />
+										<f:selectItems itemLabelEscaped="true"
+											value="#{relQuadroHorarios.cursos}" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+								<rich:spacer width="10px" />
+
+								<h:panelGrid columns="2" style="width:100%;">
+									<s:span style="font-weight: bold;">#{messages['relQuadroHorarios.laboratorio']}:</s:span>
+									<h:panelGroup>
+										<t:selectOneRadio layout="spread" id="laboratorio"
+											value="#{relQuadroHorarios.laboratorio}">
+											<f:selectItem itemValue="0"
+												itemLabel="#{messages['global.all']}" />
+											<f:selectItem itemValue="1"
+												itemLabel="#{messages['global.um']}" />
+											<f:selectItem itemValue="2"
+												itemLabel="#{messages['global.dois']}" />
+											<f:selectItem itemValue="3"
+												itemLabel="#{messages['global.tres']}" />
+											<f:selectItem itemValue="4"
+												itemLabel="#{messages['global.quatro']}" />
+											<f:selectItem itemValue="5"
+												itemLabel="#{messages['global.cinco']}" />
+										</t:selectOneRadio>
+										<h:panelGrid columns="11" width="100%">
+											<t:radio for="laboratorio" index="0" />
+											<rich:spacer width="10px" />
+											<t:radio for="laboratorio" index="1" />
+											<rich:spacer width="10px" />
+											<t:radio for="laboratorio" index="2" />
+											<rich:spacer width="10px" />
+											<t:radio for="laboratorio" index="3" />
+											<rich:spacer width="10px" />
+											<t:radio for="laboratorio" index="4" />
+											<rich:spacer width="10px" />
+											<t:radio for="laboratorio" index="5" />
+										</h:panelGrid>
+									</h:panelGroup>
+								</h:panelGrid>
+
+								<rich:spacer width="10px" />
+
+								<h:panelGrid columns="2" style="width:100%;">
+									<s:span style="font-weight: bold;">#{messages['relQuadroHorarios.ordenacao']}:</s:span>
+
+									<h:selectOneMenu id="ordenacaoField"
+										value="#{relQuadroHorarios.tipoOrdenacao}"
+										style="width: 210px; height: 21px;">
+										<f:selectItem
+											itemLabel="#{messages['relQuadroHorarios.ordenacao.horarios']}"
+											itemValue="1" />
+										<f:selectItem
+											itemLabel="#{messages['relQuadroHorarios.ordenacao.matriculas']}"
+											itemValue="2" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+
+
+							</h:panelGrid>
+
+							<h:panelGrid border="4"
+								style="margin: 0px auto; position: relative; top: 30px; width: 10%"
+								columns="1">
+								<p:panel style="width:74px;">
+									<h:panelGrid columns="2">
+										<h:commandLink limitToList="true" title="Imprimir PDF"
+											actionListener="#{relQuadroHorarios.exportarRelatorioPDF}"
+											style="width:80px; height: 40px; white-space: normal;">
+											<p:graphicImage value="/images/pdf.png" />
+										</h:commandLink>
+
+										<h:commandLink limitToList="true" title="Imprimir Excel"
+											actionListener="#{relQuadroHorarios.exportarRelatorioExcel}"
+											style="width:80px; height: 40px; white-space: normal;">
+											<p:graphicImage value="/images/excel.png" />
+										</h:commandLink>
+									</h:panelGrid>
+
+								</p:panel>
+
+
+							</h:panelGrid>
+
+						</p:panel>
+
+					</h:panelGrid>
+				</p:panel>
+			</p:panel>
+
+
+
+			<!-- 	 	<rich:panel header="#{messages['relQuadroHorarios.title']}">
+				<h:panelGrid columns="2">
+					<rich:panel style="width:330px; height:35px"
+						bodyClass="panelPaddingZero">
+						<s:span styleClass="spanNamePanel" style="font-weight: bold;">
+						#{messages['horarios.diasemana']}
+						<rich:spacer width="20px" />
+						#{messages['relQuadroHorarios.horarios']}
+						</s:span>
+						<h:panelGrid columns="2"
+							style="position: relative; top: -8px; width: 100%">
+							<h:selectOneMenu id="diaSemanaField"
+								value="#{relQuadroHorarios.diaSemana}" style="height: 21px;">
+								<f:selectItem
+									itemLabel="#{messages['global.todos'].toUpperCase()}"
+									itemValue="" />
+								<f:selectItems itemLabelEscaped="true"
+									value="#{relQuadroHorarios.listDiasSemana}" />
+								<a:support event="onchange" reRender="horarioField"
+									limitToList="true" bypassUpdates="false" />
+							</h:selectOneMenu>
+
+							<h:selectOneMenu id="horarioField"
+								disabled="#{relQuadroHorarios.diaSemana==null||relQuadroHorarios.diaSemana.length()==0}"
+								value="#{relQuadroHorarios.horariosCodigo}"
+								style="width: 200px; height: 21px;">
+								<f:selectItem
+									itemLabel="#{messages['global.todos'].toUpperCase()}"
+									itemValue="" />
+								<f:selectItems itemLabelEscaped="true"
+									value="#{relQuadroHorarios.horariosDisp}" />
+							</h:selectOneMenu>
+
+						</h:panelGrid>
+					</rich:panel>
+					<rich:panel style="width:310px; height:35px"
+						bodyClass="panelPaddingZero">
+						<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relQuadroHorarios.faixaEtaria']}</s:span>
+						<h:panelGrid columns="2"
+							style="position: relative; top: -8px; width: 100%">
+							<h:selectOneMenu id="faixaEtariaField"
+								value="#{relQuadroHorarios.faixaCodigo}"
+								style="width: 300px; height: 21px;">
+								<f:selectItem itemLabel="#{messages['global.all']}" itemValue="" />
+								<f:selectItems itemLabelEscaped="true"
+									value="#{relQuadroHorarios.faixaetaria}" />
+								<a:support event="onchange" reRender="selectedNiv2Field"
+									limitToList="true" bypassUpdates="false" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+					</rich:panel>
+				</h:panelGrid>
+				<h:panelGrid>
+					<rich:panel style="width:648px; height:35px"
+						bodyClass="panelPaddingZero">
+						<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['matriculas.modulos']}</s:span>
+						<h:panelGrid style="position: relative; top: -8px; width: 100%">
+							<h:selectOneMenu id="moduloField"
+								value="#{relQuadroHorarios.moduloCodigo}"
+								style="width: 640px; height: 21px;">
+								<f:selectItem itemLabel="#{messages['global.all']}" itemValue="" />
+								<f:selectItems itemLabelEscaped="true"
+									value="#{relQuadroHorarios.modulos}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+					</rich:panel>
+				</h:panelGrid>
+				<h:panelGrid>
+					<rich:panel style="width:648px; height:35px"
+						bodyClass="panelPaddingZero">
+						<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['menu.Clientes1']}</s:span>
+						<h:panelGrid style="position: relative; top: -8px; width: 100%">
+							<h:selectOneMenu id="cursoField"
+								value="#{relQuadroHorarios.cursoCodigo}"
+								style="width: 640px; height: 21px;">
+								<f:selectItem itemLabel="#{messages['global.all']}" itemValue="" />
+								<f:selectItems itemLabelEscaped="true"
+									value="#{relQuadroHorarios.cursos}" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+					</rich:panel>
+				</h:panelGrid>
+				<h:panelGrid>
+					<rich:panel style="width:648px;" bodyClass="panelPaddingZero">
+						<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relQuadroHorarios.laboratorio']}:</s:span>
+						<s:div style="position: relative; top: -10px;">
+							<h:panelGroup>
+								<t:selectOneRadio layout="spread" id="laboratorio"
+									value="#{relQuadroHorarios.laboratorio}">
+									<f:selectItem itemValue="0"
+										itemLabel="#{messages['global.all']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{messages['global.dois']}" />
+									<f:selectItem itemValue="4"
+										itemLabel="#{messages['global.quatro']}" />
+									<f:selectItem itemValue="1"
+										itemLabel="#{messages['global.um']}" />
+									<f:selectItem itemValue="3"
+										itemLabel="#{messages['global.tres']}" />
+									<f:selectItem itemValue="5"
+										itemLabel="#{messages['global.cinco']}" />
+								</t:selectOneRadio>
+								<h:panelGrid columns="3" width="100%">
+									<t:radio for="laboratorio" index="0" />
+									<t:radio for="laboratorio" index="1" />
+									<t:radio for="laboratorio" index="2" />
+									<t:radio for="laboratorio" index="3" />
+									<t:radio for="laboratorio" index="4" />
+									<t:radio for="laboratorio" index="5" />
+								</h:panelGrid>
+							</h:panelGroup>
+						</s:div>
+					</rich:panel>
+				</h:panelGrid>
+				<h:panelGrid>
+					<rich:panel style="width:260px; height:35px"
+						bodyClass="panelPaddingZero">
+						<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relQuadroHorarios.ordenacao']}</s:span>
+						<h:panelGrid style="position: relative; top: -8px; width: 100%">
+							<h:selectOneMenu id="ordenacaoField"
+								value="#{relQuadroHorarios.tipoOrdenacao}"
+								style="width: 250px; height: 21px;">
+								<f:selectItem
+									itemLabel="#{messages['relQuadroHorarios.ordenacao.horarios']}"
+									itemValue="1" />
+								<f:selectItem
+									itemLabel="#{messages['relQuadroHorarios.ordenacao.matriculas']}"
+									itemValue="2" />
+							</h:selectOneMenu>
+						</h:panelGrid>
+					</rich:panel>
+					<h:panelGrid columns="2">
+						<h:commandButton value="#{messages['global.print']}"
+							limitToList="true"
+							actionListener="#{relQuadroHorarios.exportarRelatorioPDF}"
+							style="width:80px; height: 40px; white-space: normal;">
+						</h:commandButton>
+						<h:commandButton value="#{messages['global.exportXLS']}"
+							limitToList="true"
+							actionListener="#{relQuadroHorarios.exportarRelatorioExcel}"
+							style="width:80px; height: 40px; white-space: normal;">
+						</h:commandButton>
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:panel>  -->
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,384 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<a:form id="relInadimplentesSearch" styleClass="edit">
+			<p:panel header="#{messages['relInadimplentes.title']}">
+
+				<p:panel style="width:99,5%;" id="pgFiltros">
+
+					<h:panelGrid style="width:100%; margin: 0px auto;">
+
+						<h:panelGrid columns="4" style="width:100%">
+
+							<h:selectOneRadio value="#{relInadimplentes.rdQtdMensalidades}"
+								layout="pageDirection" style="width:100px">
+								<s:span style="font-weight: bold;">#{messages['relInadimplentes.filtroporQtdParc']}</s:span>
+								<f:selectItem itemValue="1" itemLabel="A partir de" />
+								<f:selectItem itemValue="2" itemLabel="Exatamente" />
+							</h:selectOneRadio>
+
+							<h:panelGrid columns="2">
+								<s:span style="font-weight: bold;">#{messages['relInadimplentes.qtdMensalidades']}:</s:span>
+								<rich:inputNumberSpinner
+									value="#{relInadimplentes.qtdMensalidades}" minValue="1"
+									inputSize="2">
+									<a:support event="onchange"
+										reRender="pnlFrequentes,tpCartaCobranca, grid" />
+								</rich:inputNumberSpinner>
+							</h:panelGrid>
+
+							<p:panel>
+								<s:span style="font-weight: bold;">#{messages['relInadimplentes.ordenacao']}</s:span>
+								<h:selectOneRadio value="#{relInadimplentes.ordencao}"
+									style="width:100%">
+									<f:selectItem itemValue="nome"
+										itemLabel="#{messages['relInadimplentes.nome']}" />
+									<f:selectItem itemValue="11"
+										itemLabel="#{messages['relInadimplentes.ultimoVec']}" />
+									<f:selectItem itemValue="codigo"
+										itemLabel="#{messages['matriculas.codigo']}" />
+									<a:support event="onchange" reRender="relInadimplentes"
+										limitToList="true" oncomplete="inicializar();"
+										bypassUpdates="false">
+										<f:setPropertyActionListener
+											target="#{relInadimplentes.matriculas}" value="#{null}" />
+									</a:support>
+								</h:selectOneRadio>
+							</p:panel>
+
+
+							<p:panel>
+								<s:span style="font-weight: bold;">#{messages['relInadimplentes.matriculas']}</s:span>
+								<h:selectOneRadio value="#{relInadimplentes.statusMatricula}"
+									style="width:100%">
+									<f:selectItems itemLabelEscaped="true"
+										value="#{matriculasList.listStatusMatricula}" />
+									<a:support event="onchange"
+										reRender="relInadimplentes,vlTotalDevido, percAtivo, pnlFrequentes, grid"
+										limitToList="true" oncomplete="inicializar();"
+										bypassUpdates="false">
+										<f:setPropertyActionListener
+											target="#{relInadimplentes.matriculas}" value="#{null}" />
+									</a:support>
+								</h:selectOneRadio>
+							</p:panel>
+						</h:panelGrid>
+
+					</h:panelGrid>
+
+					<center>
+						<p:panel style="width:900px;">
+							<h:panelGrid columns="7">
+								<s:span style="font-weight: bold;">#{messages['relInadimplentes.filtroDatas']}</s:span>
+								<h:selectOneRadio value="#{relInadimplentes.tipoPeriodo}"
+									layout="pageDirection" style="width:100px">
+
+									<f:selectItem itemValue="1"
+										itemLabel="#{messages['global.all']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{messages['global.periodo']}" />
+									<a:support event="onchange" reRender="pgFiltros,tpCartaCobranca, grid"
+										limitToList="true" oncomplete="inicializar();"
+										bypassUpdates="false" />
+								</h:selectOneRadio>
+
+								<p:panel
+									style="width:350px;  display:#{relInadimplentes.tipoPeriodo.intValue()==2?'block':'none'};"
+									id="pnDatas">
+
+									<h:panelGrid columns="4"
+										style="border-collapse:collapse;border-spacing: 0;">
+										<s:span style="font-weight: bold;">#{messages['relInadimplentes.dtInicial']}:</s:span>
+										<rich:calendar id="dataInicial" inputSize="10"
+											enableManualInput="true"
+											value="#{relInadimplentes.dataInicial}"
+											datePattern="#{messages.pattern}" />
+										<s:span style="font-weight: bold;">#{messages['relInadimplentes.dtFinal']}:</s:span>
+										<rich:calendar id="dataFinal" inputSize="10"
+											enableManualInput="true"
+											value="#{relInadimplentes.dataFinal}"
+											datePattern="#{messages.pattern}" />
+									</h:panelGrid>
+
+								</p:panel>
+
+								<rich:spacer width="10px;" />
+
+								  <p:panel id="pnlFrequentes"
+									style="display:#{relInadimplentes.statusMatricula.equals('ATIVA') and relInadimplentes.qtdMensalidades &gt; 1? 'block' : 'none'};">
+
+									<h:selectOneMenu id="frequentes"
+										value="#{relInadimplentes.tipoFrequencia}"
+										styleClass="form-control"
+										style="text-align:center;font-size:12px;">
+										<f:selectItem itemLabel="TODAS" itemValue="TODAS" />
+										<f:selectItem itemLabel="FREQUENTES" itemValue="FREQUENTES" />
+										<f:selectItem itemLabel="NÃO FREQUENTES"
+											itemValue="NFREQUENTES" />
+										<a:support event="onchange"
+										reRender="relInadimplentes,vlTotalDevido, percAtivo, pnlFrequentes, grid"
+										limitToList="true" oncomplete="inicializar();"
+										bypassUpdates="false">
+										<f:setPropertyActionListener
+											target="#{relInadimplentes.matriculas}" value="#{null}" />
+									</a:support>
+									</h:selectOneMenu>
+
+								</p:panel> 
+
+								<rich:spacer width="10px;" />
+
+
+								<p:commandButton value="#{messages['global.bntFilrar']}"
+									style="margin: 0; width:100px;" image="localizar"
+									onclick="filtrar();" />
+
+
+								<a:jsFunction name="filtrar"
+									reRender="relInadimplentes, vlTotalDevido, percAtivo"
+									limitToList="true" oncomplete="inicializar();">
+									<f:setPropertyActionListener
+										target="#{relInadimplentes.matriculas}" value="#{null}" />
+								</a:jsFunction>
+
+
+							</h:panelGrid>
+						</p:panel>
+					</center>
+
+				</p:panel>
+
+				<p:panel id="relInadimplentes"
+					header="#{messages['menu.Vendas1']} #{messages['global.searchResults']}: #{empty relInadimplentes.matriculas ? 0 : relInadimplentes.matriculas.size}">
+
+
+					<p:dataTable paginatorPosition="bottom" rows="12" paginator="true"
+						rowsPerPageTemplate="12,18" styleClass="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover "
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="true" selectionMode="single" style="text-align:center;"
+						noDataLabel="#{messages['global.naoHaDados']}"
+						id="tablerelInadimplentes" var="_matriculas"
+						value="#{relInadimplentes.getMatriculas()}">
+						<p:column width="75">
+							<f:facet name="header">#{messages['relInadimplentes.dtaUltVenc']}</f:facet>
+							<h:outputText value="#{_matriculas.dta_Ultimo_Venc}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relInadimplentes.parcela']}</f:facet>
+							<h:outputText value="#{_matriculas.parcela}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['matriculas.codigo']}</f:facet>
+							<h:outputText value="#{_matriculas.matricula}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+							<h:outputText value="#{_matriculas.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relInadimplentes.parcelas']}</f:facet>
+							<h:outputText value="#{_matriculas.qtd_parcelas}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relInadimplentes.pagas']}</f:facet>
+							<h:outputText value="#{_matriculas.qtd_parcelas_pagas}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relInadimplentes.totAtrasadas']}</f:facet>
+							<h:outputText value="#{_matriculas.qtd_Parcelas_Atras}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relInadimplentes.totAtrasadasPer']}</f:facet>
+							<h:outputText value="#{_matriculas.qtd_Parcelas_Atras_Per}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relInadimplentes.totalDevido']}</f:facet>
+							<h:outputText value="#{_matriculas.total_devido}"
+								style="float: right;">
+								<f:convertNumber type="currency" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.telres']}</f:facet>
+							<h:outputText value="#{_matriculas.telres}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.telcel']}</f:facet>
+							<h:outputText value="#{_matriculas.telcel}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">IMP. DADOS</f:facet>
+							<h:commandLink
+								actionListener="#{relInadimplentes.exportarRelatorioIndividual(1,_matriculas.matricula)}">
+								<p:graphicImage width="20px;" height="20px;"
+									value="/images/pdf.png" />
+							</h:commandLink>
+							<h:commandLink
+								actionListener="#{relInadimplentes.exportarRelatorioIndividual(2,_matriculas.matricula)}">
+								<p:graphicImage width="20px;" height="20px;"
+									value="/images/excel.png" />
+							</h:commandLink>
+						</p:column>
+
+
+					</p:dataTable>
+
+					<h:panelGrid columns="7" width="100%">
+						<s:div styleClass="actionButtons" rendered="#{empty from}">
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relInadimplentes.exportarRelatorioPDF}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/pdf.png" />
+							</h:commandLink>
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relInadimplentes.exportarRelatorioExcel}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/excel.png" />
+							</h:commandLink>
+
+
+						</s:div>
+						<rich:spacer width="10px" />
+						<h:panelGrid columns="6" width="100%">
+							<h:panelGrid>
+								<h1>#{messages['relInadimplentes.totalDevido']}</h1>
+								<h:inputText id="vlTotalDevido"
+									value="#{relInadimplentes.totalDevido}" readonly="true"
+									style="text-align: right; color:font-weight: bold;" size="15">
+									<f:convertNumber type="currency" minFractionDigits="2"
+										maxFractionDigits="2" />
+								</h:inputText>
+
+							</h:panelGrid>
+							<rich:spacer width="5px" />
+							<h:panelGrid>
+
+								<h1>#{messages['relInadimplentes.percAtivo']}</h1>
+
+								<h:inputText id="percAtivo"
+									value="#{relInadimplentes.percAtivo}" readonly="true"
+									style="text-align: right; color:font-weight: bold;" size="10">
+									<f:convertNumber type="number" minFractionDigits="2"
+										maxFractionDigits="2" />
+								</h:inputText>
+							</h:panelGrid>
+							
+							<a:outputPanel id="grid" style="float:right;" >
+
+					<table>
+						<thead>
+							<tr>
+
+								<td> <c:if test="#{relInadimplentes.statusMatricula.equals('ATIVA') and relInadimplentes.qtdMensalidades &gt; 1 and relInadimplentes.tipoFrequencia.equals('TODAS') == false}"><h:selectOneMenu 
+										style="height:35px;"
+										value="#{relInadimplentes.tpCartaCobranca}">
+										
+										<f:selectItem itemLabel="SELECIONE TIPO DE CARTA"
+											itemValue="0" />
+
+										<f:selectItem itemLabel="2 MESES OU  MAIS EM ATRASO"
+											itemValue="1" />
+
+										<a:support event="onchange" reRender="grid" />
+									</h:selectOneMenu> </c:if></td>
+
+								<td> <c:if test="#{relInadimplentes.statusMatricula.equals('CANCELADA')}"><h:selectOneMenu 
+										style="height:35px; "
+										value="#{relInadimplentes.tpCartaCobranca}">
+
+										<f:selectItem itemLabel="SELECIONE TIPO DE CARTA"
+											itemValue="0" />
+
+										<f:selectItem itemLabel="CONTRATO CANCELADO SEM ADVOGADO"
+											itemValue="2" />
+
+										<f:selectItem itemLabel="CONTRATO CANCELADO COM ADVOGADO"
+											itemValue="3" />
+										<a:support event="onchange" reRender="grid" />
+									</h:selectOneMenu> </c:if></td>
+
+								<td> <c:if test="#{relInadimplentes.statusMatricula.equals('FINALIZADA')}"> <h:selectOneMenu 
+										style="height:35px; "
+										value="#{relInadimplentes.tpCartaCobranca}">
+
+										<f:selectItem itemLabel="SELECIONE TIPO DE CARTA"
+											itemValue="0" />
+
+										<f:selectItem
+											itemLabel="CONTRATO CONCLUÍDO COM PGTO. PENDENTES SEM ADVOGADO"
+											itemValue="4" />
+
+										<f:selectItem
+											itemLabel="CONTRATO CONCLUÍDO COM PGTO. PENDENTES COM ADVOGADO"
+											itemValue="5" />
+
+										<a:support event="onchange" reRender="grid" />
+									</h:selectOneMenu></c:if></td>
+
+								<td><h:commandLink limitToList="true" id="btnsCartas"
+										actionListener="#{relInadimplentes.gerarCartaCobranca}"
+										style="white-space: normal; display:#{relInadimplentes.tpCartaCobranca &gt; 0 ? '' : 'none'}">
+										<p:graphicImage value="/images/pdf.png" width="20px;"
+											height="20px;" />
+							Gerar PDF Cartas
+						</h:commandLink></td>
+
+							</tr>
+						</thead>
+					</table>
+
+				</a:outputPanel>
+
+
+						</h:panelGrid>
+
+					</h:panelGrid>
+
+				</p:panel>
+
+				
+
+			</p:panel>
+
+
+
+
+
+			<script type="text/javascript"
+				src="#{request.contextPath}/js/jquery.maskedinput-1.3.min.js" />
+			<script>
+			inicializar();
+			function inicializar(){
+				jQuery(function($){
+			
+				$("#relInadimplentesSearch\\:dataInicialInputDate").mask("99/99/9999"); //maskedinput
+				$("#relInadimplentesSearch\\:dataFinalInputDate").mask("99/99/9999"); //maskedinput
+			
+				});
+			}
+		
+			</script>
+		</a:form>
+	</ui:define>
+</ui:composition>

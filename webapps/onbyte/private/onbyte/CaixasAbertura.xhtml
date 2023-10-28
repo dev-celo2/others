@@ -1,0 +1,41 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+	<ui:define name="body">
+	    <ui:include src="CaixasAberturaPanel.xhtml">
+	       <ui:param name="from" value="CaixasAberturaPanel"/>
+	    </ui:include>		
+		<script type="text/javascript"
+			src="#{request.contextPath}/js/jquery.maskedinput-1.3.min.js" />
+		<script type="text/javascript">
+		
+		function inicializar(){
+			jQuery(function($){
+			$("#formAbreCaixa\\:dtAberturaField\\:dtAberturaInputDate").mask("99/99/9999"); //maskedinput		
+			$("#formAbreCaixa\\:dtAberturaField\\:hrAbre").mask("99:99:99"); //maskedinput
+		
+			});
+		}
+	</script>
+	
+		<script type="text/javascript">
+
+	$(document).ready(function(){
+		$('#openBox').modal('show');
+	 });
+
+	
+	</script>
+	
+	
+	</ui:define>
+
+</ui:composition>

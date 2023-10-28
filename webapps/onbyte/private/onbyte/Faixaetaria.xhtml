@@ -1,0 +1,128 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+		<h:form id="computadores">
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-list" /> FAIXA DETALHES
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<table width="100%">
+							<thead>
+								<tr style="text-align: center;">
+
+
+									<td style="width: 15%;">
+
+										<div class="input-group" style="width: 98%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">FAIXA</span>
+
+											<h:inputText id="faixa" styleClass="form-control"
+												readonly="true" value="#{faixaetariaHome.instance.faixa}" />
+
+										</div>
+
+									</td>
+
+
+									<td style="width: 40%;">
+
+										<div class="input-group" style="width: 99%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">MOTIVO</span>
+
+											<h:inputText id="descricao" styleClass="form-control"
+												readonly="true"
+												value="#{faixaetariaHome.instance.descricao}" />
+
+										</div>
+
+									</td>
+
+									<td style="width: 15%;">
+
+										<div class="input-group" style="width: 98%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">IDADE INICIAL</span>
+
+											<h:inputText id="inicial" styleClass="form-control"
+												readonly="true"
+												value="#{faixaetariaHome.instance.idadeinicial}" />
+
+										</div>
+
+									</td>
+
+									<td style="width: 15%;">
+
+										<div class="input-group">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">IDADE FINAL</span>
+
+											<h:inputText id="final" styleClass="form-control"
+												readonly="true"
+												value="#{faixaetariaHome.instance.idadefinal}" />
+
+										</div>
+
+									</td>
+
+
+
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div class="panel-footer">
+
+					<center>
+
+						<s:link view="/private/onbyte/FaixaetariaEdit.xhtml" id="edit"
+							rendered="#{rich:isUserInRole('FaixasEtrias1_A')}"
+							styleClass="btn btn-info" style="width:150px;">
+							<i class="glyphicon glyphicon-pencil" />
+							Editar
+						</s:link>
+
+						<rich:spacer width="2px;" />
+
+						<s:link styleClass="btn btn-success" style="width:150px;"
+							view="/private/onbyte/#{empty faixaetariaFrom ? 'FaixaetariaList' : faixaetariaFrom}.xhtml"
+							id="done">
+							<i class="glyphicon glyphicon-ok" />
+							Concluído
+							</s:link>
+
+					</center>
+
+				</div>
+			</div>
+
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

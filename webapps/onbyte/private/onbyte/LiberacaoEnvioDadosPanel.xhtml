@@ -1,0 +1,182 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+	<!-- Modal LIBERAÇÃO ENVIO DE DADOS-->
+	<h:form>
+		<div id="modalEnvioDados"
+			style="z-index: 6041; top: calc(50% -       200px) !important;"
+			class="modal fade " data-backdrop="static" role="dialog">
+			<div class="modal-dialog" style="width: 850px;">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<center>
+							<h4 style="font-weight: bold;" class="text text-primary">
+								<i class="glyphicon glyphicon-lock" style="font-size: 20px;" />
+								ENVIO DE DADOS - INFORMAR ID CLIENTE - VERSÃO
+								#{authenticatorAction.versaoAplicacao}
+							</h4>
+						</center>
+					</div>
+					<div class="modal-body">
+						<div class="box-content">
+
+							<table width="100%">
+
+								<thead>
+									<tr>
+
+										<td style="text-align: center;">
+
+											<div class="input-group">
+												<span class="input-group-addon" id="basic-addon1"><b>CONTROLE
+														INTERNO</b></span>
+												<h:inputText id="controleInterno" readonly="true"
+													styleClass="form-control"
+													value="#{authenticatorAction.controleInterno}" size="11" />
+											</div>
+
+										</td>
+
+										<td style="text-align: center;">
+
+											<div class="input-group">
+												<span class="input-group-addon" id="basic-addon1"><b>ID
+														CLIENTE</b></span>
+												<h:inputText id="chaveLiberacaoEnvioDadosChange"
+													required="true" size="50" styleClass="form-control"
+													value="#{authenticatorAction.chaveLiberacaoEnvioDadosChange}">
+													
+												</h:inputText>
+											</div>
+
+										</td>
+
+
+									</tr>
+								</thead>
+							</table>
+
+
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<center>
+
+
+
+							<a:commandLink 
+								style="width:200px; height:35px;"
+								actionListener="#{authenticatorAction.liberarSistemaEnvioDados}"
+								limitToList="true" styleClass="btn btn-success"
+								process="formLiberacaoEnvioDadosSistema"
+								reRender="chaveLiberacaoEnvioDadosChangeField, msgGlobal"
+								data="#{authenticatorAction.messageRetornoAjax}"
+								onbeforedomupdate="showMessageRetorno(data);"
+								oncomplete="if(data.length==0 &amp;&amp; #{authenticatorAction.chaveLiberacaoEnvioDadosChange!=null}){alert('#{messages['liberacaoSistema.liberado']}'); if(#{authenticatorAction.user!=null}){fn_RedirectIndex(); }else{fn_RedirectSetFuncionario();} }">
+								<i class="glyphicon glyphicon-ok" />							
+								LIBERAR
+							</a:commandLink>
+
+
+							<rich:spacer width="2px;" />
+
+							<a:commandLink styleClass="btn btn-danger"
+								action="#{authenticatorAction.logout}"
+								style="width:200px; height:35px;" immediate="true"
+								onclick="$('#modalEnvioDados').modal('hide')">
+								<i class="glyphicon glyphicon-remove" />		     
+					     			CANCELAR
+							</a:commandLink>
+
+
+
+						</center>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+
+
+
+
+	<!-- 	<rich:modalPanel id="liberacaoEnviodeDados" width="360" height="200"
+			onshow="inicializar();" resizeable="false">			
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="#{messages['liberacaoEnvioDadosSistema.title']}" />
+				</h:panelGroup>
+			</f:facet>
+			<a:form id="formLiberacaoEnvioDadosSistema">
+				<h:panelGrid>
+					<rich:panel style="width:330px;height:120px"
+						bodyClass="panelPaddingZero">
+						<s:span styleClass="spanNamePanel">#{messages['liberacaoEnvioDadosSistema.title']}</s:span>
+						<s:div style="position: relative; top: -10px;">
+							<h:panelGrid>
+							    <h:panelGrid  columns="2">
+								    <s:decorate id="versaoAplicacaoField" template="layout/edit_top.xhtml">
+	                                    <ui:define name="label">#{messages['liberacaoSistema.versao']}:</ui:define>
+	                                    <h:inputText readonly="true"
+	                                        value="#{authenticatorAction.versaoAplicacao}"
+	                                        style="text-align: center;" size="11">
+	                                    </h:inputText>
+	                                    <ui:param name="styleName" value="width:auto;"></ui:param>
+	                                </s:decorate>
+	                                
+	                                <s:decorate template="layout/edit_top.xhtml">
+                                        <ui:define name="label">#{messages['liberacaoSistema.controleInterno']}:</ui:define>
+                                        <h:inputText readonly="true" 
+                                            value="#{authenticatorAction.controleInterno}" size="11">                                      
+                                        </h:inputText>
+                                        <ui:param name="styleName" value="width:auto;"></ui:param>
+                                    </s:decorate>
+								</h:panelGrid>
+
+								<s:decorate id="chaveLiberacaoEnvioDadosChangeField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['liberacaoSistema.senhaLiberacao']}:</ui:define>
+									<h:inputText id="chaveLiberacaoEnvioDadosChange" required="true" size="50" 
+										value="#{authenticatorAction.chaveLiberacaoEnvioDadosChange}" >
+										<a:support event="onblur" limitToList="true"
+											reRender="chaveLiberacaoEnvioDadosChangeField" bypassUpdates="false"
+											ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+									<ui:param name="styleName"
+										value="white-space: nowrap; width:auto;"></ui:param>
+								</s:decorate>
+							</h:panelGrid>
+						</s:div>
+					</rich:panel>
+				</h:panelGrid>
+				<div class="actionButtons">
+					<a:commandButton
+						value="#{messages['liberacaoSistema.liberar']}"
+						style="width:100px; height: 25px; white-space: normal;"
+							actionListener="#{authenticatorAction.liberarSistemaEnvioDados}"
+							limitToList="true" ajaxSingle="false" process="formLiberacaoEnvioDadosSistema"
+							reRender="chaveLiberacaoEnvioDadosChangeField"
+							data="#{authenticatorAction.messageRetornoAjax}"
+							onbeforedomupdate="showMessageRetorno(data);"
+							oncomplete="if(data.length==0 &amp;&amp; #{authenticatorAction.chaveLiberacaoEnvioDadosChange!=null}){alert('#{messages['liberacaoSistema.liberado']}'); if(#{authenticatorAction.user!=null}){fn_RedirectIndex(); }else{fn_RedirectSetFuncionario();} }"/>
+					<h:commandButton action="#{authenticatorAction.logout}" style="width:100px; height: 25px; white-space: normal;"
+					   immediate="true" 
+                        value="#{messages['liberacaoSistema.encerrar']}" view="/index.xhtml"
+                        onclick="Richfaces.hideModalPanel('liberacaoEnviodeDados');" />
+				</div>
+			</a:form>
+		</rich:modalPanel>	 -->
+</ui:composition>

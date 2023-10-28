@@ -1,0 +1,112 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:rich="http://richfaces.org/rich"
+		xmlns:a4j="http://richfaces.org/a4j"
+		xmlns:gui="http://intelinet.com.br/gui"
+		template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<f:metadata>
+	<f:viewParam name="id" value="#{customerAction.customerId}" required="true"/>
+</f:metadata>
+
+<ui:define name="trail">
+	<h:outputText value="#{messages['trail.separator']} "/>
+	<h:link outcome="/private/admin/customerList" value="#{messages['customer.sectionTitle']}"/>
+	<h:outputText value=" #{messages['trail.separator']} "/>
+	<h:outputText value="#{customerAction.customer.name}"/>
+</ui:define>
+
+<ui:define name="body">
+<a4j:queue requestDelay="#{ajaxQueueBean.requestDelay}" ignoreDupResponses="#{ajaxQueueBean.ignoreDupResponces}"/>
+
+	<gui:section title="#{messages['customer.sectionTitle']}">
+		<h:link outcome="/private/admin/customerForm" value="#{messages['global.edit']}" rendered="#{identity.hasRole('manager','CUSTOMER','SYSMGMT')}">
+			<f:param name="id" value="#{customerAction.customer.id}"/>
+		</h:link>
+		<gui:panelGrid>
+			<gui:panelGroup label="#{messages['customer.cpf']}">
+				<h:outputText value="#{customerAction.customer.cpf}"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['customer.name']}">
+				<h:outputText value="#{customerAction.customer.name}"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['customer.email']}">
+				<h:outputText value="#{customerAction.customer.email}"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['customer.address']}">
+				<h:outputText value="#{customerAction.customer.address}"/>
+			</gui:panelGroup>
+		</gui:panelGrid>
+	</gui:section>
+
+	<rich:tabPanel switchType="client">
+
+	<rich:tab header="#{messages['customer.ticket.sectionTitle']}">
+		<h:link outcome="/private/ticket/ticketNew" value="#{messages['global.add']}">
+			<f:param name="customerId" value="#{customerAction.customer.id}"/>
+		</h:link>
+		<rich:dataTable value="#{customerAction.ticketList}" var="ticket">
+			<rich:column>
+				<f:facet name="header">#{messages["ticket.ticketId"]}</f:facet>
+				<h:link outcome="/private/ticket/ticket" value="#{ticket.id}" rendered="#{!ticket.status.closed}">
+					<f:param name="id" value="#{ticket.id}"/>
+					<f:param name="customerId" value="#{customerAction.customer.id}"/>
+				</h:link>
+				<h:link outcome="/private/ticket/ticket" value="#{ticket.id}" styleClass="tclosed" rendered="#{ticket.status.closed}">
+					<f:param name="id" value="#{ticket.id}"/>
+					<f:param name="customerId" value="#{customerAction.customer.id}"/>
+				</h:link>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">#{messages["ticket.priority.short"]}</f:facet>
+				<h:outputText value="#{ticket.priority.name}"/>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">#{messages["ticket.status"]}</f:facet>
+				<h:outputText value="#{ticket.status.name}"/>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">#{messages["ticket.summary"]}</f:facet>
+				<h:outputText value="#{ticket.summary}"/>
+			</rich:column>
+		</rich:dataTable>
+	</rich:tab>
+
+	<rich:tab header="Custom 1">
+		Certificado - exemplo de geração de documentos para envio para o cliente.<br/>
+		<h:outputLink value="#{request.contextPath}/private/reports/certificadoDemo">#{messages['global.download']}</h:outputLink>
+		<h:outputText value=" | "/>
+		<h:form>
+			<a4j:commandLink value="Enviar email" action="#{sendEmailAction.sendEmail(customerAction.customerId)}" onbegin="#{rich:component('sendemailpopup1')}.show()" oncomplete="#{rich:component('sendemailpopup1')}.hide();#{rich:component('sendemailpopup')}.show()" render="sendemailpopup"/>
+		</h:form>
+		<rich:popupPanel id="sendemailpopup1" modal="true" autosized="true" resizeable="false" >
+			<f:facet name="header">
+				<h:outputText value="Envio de email" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:outputLink value="#" onclick="#{rich:component('sendemailpopup')}.hide(); return false;">X</h:outputLink>
+			</f:facet>
+			<div style="width:200px">
+				<h:graphicImage value="/images/loading.gif" alt="loading..."/>
+			</div>
+		</rich:popupPanel>
+		<rich:popupPanel id="sendemailpopup" modal="true" autosized="true" resizeable="false" >
+			<f:facet name="header">
+				<h:outputText value="Envio de email" />
+			</f:facet>
+			<f:facet name="controls">
+				<h:outputLink value="#" onclick="window.location.reload();#{rich:component('sendemailpopup')}.hide(); return false;">X</h:outputLink>
+			</f:facet>
+			<p>#{sendEmailAction.mesg}</p>
+			<h:commandButton value="Fechar" onclick="window.location.reload()">
+				<rich:componentControl target="sendemailpopup" operation="hide" />
+			</h:commandButton>
+		</rich:popupPanel>
+	</rich:tab>
+
+	</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

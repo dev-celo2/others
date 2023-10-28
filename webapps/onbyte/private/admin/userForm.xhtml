@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:rich="http://richfaces.org/rich"
+		xmlns:a4j="http://richfaces.org/a4j"
+		xmlns:gui="http://intelinet.com.br/gui"
+		template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<f:metadata>
+	<f:viewParam name="id" value="#{userInfoAction.userId}"/>
+</f:metadata>
+
+<ui:define name="trail">
+	<h:outputText value="#{messages['trail.separator']} "/>
+	<h:link outcome="/private/admin/userList" value="#{messages['user.sectionTitle']}"/>
+	<h:outputText value=" #{messages['trail.separator']} "/>
+	<ui:fragment rendered="#{userInfoAction.user.id != null}">
+		<h:link outcome="/private/admin/userView" value="#{userInfoAction.user.name}">
+			<f:param name="id" value="#{userInfoAction.user.id}"/>
+		</h:link>
+		<h:outputText value=" #{messages['trail.separator']} "/>
+		<h:outputText value="#{messages['global.edit']}"/>
+	</ui:fragment>
+	<h:outputText value="#{messages['global.add']}" rendered="#{userInfoAction.user.id == null}"/>
+</ui:define>
+
+<ui:define name="body">
+<a4j:queue requestDelay="#{ajaxQueueBean.requestDelay}" ignoreDupResponses="#{ajaxQueueBean.ignoreDupResponces}"/>
+
+	<gui:section title="#{messages['user.sectionTitle']}">
+	<h:form>
+		<gui:panelGrid>
+			<gui:panelGroup label="#{messages['user.name']}" required="true">
+				<h:inputText value="#{userInfoAction.user.name}" size="50" label="#{messages['user.name']}" required="true"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['user.email']}" required="true">
+				<h:inputText value="#{userInfoAction.user.email}" size="50" label="#{messages['user.email']}" required="true"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['user.passwd']}" required="true">
+				<h:inputSecret value="#{userInfoAction.passwd}" label="#{messages['user.passwd']}"/>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['user.profile']}">
+				<h:selectOneMenu id="type" value="#{userInfoAction.profileId}">
+					<f:selectItems value="#{userInfoAction.profileList}" var="n" itemValue="#{n.id}" itemLabel="#{n.name}"/>
+				</h:selectOneMenu>
+			</gui:panelGroup>
+			<gui:panelGroup label="#{messages['user.active']}" required="true">
+				<h:selectOneMenu id="active" value="#{userInfoAction.user.active}" label="#{messages['user.active']}" required="true">
+					<f:selectItem  itemValue="0" itemLabel="#{messages['global.nao']}"/>
+					<f:selectItem  itemValue="1" itemLabel="#{messages['global.sim']}"/>
+				</h:selectOneMenu>
+			</gui:panelGroup>
+			<gui:panelFooter>
+				<h:commandButton value="#{messages['global.save']}" action="#{userInfoAction.save()}"/>
+				<h:button outcome="/private/admin/userList" value="#{messages['global.cancel']}" rendered="#{userInfoAction.userId eq null}"/>
+				<h:button outcome="/private/admin/userView" value="#{messages['global.cancel']}" rendered="#{!(userInfoAction.userId eq null)}">
+					<f:param name="id" value="#{userInfoAction.userId}"/>
+				</h:button>
+			</gui:panelFooter>
+		</gui:panelGrid>
+	</h:form>
+	</gui:section>
+
+</ui:define>
+
+</ui:composition>

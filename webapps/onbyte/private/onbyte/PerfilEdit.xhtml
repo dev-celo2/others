@@ -1,0 +1,267 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"	
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+		<script language="JavaScript">
+			function hidePanel(painel, msg)
+			{
+				if (msg.length==0){
+					if (painel.length!=0){
+						Richfaces.hideModalPanel(painel);
+					}
+					fn_refresh();
+				}
+			}
+		
+		</script>
+		<h:form id="perfilForm" styleClass="edit">
+			<a:jsFunction name="fn_refresh" reRender="perfilForm"
+				limitToList="true" ajaxSingle="true">
+				<f:setPropertyActionListener value="#{null}"
+					target="#{perfilHome.perfis}" />
+			</a:jsFunction>
+			<p:panel>
+				<f:facet name="header">#{messages['perfilHome.title']}</f:facet>
+
+				<h:panelGrid columns="2" columnClasses="alignTop,alignTop">
+					<rich:extendedDataTable
+						noDataLabel="#{messages['global.naoHaDados']}"
+						value="#{perfilHome.opcoesMenu}" var="_menuList" height="400px"
+						width="515px" enableContextMenu="false" id="menuList">
+						<rich:column width="350px">
+							<f:facet name="header">#{messages['perfilHome.descPrograma']}</f:facet>
+							<rich:spacer width="#{(_menuList.nivel-1)*15}px" />
+							<h:outputText value="#{_menuList.descricao}"
+								style="#{_menuList.nivel==1?'font-weight: bold; color: #FF0000;':''}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</rich:column>
+						<rich:column width="150px">
+							<f:facet name="header">#{messages['perfilHome.direitos']}</f:facet>
+							<h:outputText value="#{_menuList.direitoOpcao}"
+								rendered="#{!rich:isUserInRole('Perfil1_A')}" />
+							<rich:inplaceSelect value="#{_menuList.direitoOpcao}"
+								layout="block" listWidth="160px"
+								saveControlIcon="../../img/pixel.gif"
+								cancelControlIcon="../../img/pixel.gif"
+								rendered="#{rich:isUserInRole('Perfil1_A')}">
+								<f:selectItems itemLabelEscaped="true"
+									value="#{perfilHome.opcoesPermissao}" />
+								<a:support event="onchange"
+									reRender="perfis,gravar,novo,cancelar, btns" ajaxSingle="true"
+									limitToList="true" bypassUpdates="false">
+									<f:setPropertyActionListener value="#{true}"
+										target="#{perfilHome.alterado}" />
+								</a:support>
+							</rich:inplaceSelect>
+						</rich:column>
+					</rich:extendedDataTable>
+					<h:panelGroup>
+						<p:panel>
+							<s:decorate id="nomePerfilField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['perfilHome.perfisCad']}</ui:define>
+								<h:selectOneMenu id="perfis" value="#{perfilHome.profileId}"
+									style="width:200px" disabled="#{perfilHome.alterado}">
+									<f:selectItems itemLabelEscaped="true"
+										value="#{perfilHome.perfis}" />
+									<a:support event="onchange" reRender="menuList"
+										ajaxSingle="true" limitToList="true" bypassUpdates="false" />
+								</h:selectOneMenu>
+							</s:decorate>
+						</p:panel>
+						<rich:spacer height="5px" />
+						<p:panel styleclass="actionButtons">
+							<h:panelGrid columns="2" id="btns">
+								<p:commandButton id="novo" value="#{messages['global.new']}"
+									disabled="#{perfilHome.alterado}" image="novo"
+									rendered="#{rich:isUserInRole('Perfil1_A')}"
+									style="width:100px; height:25px;" onclick="novo();" />
+
+								<h:panelGroup>
+									<rich:spacer />
+								</h:panelGroup>
+
+								<p:commandButton id="alterar" image="editar" value="Editar"
+									rendered="#{rich:isUserInRole('Perfil1_A')}" onclick="edit();"
+									style="width:100px; height:25px;" />
+
+								<p:commandButton id="gravar" value="#{messages['global.save']}"
+									disabled="#{!perfilHome.alterado}"
+									rendered="#{rich:isUserInRole('Perfil1_A')}" image="save"
+									onclick="save();" style="width:100px; height:25px;" />
+
+								<p:commandButton id="delete"
+									value="#{messages['global.delete']}"
+									rendered="#{rich:isUserInRole('Perfil1_R')}"
+									style="width:100px; height:25px;" image="delete"
+									onclick="excluirPerfil.show();" />
+
+								<p:commandButton id="cancelar"
+									value="#{messages['global.cancel']}" 
+									disabled="#{!perfilHome.alterado}" image="excluir"
+									style="width:100px; height:25px;"
+									rendered="#{rich:isUserInRole('Perfil1_A')}" onclick="cancel();"/>
+									
+								<a:jsFunction name="cancel" reRender="perfilForm"
+									limitToList="true" ajaxSingle="true" >
+									<f:setPropertyActionListener value="#{null}"
+										target="#{perfilHome.perfis}" />
+									<f:setPropertyActionListener value="#{null}"
+										target="#{perfilHome.permissoesMenu}" />
+									<f:setPropertyActionListener value="#{false}"
+										target="#{perfilHome.alterado}" />
+								</a:jsFunction>
+
+								<a:jsFunction name="fn_Apagar" limitToList="true"
+									ajaxSingle="true" actionListener="#{perfilHome.deletePerfil}"
+									data="#{perfilHome.messageRetornoAjax}"
+									onbeforedomupdate="showMessageRetorno(data)"
+									oncomplete="hidePanel('',data);" />
+
+								<a:jsFunction name="novo" limitToList="true" ajaxSingle="true"
+									reRender="newPerfil, btns"
+									oncomplete="Richfaces.showModalPanel('newPerfilPanel');">
+									<f:setPropertyActionListener value="#{null}"
+										target="#{perfilHome.nomePerfilNew}" />
+								</a:jsFunction>
+
+								<a:jsFunction name="save" reRender="perfilForm"
+									limitToList="true" actionListener="#{perfilHome.updatePerfil}" />
+
+								<a:jsFunction name="edit" ajaxSingle="true" limitToList="true"
+									reRender="updatePerfil, btns"
+									oncomplete="Richfaces.showModalPanel('updatePerfilPanel');" />
+
+								<p:confirmDialog widgetVar="excluirPerfil" id="excluirPerfil"
+									hideEffect="explode" header="Excluir Perfil"
+									message="Excluir Perfil. Deseja Excluir o Perfil?" width="400"
+									showEffect="clip" modal="true" closable="false"
+									closeOnEscape="true" severity="alert">
+									<h:panelGroup layout="block" style="text-align: right">
+										<p:commandButton value="Sim"
+											onclick="fn_Apagar();excluirPerfil.hide();" />
+										<p:commandButton value="#{messages['global.nao']}"
+											onclick="excluirPerfil.hide();" />
+									</h:panelGroup>
+								</p:confirmDialog>
+
+							</h:panelGrid>
+
+
+
+						</p:panel>
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:panel>
+
+		</h:form>
+		<rich:modalPanel id="newPerfilPanel" autosized="true"
+			onshow="#{rich:element('nomePerfilNew')}.focus();" resizeable="false">
+			<p:panel header="#{messages['perfilHome.novoPerfil']}">
+
+				<f:facet name="controls">
+					<h:panelGroup>
+						<h:graphicImage value="/img/false.png" styleClass="hidelink"
+							id="hidelink_newPerfilPanel" />
+						<rich:componentControl for="newPerfilPanel"
+							attachTo="hidelink_newPerfilPanel" operation="hide"
+							event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<h:form id="newPerfil">
+					<h:panelGrid>
+						<s:decorate id="nomePerfilNewField"
+							template="layout/edit_top.xhtml">
+							<ui:define name="label">#{messages['perfil.nome']}:</ui:define>
+							<h:inputText id="nomePerfilNew"
+								value="#{perfilHome.nomePerfilNew}" size="48" maxlength="15"
+								style="text-transform:uppercase">
+								<f:converter converterId="convertToUpper" />
+							</h:inputText>
+						</s:decorate>
+					</h:panelGrid>
+					<center>
+						<h:panelGrid columns="2">
+
+							<p:commandButton value="#{messages['global.ok']}"
+								image="confirma" onclick="ok();"
+								style="width:100px; height:25px;" />
+
+
+							<p:commandButton value="#{messages['global.cancel']}"
+								image="excluir" style="width:100px; height:25px;"
+								onclick="Richfaces.hideModalPanel('newPerfilPanel'); return false;" />
+
+							<a:jsFunction name="ok" data="#{perfilHome.messageRetornoAjax}"
+								onbeforedomupdate="showMessageRetorno(data)"
+								oncomplete="hidePanel('newPerfilPanel',data);"
+								limitToList="true"
+								actionListener="#{perfilHome.createNewPerfil}" />
+
+						</h:panelGrid>
+					</center>
+				</h:form>
+			</p:panel>
+		</rich:modalPanel>
+
+		<rich:modalPanel id="updatePerfilPanel" autosized="true"
+			onshow="#{rich:element('nomePerfil')}.focus();" resizeable="false">
+			<p:panel header="#{messages['perfilHome.alterarNome']}">
+				<f:facet name="controls">
+					<h:panelGroup>
+						<h:graphicImage value="/img/false.png" styleClass="hidelink"
+							id="hidelink_updatePerfilPanel" />
+						<rich:componentControl for="updatePerfilPanel"
+							attachTo="hidelink_updatePerfilPanel" operation="hide"
+							event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<h:form id="updatePerfil">
+					<h:panelGrid>
+						<s:decorate id="nomePerfilField" template="layout/edit_top.xhtml">
+							<ui:define name="label">#{messages['perfil.nome']}:</ui:define>
+							<h:inputText id="nomePerfil" value="#{perfilHome.nomePerfil}"
+								size="48" maxlength="15" style="text-transform:uppercase">
+								<f:converter converterId="convertToUpper" />
+							</h:inputText>
+						</s:decorate>
+					</h:panelGrid>
+					<center>
+						<h:panelGrid columns="2">
+							<p:commandButton value="#{messages['global.ok']}"
+								style="width:100px; height:25px;" onclick="confirma();"
+								image="confirma" />
+
+							<p:commandButton value="#{messages['global.cancel']}"
+								image="excluir" style="width:100px; height:25px;"
+								onclick="Richfaces.hideModalPanel('updatePerfilPanel'); return false;" />
+
+							<a:jsFunction name="confirma"
+								data="#{perfilHome.messageRetornoAjax}"
+								onbeforedomupdate="showMessageRetorno(data)"
+								oncomplete="if(data.length==0){Richfaces.hideModalPanel('updatePerfilPanel');}"
+								limitToList="true" reRender="perfis,gravar,novo,cancelar, btns"
+								actionListener="#{perfilHome.updateNomePerfil}">
+								<f:setPropertyActionListener value="#{true}"
+									target="#{perfilHome.alterado}" />
+							</a:jsFunction>
+						</h:panelGrid>
+					</center>
+				</h:form>
+			</p:panel>
+		</rich:modalPanel>
+
+	</ui:define>
+
+</ui:composition>

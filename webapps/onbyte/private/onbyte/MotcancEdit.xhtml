@@ -1,0 +1,173 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+		<h:form id="computadores">
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-list" /> #{motcancHome.managed
+					? 'EDITAR MOTIVO' : 'INSERIR MOTIVO'}
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<table width="100%">
+							<thead>
+								<tr style="text-align: center;">
+
+									
+									<td>
+
+										<div class="input-group" style="width: 99%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">MOTIVO <span style="color: red;"> * </span></span>
+
+											<h:inputText id="nome" styleClass="form-control"
+												value="#{motcancHome.instance.motivo}" />
+
+										</div>
+
+									</td>
+
+
+								</tr>
+							</thead>
+						</table>
+					</div>
+						<p />
+					<span style="color: red;"> * </span>Campos obrigatórios
+				</div>
+				<div class="panel-footer">
+
+					<center>
+
+						<h:commandLink id="save" styleClass="btn btn-success"
+							style="width:150px;" action="#{motcancHome.persist}"
+							disabled="#{!motcancHome.wired}"
+							 rendered="#{!motcancHome.managed &amp;&amp; rich:isUserInRole('MotivoCancelamento1_A')}">
+							<i class="glyphicon glyphicon-floppy-disk" />
+							Gravar
+						</h:commandLink>
+
+						<h:commandLink id="update" styleClass="btn btn-success"
+							style="width:150px;" action="#{motcancHome.update}"
+							rendered="#{motcancHome.managed &amp;&amp; rich:isUserInRole('MotivoCancelamento1_A')}">
+							<i class="glyphicon glyphicon-floppy-disk" />
+							Gravar
+						</h:commandLink>
+
+						<rich:spacer width="2px;" />
+
+						<a:commandLink id="delete" styleClass="btn btn-warning"
+							style="width:150px;"
+							onclick="$('#modalDelMot').modal('show');"
+							rendered="#{motcancHome.managed &amp;&amp; rich:isUserInRole('MotivoCancelamento1_R')}">
+							<i class="glyphicon glyphicon-trash" />
+							Excluir
+						</a:commandLink>
+
+						<rich:spacer width="2px;" />
+
+						<s:link id="cancelEdit" styleClass="btn btn-danger"
+							style="width:150px;" propagation="end"
+							 view="/private/onbyte/Motcanc.xhtml"
+							rendered="#{motcancHome.managed}">
+							<i class="glyphicon glyphicon-remove" />
+							Cancelar
+						</s:link>
+
+						<s:link id="cancelAdd" styleClass="btn btn-danger"
+							style="width:150px;" propagation="end"
+							 view="/private/onbyte/#{empty motcancFrom ? 'MotcancList' : motcancFrom}.xhtml"
+							rendered="#{!motcancHome.managed}">
+							<i class="glyphicon glyphicon-remove" />
+							Cancelar
+						</s:link>
+
+
+					</center>
+
+				</div>
+			</div>
+
+
+			<!-- Modal Delete tipopmkt-->
+			<div id="modalDelMot" class="modal fade" data-backdrop="static"
+				role="dialog">
+				<div class="modal-dialog modal-sm">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="color: gray; font-weight: bold;" class="modal-title">
+									<i class="glyphicon glyphicon-trash" style="font-size: 20px;" />
+									EXCLUIR MOTIVO
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<center>
+
+									<h4 style="font-weight: bold; color: gray;" class="modal-title">
+										CONFIRMA A AÇÃO <i class="glyphicon glyphicon-question-sign"
+											style="font-size: 40px;" />
+									</h4>
+
+								</center>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<center>
+
+								<a:commandLink styleClass="btn btn-default" style="width:100px;"
+									action="#{motcancHome.remove}" reRender="msgGlobal"
+									onclick="$('#modalDelMot').modal('hide');">
+									<i class="glyphicon glyphicon-ok" />
+							Sim
+							</a:commandLink>
+
+								<rich:spacer width="2xp;" />
+
+								<a:commandLink styleClass="btn btn-default" style="width:100px;"
+									onclick="$('#modalDelMot').modal('hide');" immediate="true">
+									<i class="glyphicon glyphicon-ban-circle" />
+							Não
+							</a:commandLink>
+
+							</center>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!--FIM Modal Delete Computador -->
+
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

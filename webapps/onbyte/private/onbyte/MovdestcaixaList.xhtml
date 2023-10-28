@@ -1,0 +1,341 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="movdestcaixaSearch" styleClass="edit">
+			<p:panel id="pndadoscaixa" header="#{messages['movdestcaixa.title']}">
+
+				<p:panel style=" height:50px"
+					bodyClass="panelPaddingZero">
+
+					<s:div style="position: relative; top: 10px;">
+
+						<h:panelGrid style="margin: 0px auto;" columns="9">
+
+							<s:span styleClass="name"
+								style="font-weight:bold; font-size:15px;float:none; clear:none; vertical-align: baseline;">#{messages['movdestcaixa.contacaixa']}:</s:span>
+							<h:selectOneMenu id="destCaixa" style="width:230px"
+								value="#{movdestcaixaList.destcaixaCodigo}">
+								<f:selectItems itemLabelEscaped="true"
+									value="#{movdestcaixaList.destCaixas}" />
+								<a:support event="onchange" limitToList="true"
+									reRender="pndadoscaixa, movdestcaixaList, pnTotalMovimentos, divbuttons, vlSaldoGeral"
+									bypassUpdates="false" ajaxSingle="true" />
+							</h:selectOneMenu>
+
+							<rich:spacer width="15px" />
+
+							<s:span styleClass="name"
+								style="font-weight:bold; font-size:15px;float:none; clear:none; vertical-align: baseline;">#{messages['horariosList.dtInicial']}:</s:span>
+							<rich:calendar id="dataInicial" inputSize="10"
+								enableManualInput="true" value="#{movdestcaixaList.dataInicial}"
+								datePattern="#{messages.pattern}" />
+
+							<rich:spacer width="15px" />
+
+							<s:span styleClass="name"
+								style="font-weight:bold; font-size:15px;float:none; clear:none; vertical-align: baseline;">#{messages['horariosList.dtFinal']}:</s:span>
+							<rich:calendar id="dataFinal" inputSize="10"
+								enableManualInput="true" value="#{movdestcaixaList.dataFinal}"
+								datePattern="#{messages.pattern}" />
+
+							<p:commandButton value="Pesquisar" onclick="filtrar();" style="width:110px;"
+								image="localizar" />
+							<a:jsFunction name="filtrar"
+								reRender="pndadoscaixa, movdestcaixaList, pnTotalMovimentos, divbuttons, vlSaldoGeral"
+								limitToList="true" oncomplete="inicializar();"
+								bypassUpdates="false" />
+
+						</h:panelGrid>
+
+					</s:div>
+
+				</p:panel>
+
+				<p:panel id="movdestcaixaList"
+					header="#{messages['movdestcaixa.title']} #{messages['global.searchResults']} (#{empty movdestcaixaList.resultList ? 0 : (movdestcaixaList.paginated ? movdestcaixaList.resultCount : movdestcaixaList.resultList.size)})">
+					<div class="results">
+
+						<rich:extendedDataTable
+							noDataLabel="#{messages['global.naoHaDados']}" 
+							id="tableMovdestcaixaList" var="_movdestcaixa" height="250px"
+							enableContextMenu="false" value="#{movdestcaixaList.resultList}"
+							selection="#{movdestcaixaList.selection}">
+							<a:support limitToList="true" event="onselectionchange"
+								actionListener="#{movdestcaixaList.selectionListener}"
+								bypassUpdates="false" immediate="true" ajaxSingle="true">
+							</a:support>
+							<rich:column width="7%" >
+								<f:facet name="header">#{messages['global.date']}</f:facet>
+								<h:outputText value="#{_movdestcaixa.id.data}"
+									styleClass="tableMovCaixa#{_movdestcaixa.tipo.equals('D')?'Debito':''}" />
+							</rich:column>
+
+							<rich:column width="6%">
+								<f:facet name="header">#{messages['global.hour']}</f:facet>
+								<h:outputText value="#{_movdestcaixa.id.hora}"
+									styleClass="tableMovCaixa#{_movdestcaixa.tipo.equals('D')?'Debito':''}" />
+							</rich:column>
+							<rich:column width="26%">
+								<f:facet name="header">#{messages['movdestcaixa.descricao']}</f:facet>
+								<h:outputText value="#{_movdestcaixa.descricao}"
+									styleClass="tableMovCaixa#{_movdestcaixa.tipo.equals('D')?'Debito':''}" />
+							</rich:column>
+							<rich:column width="4%">
+								<f:facet name="header">#{messages['movdestcaixa.tipo']}</f:facet>
+								<h:outputText value="#{_movdestcaixa.tipo}"
+									styleClass="tableMovCaixa#{_movdestcaixa.tipo.equals('D')?'Debito':''}" />
+							</rich:column>
+							<rich:column width="11%">
+								<f:facet name="header">#{messages['movdestcaixa.valor']}</f:facet>
+								<h:outputText value="#{_movdestcaixa.valor}"
+									style="float: right"
+									styleClass="tableMovCaixa#{_movdestcaixa.tipo.equals('D')?'Debito':''}">
+									<f:convertNumber minFractionDigits="2" maxFractionDigits="2" />
+								</h:outputText>
+							</rich:column>
+							<rich:column width="20%">
+								<f:facet name="header">#{messages['funcionarios.nome']}</f:facet>
+								<h:outputText value="#{_movdestcaixa.funcionarios.nome}"
+									styleClass="tableMovCaixa#{_movdestcaixa.tipo.equals('D')?'Debito':''}" />
+							</rich:column>
+							<rich:column width="6%">
+								<f:facet name="header">#{messages['movdestcaixa.conta']}</f:facet>
+								<h:outputText value="#{_movdestcaixa.planocontas.codigo}"
+									styleClass="tableMovCaixa#{_movdestcaixa.tipo.equals('D')?'Debito':''}" />
+							</rich:column>
+							<rich:column width="20%">
+								<f:facet name="header">#{messages['planocontas.descricao']}</f:facet>
+								<h:outputText value="#{_movdestcaixa.planocontas.descricao}"
+									styleClass="tableMovCaixa#{_movdestcaixa.tipo.equals('D')?'Debito':''}" />
+							</rich:column>
+						</rich:extendedDataTable>
+
+					</div>
+
+
+					<p:panel>
+						<h:panelGrid id="pnTotalMovimentos" columns="11" style="margin: 0px auto;">
+
+							<s:span>
+								<strong>#{messages['caixasMovimento.vlInicio']}</strong>
+							</s:span>
+							<h:inputText value="#{movdestcaixaList.vlSaldoInicial}"
+								readonly="true"
+								style="text-align: right;color:blue;font-weight: bold;"
+								size="10">
+								<f:convertNumber type="currency" minFractionDigits="2"
+									maxFractionDigits="2" />
+							</h:inputText>
+
+							<rich:spacer width="20px" />
+
+							<s:span>
+								<strong>#{messages['caixasMovimento.vlCredito']}</strong>
+							</s:span>
+							<h:inputText value="#{movdestcaixaList.vlTotalCredito}"
+								readonly="true"
+								style="text-align: right;color:blue;font-weight: bold;"
+								size="10">
+								<f:convertNumber type="currency" minFractionDigits="2"
+									maxFractionDigits="2" />
+							</h:inputText>
+
+							<rich:spacer width="20px" />
+
+							<s:span>
+								<strong>#{messages['caixasMovimento.vlDebito']}</strong>
+							</s:span>
+							<h:inputText value="#{movdestcaixaList.vlTotalDebito}"
+								readonly="true"
+								style="text-align: right;color:red;font-weight: bold;" size="10">
+								<f:convertNumber type="currency" minFractionDigits="2"
+									maxFractionDigits="2" />
+							</h:inputText>
+
+							<rich:spacer width="20px" />
+
+							<s:span>
+								<strong>#{messages['caixasMovimento.vlSaldo']}</strong>
+							</s:span>
+							<h:inputText value="#{movdestcaixaList.vlSaldo}" readonly="true"
+								style="text-align: right; color:#{movdestcaixaList.vlSaldo.doubleValue()&lt;0?'red':'blue'}; font-weight: bold;"
+								size="10">
+								<f:convertNumber type="currency" minFractionDigits="2"
+									maxFractionDigits="2" />
+							</h:inputText>
+							
+						</h:panelGrid>
+
+						<rich:separator height="1px" />
+
+						<h:panelGrid columns="2" style="margin: 0px auto; margin-top: 10px;"
+							cellpadding="5px">
+							<s:span>
+								<strong>#{messages['movdestcaixa.vlSaldoGeral']}:</strong>
+							</s:span>
+							<h:inputText id="vlSaldoGeral"
+								value="#{movdestcaixaList.vlSaldoGeral}" readonly="true"
+								style="font-size:12px;text-align: center; color:#{movdestcaixaList.vlSaldoGeral.doubleValue()&lt;0?'red':'green'}; font-weight: bold;"
+								size="13">
+								<f:convertNumber type="currency" minFractionDigits="2"
+									maxFractionDigits="2" />
+							</h:inputText>
+						</h:panelGrid>
+
+					</p:panel>
+
+
+
+				</p:panel>
+
+
+				<p:panel>
+
+					<s:div id="divbuttons" styleClass="actionButtons"
+						rendered="#{empty from}">
+						<h:panelGrid columns="4" style="margin: 0px auto;">
+
+							<p:commandButton id="movEntrada" image="novo"
+								value="#{messages['caixasMovimento.btnEntrada']}"
+								onclick="entrada(); if (!#{movdestcaixaList.permitLancamento}){ alert('#{messages['movdestcaixa.msgImpTrabRef']} :#{movdestcaixaList.referencia}'); return false;}"
+								style="width:100px; height: 50px; white-space: normal;"
+								rendered="#{rich:isUserInRole('DestinosdoCaixa1_A')}" />
+
+							<p:commandButton id="movRetirada" image="retirada"
+								value="#{messages['caixasMovimento.btnRetirada']}"
+								onclick="retirada(); if (!#{movdestcaixaList.permitLancamento}){ alert('#{messages['movdestcaixa.msgImpTrabRef']} :#{movdestcaixaList.referencia}'); return false;}"
+								style="width:100px; height: 50px; white-space: normal;"
+								rendered="#{rich:isUserInRole('DestinosdoCaixa1_A')}" />
+
+
+							<p:commandButton id="movApagar" image="delete"
+								value="#{messages['global.delete']}"
+								onclick="if (!#{movdestcaixaList.permitLancamento}){ alert('#{messages['movdestcaixa.msgImpTrabRef']} :#{movdestcaixaList.referencia}'); return false;} else if(confirm('#{messages['global.confirmDelete']}')){fn_ApagarMovimentacao();} return false;"
+								style="width:100px; height: 50px; white-space: normal;"
+								rendered="#{rich:isUserInRole('DestinosdoCaixa1_R')}" />
+
+
+
+
+							<p:commandButton style="width:100px;height:50px;"
+								immediate="true" value="#{messages['global.exit']}" image="sair"
+								onclick="sairDlg.show();" />
+
+
+							<p:confirmDialog widgetVar="sairDlg" id="sairDialog"
+								hideEffect="explode" header="Sair" message="Deseja Sair?"
+								width="400" showEffect="clip" modal="true" closable="false"
+								closeOnEscape="true" severity="alert">
+								<h:panelGroup layout="block" style="text-align: right">
+									<p:commandButton value="Sim" action="/index.xhtml" ajax="false"
+										oncomplete="sairDlg.hide();" />
+									<p:commandButton value="#{messages['global.nao']}"
+										onclick="sairDlg.hide();" />
+								</h:panelGroup>
+							</p:confirmDialog>
+
+
+
+						</h:panelGrid>
+
+
+						<a:jsFunction name="entrada" reRender="formEntradaCaixaentrada"
+							immediate="true" limitToList="true"
+							actionListener="#{movdestcaixaList.clear}"
+							oncomplete="Richfaces.showModalPanel('movimentoCaixaPanelentrada');">
+							<f:attribute name="object" value="formEntradaCaixaentrada" />
+							<f:setPropertyActionListener
+								target="#{destCaixaMovimentoAction.destcaixaCodigo}"
+								value="#{movdestcaixaList.destcaixaCodigo}" />
+						</a:jsFunction>
+
+						<a:jsFunction name="retirada" limitToList="true"
+							actionListener="#{movdestcaixaList.clear}" ajaxSingle="true"
+							reRender="formEntradaCaixasaida" immediate="true"
+							oncomplete="Richfaces.showModalPanel('movimentoCaixaPanelsaida');">
+
+							<f:attribute name="object" value="formEntradaCaixasaida" />
+							<f:setPropertyActionListener
+								target="#{destCaixaMovimentoAction.destcaixaCodigo}"
+								value="#{movdestcaixaList.destcaixaCodigo}" />
+						</a:jsFunction>
+
+					</s:div>
+
+				</p:panel>
+
+
+			</p:panel>
+
+			<a:jsFunction name="fn_ApagarMovimentacao"
+				actionListener="#{movdestcaixaList.removeMovimento}"
+				limitToList="true" data="#{movdestcaixaList.messageRetornoAjax}"
+				onbeforedomupdate="showMessageRetorno(data)"
+				reRender="movdestcaixaList,pnTotalMovimentos, vlSaldoGeral">
+				<f:setPropertyActionListener
+					target="#{destCaixaMovimentoAction.destcaixaCodigo}"
+					value="#{movdestcaixaList.destcaixaCodigo}" />
+			</a:jsFunction>
+
+			<a:jsFunction name="fn_hidePanel"
+				reRender="movdestcaixaList,pnTotalMovimentos, vlSaldoGeral"
+				limitToList="true" />
+		</h:form>
+		<script type="text/javascript"
+			src="#{request.contextPath}/js/jquery.maskedinput-1.3.min.js" />
+		<script type="text/javascript">
+			function inicializar(){
+				jQuery(function($){
+				$("#movdestcaixaSearch\\:dataInicialInputDate").mask("99/99/9999"); //maskedinput
+				$("#movdestcaixaSearch\\:dataFinalInputDate").mask("99/99/9999"); //maskedinput		
+			
+				});
+			}
+			inicializar();
+		</script>
+		<ui:include src="DestCaixaMovimento.xhtml">
+			<ui:param name="tela" value="entrada" />
+			<ui:param name="render"
+				value="movdestcaixaList,pnTotalMovimentos,vlSaldoGeral" />
+			<ui:param name="fn_hide" value="fn_hidePanel()" />
+		</ui:include>
+
+		<ui:include src="DestCaixaMovimento.xhtml">
+			<ui:param name="tela" value="saida" />
+			<ui:param name="render"
+				value="movdestcaixaList,pnTotalMovimentos,vlSaldoGeral" />
+			<ui:param name="fn_hide" value="fn_hidePanel()" />
+		</ui:include>
+
+		<rich:modalPanel id="fecharCaixaPanel" width="360" height="300"
+			onshow="inicializar();" resizeable="false" onhide="#{fn_hide};">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText
+						value="#{messages['caixasMovimento.fechamentoCaixatitle']}" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/false.png" styleClass="hidelink"
+						id="hidelink_FecharCaixaPanel" />
+					<rich:componentControl for="fecharCaixaPanel"
+						attachTo="hidelink_FecharCaixaPanel" operation="hide"
+						event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+
+		</rich:modalPanel>
+	</ui:define>
+</ui:composition>

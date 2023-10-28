@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+
+	<h:panelGrid styleClass="prop" style="border-collapse:collapse;border-spacing: 0;">
+		<s:span styleClass="name #{invalid?'errors':''}"
+			style="white-space: nowrap; margin: 0; padding: 0; width: 0;">
+			<ui:insert name="label" />
+			<s:span styleClass="required" rendered="#{required}">*</s:span>
+		</s:span>
+
+		<h:panelGroup>
+			<span class="value #{invalid?'errors':''}"> <s:validateAll>
+					<ui:insert />
+				</s:validateAll> </span>
+
+			<span class="error"> <h:graphicImage value="/img/error.gif"
+					title="#{facesMessages.currentMessages.size()==0?'':facesMessages.currentMessages.get(0).summary}"
+					rendered="#{invalid}" styleClass="errors" /> <s:message
+					styleClass="errors"
+					rendered="#{showMessageError==null || showMessageError}" /> </span>
+			<rich:spacer width="19px" rendered="#{!invalid}"/>
+		</h:panelGroup>
+	</h:panelGrid>
+
+</ui:composition>
+

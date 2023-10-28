@@ -1,0 +1,117 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutConfBackup.xhtml">
+
+	<ui:define name="body">
+		<h:form id="form">
+			<rich:panel header="#{messages['configBackupAction.title']}">
+				<h:panelGrid  columns="2" style="border-collapse:collapse;border-spacing: 0;">
+				    <h:panelGroup>
+						<s:decorate id="fileDataBaseField" template="../private/onbyte/layout/edit_top.xhtml">
+							<ui:define name="label">#{messages['configBackupAction.fileDataBase']}</ui:define>
+							<h:inputText id="fileDataBase" required="true" size="50"
+								value="#{configBackupAction.fileDataBase}">
+								<a:support event="onblur" limitToList="true"
+									reRender="fileDataBaseField" bypassUpdates="true"
+									ajaxSingle="true" />
+							</h:inputText>
+						</s:decorate>
+	
+	
+						<s:decorate id="backupDirField" template="../private/onbyte/layout/edit_top.xhtml">
+							<ui:define name="label">#{messages['configBackupAction.backupDir']}</ui:define>
+							<h:inputText id="backupDir" required="true" size="50"
+								value="#{configBackupAction.backupDir}">
+								<a:support event="onblur" limitToList="true"
+									reRender="backupDirField" bypassUpdates="true" ajaxSingle="true" />
+							</h:inputText>
+						</s:decorate>
+					</h:panelGroup>
+					
+					<h:panelGrid style="border-collapse:collapse;border-spacing: 0;">
+					
+						<a:commandButton actionListener="#{configBackupAction.gravar}" style="width:80px; height: 40px; white-space: normal;"
+						    data="#{configBackupAction.messageRetornoAjax}"
+                            onbeforedomupdate="showMessageRetorno(data)"
+							value="#{messages['global.gravar']}" 
+							limitToList="true" bypassUpdates="false" />
+					    <s:button style="width:80px; height: 40px; white-space: normal;" immediate="true"
+	                        value="#{messages['global.exit']}" 
+	                        onclick="if (!confirm('Fecha a Configurador de Backup?')){return false;}else{window.close(); return false;}" />
+                    </h:panelGrid>
+				</h:panelGrid>
+				<rich:spacer height="5px" />
+				<rich:panel style="width:530px; height:250px"
+					bodyClass="pnTotalMovdestCaixa" styleClass="pnTotalMovdestCaixa">
+					<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['configBackupAction.agendamentos']}</s:span>
+					<s:div style="position: relative; top: -8px;">
+						<h:panelGrid columns="2"
+							columnClasses="alignTop,alignTop,alignTop,alignTop"
+							style="border-collapse:collapse;border-spacing: 0;">
+							<s:span style="font-weight: bold;">#{messages['configBackupAction.diaSemana']}</s:span>
+							<s:span style="font-weight: bold;">#{messages['configBackupAction.horarioBackup']}</s:span>
+							<rich:panel bodyClass="table_Planoconta" style="height:220px">
+								<ui:repeat var="item"
+									value="#{configBackupAction.listDiasSemana}">
+									<h:panelGrid columns="2"
+										style="border-collapse:collapse;border-spacing: 0;">
+										<h:selectBooleanCheckbox
+											value="#{configBackupAction.diasSemanaCheckMap[item]}" />
+										<h:outputText value="#{messages['global.'.concat(item.toUpperCase()).concat('Abr')].toLowerCase()}" 
+											style="width : 100px;float : left; text-transform:capitalize;" />
+									</h:panelGrid>
+								</ui:repeat>
+							</rich:panel>
+							<rich:panel bodyClass="table_Planoconta" style="height:220px">
+								<h:panelGrid columns="3"
+									columnClasses="alignTop,alignTop,alignTop,alignTop">
+									<ui:repeat var="item" value="#{configBackupAction.horarios}"
+										size="9">
+										<h:panelGrid columns="2"
+											style="border-collapse:collapse;border-spacing: 0;">
+											<h:selectBooleanCheckbox
+												value="#{configBackupAction.horariosCheckMap[item]}" />
+											<h:outputText value="#{item}"
+												style="width : 100px;float : left" />
+										</h:panelGrid>
+									</ui:repeat>
+
+									<ui:repeat var="item" value="#{configBackupAction.horarios}"
+										size="9" offset="10">
+										<h:panelGrid columns="2"
+											style="border-collapse:collapse;border-spacing: 0;">
+											<h:selectBooleanCheckbox
+												value="#{configBackupAction.horariosCheckMap[item]}" />
+											<h:outputText value="#{item}"
+												style="width : 100px;float : left" />
+										</h:panelGrid>
+									</ui:repeat>
+
+									<ui:repeat var="item" value="#{configBackupAction.horarios}"
+										size="9" offset="20">
+										<h:panelGrid columns="2"
+											style="border-collapse:collapse;border-spacing: 0;">
+											<h:selectBooleanCheckbox
+												value="#{configBackupAction.horariosCheckMap[item]}" />
+											<h:outputText value="#{item}"
+												style="width : 100px;float : left" />
+										</h:panelGrid>
+									</ui:repeat>
+								</h:panelGrid>
+							</rich:panel>
+						</h:panelGrid>
+					</s:div>
+				</rich:panel>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

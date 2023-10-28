@@ -1,0 +1,302 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+		<h:form id="computadores">
+			<a:jsFunction name="remover"
+				actionListener="#{computadoresHome.remove}"
+				reRender="computadores, msgGlobal" limitToList="true"
+				ajaxSingle="true" immediate="true"
+				oncomplete="if(data.length==0){fn_redirectApagar();}" />
+
+			<a:jsFunction name="fn_redirectApagar" action="ComputadoresList"
+				reRender="computadores, msgGlobal" ajaxSingle="false"
+				immediate="true" />
+
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-list" /> #{computadoresHome.managed
+					? 'EDITAR COMPUTADOR' : 'INSERIR COMPUTADOR'}
+					
+					<h:outputText style="float:right; font-weight: bold;"  value="#{computadoresHome.qtdHorariosAgendadosComp()} MATRÍCULAS COM HORÁRIO RESERVADO PARA ESTE COMPUTADOR!" />
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<table width="100%">
+							<thead>
+								<tr style="text-align: center;  ">
+
+									<td style="width: 20%;">
+
+										<div class="input-group" style="width: 98%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon1">CÓDIGO</span>
+
+											<h:inputText id="codigo" styleClass="form-control"
+												readonly="true" value="#{computadoresHome.instance.codigo}" />
+										</div>
+
+									</td>
+
+									<td>
+
+										<div class="input-group" style="width: 99%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">NOME</span>
+
+											<h:inputText id="nome" styleClass="form-control"
+												maxlength="40"
+												value="#{computadoresHome.instance.descricao}" />
+
+										</div>
+
+									</td>
+									<td style="width: 20%;">
+
+										<div class="input-group" style="width: 98%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon1">IP</span>
+
+											<h:inputText id="ip" styleClass="form-control"
+												value="#{computadoresHome.instance.ip}" />
+										</div>
+
+
+									</td>
+
+									<td style="width: 20%;">
+
+										<div class="input-group">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon1">LAB</span>
+
+											<h:inputText id="lab" styleClass="form-control"
+												value="#{computadoresHome.instance.laboratorio}" />
+										</div>
+
+
+									</td>
+
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div class="panel-footer" style="height: 100px;">
+
+					<center>
+
+						<h:commandLink id="save" action="#{computadoresHome.persist}"
+							style="width:150px;" disabled="#{!computadoresHome.wired}"
+							styleClass="btn btn-success"
+							rendered="#{!computadoresHome.managed &amp;&amp; rich:isUserInRole('Computadores1_A')}">
+							<i class="glyphicon glyphicon-floppy-disk" />
+							Gravar
+						</h:commandLink>
+
+						<h:commandLink id="update" style="width:150px;"
+							action="#{computadoresHome.update}" styleClass="btn btn-success"
+							rendered="#{computadoresHome.managed &amp;&amp; rich:isUserInRole('Computadores1_A')}">
+							<i class="glyphicon glyphicon-floppy-disk" />
+							Gravar
+						</h:commandLink>
+
+						<rich:spacer width="2xp;" />
+
+						<a:commandLink id="delete" styleClass="btn btn-warning"
+							style="width:150px;"
+							onclick="$('#modalDelComputador').modal('show');"
+							rendered="#{computadoresHome.managed &amp;&amp; rich:isUserInRole('Computadores1_R')}">
+							<i class="glyphicon glyphicon-trash" />
+							Excluir
+						</a:commandLink>
+
+						<rich:spacer width="2xp;" />
+
+						<s:link id="cancelEdit" styleClass="btn btn-danger"
+							style="width:150px;" propagation="end"
+							view="/private/onbyte/Computadores.xhtml"
+							rendered="#{computadoresHome.managed}">
+							<i class="glyphicon glyphicon-remove" />
+							Cancelar
+						</s:link>
+
+						<s:link id="cancelAdd" styleClass="btn btn-danger"
+							style="width:150px;" propagation="end"
+							view="/private/onbyte/#{empty computadoresFrom ? 'ComputadoresList' : computadoresFrom}.xhtml"
+							rendered="#{!computadoresHome.managed}">
+							<i class="glyphicon glyphicon-remove" />
+							Cancelar
+						</s:link>
+						
+						<p/>
+
+
+						<h:commandLink limitToList="true" styleClass="btn btn-info" rendered="#{computadoresHome.qtdHorariosAgendadosComp() > 0}"
+							actionListener="#{computadoresHome.exportarRelatorio}"
+							style="width:295px; height: 35px; white-space: normal;">
+							<i class="glyphicon glyphicon-print" />
+								Rel. Alunos Agendados Comp. #{computadoresHome.instance.codigo}
+						</h:commandLink>
+						
+						<rich:spacer width="2xp;" />
+
+						<a:commandLink onclick="$('#modalRemoverHorarios').modal('show')" 
+							styleClass="btn btn-danger" rendered="#{computadoresHome.qtdHorariosAgendadosComp() > 0}"
+							style="width:295px; height: 35px; white-space: normal;">
+							<i class="glyphicon glyphicon-remove" />						
+						Remover Horários Comp. #{computadoresHome.instance.codigo}						
+						</a:commandLink>
+						
+						
+
+					</center>
+
+				</div>
+			</div>
+
+
+			<!-- Modal Delete Computador-->
+			<div id="modalDelComputador" class="modal fade"
+				data-backdrop="static" role="dialog">
+				<div class="modal-dialog modal-sm">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="color: gray; font-weight: bold;" class="modal-title">
+									<i class="glyphicon glyphicon-trash" style="font-size: 20px;" />
+									EXCLUIR COMPUTADOR
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<center>
+
+									<h4 style="font-weight: bold; color: gray;" class="modal-title">
+										CONFIRMA A AÇÃO <i class="glyphicon glyphicon-question-sign"
+											style="font-size: 40px;" />
+									</h4>
+
+								</center>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<center>
+
+								<a:commandLink styleClass="btn btn-default" style="width:100px;"
+									reRender="msgGlobal"
+									onclick="$('#modalDelComputador').modal('hide');remover();">
+									<i class="glyphicon glyphicon-ok" />
+							Sim
+							</a:commandLink>
+
+								<rich:spacer width="2xp;" />
+
+								<a:commandLink styleClass="btn btn-default" style="width:100px;"
+									onclick="$('#modalDelComputador').modal('hide');"
+									immediate="true">
+									<i class="glyphicon glyphicon-ban-circle" />
+							Não
+							</a:commandLink>
+
+							</center>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!--FIM Modal Delete Computador -->
+
+
+			<!-- Modal Delete Computador-->
+			<div id="modalRemoverHorarios" class="modal fade"
+				data-backdrop="static" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="color: gray; font-weight: bold;" class="modal-title">
+									<i class="glyphicon glyphicon-trash" style="font-size: 20px;" />
+									TEM CERTEZA QUE DESEJA REMOVER TODOS HORÁRIOS DO COMPUTADOR
+									#{computadoresHome.instance.codigo}
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<center>
+
+									<h4 style="font-weight: bold; color: gray;" class="modal-title">
+										CONFIRMA A AÇÃO <i class="glyphicon glyphicon-question-sign"
+											style="font-size: 40px;" />
+									</h4>
+
+								</center>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<center>
+
+								<a:commandLink styleClass="btn btn-default" style="width:100px;"
+									action="#{computadoresHome.removerHorariosComputador}"
+									reRender="msgGlobal"
+									onclick="$('#modalRemoverHorarios').modal('hide');">
+									<i class="glyphicon glyphicon-ok" />
+							Sim
+							</a:commandLink>
+
+								<rich:spacer width="2xp;" />
+
+								<a:commandLink styleClass="btn btn-default" style="width:100px;"
+									onclick="$('#modalRemoverHorarios').modal('hide');"
+									immediate="true">
+									<i class="glyphicon glyphicon-ban-circle" />
+							Não
+							</a:commandLink>
+
+							</center>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!--FIM Modal Delete Computador -->
+
+
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

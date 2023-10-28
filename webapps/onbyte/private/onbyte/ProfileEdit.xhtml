@@ -1,0 +1,91 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="profile" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{profileHome.managed ? messages['global.edit'] : messages['global.insert']} Profile</f:facet>
+
+
+            <s:decorate id="idField" template="layout/edit.xhtml">
+                <ui:define name="label">Id</ui:define>
+                <h:inputText id="id"
+                       required="true"
+                       disabled="#{profileHome.managed}"
+                          value="#{profileHome.instance.id}">
+                    <a:support event="onblur" reRender="idField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="nameField" template="layout/edit.xhtml">
+                <ui:define name="label">Name</ui:define>
+                <h:inputTextarea id="name"
+                               cols="80"
+                               rows="3"
+                              value="#{profileHome.instance.name}"/>
+            </s:decorate>
+
+
+            <s:decorate id="tagField" template="layout/edit.xhtml">
+                <ui:define name="label">Tag</ui:define>
+                <h:inputTextarea id="tag"
+                               cols="80"
+                               rows="3"
+                              value="#{profileHome.instance.tag}"/>
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                #{messages['global.requiredField']}
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="#{messages['global.save']}"
+                         action="#{profileHome.persist}"
+                       disabled="#{!profileHome.wired}"
+                       rendered="#{!profileHome.managed}"/>
+
+            <h:commandButton id="update"
+                          value="#{messages['global.save']}"
+                         action="#{profileHome.update}"
+                       rendered="#{profileHome.managed}"/>
+
+            <h:commandButton id="delete"
+                          value="#{messages['global.delete']}" onclick="return confirm('#{messages['global.confirmDelete']}')"
+                         action="#{profileHome.remove}"
+                      immediate="true"
+                       rendered="#{profileHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="#{messages['global.cancel']}"
+             propagation="end"
+                    view="/private/onbyte/Profile.xhtml"
+                rendered="#{profileHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="#{messages['global.cancel']}"
+             propagation="end"
+                    view="/private/onbyte/#{empty profileFrom ? 'ProfileList' : profileFrom}.xhtml"
+                rendered="#{!profileHome.managed}"/>
+
+        </div>
+    </h:form>
+
+</ui:define>
+
+</ui:composition>

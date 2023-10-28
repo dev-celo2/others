@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+   <param name="firstResult" value="#{cursosList.firstResult}"/>
+   <param name="sort" value="#{cursosList.orderColumn}"/>
+   <param name="dir" value="#{cursosList.orderDirection}"/>
+   <param name="logic" value="#{cursosList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="codigo" value="#{cursosList.cursos.codigo}"/>
+   <param name="descricao" value="#{cursosList.cursos.descricao}"/>
+
+</page>

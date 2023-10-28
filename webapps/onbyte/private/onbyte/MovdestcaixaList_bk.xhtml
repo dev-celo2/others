@@ -1,0 +1,234 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="movdestcaixaSearch" styleClass="edit">
+
+        <rich:simpleTogglePanel label="Movdestcaixa #{messages['global.searchFilter']}" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Hora</ui:define>
+                <h:inputText id="hora" value="#{movdestcaixaList.movdestcaixa.id.hora}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Descricao</ui:define>
+                <h:inputText id="descricao" value="#{movdestcaixaList.movdestcaixa.descricao}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Tipo</ui:define>
+                <h:inputText id="tipo" value="#{movdestcaixaList.movdestcaixa.tipo}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['global.match']}</ui:define>
+                <h:selectOneRadio id="logic" value="#{movdestcaixaList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="#{messages['global.all']}" itemValue="and"/>
+                    <f:selectItem itemLabel="#{messages['global.any']}" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:simpleTogglePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['global.search']}" action="/private/onbyte/MovdestcaixaList.xhtml"/>
+            <s:button id="reset" value="#{messages['global.clear']}" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">Movdestcaixa #{messages['global.searchResults']} (#{empty movdestcaixaList.resultList ? 0 : (movdestcaixaList.paginated ? movdestcaixaList.resultCount : movdestcaixaList.resultList.size)})</f:facet>
+    <div class="results" id="movdestcaixaList">
+
+    <h:outputFormat value="#{messages['global.NoSearchResults']}"
+               rendered="#{empty movdestcaixaList.resultList}"/>
+
+    <rich:dataTable id="movdestcaixaList" onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                var="_movdestcaixa"
+              value="#{movdestcaixaList.resultList}"
+           rendered="#{not empty movdestcaixaList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movdestcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Data"/>
+                    <ui:param name="propertyPath" value="movdestcaixa.id.data"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movdestcaixa.id.data}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movdestcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Dest caixa"/>
+                    <ui:param name="propertyPath" value="movdestcaixa.id.destCaixa"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movdestcaixa.id.destCaixa}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movdestcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Hora"/>
+                    <ui:param name="propertyPath" value="movdestcaixa.id.hora"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movdestcaixa.id.hora}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movdestcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Descricao"/>
+                    <ui:param name="propertyPath" value="movdestcaixa.descricao"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movdestcaixa.descricao}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movdestcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Destcaixa codigo"/>
+                    <ui:param name="propertyPath" value="movdestcaixa.destcaixa.codigo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movdestcaixa.destcaixa.codigo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movdestcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Funcionarios codigo"/>
+                    <ui:param name="propertyPath" value="movdestcaixa.funcionarios.codigo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movdestcaixa.funcionarios.codigo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movdestcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Planocontas codigo"/>
+                    <ui:param name="propertyPath" value="movdestcaixa.planocontas.codigo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movdestcaixa.planocontas.codigo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movdestcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Tipo"/>
+                    <ui:param name="propertyPath" value="movdestcaixa.tipo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movdestcaixa.tipo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{movdestcaixaList}"/>
+                    <ui:param name="propertyLabel" value="Valor"/>
+                    <ui:param name="propertyPath" value="movdestcaixa.valor"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_movdestcaixa.valor}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">#{messages['global.action']}</f:facet>
+            <s:link view="/private/onbyte/#{empty from ? 'Movdestcaixa' : from}.xhtml"
+                   value="#{empty from ? messages['global.view'] : messages['global.select']}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="movdestcaixaViewId">
+                <f:param name="movdestcaixaData"
+                        value="#{_movdestcaixa.id.data}"/>
+                <f:param name="movdestcaixaDestCaixa"
+                        value="#{_movdestcaixa.id.destCaixa}"/>
+                <f:param name="movdestcaixaHora"
+                        value="#{_movdestcaixa.id.hora}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/private/onbyte/MovdestcaixaEdit.xhtml"
+                   value="#{messages['global.edit']}"
+             propagation="none"
+                      id="movdestcaixaEdit"
+                rendered="#{empty from}">
+                <f:param name="movdestcaixaData"
+                        value="#{_movdestcaixa.id.data}"/>               		
+                <f:param name="movdestcaixaDestCaixa"
+                        value="#{_movdestcaixa.id.destCaixa}"/>
+                <f:param name="movdestcaixaHora"
+                        value="#{_movdestcaixa.id.hora}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/private/onbyte/MovdestcaixaList.xhtml"
+            rendered="#{movdestcaixaList.previousExists}"
+               value="#{messages.left}#{messages.left} #{messages['global.firstPage']}"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/MovdestcaixaList.xhtml"
+            rendered="#{movdestcaixaList.previousExists}"
+               value="#{messages.left} #{messages['global.previousPage']}"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{movdestcaixaList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/MovdestcaixaList.xhtml"
+            rendered="#{movdestcaixaList.nextExists}"
+               value="#{messages['global.nextPage']} #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{movdestcaixaList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/MovdestcaixaList.xhtml"
+            rendered="#{movdestcaixaList.nextExists}"
+               value="#{messages['global.lastPage']} #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{movdestcaixaList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/private/onbyte/MovdestcaixaEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="#{messages['global.create']} movdestcaixa">
+            <f:param name="movdestcaixaData"/>
+            <f:param name="movdestcaixaDestCaixa"/>
+            <f:param name="movdestcaixaHora"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

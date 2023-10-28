@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-04-04T11:57:29 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CartaContratoCanceladoSemAdvogado" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="561" leftMargin="17" rightMargin="17" topMargin="20" bottomMargin="20" uuid="38f93e3e-617e-47f1-a556-7dfefb21b797">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="localData" class="java.lang.String"/>
+	<parameter name="respUnidade" class="java.lang.String"/>
+	<parameter name="fantasia" class="java.lang.String"/>
+	<parameter name="enderecoEmpresa" class="java.lang.String"/>
+	<parameter name="advogado" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nome" class="java.lang.String"/>
+	<field name="idade" class="java.lang.Integer"/>
+	<field name="representante" class="java.lang.String"/>
+	<field name="nParcelas" class="java.lang.Integer"/>
+	<field name="vlTotDebito" class="java.lang.String"/>
+	<field name="inicioContrato" class="java.lang.String"/>
+	<field name="ultimaAulaFreq" class="java.lang.String"/>
+	<field name="ultimaParcelaPaga" class="java.lang.String"/>
+	<field name="modulo" class="java.lang.String"/>
+	<field name="cursos" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="778" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="30" y="570" width="500" height="23" uuid="e6e1f2e0-2e65-4eb4-b5bf-5d0d848d1281"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{localData}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="30" y="20" width="500" height="40" uuid="dd0f108f-a2e0-4ce0-b9f5-8619b768e6c0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="1.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idade} > 17 ? "NOTIFICAÇÃO CONFIDENCIAL para ilustríssimo senhor(a) " + $F{nome} +"." : "NOTIFICAÇÃO CONFIDENCIAL para ilustríssimo senhor(a) "+ $F{representante}  + " representante legal de "+ $F{nome} +"."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="650" width="340" height="20" uuid="10ae9fff-94fd-47f4-b135-7deac9682b6b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________________]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="670" width="340" height="21" uuid="b4be1f86-e257-475b-b51a-1b88025c4935"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{advogado}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="30" y="80" width="500" height="430" uuid="e25c4de6-d65c-4283-a1c4-355dcdeecb47"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Na qualidade de advogado e procurador da "+$P{fantasia}+", empresa com endereço na " + $P{enderecoEmpresa} +", comunico que me foi encaminhado para cobrança judicial  um débito no valor " + $F{vlTotDebito} +", oriundo do não pagamento de " + $F{nParcelas} +" parcelas do módulo "+$F{modulo}+" contendo o(s) curso(s) de " + $F{cursos}+ ", bem como da multa por quebra contratual." + '\n' + '\n' +
+
+"O curso iniciou em "+$F{inicioContrato}+", e o último dia de aula frequentado foi "+$F{ultimaAulaFreq}+", e a última parcela paga foi a de vencimento em "+$F{ultimaParcelaPaga}+", portanto seu contrato foi finalizado pelo sistema por falta de pagamento." + '\n' + '\n' +
+
+"Contudo, segue esta correspondência para que juntos, tentemos uma conciliação." + '\n' + '\n' +
+
+"Por isso, pede-se que Vossa Senhoria compareça à "+$P{enderecoEmpresa}+", para que possamos formalizar um acordo que favoreça seus interesses e permita encerrar esta questão, inclusive com eventual parcelamento, dos juros e da correção monetária." + '\n' + '\n' +
+
+"Sem mais para o momento, despeço-me, renovando meus protestos de elevada estima e distinta consideração." + '\n' + '\n' +
+
+"Caso haja interesse em voltar a fazer as aulas, estaremos à disposição para tal negociação também." + '\n' + '\n' +
+
+"Não havendo contato em até 5 (cinco) dias depois de recebida esta carta, fica Vossa Senhoria formalmente constituída em mora, de modo que serão de imediato tomadas as medidas judiciais cabíveis." + '\n' + '\n' +
+
+"Sem mais para o momento, despeço-me, renovando meus protestos de elevada estima e distinta consideração." + '\n' + '\n' +
+
+"Favor desconsiderar esta, caso já tenha ido até a escola negociar ou quitar suas parcelas em atraso."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

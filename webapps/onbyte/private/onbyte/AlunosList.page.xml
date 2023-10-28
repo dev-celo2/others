@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+   <param name="firstResult" value="#{alunosList.firstResult}"/>
+   <param name="sort" value="#{alunosList.orderColumn}"/>
+   <param name="dir" value="#{alunosList.orderDirection}"/>
+   <param name="logic" value="#{alunosList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="codigo" value="#{alunosList.alunos.codigo}"/>
+   <param name="bairro" value="#{alunosList.alunos.bairro}"/>
+   <param name="bairrocom" value="#{alunosList.alunos.bairrocom}"/>
+   <param name="cadastro" value="#{alunosList.alunos.cadastro}"/>
+   <param name="cep" value="#{alunosList.alunos.cep}"/>
+   <param name="cepcom" value="#{alunosList.alunos.cepcom}"/>
+   <param name="cidade" value="#{alunosList.alunos.cidade}"/>
+   <param name="cpf" value="#{alunosList.alunos.cpf}"/>
+   <param name="cpfresp" value="#{alunosList.alunos.cpfresp}"/>
+   <param name="email" value="#{alunosList.alunos.email}"/>
+   <param name="endereco" value="#{alunosList.alunos.endereco}"/>
+   <param name="enderecocom" value="#{alunosList.alunos.enderecocom}"/>
+   <param name="escola" value="#{alunosList.alunos.escola}"/>
+   <param name="estado" value="#{alunosList.alunos.estado}"/>
+   <param name="nome" value="#{alunosList.alunos.nome}"/>
+   <param name="nomeMae" value="#{alunosList.alunos.nomeMae}"/>
+   <param name="nomePai" value="#{alunosList.alunos.nomePai}"/>
+   <param name="resppgto" value="#{alunosList.alunos.resppgto}"/>
+   <param name="rg" value="#{alunosList.alunos.rg}"/>
+   <param name="situacao" value="#{alunosList.alunos.situacao}"/>
+   <param name="telcel" value="#{alunosList.alunos.telcel}"/>
+   <param name="telcom" value="#{alunosList.alunos.telcom}"/>
+   <param name="telres" value="#{alunosList.alunos.telres}"/>
+
+   <navigation from-action="#{alunosList.refresh}">
+        <rule if="#{alunosList.resultList.size()==1}">
+            <redirect view-id="/private/onbyte/AlunosEdit.xhtml" >
+                  <param name="alunosCodigo"
+                        value="#{alunosList.resultList.get(0).codigo}"/>
+            </redirect>
+        </rule>
+    </navigation>
+    
+</page>

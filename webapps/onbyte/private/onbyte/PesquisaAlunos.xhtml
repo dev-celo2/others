@@ -1,0 +1,193 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+	<a:form id="pesq_aluno" styleClass="edit" ajaxSubmit="true"
+		onsubmit="return testNumberAluno()" limitToList="true"
+		reRender="alunosList,matriculasList">
+		<script type="text/javascript">
+			function testNumberAluno(){
+				if (#{rich:element('pesquisaPor')}.value==1 &amp;&amp; isNaN(parseInt(#{rich:element('pesquisaaluno')}.value * 1))){
+					alert('Você deve digitar um  valor inteiro na busca!'); 
+					return false;
+				}
+				return true;
+			}
+		</script>
+		<s:label styleClass="name" style="white-space: nowrap;">
+	            #{messages['global.pesquisaCaracteres']}:
+	            <s:span styleClass="required" rendered="#{required}">*</s:span>
+		</s:label>
+		<h:panelGrid columns="2">
+			<h:inputText id="pesquisaaluno" size="50" autocomplete="false"
+				value="#{pesquisaAluno.pesquisaAluno}"
+				style="text-transform:uppercase">
+				<f:converter converterId="convertToUpper" />
+			</h:inputText>
+
+			<a:commandButton value="#{messages['global.ok']}" id="btnokAluno" reRender="#{id_render}"
+				limitToList="true"
+				ajaxSingle="true"
+				oncomplete="Richfaces.hideModalPanel('BuscarAlunosPanel');#{oncomplete}">
+				<c:if test="#{setRetornoAluno!=null}">
+					<f:setPropertyActionListener value="#{pesquisaAluno.aluno.codigo}"
+						target="#{defaultBean[setRetornoAluno]}" />
+				</c:if>
+				<c:if test="#{setRetornoMatricula!=null}">
+					<f:setPropertyActionListener
+						value="#{pesquisaAluno.matricula.codigo}"
+						target="#{defaultBean[setRetornoMatricula]}" />
+				</c:if>
+			</a:commandButton>
+		</h:panelGrid>
+		<rich:extendedDataTable noDataLabel="#{messages['global.naoHaDados']}" value="#{pesquisaAluno.alunosList}"
+			var="_alunos" height="200px" width="535px" enableContextMenu="false"
+			selection="#{pesquisaAluno.selectionAluno}" id="alunosList">
+			<a:support limitToList="true" event="onselectionchange"
+				ajaxSingle="true"
+				actionListener="#{pesquisaAluno.selectionListenerAluno}"
+				reRender="matriculasList,btnokAluno,btnFichaAluno">
+			</a:support>
+
+			<a:support event="ondblclick" limitToList="true" ajaxSingle="true"
+				reRender="#{id_render}"
+				oncomplete="Richfaces.hideModalPanel('BuscarAlunosPanel');#{oncomplete}">
+				
+				
+				<c:if test="#{setRetornoAluno!=null}">
+					<f:setPropertyActionListener value="#{pesquisaAluno.aluno.codigo}"
+						target="#{defaultBean[setRetornoAluno]}" />
+				</c:if>
+				<c:if test="#{setRetornoMatricula!=null}">
+					<f:setPropertyActionListener
+						value="#{pesquisaAluno.matricula.codigo}"
+						target="#{defaultBean[setRetornoMatricula]}" />
+				</c:if>
+			</a:support>
+
+
+			<rich:column width="60px">
+				<f:facet name="header">#{messages['alunos.codigo']}</f:facet>
+				<h:outputText value="#{_alunos.codigo}" />
+			</rich:column>
+			<rich:column width="280px">
+				<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+				<h:outputText value="#{_alunos.nome}" />
+			</rich:column>
+			<rich:column width="90px">
+				<f:facet name="header">#{messages['alunos.telresAbr']}</f:facet>
+				<h:outputText value="#{_alunos.telres}" />
+			</rich:column>
+			<rich:column width="90px">
+				<f:facet name="header">#{messages['alunos.telcelAbr']}</f:facet>
+				<h:outputText value="#{_alunos.telcel}" />
+			</rich:column>
+		</rich:extendedDataTable>
+		<rich:panel style="width: 533px; height: 40px; clear:both;">
+			<h:panelGrid columns="2">
+				<h:panelGroup style="float: right; width: 250px;">
+					<s:label styleClass="name" style="white-space: nowrap; width: 80px;">
+				            #{messages['global.pesquisaPor']}:	            
+				        </s:label>
+					<h:selectOneMenu id="pesquisaPor"
+						value="#{pesquisaAluno.pesquisaPorAlunos}">
+						<f:selectItem itemValue="1" itemLabel="#{messages['alunos.codigo']}" />
+						<f:selectItem itemValue="2" itemLabel="#{messages['alunos.nome']}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+				<h:panelGroup style="text-align: right; float: right; width: 250px;">
+					<a:commandButton actionListener="#{pesquisaAluno.clear}" id="btnFichaAluno" limitToList="true" reRender="cadastroAlunoPanel" ajaxSingle="true" value="#{messages['pesquisaAlunos.fichaAluno']}" style="height: 22px; margin: 0;" oncomplete="Richfaces.showModalPanel('cadastroAlunoPanel');">
+						<f:setPropertyActionListener  target="#{alunosHome.alunosCodigo}" value="#{pesquisaAluno.aluno.codigo}"/>
+						<f:attribute name="object" value="alunos" />
+					</a:commandButton>
+					<a:commandButton actionListener="#{pesquisaAluno.clear}" id="btnNovoAluno" immediate="true" limitToList="true" reRender="cadastroAlunoPanel" ajaxSingle="true" value="#{messages['pesquisaAlunos.novoAluno']}" style="height: 22px; margin: 0;" oncomplete="Richfaces.showModalPanel('cadastroAlunoPanel');">
+						<f:setPropertyActionListener target="#{alunosHome.instance}" value="#{null}"/>
+						<f:setPropertyActionListener target="#{alunosHome.id}" value="#{null}"/>
+						<f:attribute name="object" value="alunos" />
+					</a:commandButton>					
+				</h:panelGroup>
+			</h:panelGrid>
+		</rich:panel>
+		<h:outputText value="#{messages['pesquisaAlunos.todasMatriculas']}" />
+		<rich:extendedDataTable noDataLabel="#{messages['global.naoHaDados']}" value="#{pesquisaAluno.matriculas}"
+			var="_matriculas" height="150px" width="535px"
+			enableContextMenu="false"
+			selection="#{pesquisaAluno.selectionMatricula}" id="matriculasList">
+			<a:support limitToList="true" event="onselectionchange"
+				ajaxSingle="true"
+				actionListener="#{pesquisaAluno.selectionListenerMatricula}"
+				reRender="btnokAluno">
+			</a:support>
+			<a:support event="ondblclick" limitToList="true" ajaxSingle="true"
+				reRender="#{id_render}, pnlDados"
+				oncomplete="Richfaces.hideModalPanel('BuscarAlunosPanel');#{oncomplete}">
+				<c:if test="#{setRetornoAluno!=null}">
+					<f:setPropertyActionListener value="#{_matriculas.aluno.codigo}"
+						target="#{defaultBean[setRetornoAluno]}" />
+				</c:if>
+				<c:if test="#{setRetornoMatricula!=null}">
+					<f:setPropertyActionListener value="#{pesquisaAluno.matricula.codigo}"
+						target="#{defaultBean[setRetornoMatricula]}" />
+				</c:if>
+			</a:support>
+
+			<rich:column width="60px">
+				<f:facet name="header">#{messages['matriculas.codigoAbr']}</f:facet>
+				<h:outputText value="#{_matriculas.codigo}" />
+			</rich:column>
+			<rich:column width="80px">
+				<f:facet name="header">#{messages['matriculas.dtinicio']}</f:facet>
+				<h:outputText value="#{_matriculas.dtinicio}" />
+			</rich:column>
+			<rich:column width="80px">
+				<f:facet name="header">#{messages['matriculas.dttermino']}</f:facet>
+				<h:outputText value="#{_matriculas.dttermino}" />
+			</rich:column>
+			<rich:column width="80px">
+				<f:facet name="header">#{messages['matriculas.status']}</f:facet>
+				<h:outputText value="#{combos.getStatusMatricula().get(_matriculas.status)}" />
+			</rich:column>
+			<rich:column width="40px">
+				<f:facet name="header">#{messages['matriculas.modulosAbr']}</f:facet>
+				<h:outputText value="#{_matriculas.modulos.codigo}" />
+			</rich:column>
+			<rich:column width="280px" breakBefore="true">
+				<f:facet name="header">#{messages['modulos.descricao']}</f:facet>
+				<h:outputText value="#{_matriculas.modulos.descricao}" />
+			</rich:column>
+		</rich:extendedDataTable>
+	</a:form>
+	
+	<rich:modalPanel id="cadastroAlunoPanel" width="980" height="760"  onhide="fn_hideCadastroAlunoPanel();" zindex="1042">
+		<h:form>
+     			<a:jsFunction name="fn_hideCadastroAlunoPanel" reRender="tblAlun,alunosList,matriculasList" limitToList="true" ajaxSingle="true">
+     			    <f:setPropertyActionListener value="#{null}"
+                        target="#{pesquisaAluno.alunosList}" />
+     			</a:jsFunction>
+     	</h:form>
+     	<f:facet name="header">
+                 <h:panelGroup>
+                         <h:outputText value="#{messages['pesquisaAlunos.cadastroAlunos']}" />
+                 </h:panelGroup>
+         </f:facet>
+         <f:facet name="controls">
+             <h:panelGroup>
+                     <h:graphicImage value="/img/false.png" styleClass="hidelink"
+                             id="hidelink_CadastroAlunoPanel" />
+                     <rich:componentControl for="cadastroAlunoPanel"
+                             attachTo="hidelink_CadastroAlunoPanel" operation="hide" event="onclick" />
+             </h:panelGroup>
+         </f:facet>
+         <ui:include src="AlunosEditBody.xhtml" >
+         	<ui:param name="isModalPanel" value="#{true}"/>
+         	<ui:param name="modalPanel" value="cadastroAlunoPanel"/>
+         </ui:include>
+</rich:modalPanel>
+</ui:composition>

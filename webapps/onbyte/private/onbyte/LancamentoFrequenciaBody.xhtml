@@ -1,0 +1,424 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<script language="JavaScript">
+		function disableEnterKey(e)
+		{
+		     var key;		      
+		     if(window.event)
+		          key = window.event.keyCode; //IE
+		     else
+		          key = e.which; //firefox     
+		
+		     return (key != 13);
+		}
+	
+	</script>
+	<a:form id="lancaFrequenciaPanelform" styleClass="edit">
+
+		<a:jsFunction name="fn_load"
+			oncomplete="if(#{lancamentoFrequenciaAction.horariosAgendados.size()}>0){
+							if(#{lancamentoFrequenciaAction.checarHorarioDia()}==2){
+								if(#{lancamentoFrequenciaAction.mensalidadesesAPagarAtrasada.size()}==0||
+									confirm('#{messages['lancamentoFrequenciaAction.msgAlunoInadimp']}')){
+									fn_load_4();
+								};
+							}else if(#{lancamentoFrequenciaAction.checarHorarioDia()}==0){
+								alert('#{messages['lancamentoFrequenciaAction.msgImpRegFreq']}\\n\\n
+								        #{messages['lancamentoFrequenciaAction.msgAlunoNaoTemAulaDia']}')
+							}else{
+								alert('#{messages['lancamentoFrequenciaAction.msgImpRegFreq']}\\n\\n
+										#{messages['lancamentoFrequenciaAction.msgAlunoMotivo1']}')};
+						}else{
+							alert('#{messages['lancamentoFrequenciaAction.msgImpRegFreq']}\\n\\n
+									#{messages['lancamentoFrequenciaAction.msgAlunoNaoTemAulaHor']}')}"
+			ajaxSingle="true" bypassUpdates="false" limitToList="true" />
+
+		<a:jsFunction name="fn_load_4"
+			actionListener="#{lancamentoFrequenciaAction.registraPresencaAuto}"
+			data="#{lancamentoFrequenciaAction.messageRetornoAjax}"
+			onbeforedomupdate="showMessageRetorno(data)"
+			reRender="codigoMatricula,frequenciasTableLanc" ajaxSingle="true"
+			bypassUpdates="false" limitToList="true" />
+		<s:label styleClass="name">
+		            #{messages['matriculas.codigo']}:
+		            <s:span styleClass="required" rendered="#{required}">*</s:span>
+		</s:label>
+		<h:inputText id="codigoMatricula" required="true" size="10"
+			onkeyup="if (event.keyCode == 13) {fn_load();}" maxlength="8"
+			value="#{lancamentoFrequenciaAction.matriculasCodigo}">
+			<a:support event="onchange"
+				oncomplete="inicializarLancFreq(); document.getElementById('lancaFrequenciaPanelform:codigoMatricula').focus();"
+				reRender="div_messages,lancaFrequenciaPanelform,frequenciasTableLanc,mensalidadesesAtrasadas,horariosAgendados"
+				ajaxSingle="true" bypassUpdates="false" limitToList="true" />
+		</h:inputText>
+		<p:commandButton
+			onclick="Richfaces.showModalPanel('BuscarAlunosPanel'); return false;"
+			image="localizar" style="height: 22px; white-space: normal;" />
+
+		<p:panel>
+			<h:panelGrid columns="4">
+				<s:decorate template="layout/edit_top.xhtml">
+					<ui:define name="label">#{messages['alunos.codigo']}</ui:define>
+					<h:inputText size="5" readonly="true"
+						value="#{lancamentoFrequenciaAction.instance.alunos.codigo}">
+					</h:inputText>
+				</s:decorate>
+
+				<s:decorate template="layout/edit_top.xhtml">
+					<ui:define name="label">#{messages['alunos.nome']}</ui:define>
+					<h:inputText size="40" readonly="true"
+						value="#{lancamentoFrequenciaAction.instance.alunos.nome}">
+					</h:inputText>
+				</s:decorate>
+				<s:decorate template="layout/edit_top.xhtml">
+					<ui:define name="label">#{messages['matriculas.modulos']}</ui:define>
+					<h:inputText size="5" readonly="true"
+						value="#{lancamentoFrequenciaAction.instance.modulos.codigo}">
+					</h:inputText>
+				</s:decorate>
+				<s:decorate template="layout/edit_top.xhtml">
+					<ui:define name="label">#{messages['modulos.descricao']}</ui:define>
+					<h:inputText size="30" readonly="true"
+						value="#{lancamentoFrequenciaAction.instance.modulos.descricao}">
+					</h:inputText>
+				</s:decorate>
+			</h:panelGrid>
+			<h:panelGrid columns="5">
+				<s:decorate template="layout/edit_top.xhtml">
+					<ui:define name="label">#{messages['matriculas.dtinicio']}</ui:define>
+					<rich:calendar inputSize="10" readonly="true"
+						enableManualInput="true"
+						value="#{lancamentoFrequenciaAction.instance.dtinicio}"
+						datePattern="#{messages.pattern}" />
+				</s:decorate>
+
+				<s:decorate template="layout/edit_top.xhtml">
+					<ui:define name="label">#{messages['matriculas.qtmeses']}</ui:define>
+					<h:inputText size="5" style="text-align: right;" readonly="true"
+						value="#{lancamentoFrequenciaAction.instance.qtmeses}">
+					</h:inputText>
+				</s:decorate>
+
+				<s:decorate template="layout/edit_top.xhtml">
+					<ui:define name="label">#{messages['matriculas.dttermino']}</ui:define>
+					<rich:calendar inputSize="10" readonly="true"
+						enableManualInput="true"
+						value="#{lancamentoFrequenciaAction.instance.dttermino}"
+						datePattern="#{messages.pattern}" />
+				</s:decorate>
+
+				<s:decorate template="layout/edit_top.xhtml">
+					<ui:define name="label">#{messages['matriculas.status']}</ui:define>
+					<h:inputText size="10" readonly="true" styleClass="statusMatricula"
+						value="#{combos.getStatusMatricula().get(lancamentoFrequenciaAction.instance.status)}">
+					</h:inputText>
+				</s:decorate>
+
+				<s:decorate template="layout/edit_top.xhtml">
+					<ui:define name="label">#{messages['matriculas.tipomark']}</ui:define>
+					<h:inputText size="30" readonly="true"
+						value="#{lancamentoFrequenciaAction.instance.tipomark.descricao}">
+					</h:inputText>
+				</s:decorate>
+			</h:panelGrid>
+		</p:panel>
+	</a:form>
+	<p:tabView switchType="client" id="lancaFrequenciaPaneltabPanel"
+		activeIndex="1">
+		<p:tab name="TabName1"
+			title="#{messages['matriculasHome.HorariosAgendados']}">
+			
+			
+			<rich:extendedDataTable
+				noDataLabel="#{messages['global.naoHaDados']}"
+				id="horariosAgendados"
+				value="#{lancamentoFrequenciaAction.horariosAgendados}"
+				var="_horariosAgendados" width="705px" height="300px"
+				enableContextMenu="false"
+				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				<rich:column sortBy="#{_horariosAgendados.horarios.diasemana}">
+					<f:facet name="header">#{messages['matriculasHome.horariosDia']}</f:facet>
+					<h:outputText
+						value="#{combos.getDiasSemanaAbr().get(_horariosAgendados.horarios.diasemana)}" />
+				</rich:column>
+				<rich:column sortBy="#{_horariosAgendados.horarios.inicio}">
+					<f:facet name="header">#{messages['matriculasHome.horariosInicio']}</f:facet>
+					<h:outputText value="#{_horariosAgendados.horarios.inicio}" />
+				</rich:column>
+				<rich:column sortBy="#{_horariosAgendados.horarios.final_}">
+					<f:facet name="header">#{messages['matriculasHome.horariosTermino']}</f:facet>
+					<h:outputText value="#{_horariosAgendados.horarios.final_}" />
+				</rich:column>
+				<rich:column sortBy="#{_horariosAgendados.horarios.codigo}"
+					sortOrder="ASCENDING">
+					<f:facet name="header">#{messages['matriculasHome.horariosCodHorario']}</f:facet>
+					<h:outputText value="#{_horariosAgendados.horarios.codigo}"
+						style="float: right;">
+						<f:convertNumber />
+					</h:outputText>
+				</rich:column>
+			</rich:extendedDataTable>
+		</p:tab>
+		<p:tab name="TabName2"
+			title="#{messages['matriculasHome.frequencias']}">
+			<h:panelGrid columns="2" columnClasses="cursos_col1,cursos_col2"
+				style="width: 100%; vertical-align: top;">
+				<a:form styleClass="association" id="frequenciasChildrenLanc">
+
+					<rich:extendedDataTable
+						noDataLabel="#{messages['global.naoHaDados']}"
+						value="#{lancamentoFrequenciaAction.frequencias}"
+						var="_frequencia" enableContextMenu="false" width="580px"
+						height="300px"
+						selection="#{lancamentoFrequenciaAction.selectionFrequencia}"
+						id="frequenciasTableLanc">
+						<a:support limitToList="true" event="onselectionchange"
+							reRender="btnJustFalta, btnsFreq"
+							actionListener="#{lancamentoFrequenciaAction.selectionListenerFrequencia}"
+							bypassUpdates="false" immediate="true" ajaxSingle="true">
+						</a:support>
+						<rich:column sortBy="#{_frequencia.id.data}"
+							sortOrder="DESCENDING" width="80px">
+							<f:facet name="header">#{messages['global.date']}</f:facet>
+							<h:outputText value="#{_frequencia.id.data}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</rich:column>
+						<rich:column sortBy="#{_frequencia.diaSemana}" width="80px">
+							<f:facet name="header">#{messages['matriculasHome.horariosDia']}</f:facet>
+							<h:outputText
+								value="#{combos.getDiasSemanaAbr().get(_frequencia.diaSemana)}" />
+						</rich:column>
+						<rich:column sortBy="#{_frequencia.tipo}" width="80px">
+							<f:facet name="header">#{messages['frequencias.tipo']}</f:facet>
+							<h:outputText
+								value="#{combos.getFrequenciasTipo().get(_frequencia.tipo)}" />
+						</rich:column>
+						<rich:column sortBy="#{_frequencia.presente}" width="80px">
+							<f:facet name="header">#{messages['frequencias.presente']}</f:facet>
+							<h:outputText
+								value="#{combos.getSimNaoAbr().get(_frequencia.presente)}" />
+						</rich:column>
+						<rich:column sortBy="#{_frequencia.horarios.inicio}"
+							sortOrder="DESCENDING" width="80px">
+							<f:facet name="header">#{messages['matriculasHome.horariosInicio']}</f:facet>
+							<h:outputText value="#{_frequencia.horarios.inicio}" />
+						</rich:column>
+						<rich:column sortBy="#{_frequencia.horarios.final_}" width="80px">
+							<f:facet name="header">#{messages['matriculasHome.horariosTermino']}</f:facet>
+							<h:outputText value="#{_frequencia.horarios.final_}" />
+						</rich:column>
+						<rich:column sortBy="#{_frequencia.computador}" width="80px">
+							<f:facet name="header">#{messages['frequencias.computador']}</f:facet>
+							<h:outputText value="#{_frequencia.computador}" />
+						</rich:column>
+					</rich:extendedDataTable>
+
+				</a:form>
+
+				<f:subview>
+					<a:form>
+						<h:panelGrid id="btnsFreq">
+							<p:commandButton image="novo"
+								value="#{messages['lancamentoFrequenciaAction.btnRegistraPresenca']}"
+								style="width:100px; height: 50px" onclick="lancaFreq();"
+								rendered="#{rich:isUserInRole('Frequncia1_A')}" />
+							<a:jsFunction name="lancaFreq"
+								actionListener="#{lancamentoFrequenciaAction.registraPresenca}"
+								data="#{lancamentoFrequenciaAction.messageRetornoAjax}"
+								onbeforedomupdate="showMessageRetorno(data)" ajaxSingle="true"
+								bypassUpdates="true"
+								reRender="frequenciasChildrenLanc, btnsFreq" />
+
+							<p:commandButton image="retirada"
+								value="#{messages['lancamentoFrequenciaAction.btnRegistraFalta']}"
+								style="width:100px; height: 50px" onclick="lancaFalta();"
+								rendered="#{rich:isUserInRole('Frequncia1_R')}" />
+							<a:jsFunction name="lancaFalta" bypassUpdates="true"
+								reRender="frequenciasChildrenLanc,  btnsFreq"
+								onbeforedomupdate="showMessageRetorno(data)" ajaxSingle="true"
+								actionListener="#{lancamentoFrequenciaAction.registraFalta}"
+								data="#{lancamentoFrequenciaAction.messageRetornoAjax}" />
+
+							<p:commandButton id="btnJustFalta" onclick="justFalta();"
+								image="confirma"
+								value="#{messages['lancamentoFrequenciaAction.btnJustificaFalta']}"
+								disabled="#{!lancamentoFrequenciaAction.frequencia.presente.equals('N')}"
+								style="width:100px; height: 50px"
+								rendered="#{rich:isUserInRole('Frequncia1_R')}" />
+							<a:jsFunction name="justFalta"
+								actionListener="#{lancamentoFrequenciaAction.justificaFalta}"
+								data="#{lancamentoFrequenciaAction.messageRetornoAjax}"
+								onbeforedomupdate="showMessageRetorno(data)" ajaxSingle="true"
+								bypassUpdates="true" reRender="frequenciasChildrenLanc" />
+
+							<p:commandButton image="delete"
+								value="#{messages['lancamentoFrequenciaAction.btnRemoveFrequencia']}"
+								rendered="#{rich:isUserInRole('Frequncia1_R')}"
+								style="width:100px; height: 50px"
+								onclick="excluiPresDlg.show();" />
+							<p:confirmDialog widgetVar="excluiPresDlg" id="excluiPresDlg"
+								hideEffect="explode" header="Remover Registro"
+								message="Deseja Remover o Registro?" width="400"
+								showEffect="clip" closable="false" closeOnEscape="true"
+								severity="alert">
+								<h:panelGroup layout="block" style="text-align: right">
+									<p:commandButton value="Sim"
+										onclick="fn_ApagarFrequenciaLanc();excluiPresDlg.hide();" />
+									<p:commandButton value="#{messages['global.nao']}"
+										onclick="excluiPresDlg.hide();" />
+								</h:panelGroup>
+							</p:confirmDialog>
+							<a:jsFunction name="fn_ApagarFrequenciaLanc"
+								actionListener="#{lancamentoFrequenciaAction.removeFrequencia}"
+								data="#{lancamentoFrequenciaAction.messageRetornoAjax}"
+								onbeforedomupdate="showMessageRetorno(data)" ajaxSingle="true"
+								bypassUpdates="true" limitToList="true"
+								reRender="frequenciasChildrenLanc" />
+						</h:panelGrid>
+					</a:form>
+				</f:subview>
+			</h:panelGrid>
+		</p:tab>
+		<p:tab name="TabName3" title="#{messages['matriculasHome.horario']}">
+			<a:form styleClass="association" id="horariosChildrenLanc">
+				<h:panelGrid columns="2" style="width: 100%; vertical-align: top;">
+					<rich:extendedDataTable
+						noDataLabel="#{messages['global.naoHaDados']}" id="horariosTable"
+						value="#{lancamentoFrequenciaAction.horariosDisp}" var="_horarios"
+						width="315px" height="300px" enableContextMenu="false"
+						selection="#{lancamentoFrequenciaAction.selectionHorario}">
+						<a:support limitToList="true" event="onselectionchange"
+							actionListener="#{lancamentoFrequenciaAction.selectionListenerHorario}">
+						</a:support>
+						<rich:column>
+							<f:facet name="header">#{messages['matriculasHome.horario']}</f:facet>
+							<h:outputText value="#{_horarios.codigo}" style="float: right;">
+								<f:convertNumber />
+							</h:outputText>
+						</rich:column>
+						<rich:column sortBy="#{_horarios.inicio}" sortOrder="ASCENDING"
+							selfSorted="false">
+							<f:facet name="header">#{messages['matriculasHome.horariosInicio']}</f:facet>
+							<h:outputText value="#{_horarios.inicio}" />
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">#{messages['matriculasHome.horariosTermino']}</f:facet>
+							<h:outputText value="#{_horarios.final_}" />
+						</rich:column>
+					</rich:extendedDataTable>
+					<h:panelGrid>
+						<h:panelGroup>
+							<s:label>#{messages['matriculasHome.horariosDia']}:</s:label>
+							<rich:calendar id="dataLancNovaFreq" inputSize="10"
+								enableManualInput="true"
+								value="#{lancamentoFrequenciaAction.dataLancNovaFreq}"
+								datePattern="#{messages.pattern}">
+								<a:support event="oninputchange"
+									reRender="diasemana,horariosTable" bypassUpdates="false"
+									ajaxSingle="true" />
+								<a:support event="oncollapse" reRender="diasemana,horariosTable"
+									bypassUpdates="false" ajaxSingle="true" />
+							</rich:calendar>
+							<span>&nbsp;&nbsp;</span>
+							<h:outputText id="diasemana"
+								value="#{combos.getDiasSemanaAbr().get(lancamentoFrequenciaAction.diaSemana)}" />
+						</h:panelGroup>
+						<h:panelGrid columns="2">
+							<h:panelGroup>
+								<h:selectOneRadio
+									value="#{lancamentoFrequenciaAction.tipo_aula}"
+									layout="pageDirection">
+									<f:selectItem itemValue="1"
+										itemLabel="#{messages['lancamentoFrequenciaAction.tipo_aula1']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{messages['lancamentoFrequenciaAction.tipo_aula2']}" />
+									<f:selectItem itemValue="3"
+										itemLabel="#{messages['lancamentoFrequenciaAction.tipo_aula3']}" />
+									<f:selectItem itemValue="4"
+										itemLabel="#{messages['lancamentoFrequenciaAction.tipo_aula4']}" />
+								</h:selectOneRadio>
+							</h:panelGroup>
+							<h:panelGroup>
+								<s:label>#{messages['lancamentoFrequenciaAction.computadorNro']}:</s:label>
+								<h:inputText inputSize="3" size="3"
+									value="#{lancamentoFrequenciaAction.computador}" />
+								<br />
+								<p:commandButton image="novo" onclick="lancaFreq2();"
+									value="#{messages['matriculasHome.btnLancaFrequencia']}"
+									style="width:100px; height: 50px; white-space: normal;"
+									rendered="#{rich:isUserInRole('Frequncia1_A')}" />
+								<a:jsFunction name="lancaFreq2"
+									actionListener="#{lancamentoFrequenciaAction.lancarFrequencia}"
+									data="#{lancamentoFrequenciaAction.messageRetornoAjax}"
+									onbeforedomupdate="showMessageRetorno(data)"
+									reRender="frequenciasTableLanc" />
+							</h:panelGroup>
+						</h:panelGrid>
+
+					</h:panelGrid>
+				</h:panelGrid>
+			</a:form>
+		</p:tab>
+		<p:tab name="TabName4"
+			title="#{messages['lancamentoFrequenciaAction.mensalidadeAtrasadas']}">
+			<rich:extendedDataTable
+				noDataLabel="#{messages['global.naoHaDados']}"
+				id="mensalidadesesAtrasadas"
+				value="#{lancamentoFrequenciaAction.mensalidadesesAPagarAtrasada}"
+				var="_mensalidadesesAtrasadas" width="705px" height="300px"
+				enableContextMenu="false"
+				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				<rich:column sortBy="#{_mensalidadesesAtrasadas.id.parcela}">
+					<f:facet name="header">#{messages['mensalidades.parcela']}</f:facet>
+					<h:outputText value="#{_mensalidadesesAtrasadas.id.parcela}" />
+				</rich:column>
+				<rich:column sortBy="#{_mensalidadesesAtrasadas.dtaVenc}"
+					sortOrder="ASCENDING">
+					<f:facet name="header">#{messages['mensalidades.dtaVenc']}</f:facet>
+					<h:outputText value="#{_mensalidadesesAtrasadas.dtaVenc}">
+						<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+							timeZone="#{timeZoneSelector.timeZone}"
+							pattern="#{messages.pattern}" />
+					</h:outputText>
+				</rich:column>
+				<rich:column sortBy="#{_mensalidadesesAtrasadas.tipo}">
+					<f:facet name="header">#{messages['mensalidades.tipo']}</f:facet>
+					<h:outputText
+						value="#{combos.getMensalidadesTipo().get(_mensalidadesesAtrasadas.tipo)}" />
+				</rich:column>
+				<rich:column sortBy="#{_mensalidadesesAtrasadas.valor}">
+					<f:facet name="header">#{messages['mensalidades.valor']}</f:facet>
+					<h:outputText value="#{_mensalidadesesAtrasadas.valor}"
+						style="float: right;">
+						<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+					</h:outputText>
+				</rich:column>
+			</rich:extendedDataTable>
+		</p:tab>
+	</p:tabView>
+
+
+	<script type="text/javascript">
+		inicializarLancFreq();
+		function inicializarLancFreq(){
+			jQuery(function($){
+				$("#horariosChildrenLanc\\:dataLancNovaFreqInputDate").mask("99/99/9999"); //maskedinput
+			});
+		}
+	</script>
+
+</ui:composition>

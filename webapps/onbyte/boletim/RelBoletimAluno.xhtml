@@ -1,0 +1,204 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayoutboletim.xhtml">
+
+	<ui:define name="body">
+		<a:keepAlive beanName="boletimAlunosAction" ajaxOnly="true" />
+		<a:form id="boletimAlunosAction" styleClass="edit" ajaxSubmit="true"
+			limitToList="true">
+			<h:panelGrid>
+				<s:div styleClass="name"
+					style="white-space: nowrap; background-color: #ffffff; width:750px; bac">
+
+					<h:panelGrid columns="2">
+						<s:span
+							style="font-family: Arial; margin:4px; font-weight: bold; font-size: 18px;">#{messages['boletimAlunosAction.digiteNome']}:</s:span>
+						<h:inputText id="pesquisaaluno" autocomplete="false"
+							value="#{boletimAlunosAction.pesquisaAluno}"
+							style="text-transform:uppercase; width:335px">
+							<a:support event="onkeyup" reRender="alunosList,matriculasList"
+								ajaxSingle="true" bypassUpdates="false" requestDelay="30"
+								ignoreDupResponses="false" limitToList="true">
+								<f:setPropertyActionListener
+									target="#{boletimAlunosAction.alunosList}" value="#{null}" />
+								<f:setPropertyActionListener
+									target="#{boletimAlunosAction.matriculas}" value="#{null}" />
+							</a:support>
+							<f:converter converterId="convertToUpper" />
+						</h:inputText>
+					</h:panelGrid>
+				</s:div>
+
+
+				<rich:extendedDataTable
+					noDataLabel="#{messages['global.naoHaDados']}"
+					value="#{boletimAlunosAction.alunosList}" id="alunosList"
+					headerClass="tableBoletim" var="_alunos" height="180px"
+					width="750px" enableContextMenu="false"
+					style="width:100%; text-align:center;"
+					selection="#{boletimAlunosAction.selectionAluno}">
+					<a:support limitToList="true" event="onselectionchange"
+						ajaxSingle="true"
+						actionListener="#{boletimAlunosAction.selectionListenerAluno}"
+						reRender="matriculasList,pnlGbuttons">
+					</a:support>
+
+					<rich:column width="740px">
+						<h:outputText value="#{_alunos.nome}" />
+					</rich:column>
+				</rich:extendedDataTable>
+
+				<s:div styleClass="name"
+					style="white-space: nowrap; background-color: #ffffff; width:750px">
+					<s:span
+						style="font-family: Arial; margin:4px; font-weight: bold; font-size: 18px;">#{messages['boletimAlunosAction.msgEscolhaMat']}</s:span>
+				</s:div>
+				<rich:extendedDataTable
+					noDataLabel="#{messages['global.naoHaDados']}"
+					value="#{boletimAlunosAction.matriculas}"
+					headerClass="tableBoletim" var="_matriculas" height="150px"
+					width="750px" enableContextMenu="false"
+					style="width:100%; text-align:center;"
+					selection="#{boletimAlunosAction.selectionMatricula}"
+					id="matriculasList">
+					<a:support limitToList="true" event="onselectionchange"
+						ajaxSingle="true"
+						actionListener="#{boletimAlunosAction.selectionListenerMatricula}"
+						reRender="pnlGbuttons">
+					</a:support>
+
+					<rich:column width="740px">
+						<h:outputText
+							value="#{_matriculas.modulos.descricao} - #{_matriculas.codigo}" />
+					</rich:column>
+				</rich:extendedDataTable>
+			</h:panelGrid>
+			<h:panelGrid>
+				<h:panelGroup style="text-align: center;  width: 250px;" id="pnlGbuttons">
+					
+					<p:commandButton value="#{messages['global.ok']}" id="btnok"
+						image="confirma" onclick="boletim();"
+						style="height: 30px; width:100px;  margin: 0; font-weight: bold;" />
+
+					<a:jsFunction name="boletim" limitToList="true"
+						reRender="boletimAlunoPanel"
+						oncomplete="Richfaces.showModalPanel('boletimAlunoPanel');">
+						<f:setPropertyActionListener
+							value="#{boletimAlunosAction.matricula.codigo}"
+							target="#{boletimAlunosAction.matriculaCodigo}" />
+					</a:jsFunction>
+
+
+					<p:commandButton value="#{messages['global.finalizar']}"
+						image="excluir" onclick="window.close(); return false;"
+						style="height: 30px; width:100px;  margin: 0; font-weight: bold;" />
+				</h:panelGroup>
+			</h:panelGrid>
+			<script type="text/javascript">
+				function inicializar(){
+					#{rich:element('pesquisaaluno')}.focus();
+				}
+				inicializar();
+			</script>
+		</a:form>
+
+		<rich:modalPanel id="boletimAlunoPanel" width="700" height="500"
+			onhide="inicializar();" resizeable="false">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="#{messages['boletimAlunosAction.title']}" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/false.png" styleClass="hidelink"
+						id="hidelink_boletimAlunoPanel" />
+					<rich:componentControl for="boletimAlunoPanel"
+						attachTo="hidelink_boletimAlunoPanel" operation="hide"
+						event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<h:form>
+				<h:inputHidden value="#{boletimAlunosAction.matriculaCodigo}" />
+				<h:panelGrid styleClass="panelPaddingZero"
+					style="width:100%; height:100%; background: url('/onbyte/images/background.png') repeat-x #ffffff;">
+					<h:panelGroup>
+						<img src="#{request.contextPath}/images/logo_escola.PNG"
+							width="171" height="49" style="margin-top: 4px" />
+						<rich:spacer width="10px" />
+						<h:outputText value="#{messages['boletimAlunosAction.title']}"
+							style="font-family: Arial; font-weight: bold; font-size: 25px;" />
+					</h:panelGroup>
+					<s:div id="content" style="height:350px ;padding: 0px;">
+						<h:panelGrid>
+							<s:div styleClass="name"
+								style="white-space: nowrap; background-color: #D8D8D8; width:650px">
+								<s:span
+									style="font-family: Arial; margin:4px; font-weight: bold; font-size: 18px; color: red;">#{messages['matriculas.alunos'].toUpperCase()}: #{boletimAlunosAction.matricula.alunos.nome}</s:span>
+							</s:div>
+							<s:div styleClass="name"
+								style="white-space: nowrap; background-color: #D8D8D8; width:650px">
+								<s:span
+									style="font-family: Arial; margin:4px; font-weight: bold; font-size: 14px;">#{messages['boletimAlunosAction.msgOpcaoDesejada']}:</s:span>
+							</s:div>
+						</h:panelGrid>
+						<h:panelGrid>
+							<h:commandButton
+								value="#{messages['boletimAlunosAction.bntNotaAluno']}"
+								actionListener="#{boletimAlunosAction.exportarRelatorioBoletimNotasPDF}"
+								style="margin: 0; height:34px; width:165px; font-weight: bold;"
+								reRender="boletimAlunosAction, vlTotal" limitToList="true">
+							</h:commandButton>
+
+							<h:commandButton
+								value="#{messages['boletimAlunosAction.bntFrequencia']}"
+								actionListener="#{boletimAlunosAction.exportarRelatorioBoletimFrequenciasPDF}"
+								style="margin: 0; height:34px; width:165px; font-weight: bold;"
+								reRender="boletimAlunosAction, vlTotal" limitToList="true">
+							</h:commandButton>
+
+							<h:commandButton
+								value="#{messages['boletimAlunosAction.bntSugestao']}"
+								actionListener="#{boletimAlunosAction.exportarRelatorioBoletimSugestaoPDF}"
+								style="margin: 0; height:34px; width:165px; font-weight: bold;"
+								reRender="boletimAlunosAction, vlTotal" limitToList="true">
+							</h:commandButton>
+
+
+							<h:commandButton
+								value="#{messages['boletimAlunosAction.bntComentario']}"
+								actionListener="#{boletimAlunosAction.exportarRelatorioBoletimComentariosPDF}"
+								style="margin: 0; height:34px; width:165px; font-weight: bold;"
+								reRender="boletimAlunosAction, vlTotal" limitToList="true">
+							</h:commandButton>
+
+
+							<s:button
+								value="#{messages['boletimAlunosAction.bntAlterAluno']}"
+								onclick="Richfaces.hideModalPanel('boletimAlunoPanel'); return false;"
+								style="margin: 0; height:34px; width:165px; font-weight: bold;">
+							</s:button>
+
+							<rich:spacer height="34px" />
+
+							<s:button value="#{messages['boletimAlunosAction.bntFechar']}"
+								onclick="window.close(); return false;"
+								style="margin: 0; height:34px; width:165px; font-weight: bold;">
+							</s:button>
+
+						</h:panelGrid>
+					</s:div>
+				</h:panelGrid>
+			</h:form>
+		</rich:modalPanel>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+
+<head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Sistema Escola</title>
+
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/css/default.css" />
+	
+	<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/css/font-awesome/css/font-awesome.min.css" />
+
+
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/css/style2.css" />
+
+
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/css/skin/aristo/theme.css" />
+
+
+<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/stylesheet/theme.css" />
+
+<script type="text/javascript"
+	src="#{request.contextPath}/js/moniloc.js" />
+	
+	<link rel="stylesheet" type="text/css"
+	href="#{request.contextPath}/css/newMenu.css" />
+	
+<script type="text/javascript"
+	src="#{request.contextPath}/js/newMenu.js" />
+
+<link rel="" />
+
+<p:resources exclude="/jquery/jquery.js"/>	
+
+
+<ui:insert name="head" />
+
+
+<script language="JavaScript">
+		function moveRelogio() {
+
+			dayName = new Array("Domingo", "Segunda", "Terça", "Quarta",
+					"Quinta", "Sexta", "Sábado")
+			monName = new Array("Janeiro", "Fevereiro", "Março", "Abril",
+					"Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
+					"Novembro", "Dezembro")
+
+			now = new Date()
+
+			hora = now.getHours()
+			minuto = now.getMinutes()
+			segundo = now.getSeconds()
+			diasemana = dayName[now.getDay()]
+
+			if (diasemana.toString() != "Sábado") {
+				diasemana = diasemana + "-Feira";
+			}
+
+			if (segundo.toString().length == 1) {
+				segundo = "0" + segundo
+			}
+
+			if (minuto.toString().length == 1) {
+				minuto = "0" + minuto
+			}
+
+			if (hora.toString().length == 1) {
+				hora = "0" + hora
+			}
+
+			//<![CDATA[
+
+			if (hora < 12) {
+
+				periodo = " - Bom Dia!"
+
+			} else if (hora >= 12 && hora < 18) {
+
+				periodo = " - Boa Tarde!"
+
+			} else {
+
+				periodo = " - Boa Noite!"
+
+			}
+
+			//]]>
+
+			horaImprimivel = diasemana + ", " + now.getDate() + " de "
+					+ monName[now.getMonth()] + " de " + now.getFullYear()
+					+ "  -  " + hora + ":" + minuto + ":" + segundo
+
+			document.form_relogio.relogio.value = horaImprimivel + periodo
+
+			setTimeout("moveRelogio()", 1000)
+		}
+	</script>
+	
+		<style>
+	
+	
+	.ui-growl-item-container {
+     background: #5cb85c;
+     color:white;
+     font-size:12px;
+     font-style: Times New Roman;
+ } 
+	
+	.ui-growl-image { 
+    width: 40px;
+    height: 40px;
+    float: left;
+}
+
+ 
+	
+	</style>
+	
+
+
+</head>
+
+
+
+<body onload="moveRelogio();">
+
+
+
+<a:outputPanel id="msgGlobal">
+		<p:growl life="8000" infoIcon="/images/like.png" errorIcon="/images/dislike.png"/>
+	</a:outputPanel>
+
+	<f:view id="viewPrincipal">
+
+		<ui:insert name="metadata" />
+
+
+		<ui:fragment rendered="#{identity.loggedIn}">
+
+			<ui:insert name="menu">
+				<ui:include src="/WEB-INF/facelets/layout/menuonbyte.xhtml" />
+			</ui:insert>
+
+		</ui:fragment>
+
+		<div id="content">
+
+			<!--  	<s:div id="div_messages">
+				<h:messages id="messages" globalOnly="true" styleClass="message"
+					errorClass="errormsg" infoClass="infomsg" warnClass="warnmsg"
+					rendered="#{showGlobalMessages != 'false'}" />
+			</s:div> -->
+
+
+			<ui:insert name="body" />
+		</div>
+
+
+		<div id="footer">
+			<br />
+		</div>
+	</f:view>
+	
+	
+	<h:form>
+			
+				<a:status onstart="modalWait.show();" onstop="modalWait.hide();" />
+
+				<p:dialog id="modalDialog" zindex="10000" appendToBody="true" 
+					hideEffect="slide" showEffect="slide" widgetVar="modalWait"
+					modal="true" height="240" width="572">
+
+					<center>
+						<h:graphicImage value="/images/loading.gif" width="550"
+							height="200" />
+					</center>
+
+				</p:dialog>
+				
+			</h:form>
+
+
+</body>
+
+
+
+</html>

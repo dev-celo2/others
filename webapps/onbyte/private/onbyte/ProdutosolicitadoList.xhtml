@@ -1,0 +1,508 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutoncash.xhtml">
+
+
+	<ui:define name="content">
+
+		<h:form id="frmProd">
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					PRODUTOS SOLICITADOS
+					<div class="input-group"
+						style="width: 410px; float: right; top: -7px">
+						<span class="input-group-addon" id="basic-addon1">Pesquisar
+							Por </span>
+						<h:panelGrid columns="2">
+
+							<h:selectOneMenu id="tpPesqAlunos"
+								styleClass="form-control btn btn-default"
+								value="#{produtosolicitadoList.tipoPesq}">
+								<f:selectItem itemLabel="Pedido" itemValue="1" />
+								<f:selectItem itemLabel="Aluno" itemValue="2" />
+								<f:selectItem itemLabel="Produto" itemValue="3" />
+								<f:selectItem itemLabel="Status" itemValue="4" />
+							</h:selectOneMenu>
+							<h:inputText styleClass="form-control" style="width:200px;"
+									value="#{produtosolicitadoList.param}">
+									<a:support event="onkeyup" reRender="grpProd" />
+								</h:inputText>
+
+							
+						</h:panelGrid>
+
+
+					</div>
+				</div>
+				<div class="panel-body" id="pnl">
+
+					<div class="box-content">
+
+						<a:outputPanel id="grpProd">
+							<table id="tblProd" width="100%"
+								style="text-align: center; text-transform: uppercase;"
+								class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+								<thead>
+									<tr>
+										<th style="width: 10%; text-align: center;"><a:commandLink
+												value="Pedido"
+												actionListener="#{produtosolicitadoList.orderby(1)}"
+												reRender="grpProd">
+
+												<c:if
+													test='#{(produtosolicitadoList.campoOrder == 1) and (produtosolicitadoList.orderCampo == "asc")}'>
+													<i class="glyphicon glyphicon-sort-by-order" />
+												</c:if>
+
+												<c:if
+													test='#{produtosolicitadoList.campoOrder == 1 and produtosolicitadoList.orderCampo == "desc"}'>
+													<i class="glyphicon glyphicon-sort-by-order-alt" />
+												</c:if>
+
+											</a:commandLink></th>
+
+										<th style="text-align: center;"><a:commandLink
+												value="Produto"
+												actionListener="#{produtosolicitadoList.orderby(2)}"
+												reRender="grpProd">
+
+												<c:if
+													test='#{(produtosolicitadoList.campoOrder == 2) and (produtosolicitadoList.orderCampo == "asc")}'>
+													<i class="glyphicon glyphicon-sort-by-alphabet" />
+												</c:if>
+
+												<c:if
+													test='#{produtosolicitadoList.campoOrder == 2 and produtosolicitadoList.orderCampo == "desc"}'>
+													<i class="glyphicon glyphicon-sort-by-alphabet-alt" />
+												</c:if>
+
+											</a:commandLink></th>
+										<th style="text-align: center;"><a:commandLink
+												value="Aluno"
+												actionListener="#{produtosolicitadoList.orderby(3)}"
+												reRender="grpProd">
+
+												<c:if
+													test='#{(produtosolicitadoList.campoOrder == 3) and (produtosolicitadoList.orderCampo == "asc")}'>
+													<i class="glyphicon glyphicon-sort-by-alphabet" />
+												</c:if>
+
+												<c:if
+													test='#{produtosolicitadoList.campoOrder == 3 and produtosolicitadoList.orderCampo == "desc"}'>
+													<i class="glyphicon glyphicon-sort-by-alphabet-alt" />
+												</c:if>
+
+											</a:commandLink></th>
+										<th style="text-align: center;"><a:commandLink
+												value="Solicitado"
+												actionListener="#{produtosolicitadoList.orderby(4)}"
+												reRender="grpProd">
+
+												<c:if
+													test='#{(produtosolicitadoList.campoOrder == 4) and (produtosolicitadoList.orderCampo == "asc")}'>
+													<i class="glyphicon glyphicon-sort-by-attributes" />
+												</c:if>
+
+												<c:if
+													test='#{produtosolicitadoList.campoOrder == 4 and produtosolicitadoList.orderCampo == "desc"}'>
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" />
+												</c:if>
+
+											</a:commandLink></th>
+										<th style="text-align: center;"><a:commandLink
+												value="Finalizado"
+												actionListener="#{produtosolicitadoList.orderby(5)}"
+												reRender="grpProd">
+
+												<c:if
+													test='#{(produtosolicitadoList.campoOrder == 5) and (produtosolicitadoList.orderCampo == "asc")}'>
+													<i class="glyphicon glyphicon-sort-by-attributes" />
+												</c:if>
+
+												<c:if
+													test='#{produtosolicitadoList.campoOrder == 5 and produtosolicitadoList.orderCampo == "desc"}'>
+													<i class="glyphicon glyphicon-sort-by-attributes-alt" />
+												</c:if>
+
+											</a:commandLink></th>
+										<th style="text-align: center;"><a:commandLink
+												value="Status"
+												actionListener="#{produtosolicitadoList.orderby(6)}"
+												reRender="grpProd">
+
+												<c:if
+													test='#{(produtosolicitadoList.campoOrder == 6) and (produtosolicitadoList.orderCampo == "asc")}'>
+													<i class="glyphicon glyphicon-sort-by-alphabet" />
+												</c:if>
+
+												<c:if
+													test='#{produtosolicitadoList.campoOrder == 6 and produtosolicitadoList.orderCampo == "desc"}'>
+													<i class="glyphicon glyphicon-sort-by-alphabet-alt" />
+												</c:if>
+
+											</a:commandLink></th>
+
+										<th style="text-align: center;">#{messages['produtomoeda.acao']}</th>
+
+
+
+									</tr>
+								</thead>
+
+
+								<tbody class="searchable" id="tbody">
+
+									<c:forEach items="#{produtosolicitadoList.resultList}"
+										var="prod">
+										<tr>
+
+											<td class="center"><h:outputText value="#{prod.id}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{prod.produtomoeda.descricao}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{prod.alunos.nome}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{prod.dataSolicitado}" converter="javax.faces.DateTime" /></td>
+
+											<td class="center"><h:outputText
+													value="#{prod.dataVenda}"
+													converter="javax.faces.DateTime" /></td>
+
+											<td class="center"><h:outputText
+													styleClass="#{produtosolicitadoList.getClass(prod.status)}"
+													value="#{produtosolicitadoList.getStatus(prod.status)}" />
+
+
+
+											</td>
+
+											<td>
+										
+											
+											<a:commandLink
+													onclick="$JQuery('#dialogImagem').modal('show');"
+													actionListener="#{produtosolicitadoHome.produtoSol(prod)}"
+													reRender="imgProd" styleClass="btn btn-primary"
+													title="VIZUALIZAR IMAGEM DO PRODUTO">
+													<i class="glyphicon glyphicon-search" />
+												</a:commandLink> <rich:spacer width="2px" /> <a:commandLink
+													onclick="$JQuery('#dialogEntrega').modal('show');"
+													reRender="entregaProd"
+													actionListener="#{produtosolicitadoHome.produtoSol(prod)}"
+													styleClass="btn btn-success" title="ENTREGAR">
+													<i class="glyphicon glyphicon-ok" />
+												</a:commandLink> <rich:spacer width="2px" /> <a:commandLink
+													styleClass="btn btn-danger" reRender="cancelProd"
+													actionListener="#{produtosolicitadoHome.produtoSol(prod)}"
+													onclick="$JQuery('#dialogCancel').modal('show');"
+													title="CANCELAR">
+													<i class="glyphicon glyphicon-remove" />
+												</a:commandLink></td>
+
+										</tr>
+
+									</c:forEach>
+
+								</tbody>
+
+								<h:panelGrid columns="3" style="width:100%; text-align:center;">
+
+									<a:outputPanel>
+										<h:selectOneMenu id="perPage"
+											value="#{produtosolicitadoList.qtdRegPag}">
+											<f:selectItem itemValue="10" itemLabel="10" />
+											<f:selectItem itemValue="15" itemLabel="20" />
+											<f:selectItem itemValue="20" itemLabel="30" />
+											<a:support event="onchange" reRender="grpProd" />
+										</h:selectOneMenu>
+										<span class="label label-default">REGISTROS POR
+											#{messages['produtomoeda.pagina']}</span>
+									</a:outputPanel>
+
+									<a:outputPanel>
+										<span class="label label-default">#{produtosolicitadoList.page}
+										</span>
+									</a:outputPanel>
+
+
+									<span class="label label-default">#{produtosolicitadoList.totReg}
+										REGISTROS ENCONTRADOS</span>
+
+									<a:outputPanel />
+
+									<a:outputPanel>
+										<rich:spacer height="40px" />
+										<a:commandButton image="/images/primeiro.png" title="PRIMEIRO"
+											reRender="grpProd" styleClass="btn btn-default"
+											action="#{produtosolicitadoList.first}" id="firstPage" />
+
+										<a:commandButton image="/images/anterior.png" title="ANTERIOR"
+											reRender="grpProd" styleClass="btn btn-default"
+											action="#{produtosolicitadoList.paginacion('prior')}"
+											id="previousPage" />
+
+										<a:commandButton image="/images/proximo.png"
+											title="#{messages['global.proximo']}" reRender="grpProd"
+											styleClass="btn btn-default"
+											action="#{produtosolicitadoList.paginacion('next')}"
+											id="nextPage" />
+
+										<a:commandButton image="/images/ultimo.png" reRender="grpProd"
+											styleClass="btn btn-default dropdown-toggle"
+											title="#{messages['global.ultimo']}"
+											action="#{produtosolicitadoList.paginacion('last')}" />
+									</a:outputPanel>
+
+								</h:panelGrid>
+
+							</table>
+
+						</a:outputPanel>
+
+					</div>
+
+
+				</div>
+				<div class="panel-footer"></div>
+			</div>
+
+			<!-- Modal Imagem produto -->
+			<div class="modal fade" id="dialogImagem" role="dialog">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header ">
+							<h4 class="modal-title">IMAGEM DO PRODUTO</h4>
+						</div>
+						<div class="modal-body">
+
+							<p:outputPanel id="imgProd">
+
+								<center>
+									<h:panelGrid>
+										<p:graphicImage
+											value="/image/#{produtosolicitadoHome.prodsolicitado.produtomoeda.idproduto}_0.jpg" />
+									</h:panelGrid>
+
+									<h2>
+										<span class="label label-danger">#{produtosolicitadoHome.prodsolicitado.produtomoeda.descricao}</span>
+									</h2>
+
+									<h4>
+										<span class="label label-default">Estoque:
+											#{produtosolicitadoHome.prodsolicitado.produtomoeda.estoque}
+											- Custa: R$
+											#{produtosolicitadoHome.prodsolicitado.produtomoeda.qtdedinheiro}
+											Reais +
+											#{produtosolicitadoHome.prodsolicitado.produtomoeda.qtdemoedas}
+											Moedas</span>
+									</h4>
+								</center>
+
+							</p:outputPanel>
+
+						</div>
+						<div class="modal-footer">
+							<a:commandLink styleClass="btn btn-default" reRender="grpProd"
+								onclick="$JQuery('#dialogImagem').modal('hide');"
+								rendered="#{!produtomoedaHome.editable}">
+								<i class="glyphicon glyphicon-ok" />
+								<span>OK</span>
+							</a:commandLink>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<!-- Fim Modal Imagem produto -->
+
+
+			<!-- Modal Cancel produto -->
+			<div id="dialogCancel" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<a:outputPanel id="cancelProd">
+							<div class="modal-header">
+								<h4 class="modal-title">Cancelar Produto</h4>
+							</div>
+							<div class="modal-body">
+								<center>
+
+
+									<div class="alert alert-warning">
+										<h2>
+											<i class="glyphicon glyphicon-question-sign" />
+										</h2>
+										Deseja Realmente Cancelar o Pedido
+										#{produtosolicitadoHome.prodsolicitado.id}?
+									</div>
+
+									<span class="label label-default">IMAGEM DO PRODUTO</span>
+									<rich:spacer height="20px" />
+									<h:panelGrid>
+										<p:graphicImage width="300px" height="300px"
+											value="/image/#{produtosolicitadoHome.prodsolicitado.produtomoeda.idproduto}_0.jpg" />
+									</h:panelGrid>
+
+									<rich:spacer height="10px" />
+
+									<p class="text-warning">
+										<small> ALUNO(A):
+											#{produtosolicitadoHome.prodsolicitado.alunos.nome}</small>
+
+									</p>
+
+								</center>
+
+							</div>
+							<div class="modal-footer">
+
+								<a:commandLink styleClass="btn btn-success"
+									actionListener="#{produtosolicitadoHome.Cancel}"
+									reRender="grpProd, growl, pedEsp, listPedSol"
+									oncomplete="$JQuery('#modalMsgs').fadeTo(2000, 500).slideUp(1000, function(){$JQuery('#modalMsgs').alert('close');}); $JQuery('#dialogCancel').modal('hide');">
+									<i class="glyphicon glyphicon-ok" />
+									Sim
+									</a:commandLink>
+								<rich:spacer width="2px" />
+								<a:commandLink styleClass="btn btn-danger"
+									onclick="$JQuery('#dialogCancel').modal('hide');">
+									<i class="glyphicon glyphicon-remove" />
+									#{messages['global.nao']}
+									</a:commandLink>
+
+
+							</div>
+						</a:outputPanel>
+					</div>
+				</div>
+			</div>
+			<!--Fim Modal Cancel produto -->
+
+			<!-- Modal Cancel entregar -->
+			<div id="dialogEntrega" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<a:outputPanel id="entregaProd">
+							<div class="modal-header">
+								<h4 class="modal-title">Entregar Produto</h4>
+							</div>
+							<div class="modal-body">
+								<center>
+
+
+									<div class="alert alert-info">
+										<h2>
+											<i class="glyphicon glyphicon-question-sign" />
+										</h2>
+										Deseja Realmente Entregar o Pedido
+										#{produtosolicitadoHome.prodsolicitado.id}?
+									</div>
+
+									<span class="label label-default">IMAGEM DO PRODUTO</span>
+									<rich:spacer height="20px" />
+									<h:panelGrid>
+										<p:graphicImage width="300px" height="300px"
+											value="/image/#{produtosolicitadoHome.prodsolicitado.produtomoeda.idproduto}_0.jpg" />
+									</h:panelGrid>
+
+									<rich:spacer height="10px" />
+
+									<p class="text-warning">
+										<small> ALUNO(A):
+											#{produtosolicitadoHome.prodsolicitado.alunos.nome}</small>
+
+									</p>
+
+								</center>
+
+							</div>
+							<div class="modal-footer">
+
+								<a:commandLink styleClass="btn btn-success"
+									action="#{produtosolicitadoHome.Entregar}"
+									reRender="grpProd, growl, pedEsp, listPedSol"
+									onclick="$JQuery('#modalMsgs').fadeTo(2000, 500).slideUp(1000, function(){$JQuery('#modalMsgs').alert('close');}); $JQuery('#dialogEntrega').modal('hide');">
+									<i class="glyphicon glyphicon-ok" />
+									Sim
+									</a:commandLink>
+								<rich:spacer width="2px" />
+								<a:commandLink styleClass="btn btn-danger"
+									onclick="$JQuery('#dialogEntrega').modal('hide');">
+									<i class="glyphicon glyphicon-remove" />
+									#{messages['global.nao']}
+									</a:commandLink>
+
+
+							</div>
+						</a:outputPanel>
+					</div>
+				</div>
+			</div>
+			<!--Fim Modal Cancel produto -->
+
+
+			<!-- MODAL MSGS -->
+			<div id="modalMsgs" class="modal fade bd-example-modal-sm"
+				style="z-index: 1042 !important; float: right;" role="dialog"
+				aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				<div class="modal-dialog ">
+
+					
+						<div class="#{produtosolicitadoHome.tpMsg}">
+							<p:panel styleClass="#{produtosolicitadoHome.tpMsg}" id="growl"
+								style="width:100%;">
+								<center>
+								
+								   
+									<c:if
+										test="#{produtosolicitadoHome.tpMsg == 'alert alert-success'}">
+
+										<h4 class="glyphicon glyphicon-info-sign" />
+
+									</c:if>
+
+									<c:if
+										test="#{produtosolicitadoHome.tpMsg == 'alert alert-danger'}">
+
+										<h4 class="glyphicon glyphicon-remove-sign" />
+
+									</c:if>
+
+									<p:messages globalOnly="true" />
+
+								</center>
+							</p:panel>
+						</div>
+					
+					
+					
+				</div>
+			</div>
+			<!--FIM MODAL MSGS -->
+
+
+
+		</h:form>
+
+
+	</ui:define>
+
+
+</ui:composition>

@@ -1,0 +1,169 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<rich:modalPanel id="movimentoCaixaPanel#{tela}"
+		onshow="inicializar();" resizeable="false" autosized="true"
+		onhide="#{fn_hide};">
+		<p:panel>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="#{messages['caixasMovimento.entrada']}"
+						rendered="#{tela.equals('entrada')}" />
+					<h:outputText value="#{messages['caixasMovimento.saida']}"
+						rendered="#{tela.equals('saida')}" />
+				</h:panelGroup>
+			</f:facet>
+
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/img/false.png" styleClass="hidelink"
+						id="hidelink_movimentoCaixaPanel#{tela}" />
+					<rich:componentControl for="movimentoCaixaPanel#{tela}"
+						attachTo="hidelink_movimentoCaixaPanel#{tela}" operation="hide"
+						event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+
+			<a:form id="formEntradaCaixa#{tela}">
+				<h:panelGrid>
+					<p:panel style="width:98%" bodyClass="panelPaddingZero">
+						<h:inputHidden value="#{caixasMovimentoAction.caixaNumero}" />
+						<h:inputHidden value="#{caixasMovimentoAction.lastCaixa.dtAbre}">
+							<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+								timeZone="#{timeZoneSelector.timeZone}"
+								pattern="#{messages.pattern}" />
+						</h:inputHidden>
+						<h:panelGrid columns="4">
+							<s:decorate template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['caixasMovimento.caixa']}:</ui:define>
+								<h:inputText value="#{caixasMovimentoAction.caixaNumero}"
+									readonly="true" size="5" />
+								<ui:param name="styleName" value="width:auto;"></ui:param>
+								<ui:param name="styleValue" value="width:25px;"></ui:param>
+							</s:decorate>
+
+							<s:decorate template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['global.date']}:</ui:define>
+								<h:inputText value="#{caixasMovimentoAction.lastCaixa.dtAbre}"
+									readonly="true" size="10">
+									<f:convertDateTime type="date"
+										locale="#{localeSelector.locale}"
+										timeZone="#{timeZoneSelector.timeZone}"
+										pattern="#{messages.pattern}" />
+								</h:inputText>
+								<ui:param name="styleName" value="width:auto;"></ui:param>
+								<ui:param name="styleValue" value="width:60px;"></ui:param>
+							</s:decorate>
+
+							<s:decorate id="planocontasField"
+								template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['caixasMovimento.planocontas']}:</ui:define>
+								<h:selectOneMenu id="planocontas"
+									style="width:290px; font-family:courier new;" required="true"
+									requiredMessage=""
+									value="#{caixasMovimentoAction.planoContasCodigo}">
+									<f:selectItem itemLabel="" itemValue="" />
+
+									<!-- c:forEach items="#{caixasMovimentoAction.getPlanoContasList(tela)}" var="_planocontas">
+								<option value="#{_planocontas.codigo}">#{_planocontas.descricao}</option>
+							</c:forEach-->
+									<f:selectItems itemLabelEscaped="true"
+										value="#{caixasMovimentoAction.getPlanoContasList(tela)}" />
+									
+								</h:selectOneMenu>
+							</s:decorate>
+
+						</h:panelGrid>
+						<div style="clear: both" />
+
+						<h:panelGrid columns="3">
+
+							<s:decorate id="descricaoField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['caixasMovimento.descricao']}</ui:define>
+								<h:inputText id="descricao" size="50" required="true"
+									requiredMessage=""
+									value="#{caixasMovimentoAction.movcaixa.descricao}">
+									
+								</h:inputText>
+							</s:decorate>
+
+							<s:decorate id="valorField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['caixasMovimento.valor']}</ui:define>
+								<h:inputText id="valor" required="true"
+									value="#{caixasMovimentoAction.movcaixa.valor}"
+									style="text-align: right;" size="11">
+									<f:convertNumber maxFractionDigits="2" minFractionDigits="2"></f:convertNumber>
+									<f:validateDoubleRange minimum="0.01" />
+								
+								</h:inputText>
+							</s:decorate>
+						</h:panelGrid>
+
+						<s:decorate id="tipoPagField"
+								template="layout/edit_top.xhtml">
+								<ui:define name="label">Tipo de pagamento:</ui:define>
+								<h:selectOneMenu value="#{caixasMovimentoAction.movcaixa.tipoPgto}"
+									styleClass="form-control" required="true">
+									<f:selectItems itemLabelEscaped="true"
+										value="#{mensalidadesHome.tipospgto}" />
+								</h:selectOneMenu>
+						</s:decorate>
+
+
+					</p:panel>
+				</h:panelGrid>
+
+				<p:panel style="height:45px; width:97%; margin: 0 auto;">
+					<h:panelGrid columns="4" cellpadding="0" cellspacing="0"
+						style="margin: 0 auto;">
+
+						<p:commandButton id="btnGravar" onclick="movCaixa();"
+							rendered="#{tela.equals('entrada')}" image="novo" value="Entrada"
+							style="width:100px; height: 40px; " />
+
+						<p:commandButton id="btnGravar2" onclick="movCaixa();"
+							rendered="#{tela.equals('saida')}" image="retirada"
+							value="Retirada" style="width:100px; height: 40px; " />
+
+
+						<a:jsFunction name="movCaixa"
+							actionListener="#{caixasMovimentoAction.gravaMovimento}"
+							limitToList="true" ajaxSingle="false"
+							reRender="planocontasField, descricaoField, valorField"
+							data="#{caixasMovimentoAction.messageRetornoAjax}"
+							oncomplete="if(data!=null &amp;&amp; data.msgErro.length==0){Richfaces.hideModalPanel('movimentoCaixaPanel#{tela}');}"
+							onbeforedomupdate="if(data!=null){showMessageRetorno(data.msgErro + data.msgSucesso)};">
+							<f:attribute name="tela" value="#{tela}" />
+						</a:jsFunction>
+
+						<p:commandButton value="Cancelar" image="excluir"
+							style="width:100px; height: 40px;"
+							onclick="{Richfaces.hideModalPanel('movimentoCaixaPanel#{tela}');}" />
+
+					</h:panelGrid>
+
+				</p:panel>
+
+
+
+
+			</a:form>
+		</p:panel>
+	</rich:modalPanel>
+
+	<c:if test="#{showtela}">
+		<script type="text/javascript">
+			Richfaces.showModalPanel('movimentoCaixaPanel#{tela}');
+		</script>
+	</c:if>
+
+</ui:composition>

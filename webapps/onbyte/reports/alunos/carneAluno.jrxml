@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="carneAluno" pageWidth="595" pageHeight="842" columnWidth="550" leftMargin="28" rightMargin="17" topMargin="15" bottomMargin="15" uuid="c89df1d1-ed80-4e34-b34a-3eb0b31d3015">
+	<property name="ireport.zoom" value="1.3636363636363642"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="7"/>
+	<subDataset name="Table Dataset 1" uuid="9568fb98-f71d-4b93-97b0-cb2d53ddcf2f"/>
+	<parameter name="CABECALHO" class="java.lang.String"/>
+	<parameter name="RODAPE1" class="java.lang.String"/>
+	<parameter name="RODAPE2" class="java.lang.String"/>
+	<field name="matriculas.alunos.nome" class="java.lang.String"/>
+	<field name="matriculas.modulos.descricao" class="java.lang.String"/>
+	<field name="matriculas.codigo" class="java.lang.Integer"/>
+	<field name="dtaVenc" class="java.util.Date"/>
+	<field name="id.parcela" class="java.lang.Integer"/>
+	<field name="valor" class="java.lang.Double"/>
+	<field name="descontos" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="193" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="86741b52-c73d-43ea-af34-94f490606ce3" x="405" y="101" width="68" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="7cb7bab6-2d42-4529-b7ef-ff68f90e8bb2" x="405" y="82" width="68" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="8913af2e-2232-4569-bd17-b397f80cafe9" x="405" y="65" width="68" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="df87a803-e31d-4c92-9116-9fb5f3528b07" x="8" y="23" width="29" height="12"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.alunos}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d9abde21-e7a0-465a-b391-40f5786bca2a" x="8" y="40" width="36" height="12"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.modulos}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8a828743-d6f3-480b-83b3-29ce301d8f8c" x="10" y="53" width="49" height="12"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.codigo}+":"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="1d6944dd-2fc9-4832-8fd9-7eac4c0213c8" x="123" y="82" width="68" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="fae85bd4-72b2-46f1-b6e4-b284af310687" x="123" y="101" width="68" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="b6c8fb26-8893-4e3b-af47-f98798de5983" x="123" y="120" width="68" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="b1f49521-6817-47ad-8887-c13633b20a72" x="191" y="65" width="71" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="ddb9abfb-d82c-4be1-a6f6-aa1b54c44b2d" x="191" y="82" width="71" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="a8133cb5-6ae1-41fd-9f43-11f28ce9a5ea" x="191" y="101" width="71" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="12f02353-c7b7-4f70-87a1-80883c20357e" x="191" y="120" width="71" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="3cd50d6b-1d69-4d8b-9ab9-8eed14f963d0" x="123" y="65" width="68" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="47c1f58f-e995-4232-8592-b9dd530764c3" x="123" y="52" width="82" height="13"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{carneAluno.dtaVenc}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="68fc2d00-b8b0-46bf-b024-3e22293001de" x="1" y="159" width="268" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RODAPE1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cb074f6f-e150-4d39-b7e1-911a0e379ed2" x="1" y="171" width="268" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RODAPE2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="952790d3-a74a-4fda-b1fd-ac4589d3c312" x="0" y="1" width="269" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CABECALHO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a2018d82-2407-4099-a213-768a1493acb1" x="28" y="65" width="95" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Integer.toString($F{id.parcela})+" ªParcela"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b7cad6f4-8297-42cb-a22c-4441b59bbe6f" x="24" y="131" width="85" height="10"/>
+				<textElement>
+					<font fontName="Courier New" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matricula Parcela]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="4b176354-e1e1-4a56-ad8e-3043b43ff416" x="37" y="23" width="232" height="12"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.alunos.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a7ff4cf9-2469-4e00-9184-a256d3760d6f" x="44" y="40" width="225" height="12"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.modulos.descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="324ac917-e908-49de-820d-10fb4b5b21f8" x="73" y="51" width="50" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.codigo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="4f19ab1d-0518-489f-a320-b7b6b3b2cf9a" x="207" y="51" width="63" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dtaVenc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="70aff713-82e0-4f5b-8848-9468f233436a" x="126" y="68" width="62" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{carneAluno.valor}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1518a30b-4270-4847-92d1-b2ad96764065" x="126" y="86" width="62" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{carneAluno.descontos}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="847cc08f-2177-4dfb-baf2-6133609c4cce" x="126" y="104" width="62" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{carneAluno.juroMultas}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cd78071a-51ca-40c5-80e6-bddf060752b0" x="126" y="123" width="62" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{mensalidades.valorPg}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="045a73f8-a72b-4a84-a34e-a94df82f7756" x="198" y="67" width="63" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement uuid="16093ee1-0c08-4026-829f-c8afdf0695e2" x="63" y="125" width="1" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<componentElement>
+				<reportElement uuid="cd37e51b-a801-4495-8df8-c03f2bcc99c5" x="10" y="84" width="88" height="40"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Int2of5" drawText="false" checksumRequired="false" barWidth="2" barHeight="74">
+					<jr:codeExpression><![CDATA[String.format("%1$06d",$F{matriculas.codigo})+ String.format("%1$02d",$F{id.parcela})]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement uuid="43783519-fbe5-40e0-88c2-75c3c1b80f77" x="10" y="124" width="88" height="10"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Courier New" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%1$06d",$F{matriculas.codigo})+ String.format("%1$02d",$F{id.parcela})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="28e51c10-a12f-40ee-9e65-0ac31f9e8aac" x="408" y="68" width="62" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{carneAluno.valor}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2c03d98b-0c41-4311-a234-f2077301ad72" x="290" y="23" width="29" height="12"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.alunos}+":"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="35840694-4a37-4bd7-be7a-2793bca031cd" x="473" y="82" width="71" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="41b72e9f-f5d4-4393-aefb-7f980a1d0cf5" x="310" y="65" width="95" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Integer.toString($F{id.parcela})+" ªParcela"]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement uuid="abb6e2d5-8d5c-45bb-8a83-eaab5dbe9451" x="345" y="125" width="1" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement uuid="5c763e09-9051-4f15-bd8f-3b0343104b50" x="473" y="65" width="71" height="17"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="1a518df6-521e-4942-9601-4bfe2a9579e3" x="290" y="40" width="36" height="12"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.modulos}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e80f7f4e-2d53-42cc-a83f-8e1fd0195791" x="292" y="53" width="49" height="12"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.codigo}+":"]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement uuid="b8f9eac5-b2ce-4245-bdb3-9cd891e6d5c3" x="292" y="84" width="88" height="40"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Int2of5" drawText="false" checksumRequired="false" barWidth="2" barHeight="74">
+					<jr:codeExpression><![CDATA[String.format("%1$06d",$F{matriculas.codigo})+ String.format("%1$02d",$F{id.parcela})]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<rectangle>
+				<reportElement uuid="d21b3936-af61-4a6c-a015-3d60b6dad71f" x="473" y="120" width="71" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="699f3e1f-d1ad-45ac-ab72-1ba7f4a1abf1" x="282" y="1" width="269" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CABECALHO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="71fda738-3984-4430-adfd-ce4d2ca78dfd" x="319" y="23" width="232" height="12"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.alunos.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="054bebc2-641b-4ce1-8aaf-ac9c9de4f7b1" x="355" y="51" width="50" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.codigo}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="2a19f08b-9695-4f9d-a6ea-26bc1b63951e" x="405" y="120" width="68" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="db18dc76-9a58-4126-ac50-31dfebc140bd" x="405" y="52" width="82" height="13"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{carneAluno.dtaVenc}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9621fc92-cece-4aed-a410-07b54c01dec2" x="408" y="86" width="62" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{carneAluno.descontos}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ec2b2b1-4e35-42cb-922c-675044eaf5dd" x="408" y="104" width="62" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{carneAluno.juroMultas}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="28f1a222-e033-4b0d-a801-85c71b1e21e0" x="480" y="67" width="63" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9418b8c9-209f-4091-96ac-94c7fb8e5f82" x="283" y="171" width="268" height="13" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RODAPE2}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="0ca4a57b-cd8c-4bd9-a953-f1468d975c07" x="473" y="101" width="71" height="19"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="ec09c66f-976c-4dd7-9329-0e5e3e63deac" x="306" y="131" width="85" height="10"/>
+				<textElement>
+					<font fontName="Courier New" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matricula Parcela]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="1413955c-5f54-4830-b44f-fddbe29a788b" x="326" y="40" width="225" height="12"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.modulos.descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0c302c2f-f9a9-4a42-be75-b497c3f3bc53" x="292" y="124" width="88" height="10"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Courier New" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%1$06d",$F{matriculas.codigo})+ String.format("%1$02d",$F{id.parcela})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3b48ca8b-8532-4d7f-9223-4170e4cfef0c" x="283" y="159" width="268" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{RODAPE1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3df8ea8b-4a62-4778-80a0-5accd54540e8" x="408" y="123" width="62" height="15"/>
+				<textElement markup="none">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{mensalidades.valorPg}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="2b4c715b-f6dc-464e-a14e-8c5ee3dec466" x="489" y="51" width="63" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dtaVenc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="93b2f28b-8c85-40bf-b406-a32e28996abf" x="1" y="140" width="268" height="19"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descontos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="93b2f28b-8c85-40bf-b406-a32e28996abf" x="283" y="140" width="268" height="19"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descontos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

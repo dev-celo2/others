@@ -1,0 +1,340 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+		<h:form id="funcionariosSearch" styleClass="edit">
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-edit" /> #{funcionariosHome.managed
+					? 'EDITAR FUNCIONÁRIO' : 'INSERIR FUNCIONÁRIO'}
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<table width="100%">
+							<thead>
+								<tr>
+
+									<td>
+
+										<div class="col-xs-3">
+											<label for="ex1">CODIGO</label>
+											<h:inputText id="codigo" styleClass="form-control"
+												readonly="true" value="#{funcionariosHome.instance.codigo}" />
+										</div>
+
+										<div class="col-xs-5">
+											<label for="ex1">NOME <span style="color: red;">*</span></label>
+											<h:inputText id="nome" required="true" size="40"
+												styleClass="form-control" maxlength="40"
+												value="#{funcionariosHome.instance.nome}">
+												<a:support event="onblur" reRender="nomeField"
+													bypassUpdates="true" ajaxSingle="true" />
+											</h:inputText>
+										</div>
+
+										<div class="col-xs-4">
+											<label for="ex1">PERFIL</label>
+
+											<h:selectOneMenu id="idperfil" styleClass="form-control"
+												value="#{funcionariosHome.idPerfil}">
+												<f:selectItem itemLabel="" itemValue="" />
+												<f:selectItems itemLabelEscaped="true"
+													value="#{funcionariosHome.perfis}" />
+												<a:support event="onblur" reRender="idperfilField"
+													bypassUpdates="true" ajaxSingle="true" />
+											</h:selectOneMenu>
+										</div>
+
+									</td>
+
+								</tr>
+							</thead>
+						</table>
+
+						<table width="100%">
+							<thead>
+								<tr>
+
+									<td>
+
+
+										<div class="col-xs-3">
+											<label for="ex1">STATUS <span style="color: red;">*</span></label>
+											<h:selectOneMenu id="ativo" required="true"
+												styleClass="form-control"
+												value="#{funcionariosHome.instance.ativo}">
+												<f:selectItem itemValue="1"
+													itemLabel="#{messages['global.Ativo']}" />
+												<f:selectItem itemValue="0"
+													itemLabel="#{messages['global.Inativo']}" />
+												<a:support event="onblur" reRender="ativoField"
+													bypassUpdates="true" ajaxSingle="true" />
+											</h:selectOneMenu>
+										</div>
+
+										<div class="col-xs-5">
+											<label for="ex1">ENDEREÇO</label>
+											<h:inputText id="endereco" styleClass="form-control" maxlength="40"
+												value="#{funcionariosHome.instance.endereco}" />
+										</div>
+
+										<div class="col-xs-4">
+											<label for="ex1">BAIRRO</label>
+
+											<h:inputText id="bairro" styleClass="form-control" maxlength="34"
+												value="#{funcionariosHome.instance.bairro}" />
+
+										</div>
+
+									</td>
+								</tr>
+							</thead>
+						</table>
+
+						<table width="100%">
+							<thead>
+								<tr>
+
+									<td>
+
+
+										<div class="col-xs-3">
+											<label for="ex1">CIDADE</label>
+											<h:inputText id="cidade" styleClass="form-control" maxlength="25"
+												value="#{funcionariosHome.instance.cidade}" />
+										</div>
+
+										<div class="col-xs-1">
+											<label for="ex1">ESTADO</label>
+											<h:inputText id="uf" styleClass="form-control" maxlength="2"
+												value="#{funcionariosHome.instance.uf}" />
+										</div>
+
+										<div class="col-xs-2">
+											<label for="ex1">CEP</label>
+
+											<p:inputMask mask="99.999-999" id="cep"
+												styleClass="form-control"
+												value="#{funcionariosHome.instance.cep}" />
+
+										</div>
+
+										<div class="col-xs-2">
+											<label for="ex1">RG</label>
+
+											<h:inputText id="rg" styleClass="form-control"
+												value="#{funcionariosHome.instance.rg}" />
+										</div>
+
+										<div class="col-xs-4">
+											<label for="ex1">CPF</label>
+
+											<p:inputMask mask="999.999.999-99" id="cpf"
+												styleClass="form-control"
+												value="#{funcionariosHome.instance.cpf}" />
+										</div>
+
+
+
+
+									</td>
+								</tr>
+							</thead>
+						</table>
+
+						<table width="100%">
+							<thead>
+								<tr>
+
+									<td>
+
+
+										<div class="col-xs-3">
+											<label for="ex1">LOGIN</label>
+											<h:inputText id="login" styleClass="form-control" maxlength="16"
+												value="#{funcionariosHome.instance.login}" />
+										</div>
+
+										<div class="col-xs-3">
+											<label for="ex1">SENHA</label>
+
+
+											<h:inputSecret id="senha" size="16" styleClass="form-control"
+												autocomplete="off" redisplay="true" maxlength="30"
+												value="#{funcionariosHome.senha}">
+												<a:support event="onblur" reRender="senhaField"
+													bypassUpdates="true" ajaxSingle="true" />
+											</h:inputSecret>
+
+										</div>
+
+										<div class="col-xs-2">
+											<label for="ex1">TELEFONE</label>
+											<p:inputMask mask="(99)9999-9999" id="fone"
+												styleClass="form-control"
+												value="#{funcionariosHome.instance.fone}" />
+										</div>
+
+										<div class="col-xs-4">
+											<label for="ex1">E-M@IL</label>
+
+											<h:inputText id="email" styleClass="form-control" maxlength="50"
+												value="#{funcionariosHome.instance.email}" />
+
+										</div>
+
+
+										<div class="col-xs-3">
+											<label for="ex1">CELULAR</label>
+											<p:inputMask mask="(99)99999-9999" id="fone2"
+												styleClass="form-control"
+												value="#{funcionariosHome.instance.fone2}" />
+										</div>
+
+
+
+
+									</td>
+								</tr>
+							</thead>
+						</table>
+
+					</div>
+					<p />
+					<span style="color: red;"> * </span>Campos obrigatórios
+				</div>
+				<div class="panel-footer">
+
+					<center>
+
+
+						<h:commandLink id="save" styleClass="btn btn-success"
+							style="width:150px;" action="#{funcionariosHome.persist}"
+							disabled="#{!funcionariosHome.wired}"
+							rendered="#{!funcionariosHome.managed &amp;&amp; rich:isUserInRole('Funcionrios1_A')}">
+							<i class="glyphicon glyphicon-floppy-disk" />
+							Gravar
+						</h:commandLink>
+
+						<h:commandLink id="update" style="width:150px;"
+							styleClass="btn btn-success" action="#{funcionariosHome.update}"
+							rendered="#{funcionariosHome.managed &amp;&amp; rich:isUserInRole('Funcionrios1_A')}">
+							<i class="glyphicon glyphicon-floppy-disk" />
+							Gravar
+						</h:commandLink>
+
+						<rich:spacer width="2px;" />
+
+						<a:commandLink id="delete" styleClass="btn btn-warning"
+							style="width:150px;" onclick="$('#modalDelFunc').modal('show');"
+							rendered="#{funcionariosHome.managed &amp;&amp; rich:isUserInRole('Funcionrios1_R')}">
+							<i class="glyphicon glyphicon-erase" />
+							Excluir
+						</a:commandLink>
+
+						<rich:spacer width="2px;" />
+
+						<s:link id="cancelEdit" style="width:150px;"
+							styleClass="btn btn-danger" propagation="end"
+							view="/private/onbyte/Funcionarios.xhtml"
+							rendered="#{funcionariosHome.managed}">
+							<i class="glyphicon glyphicon-remove" />
+							Cancelar						
+							</s:link>
+
+						<s:link id="cancelAdd" styleClass="btn btn-danger"
+							propagation="end" style="width:150px;"
+							view="/private/onbyte/#{empty funcionariosFrom ? 'FuncionariosList' : funcionariosFrom}.xhtml"
+							rendered="#{!funcionariosHome.managed}">
+							<i class="glyphicon glyphicon-remove" />
+							Cancelar	
+						</s:link>
+
+
+					</center>
+
+				</div>
+			</div>
+
+
+			<!-- Modal Delete Funcionario-->
+			<div id="modalDelFunc" class="modal fade" data-backdrop="static"
+				role="dialog">
+				<div class="modal-dialog modal-sm">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="color: gray; font-weight: bold;" class="modal-title">
+									<i class="glyphicon glyphicon-erase" style="font-size: 20px;" />
+									DELETAR FUNCIONÁRIO
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<center>
+
+									<h4 style="font-weight: bold; color: gray;" class="modal-title">
+										CONFIRMA A AÇÃO <i class="glyphicon glyphicon-question-sign"
+											style="font-size: 40px;" />
+									</h4>
+
+								</center>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<center>
+
+								<h:commandLink styleClass="btn btn-default" style="width:100px;"
+									action="#{funcionariosHome.remove}" immediate="true">
+									<i class="glyphicon glyphicon-ok" />
+							Sim
+							</h:commandLink>
+
+								<rich:spacer width="2xp;" />
+
+								<a:commandLink styleClass="btn btn-default" style="width:100px;"
+									onclick="$('#modalDelFunc').modal('hide');" immediate="true">
+									<i class="glyphicon glyphicon-ban-circle" />
+							Não
+							</a:commandLink>
+
+							</center>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!--FIM Modal Delete Funcionario -->
+
+
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

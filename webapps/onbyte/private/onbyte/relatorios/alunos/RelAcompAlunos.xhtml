@@ -1,0 +1,143 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<a:form id="relAcompAlunosSearch" styleClass="edit">
+
+			<p:panel header="#{messages['relAcompAlunos.title']}"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:60px">
+					<h:panelGrid style="margin: 0px auto; width: 50%" columns="3"
+						id="pgFiltros">
+						
+				<h:panelGrid columns="3" style="margin: 0px auto;">
+					<s:span style=" font-weight:bold;">Data de Matrícula: </s:span>
+					<rich:spacer width="5px;" />
+						<p:panel style="width:390px; height:35px;" id="pnDatas">
+							<h:panelGroup>
+								<s:span style=" font-weight:bold;">Data Inicial: </s:span>
+								<rich:calendar id="dataInicial" inputSize="10"
+									enableManualInput="true" value="#{relAcompAlunos.dataInicial}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+							
+							<rich:spacer width="37px;" />
+							
+							<h:panelGroup>
+								<s:span style="font-weight: bold;">Data Final: </s:span>
+								<rich:calendar id="dataFinal" inputSize="10"
+									enableManualInput="true" value="#{relAcompAlunos.dataFinal}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+						</p:panel>
+						</h:panelGrid>
+
+						<!--  <h:panelGrid columns="1">
+							<p:panel style="width:350px; height:50px">
+
+								<h:panelGrid style="width:100%; text-align:center;" columns="2">
+									<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relAcompAlunos.situacao']}:</s:span>
+									<h:selectOneRadio value="#{relAcompAlunos.situacaoAluno}"
+										style="width:100%">
+										<f:selectItem itemValue="1"
+											itemLabel="#{messages['relAcompAlunos.Adiantados']}" />
+										<f:selectItem itemValue="2"
+											itemLabel="#{messages['relAcompAlunos.Atrasados']}" />
+									</h:selectOneRadio>
+								</h:panelGrid>
+							</p:panel>
+						</h:panelGrid>-->
+						<p:commandButton value="#{messages['global.bntFilrar']}"
+							image="localizar" style="width:100px; margin: 0;"
+							onclick="filtrar();" />
+
+						<a:jsFunction name="filtrar" reRender="relAcompAlunos"
+							limitToList="true" oncomplete="inicializar();">
+							<f:setPropertyActionListener
+								target="#{relAcompAlunos.cursosMatricula}" value="#{null}" />
+						</a:jsFunction>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:panel id="relAcompAlunos">
+					<p:dataTable emptyMessage="#{messages['global.naoHaDados']}"
+						id="tablerelAcompAlunos" var="_curMatri"
+						paginatorPosition="bottom" rows="12" paginator="true"
+						rowsPerPageTemplate="12,18"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="true" selectionMode="single" style="text-align:center;"
+						value="#{relAcompAlunos.cursosMatricula}">
+						
+						<p:column>
+							<f:facet name="header">#{messages['matriculas.dtmatri']}</f:facet>
+							<h:outputText value="#{_curMatri.dataMatricula}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relAcompAlunos.matricula']}</f:facet>
+							<h:outputText value="#{_curMatri.matricula}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relAcompAlunos.aluno']}</f:facet>
+							<h:outputText value="#{_curMatri.aluno}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['relAcompAlunos.modulo']}</f:facet>
+							<h:outputText value="#{_curMatri.modulo}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relAcompAlunos.cursoAtual']}</f:facet>
+							 <h:outputText value="#{_curMatri.cursoAtual}" /> 
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['relAcompAlunos.aulaAtual']}</f:facet>
+							 <h:outputText value="#{_curMatri.aulaAtual}" /> 
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['relAcompAlunos.frequencia']}</f:facet>
+							  <h:outputText value="#{_curMatri.frequencia}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['relAcompAlunos.dataPrevisaoConclusaoCurso']}</f:facet>
+							<h:outputText value="#{_curMatri.dataPrevisaoConclusaoCurso}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column> 
+
+					</p:dataTable>
+					<h:panelGrid columns="3">
+						<s:div styleClass="actionButtons">
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relAcompAlunos.exportarRelatorioPDF}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/pdf.png" />
+							</h:commandLink>
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relAcompAlunos.exportarRelatorioExcel}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/excel.png" />
+							</h:commandLink>
+						</s:div>
+					</h:panelGrid>
+				</p:panel>
+			</p:panel>
+		</a:form>
+	</ui:define>
+</ui:composition>

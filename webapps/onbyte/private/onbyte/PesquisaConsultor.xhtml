@@ -1,0 +1,117 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<a:form id="pesqConsultor" styleClass="edit" ajaxSubmit="true">
+		<p:panel>
+			<h:inputHidden id="scrollPos"
+				value="#{pesquisaConsultorAction.scrollPos}" />
+			<s:label styleClass="name" style="white-space: nowrap;">
+	            #{messages['global.pesquisaCaracteres']}:
+	            <s:span styleClass="required" rendered="#{required}">*</s:span>
+			</s:label>
+			<h:inputText id="pesquisaconsultor" autocomplete="false"
+				value="#{pesquisaConsultorAction.pesquisa}"
+				style="text-transform:uppercase; width:453px">
+				<a:support event="onkeyup" reRender="consultoresList,scrollPos"
+					oncomplete="scrollPos()" ajaxSingle="true" bypassUpdates="false"
+					requestDelay="100" ignoreDupResponses="true" limitToList="true" />
+				<f:converter converterId="convertToUpper" />
+			</h:inputText>
+
+
+			<rich:extendedDataTable
+				noDataLabel="#{messages['global.naoHaDados']}"
+				value="#{pesquisaConsultorAction.list}" var="_cosultores"
+				height="250px" width="455px" enableContextMenu="false"
+				selection="#{pesquisaConsultorAction.selection}"
+				id="consultoresList">
+				<a:support event="onselectionchange"
+					actionListener="#{pesquisaConsultorAction.selectionListener}"
+					ajaxSingle="true" bypassUpdates="false" limitToList="true">
+				</a:support>
+
+				<a:support event="ondblclick" limitToList="true" ajaxSingle="true"
+					oncomplete="Richfaces.hideModalPanel('BuscarConsultorPanel');"
+					reRender="#{id_render}">
+					<f:setPropertyActionListener
+						value="#{pesquisaConsultorAction.consultor.codigo}"
+						target="#{defaultBean[setRetorno]}" />
+				</a:support>
+
+
+				<c:if test="#{pesquisaConsultorAction.pesquisaPor.equals('2')}">
+					<rich:column width="280px">
+						<f:facet name="header">#{messages['funcionarios.nome']}</f:facet>
+						<h:outputText value="#{_cosultores.nome}" />
+					</rich:column>
+					<rich:column width="60px">
+						<f:facet name="header">#{messages['funcionarios.codigo']}</f:facet>
+						<h:outputText value="#{_cosultores.codigo}" />
+					</rich:column>
+				</c:if>
+				<c:if test="#{pesquisaConsultorAction.pesquisaPor.equals('1')}">
+					<rich:column width="60px">
+						<f:facet name="header">#{messages['funcionarios.codigo']}</f:facet>
+						<h:outputText value="#{_cosultores.codigo}" />
+					</rich:column>
+					<rich:column width="280px">
+						<f:facet name="header">#{messages['funcionarios.nome']}</f:facet>
+						<h:outputText value="#{_cosultores.nome}" />
+					</rich:column>
+				</c:if>
+				<rich:column width="100px">
+					<f:facet name="header">#{messages['funcionarios.fone']}</f:facet>
+					<h:outputText value="#{_cosultores.fone}" />
+				</rich:column>
+			</rich:extendedDataTable>
+			<s:label styleClass="name" style="white-space: nowrap; width:100%">#{messages['global.pesquisaPor']}:</s:label>
+			<h:selectOneMenu id="pesquisaPorConsultor"
+				value="#{pesquisaConsultorAction.pesquisaPor}" style="width:455px;">
+				<f:selectItem itemValue="1"
+					itemLabel="#{messages['funcionarios.codigo']}" />
+				<f:selectItem itemValue="2"
+					itemLabel="#{messages['funcionarios.nome']}" />
+				<a:support event="onchange" reRender="consultoresList"
+					ajaxSingle="true" bypassUpdates="false" limitToList="true" />
+			</h:selectOneMenu>
+			<s:div styleClass="actionButtons"
+				style="width:455px; text-align:right">
+				<p:commandButton value="#{messages['global.ok']}" onclick="buscarCons();" image="confirma"
+					style="width:100px; height:25px;" />
+				<a:jsFunction name="buscarCons" reRender="#{id_render}" limitToList="true"
+					process="@form"
+					oncomplete="Richfaces.hideModalPanel('BuscarConsultorPanel')">
+					<f:setPropertyActionListener
+						value="#{pesquisaConsultorAction.consultor.codigo}"
+						target="#{defaultBean[setRetorno]}" />
+				</a:jsFunction>
+
+				<p:commandButton value="#{messages['global.cancel']}" image="excluir"
+					style="width:100px; height:25px;"
+					onclick="Richfaces.hideModalPanel('BuscarConsultorPanel'); return false;">
+				</p:commandButton>
+			</s:div>
+			<script type="text/javascript">
+			function testNumberConsultor(){
+				if (#{rich:element('pesquisaPorConsultor')}.value==1 &amp;&amp; isNaN(parseInt(#{rich:element('pesquisaconsultor')}.value * 1))){
+					return false;
+				}	
+				return true;
+			}
+			function scrollPos(){
+				document.getElementById('pesqConsultor:consultoresList:sd').scrollTop=21*eval(document.getElementById('pesqConsultor:scrollPos').value);
+				#{rich:element('pesquisaconsultor')}.focus();
+			}
+		</script>
+		</p:panel>
+	</a:form>
+</ui:composition>

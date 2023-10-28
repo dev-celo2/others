@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job-scheduling-data
+    xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData 
+        http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd"
+    version="1.8">
+
+
+	
+    
+    <schedule>
+        <job>
+            <name>EnviarSMSAvisoAula</name>
+            <group>EnviarSMS</group>
+            <description>Envio SMS Aviso Aula</description>
+            <job-class>com.intelinet.servlet.EnviarSMSAvisoAulaAction</job-class>
+        </job>
+        
+       <trigger>
+            <cron>
+                <name>TriggerEnviarSMSAvisoAula</name>
+                <job-name>EnviarSMSAvisoAula</job-name>
+                <job-group>EnviarSMS</job-group>
+<!--                 It will run every 1 minute -->
+<!--                    <cron-expression>0/15 * * * * ?</cron-expression> Caso quiser a cada 15 segundos -->
+                <cron-expression>0 * * * * ?</cron-expression>
+            </cron>
+        </trigger>
+    </schedule>
+    
+      <schedule>
+        <job>
+            <name>verificarpresencasAlunos</name>
+            <group>verificar</group>
+            <description>Verificacao Presencas Alunos</description>
+            <job-class>com.intelinet.servlet.VerificarPresencas</job-class>
+        </job>
+        
+       <trigger>
+            <cron>
+                <name>TriggerVerificacaoAulas</name>
+                <job-name>verificarpresencasAlunos</job-name>
+                <job-group>verificar</job-group>
+<!--                 It will run every 1 minute -->
+                <cron-expression>0 * * * * ?</cron-expression>
+            </cron>
+        </trigger>
+    </schedule>
+    
+    <schedule>
+        <job>
+            <name>EnviarSMSAvisoFalta</name>
+            <group>EnviarSMS</group>
+            <description>Envio SMS Aviso Falta</description>
+            <job-class>com.intelinet.servlet.EnviarSMSAvisoFaltaAction</job-class>
+        </job>
+        
+        <trigger>
+            <cron>
+                <name>TriggerEnviarSMSAvisoFalta</name>
+                <job-name>EnviarSMSAvisoFalta</job-name>
+                <job-group>EnviarSMS</job-group>
+<!--                 It will run every 1 minute -->
+                <cron-expression>0 * * * * ?</cron-expression>
+            </cron>
+        </trigger>
+    </schedule>
+    
+    <schedule>
+        <job>
+            <name>EnviarSMSAniversario</name>
+            <group>EnviarSMS</group>
+            <description>Envio SMS Aniversario</description>
+            <job-class>com.intelinet.servlet.EnviarSMSAniversarioAction</job-class>
+        </job>
+
+       <trigger>
+            <cron>
+                <name>TriggerEnviarSMSAniversario</name>
+                <job-name>EnviarSMSAniversario</job-name>
+                <job-group>EnviarSMS</job-group>
+<!--                 It will run every 10 hours every day  -->
+                <cron-expression>0 * * * * ?</cron-expression>
+            </cron>
+        </trigger>
+    </schedule>
+    
+    
+    
+<!--     SINCRONIZA DADOS APOSTILA -->
+     <schedule>
+        <job>
+            <name>SincronizaApostilas</name>
+            <group>enviarConsulta</group>
+            <description>Sincroniza dados do Web Service IM</description>
+            <job-class>com.intelinet.servlet.EnviaConsultaWSIM</job-class>
+        </job>
+        
+       <trigger>
+            <cron>
+                <name>TriggerSincronizaApostilas</name>
+                <job-name>EnviarRelatorio</job-name>
+                <job-group>enviarConsulta</job-group>
+                <!-- It will run every 1 minute -->
+           <cron-expression>* * 0/12 * * ?</cron-expression>
+<!--                 <cron-expression>0/25 * * * * ?</cron-expression> -->
+            </cron>
+        </trigger>
+    </schedule>
+</job-scheduling-data>

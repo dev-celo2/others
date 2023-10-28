@@ -1,0 +1,675 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<script type="text/javascript"
+		src="#{request.contextPath}/js/webcam.js" />
+	<!-- Configure a few settings -->
+	<script language="JavaScript">
+		function ligarWebCam(){
+			
+			//webcam.set_api_url( 'test.php' );
+			webcam.set_api_url( '#{request.contextPath}/FotoCaptura/' );			
+			webcam.set_swf_url( '#{request.contextPath}/swf/webcam.swf' );
+			webcam.set_quality( 90 ); // JPEG quality (1 - 100)
+			webcam.set_shutter_sound( false ); // play shutter click sound
+			//webcam.set_hook( 'onLoad', 'my_load_handler' );
+			webcam.set_hook( 'onComplete', 'my_completion_handler' );
+			#{rich:element('swfLink')}.innerHTML = webcam.get_html(320, 240);			
+		}
+		
+		function my_load_handler() {
+			webcam.configure( 'privacy' );
+		}
+		function take_snapshot() {
+			
+			// take snapshot and upload to server
+			webcam.snap();
+		}
+
+		function my_completion_handler(msg) {
+			// extract URL out of PHP output
+			fn_setFoto();
+			//if (msg.match(/(http\:\/\/\S+)/)) {}
+			//else alert("PHP Error: " + msg);
+		}
+	</script>
+
+		<rich:modalPanel id="capturarImagemPanel" width="360" height="350"
+		resizeable="false" onhide="fn_capturarImagemPanel()">
+		<h:form>
+			<a:jsFunction name="fn_capturarImagemPanel" reRender="foto"
+				limitToList="true" />
+			<a:jsFunction name="fn_setFoto"
+				actionListener="#{alunosHome.setFoto}"
+				oncomplete="Richfaces.hideModalPanel('capturarImagemPanel');" />
+		</h:form>
+		<f:facet name="header">
+			<h:panelGroup>
+				<h:outputText value="Capturar imagem atraves da WebCam" />
+			</h:panelGroup>
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/false.png" styleClass="hidelink"
+					id="hidelink_CapturarImagem" />
+				<rich:componentControl for="capturarImagemPanel"
+					attachTo="hidelink_CapturarImagem" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<rich:panel
+			style="float: left; padding-right: 10px; width: 330px; height: 260px;">
+			<a:outputPanel id="swfLink" />
+		</rich:panel>
+		<s:button value="Configure..."
+			onclick="webcam.configure(); return false;" />
+		<s:button value="Capturar" onclick="webcam.freeze(); return false;" />
+		<s:button value="Reset" onclick="webcam.reset(); return false;" />
+		<s:button value="#{messages['global.save']}" onclick="webcam.upload(); return false;" />
+
+	</rich:modalPanel>
+
+	<h:form id="alunos" styleClass="edit">
+
+		<p:tabView>
+
+			<p:tab
+				title="#{alunosHome.managed ? messages['global.edit'] : messages['global.insert']} #{messages['matriculas.alunos']}: #{alunosHome.instance.codigo}">
+
+				<p:panel style="height:768;" toggleable="true" closable="false"
+					toggleSpeed="500" closeSpeed="500">
+
+					<p:panel style="border-collapse:collapse;border-spacing: 0;">
+
+						<h:panelGrid columns="3"
+							columnClasses="matPnl2Col1,matPnl2Col2,matPnl2Col3"
+							style="width:100%; text-align:center;">
+
+							<s:decorate id="dtcadastroField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['alunos.dtcadastro']}</ui:define>
+								<rich:calendar id="dtcadastro" required="true"
+									readonly="#{!alunosHome.editable}"
+									value="#{alunosHome.instance.dtcadastro}"
+									oncomplete="inicializar();" inputSize="10"
+									enableManualInput="true" datePattern="#{messages.pattern}" />
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+
+							<h:panelGrid columns="2" style="width:100%; text-align:center;">
+								<s:decorate id="situacaoField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.situacao']}</ui:define>
+									<h:selectOneMenu value="#{alunosHome.instance.situacao}"
+										style="width:150px; text-align:center;"
+										disabled="#{!alunosHome.editable}">
+										<f:selectItem itemValue="Ativo"
+											itemLabel="#{messages['global.Ativo']}" />
+										<f:selectItem itemValue="Inativo"
+											itemLabel="#{messages['global.Inativo']}" />
+										<a:support event="onblur" reRender="situacaoField"
+											bypassUpdates="true" ajaxSingle="true" />
+									</h:selectOneMenu>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+
+								<s:decorate id="cadastroField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.cadastro']}</ui:define>
+									<h:selectOneMenu value="#{alunosHome.instance.cadastro}"
+										style="width:150px;text-align:center;"
+										disabled="#{!alunosHome.editable}">
+										<f:selectItem itemValue="Completo"
+											itemLabel="#{messages['global.Completo']}" />
+										<f:selectItem itemValue="Incompleto"
+											itemLabel="#{messages['global.Incompleto']}" />
+										<a:support event="onblur" reRender="cadastroField"
+											bypassUpdates="true" ajaxSingle="true" />
+									</h:selectOneMenu>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+							</h:panelGrid>
+
+							<s:decorate id="nomeField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['alunos.nome']}</ui:define>
+								<h:inputText id="nome" required="true"
+									readonly="#{!alunosHome.editable}" size="50" maxlength="50"
+									value="#{alunosHome.instance.nome}"
+									style="text-transform:uppercase">
+									<a:support event="onblur" reRender="nomeField"
+										bypassUpdates="true" ajaxSingle="true" />
+									<f:converter converterId="convertToUpper" />
+								</h:inputText>
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+						</h:panelGrid>
+
+						<h:panelGrid columns="3"
+							columnClasses="matPnl2Col1,matPnl2Col2,matPnl2Col3"
+							style="width:100%; text-align:center;">
+
+							<s:decorate id="enderecoField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['alunos.endereco']}</ui:define>
+								<h:inputText id="endereco" readonly="#{!alunosHome.editable}"
+									size="50" maxlength="40"
+									value="#{alunosHome.instance.endereco}">
+									<a:support event="onblur" reRender="enderecoField"
+										bypassUpdates="true" ajaxSingle="true" />
+								</h:inputText>
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+
+							<s:decorate id="bairroField" template="layout/edit_top.xhtml">
+
+								<ui:define name="label">#{messages['alunos.bairro']}</ui:define>
+								<h:inputText id="bairro" readonly="#{!alunosHome.editable}"
+									size="40" maxlength="30" value="#{alunosHome.instance.bairro}">
+									<a:support event="onblur" reRender="bairroField"
+										bypassUpdates="true" ajaxSingle="true" />
+								</h:inputText>
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+
+							<h:panelGrid columns="2">
+								<s:decorate id="cidadeField" template="layout/edit_top.xhtml">
+
+									<ui:define name="label">#{messages['alunos.cidade']}</ui:define>
+									<h:inputText id="cidade" readonly="#{!alunosHome.editable}"
+										size="25" maxlength="30" value="#{alunosHome.instance.cidade}">
+										<a:support event="onblur" reRender="cidadeField"
+											bypassUpdates="true" ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+
+								<s:decorate id="estadoField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.estado']}</ui:define>
+									<h:inputText id="estado" readonly="#{!alunosHome.editable}"
+										size="2" maxlength="2" value="#{alunosHome.instance.estado}">
+										<a:support event="onblur" reRender="estadoField"
+											bypassUpdates="true" ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+							</h:panelGrid>
+						</h:panelGrid>
+
+						<h:panelGrid columns="3"
+							columnClasses="matPnl2Col1,matPnl2Col2,matPnl2Col3"
+							style="width:100%; text-align:center;">
+							<h:panelGrid columns="3">
+
+								<s:decorate id="cepField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.cep']}</ui:define>
+									<h:inputText id="cep" readonly="#{!alunosHome.editable}"
+										size="9" maxlength="10" value="#{alunosHome.instance.cep}">
+										<a:support event="onblur" reRender="cepField"
+											oncomplete="inicializar();" bypassUpdates="true"
+											ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+
+								<s:decorate id="telresField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.telres']}</ui:define>
+									<h:inputText id="telres" readonly="#{!alunosHome.editable}"
+										size="13" maxlength="13" value="#{alunosHome.instance.telres}">
+										<a:support event="onblur" reRender="telresField"
+											oncomplete="inicializar();" bypassUpdates="true"
+											ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+
+								<s:decorate id="telcelField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.telcel']}</ui:define>
+									<h:inputText id="telcel" readonly="#{!alunosHome.editable}"
+										size="14" maxlength="13" value="#{alunosHome.instance.telcel}">
+										<a:support event="onblur" reRender="telcelField"
+											oncomplete="inicializar();" bypassUpdates="true"
+											ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+							</h:panelGrid>
+
+							<h:panelGrid columns="2" style="width:100%; text-align:center;">
+
+								<s:decorate id="dtnascField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.dtnasc']}</ui:define>
+									<rich:calendar id="dtnasc" readonly="#{!alunosHome.editable}"
+										value="#{alunosHome.instance.dtnasc}" inputSize="10"
+										oncomplete="inicializar();" enableManualInput="true"
+										datePattern="#{messages.pattern}">
+										<a:support event="oninputblur" reRender="dtnascField"
+											oncomplete="inicializar();" bypassUpdates="false"
+											ajaxSingle="true" />
+										<a:support event="onchanged" reRender="dtnascField"
+											oncomplete="inicializar();" bypassUpdates="false"
+											ajaxSingle="true" />
+									</rich:calendar>
+									<rich:spacer width="2px" />
+									<h:outputText value="#{alunosHome.instance.idade} anos"
+										style="color:blue;" />
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+
+								<s:decorate id="rgField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.rg']}</ui:define>
+									<h:inputText id="rg" readonly="#{!alunosHome.editable}"
+										size="16" maxlength="14" value="#{alunosHome.instance.rg}">
+										<a:support event="onblur" reRender="rgField"
+											bypassUpdates="true" ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+							</h:panelGrid>
+
+							<h:panelGrid columns="2" style="width:100%; text-align:center;">
+								<s:decorate id="cpfField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.cpf']}</ui:define>
+									<p:inputMask mask="999.999.999-99"
+										readonly="#{!alunosHome.editable}" size="32" maxlength="20"
+										value="#{alunosHome.instance.cpf}">
+										<a:support event="onblur" reRender="cpfField"
+											oncomplete="inicializar();" bypassUpdates="true"
+											ajaxSingle="true" />
+										<f:validator validatorId="cpfValidator" />
+									</p:inputMask>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+
+							</h:panelGrid>
+						</h:panelGrid>
+
+						<h:panelGrid columns="3"
+							columnClasses="matPnl2Col1,matPnl2Col2,matPnl2Col3"
+							style="width:100%; text-align:center;">
+
+							<s:decorate id="emailField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['alunos.email']}</ui:define>
+								<h:inputText id="email" readonly="#{!alunosHome.editable}"
+									size="50" maxlength="50" value="#{alunosHome.instance.email}">
+									<a:support event="onblur" reRender="emailField"
+										bypassUpdates="true" ajaxSingle="true" />
+								</h:inputText>
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+
+
+							<s:decorate id="escolaField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['alunos.escola']}</ui:define>
+								<h:inputText id="escola" size="40"
+									readonly="#{!alunosHome.editable}" maxlength="30"
+									value="#{alunosHome.instance.escola}">
+									<a:support event="onblur" reRender="escolaField"
+										bypassUpdates="true" ajaxSingle="true" />
+								</h:inputText>
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+
+							<s:decorate id="enderecocomField"
+								template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['alunos.enderecocom']}</ui:define>
+								<h:inputText id="enderecocom" size="37"
+									readonly="#{!alunosHome.editable}" maxlength="30"
+									value="#{alunosHome.instance.enderecocom}">
+									<a:support event="onblur" reRender="enderecocomField"
+										bypassUpdates="true" ajaxSingle="true" />
+								</h:inputText>
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+
+						</h:panelGrid>
+
+						<h:panelGrid columns="3"
+							columnClasses="matPnl2Col1,matPnl2Col2,matPnl2Col3"
+							style="width:100%; text-align:center;">
+
+							<h:panelGrid columns="2">
+								<s:decorate id="bairrocomField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.bairrocom']}</ui:define>
+									<h:inputText id="bairrocom" size="32"
+										readonly="#{!alunosHome.editable}" maxlength="30"
+										value="#{alunosHome.instance.bairrocom}">
+										<a:support event="onblur" reRender="bairrocomField"
+											bypassUpdates="true" ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+
+								<s:decorate id="cepcomField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.cepcom']}</ui:define>
+									<h:inputText id="cepcom" size="10"
+										readonly="#{!alunosHome.editable}" maxlength="10"
+										value="#{alunosHome.instance.cepcom}">
+										<a:support event="onblur" reRender="cepcomField"
+											oncomplete="inicializar();" bypassUpdates="true"
+											ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+							</h:panelGrid>
+
+							<h:panelGrid columns="2" style="width:100%; text-align:center;">
+								<s:decorate id="telcomField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.telcom']}</ui:define>
+									<h:inputText id="telcom" size="13"
+										readonly="#{!alunosHome.editable}" maxlength="13"
+										value="#{alunosHome.instance.telcom}">
+										<a:support event="onblur" reRender="telcomField"
+											oncomplete="inicializar();" bypassUpdates="true"
+											ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+
+								<s:decorate id="telresponsavelField"
+									template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.telresponsavel']}</ui:define>
+									<h:inputText id="telresponsavel"
+										readonly="#{!alunosHome.editable}" size="14" maxlength="13"
+										value="#{alunosHome.instance.telresponsavel}">
+										<a:support event="onblur" reRender="telresponsavelField"
+											oncomplete="inicializar();" bypassUpdates="true"
+											ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+							</h:panelGrid>
+
+							<s:decorate id="nomeMaeField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['alunos.nomeMae']}</ui:define>
+								<h:inputText id="nomeMae" readonly="#{!alunosHome.editable}"
+									size="40" maxlength="40" value="#{alunosHome.instance.nomeMae}">
+									<a:support event="onblur" reRender="nomeMaeField"
+										bypassUpdates="true" ajaxSingle="true" />
+								</h:inputText>
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+						</h:panelGrid>
+
+
+						<h:panelGrid columns="3" id="grid2"
+							columnClasses="matPnl2Col1,matPnl2Col2,matPnl2Col3"
+							style="width:100%; text-align:center;">
+							<s:decorate id="nomePaiField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['alunos.nomePai']}</ui:define>
+								<h:inputText id="nomePai" size="49"
+									readonly="#{!alunosHome.editable}" maxlength="40"
+									value="#{alunosHome.instance.nomePai}">
+									<a:support event="onblur" reRender="nomePaiField"
+										bypassUpdates="true" ajaxSingle="true" />
+								</h:inputText>
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+
+							<h:panelGrid columns="2" style="width:100%; text-align:center;">
+								<s:decorate id="resppgtoField" template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.resppgto']}</ui:define>
+									<h:inputText id="resppgto" size="27"
+										readonly="#{!alunosHome.editable}" maxlength="40"
+										value="#{alunosHome.instance.resppgto}">
+										<a:support event="onblur" reRender="resppgtoField"
+											bypassUpdates="true" ajaxSingle="true" />
+									</h:inputText>
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+
+								<s:decorate id="dtnascrespField"
+									template="layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['alunos.dtnascresp']}</ui:define>
+									<rich:calendar id="dtnascresp"
+										readonly="#{!alunosHome.editable}"
+										value="#{alunosHome.instance.dtnascresp}"
+										oncomplete="inicializar();" inputSize="10"
+										enableManualInput="true" datePattern="#{messages.pattern}" />
+									<ui:param name="showMessageError" value="#{false}" />
+								</s:decorate>
+
+							</h:panelGrid>
+
+							<s:decorate id="cpfrespField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['alunos.cpfresp']}</ui:define>
+
+
+
+								<h:selectOneMenu value="#{alunosHome.tp_Doc}" immediate="true"
+									disabled="#{!alunosHome.editable}"
+									readonly="#{!alunosHome.editable}">
+									<f:selectItem itemLabel="CPF" itemValue="1" />
+									<f:selectItem itemLabel="CNPJ" itemValue="2" />
+									<a:support event="onchange" reRender="cpfRespon"
+										actionListener="#{alunosHome.mudarMascara}" />
+								</h:selectOneMenu>
+
+								<rich:spacer width="2px" />
+
+								<p:outputPanel id="cpfRespon">
+									<p:inputMask mask="#{alunosHome.mask}" size="18"
+										readonly="#{!alunosHome.editable}" maxlength="24"
+										value="#{alunosHome.instance.cpfresp}">
+										<a:support event="onblur" reRender="cpfrespField"
+											oncomplete="inicializar();" bypassUpdates="true"
+											ajaxSingle="true" />
+										<f:validator validatorId="cpfValidator" />
+									</p:inputMask>
+								</p:outputPanel>
+
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+						</h:panelGrid>
+
+						<h:panelGrid style="border-collapse:collapse;border-spacing: 0;;">
+							<s:decorate id="recadosField" template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['alunos.recados']}</ui:define>
+								<h:inputTextarea id="recados" cols="132"
+									readonly="#{!alunosHome.editable}"
+									value="#{alunosHome.recados}">
+									<a:support event="onblur" reRender="recadosField"
+										bypassUpdates="true" ajaxSingle="true" />
+								</h:inputTextarea>
+								<ui:param name="showMessageError" value="#{false}" />
+							</s:decorate>
+
+						</h:panelGrid>
+
+
+
+
+					</p:panel>
+					<div style="clear: both">
+						<span class="required">*</span>
+						#{messages['global.requiredField']}
+					</div>
+
+
+
+
+
+					<p:panel>
+
+						<s:div styleClass="actionButtons"
+							rendered="#{isModalPanel==null || !isModalPanel}">
+
+							<p:commandButton ajax="false" id="save" image="save"
+								value="#{messages['global.save']}"
+								action="#{alunosHome.persist}" disabled="#{!alunosHome.wired}"
+								style="width:100px;"
+								rendered="#{!alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}" />
+
+							<p:commandButton ajax="false" id="update" image="save"
+								style="width:100px;" value="#{messages['global.save']}"
+								action="#{alunosHome.update}"
+								disabled="#{!alunosHome.editable || !rich:isUserInRole('Produtos1_A')}"
+								rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}" />
+
+							<p:commandButton ajax="false" id="delete" image="delete"
+								value="#{messages['global.delete']}" style="width:100px;"
+								onclick="if(confirm('#{messages['global.confirmDelete']}')){removerAluno();} return false;"
+								rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_R')}" />
+
+							<p:commandButton ajax="false" id="cancelEdit" image="excluir"
+								value="#{messages['global.cancel']}" immediate="true"
+								action="#{alunosHome.cancelUpdate}" style="width:100px;"
+								rendered="#{alunosHome.managed}" />
+
+							<p:commandButton ajax="false" id="cancelAdd" style="width:100px;"
+								value="#{messages['global.cancel']}" immediate="true"
+								propagation="end" rendered="#{!alunosHome.managed}"
+								action="/private/onbyte/AlunosList.xhtml" />
+
+
+							<p:commandButton ajax="false" id="editable" image="editar"
+								style="width:100px;" value="#{messages['global.edit']}"
+								limitToList="true" ajaxSingle="true" reRender="alunos"
+								oncomplete="inicializar();" disabled="#{alunosHome.editable}"
+								rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}">
+								<f:setPropertyActionListener target="#{alunosHome.editable}"
+									value="#{true}" />
+							</p:commandButton>
+
+							<a:jsFunction name="removerAluno"
+								actionListener="#{alunosHome.remove}" reRender="alunos"
+								limitToList="true" ajaxSingle="true" immediate="true"
+								data="#{alunosHome.messageRetornoAjax}"
+								onbeforedomupdate="showMessageRetorno(data)"
+								oncomplete="if(data.length==0){fn_redirectApagar();}" />
+
+							<a:jsFunction name="fn_redirectApagar" action="AlunosList"
+								ajaxSingle="false" immediate="true" />
+						</s:div>
+					</p:panel>
+
+
+
+
+
+				</p:panel>
+
+				<s:div styleClass="actionButtons" rendered="#{isModalPanel}">
+
+
+					<a:commandButton ajax="false" id="saveMDP"
+						value="#{messages['global.save']}"
+						actionListener="#{alunosHome.persist}"
+						data="#{alunosHome.messageRetornoAjax}"
+						onbeforedomupdate="showMessageRetorno(data)"
+						disabled="#{!alunosHome.wired}" limitToList="true"
+						reRender="alunos"
+						rendered="#{!alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}">
+						<f:setPropertyActionListener target="#{alunosHome.editable}"
+							value="#{false}" />
+					</a:commandButton>
+
+					<a:commandButton ajax="false" id="updateMDP"
+						value="#{messages['global.save']}"
+						actionListener="#{alunosHome.update}" limitToList="true"
+						reRender="alunos" data="#{alunosHome.messageRetornoAjax}"
+						onbeforedomupdate="showMessageRetorno(data)"
+						disabled="#{!alunosHome.editable}"
+						rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}">
+						<f:setPropertyActionListener target="#{alunosHome.editable}"
+							value="#{false}" />
+					</a:commandButton>
+
+					<a:commandButton ajax="false" id="deleteMDP"
+						value="#{messages['global.delete']}"
+						onclick="if(confirm('#{messages['global.confirmDelete']}')){removerAlunoMDP();} return false;"
+						actionListener="#{alunosHome.remove}"
+						rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_R')}" />
+
+					<a:commandButton ajax="false" id="editableMDP"
+						value="#{messages['global.edit']}" limitToList="true"
+						ajaxSingle="true" reRender="alunos" oncomplete="inicializar();"
+						disabled="#{alunosHome.editable}"
+						rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}">
+						<f:setPropertyActionListener target="#{alunosHome.editable}"
+							value="#{true}" />
+					</a:commandButton>
+
+					<a:jsFunction name="removerAlunoMDP"
+						actionListener="#{alunosHome.remove}" reRender="curMatrisChildren"
+						limitToList="true" ajaxSingle="true" immediate="true"
+						data="#{alunosHome.messageRetornoAjax}"
+						onbeforedomupdate="showMessageRetorno(data)"
+						oncomplete="if(data.length==0){Richfaces.hideModalPanel('#{modalPanel}');}" />
+				</s:div>
+
+			</p:tab>
+
+			<p:tab title="Foto">
+
+				<center>
+					<p:panel
+						style=" width: 330px; height: 260px;">
+						<s:graphicImage id="foto"
+							style="float: left; padding-right: 10px; width: 320px; height: 240px;"
+							value="#{alunosHome.instance.foto}"
+							onclick="ligarWebCam();Richfaces.showModalPanel('capturarImagemPanel');" />
+					</p:panel>
+				</center>
+
+
+			</p:tab>
+
+		</p:tabView>
+		<script type="text/javascript"
+			src="#{request.contextPath}/js/jquery.maskedinput-1.3.min.js" />
+		<script>
+		inicializar();
+		function inicializar(){
+			jQuery(function($){
+		
+			$("#alunos\\:dtnascField\\:dtnascInputDate").mask("99/99/9999"); //maskedinput
+			$("#alunos\\:dtcadastroField\\:dtcadastroInputDate").mask("99/99/9999"); //maskedinput
+			$("#alunos\\:dtnascrespField\\:dtnascrespInputDate").mask("99/99/9999"); //maskedinput
+		
+			
+			$("#alunos\\:cepField\\:cep").mask("99.999-999"); //maskedinput
+			$("#alunos\\:cepcomField\\:cepcom").mask("99.999-999"); //maskedinput
+			//$("#alunos\\:telcelField\\:telcel").mask("(99)99999-9999"); //maskedinput
+			$("#alunos\\:telresField\\:telres").mask("(99)9999-9999"); //maskedinput
+			$("#alunos\\:telcomField\\:telcom").mask("(99)9999-9999"); //maskedinput
+		
+			});
+
+			jQuery("#alunos\\:telcelField\\:telcel").blur(function(){
+                var element = jQuery("#alunos\\:telcelField\\:telcel");
+                var phone = element.val();
+                element.unmask();
+                phone = element.val().replace(/\D/g, '');
+                
+                if(phone.length==0 || phone.length > 10) {
+                    element.mask("(99)99999-999?9");
+                } else {
+                    element.mask("(99)9999-9999?9");
+                }
+                
+            }).trigger('blur');
+
+
+			jQuery("#alunos\\:telresponsavelField\\:telresponsavel").blur(function(){
+                var element = jQuery("#alunos\\:telresponsavelField\\:telresponsavel");
+                var phone = element.val();
+                element.unmask();
+                phone = element.val().replace(/\D/g, '');
+                
+                if(phone.length==0 || phone.length > 10) {
+                    element.mask("(99)99999-999?9");
+                } else {
+                    element.mask("(99)9999-9999?9");
+                }
+                
+            }).trigger('blur');
+		}
+	
+		</script>
+	</h:form>
+
+</ui:composition>

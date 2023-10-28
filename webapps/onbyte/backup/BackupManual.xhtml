@@ -1,0 +1,183 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutBackupManual.xhtml">
+
+	<ui:define name="body">
+	    <script type="text/javascript">
+            function sendCursorToEnd(obj) {
+               if (typeof obj.selectionStart == "number") {
+                	//obj.selectionStart = obj.selectionEnd = obj.value.length;
+            	   obj.scrollTop = obj.scrollHeight;
+                } else if (typeof el.createTextRange != "undefined") {
+                	obj.scrollTop = obj.scrollHeight;
+                	//obj.focus();
+                    //var range = obj.createTextRange();
+                    //range.collapse(false);
+                    //range.select();
+                }
+            }
+        </script>
+        <!-- 
+		<h:form>
+			<rich:jQuery selector='("body")' timing="onload" query="fnGravar();" />
+			<a:jsFunction name="fnGravar"
+				actionListener="#{manualBackupAction.gravar}" />
+		</h:form>
+		 -->
+		<rich:tabPanel header="#{messages['manualBackupAction.title']}"
+			switchType="client">
+			<rich:tab label="#{messages['manualBackupAction.backup']}">
+				<h:form id="form">
+					<s:div>
+						<h:panelGrid
+							style="border-collapse:collapse;border-spacing: 0;">
+							<h:panelGroup>
+								<s:decorate id="backupfileDataBaseField"
+									template="../private/onbyte/layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['manualBackupAction.backupfileDataBase']}</ui:define>
+									<h:inputText id="backupfileDataBase" required="true" size="50"
+										value="#{manualBackupAction.backupfileDataBase}">
+										<a:support event="onblur" limitToList="true"
+											reRender="backupfileDataBaseField" bypassUpdates="true"
+											ajaxSingle="true" />
+									</h:inputText>
+								</s:decorate>
+
+
+								<s:decorate id="backupDirField"
+									template="../private/onbyte/layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['manualBackupAction.backupDir']}</ui:define>
+									<h:inputText id="backupDir" required="true" size="50"
+										value="#{manualBackupAction.backupDir}">
+										<a:support event="onblur" limitToList="true"
+											reRender="backupDirField" bypassUpdates="true"
+											ajaxSingle="true" />
+									</h:inputText>
+								</s:decorate>
+							</h:panelGroup>
+							<rich:spacer height="5px" />
+                            <s:span styleClass="name">#{messages['manualBackupAction.log']}</s:span>
+						</h:panelGrid>
+						<h:panelGrid columns="2"
+							style="border-collapse:collapse;border-spacing: 0;">
+							<rich:panel style="width:530px; height:200px"
+								bodyClass="pnTotalMovdestCaixa" styleClass="pnTotalMovdestCaixa">
+								<h:inputTextarea id="logBackup"
+									value="#{manualBackupAction.log.toString()}"
+									style="width:530px; height:200px" readonly="true" />
+							</rich:panel>
+							<h:panelGroup>
+								<s:span styleClass="name" style="width:200px; font-size: 17px;">#{messages['manualBackupAction.msg1']}</s:span>
+                                <s:span styleClass="name" style="width:200px; font-size: 17px;">#{messages['manualBackupAction.msg2']}</s:span>
+							</h:panelGroup>
+						</h:panelGrid>
+						<a:commandButton actionListener="#{manualBackupAction.backup}" 
+							reRender="logBackup"
+							style="width:80px; height: 40px; white-space: normal;"
+							data="#{manualBackupAction.messageRetornoAjax}"
+							oncomplete="sendCursorToEnd(#{rich:element('logBackup')});  showMessageRetorno(data);"
+							value="#{messages['manualBackupAction.criarBackup']}"
+							limitToList="true" bypassUpdates="false">							
+						</a:commandButton>
+					</s:div>
+					<a:poll id="pollBackup" interval="500" immediate="true" ajaxSingle="true" limitToList="true" bypassUpdates="true"   
+                        enabled="#{manualBackupAction.pollBackupEnabled}" 
+                        ignoreDupResponses="true"
+                        oncomplete="sendCursorToEnd(#{rich:element('logBackup')});"
+                        reRender="logBackup" />
+					<a:jsFunction id="fnBackupStart" name="startPollBackup" reRender="pollBackup" immediate="true" ajaxSingle="true" limitToList="true">
+                       <a:actionparam name="pollingBackup"
+                                value="#{false}"
+                                assignTo="#{manualBackupAction.pollBackupEnabled}" />
+                    </a:jsFunction>
+                    <a:jsFunction id="fnBackupStop" name="stopPollBackup" reRender="pollBackup" immediate="true" ajaxSingle="true" limitToList="true">
+                       <a:actionparam name="pollingBackup"
+                                value="#{false}"
+                                assignTo="#{manualBackupAction.pollBackupEnabled}" />
+                    </a:jsFunction>
+				</h:form>
+			</rich:tab>
+
+			<rich:tab label="#{messages['manualBackupAction.restaurar']}">
+				<h:form id="form2">
+					<s:div>
+						<h:panelGrid 
+							style="border-collapse:collapse;border-spacing: 0;">
+							<h:panelGroup>
+								<s:decorate id="restoreDirField"
+									template="../private/onbyte/layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['manualBackupAction.restoreFileBackup']}</ui:define>
+									<h:inputText id="restoreDir" required="true" size="50"
+										value="#{manualBackupAction.restoreFileBackup}">
+										<a:support event="onblur" limitToList="true"
+											reRender="restoreDirField" bypassUpdates="true"
+											ajaxSingle="true" />
+									</h:inputText>
+								</s:decorate>
+
+								<s:decorate id="restorefileDataBaseField"
+									template="../private/onbyte/layout/edit_top.xhtml">
+									<ui:define name="label">#{messages['manualBackupAction.restorefileDataBase']}</ui:define>
+									<h:inputText id="restorefileDataBaseField" required="true"
+										size="50" value="#{manualBackupAction.restorefileDataBase}">
+										<a:support event="onblur" limitToList="true"
+											reRender="restorefileDataBaseField" bypassUpdates="true"
+											ajaxSingle="true" />
+									</h:inputText>
+								</s:decorate>
+							</h:panelGroup>
+							<rich:spacer height="5px" />
+                            <s:span styleClass="name">#{messages['manualBackupAction.log']}</s:span>
+						</h:panelGrid>						
+						<h:panelGrid columns="2"
+							style="border-collapse:collapse;border-spacing: 0;">
+							<rich:panel style="width:530px; height:200px"
+								bodyClass="pnTotalMovdestCaixa" styleClass="pnTotalMovdestCaixa">
+								<h:inputTextarea id="logRestore"
+									value="#{manualBackupAction.log.toString()}"
+									style="width:530px; height:200px" readonly="true" />
+							</rich:panel>
+							<h:panelGroup>
+								<s:span styleClass="name" style="width:200px; font-size: 17px;">#{messages['manualBackupAction.msg1']}</s:span>
+								<s:span styleClass="name" style="width:200px; font-size: 17px;">#{messages['manualBackupAction.msg2']}</s:span>
+							</h:panelGroup>
+						</h:panelGrid>
+						<a:commandButton actionListener="#{manualBackupAction.restaurar}" 
+							reRender="logRestore"
+							style="width:80px; height: 40px; white-space: normal;"
+							data="#{manualBackupAction.messageRetornoAjax}"
+							oncomplete="sendCursorToEnd(#{rich:element('logRestore')}); showMessageRetorno(data);"
+							value="#{messages['manualBackupAction.restaurarBackup']}"
+							limitToList="true" bypassUpdates="false">							
+						</a:commandButton>
+					</s:div>
+					<a:poll id="pollRestore" interval="500" immediate="true" ajaxSingle="true" limitToList="true" bypassUpdates="true"   
+                        enabled="#{manualBackupAction.pollRestoreEnabled}"
+                        ignoreDupResponses="true" 
+                        oncomplete="sendCursorToEnd(#{rich:element('logRestore')});"
+                        reRender="logRestore" />
+                    <a:jsFunction id="fnRestoreStart" name="startPollRestore" reRender="pollRestore" immediate="true" ajaxSingle="true" limitToList="true">
+                       <a:actionparam name="pollingRestore"
+                                value="#{false}"
+                                assignTo="#{manualBackupAction.pollRestoreEnabled}" />
+                    </a:jsFunction>
+                    <a:jsFunction id="fnRestoreStop" name="stopPollRestore" reRender="pollRestore" immediate="true" ajaxSingle="true" limitToList="true">
+                       <a:actionparam name="pollingRestore"
+                                value="#{false}"
+                                assignTo="#{manualBackupAction.pollRestoreEnabled}" />
+                    </a:jsFunction>
+				</h:form>
+			</rich:tab>
+
+		</rich:tabPanel>
+	</ui:define>
+
+</ui:composition>

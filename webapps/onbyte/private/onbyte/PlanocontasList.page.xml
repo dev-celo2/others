@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+   <begin-conversation join="true" flush-mode="MANUAL"/>
+  
+   <action execute="#{planocontasList.wire}"/>
+   
+   <param name="firstResult" value="#{planocontasList.firstResult}"/>
+   <param name="sort" value="#{planocontasList.orderColumn}"/>
+   <param name="dir" value="#{planocontasList.orderDirection}"/>
+   <param name="logic" value="#{planocontasList.restrictionLogicOperator}"/>
+ 
+   <param name="from"/>
+   <param name="codigo" value="#{planocontasList.planocontas.codigo}"/>
+   <param name="descricao" value="#{planocontasList.planocontas.descricao}"/>
+   <param name="tipo" value="#{planocontasList.planocontas.tipo}"/>
+
+</page>

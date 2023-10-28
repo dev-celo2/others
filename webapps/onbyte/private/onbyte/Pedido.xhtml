@@ -1,0 +1,191 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+		<p:panel>
+			<f:facet name="header">#{messages['menu.PedidoApostila1']} #{messages['global.Detalhes']}</f:facet>
+
+			<p:panel>
+
+				<s:decorate id="nroPedido" template="layout/display.xhtml">
+					<ui:define name="label">#{messages['pedido.nroPedido']}</ui:define>
+					<h:outputText value="#{pedidoHome.instance.nroPedido}" />
+				</s:decorate>
+
+				<s:decorate id="dtpedido" template="layout/display.xhtml">
+					<ui:define name="label">#{messages['pedido.dtpedido']}</ui:define>
+					<h:outputText value="#{pedidoHome.instance.dtpedido}">
+						<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+							timeZone="#{timeZoneSelector.timeZone}"
+							pattern="#{messages.pattern}" />
+					</h:outputText>
+				</s:decorate>
+
+				<s:decorate id="funcionariosField" template="layout/display.xhtml">
+					<ui:define name="label">#{messages['pedido.funcionarios']}</ui:define>
+					<h:outputText id="funcionarios" required="true"
+						value="#{pedidoHome.instance.funcionarios.nome}">
+					</h:outputText>
+					<ui:param name="showMessageError" value="#{false}" />
+				</s:decorate>
+
+				<s:decorate id="chaveLiberacao" template="layout/display.xhtml">
+					<ui:define name="label">#{messages['pedido.chaveLiberacao']}</ui:define>
+					<h:outputText value="#{pedidoHome.instance.chaveLiberacao}" />
+				</s:decorate>
+
+				<s:decorate id="situacaoField" template="layout/display.xhtml">
+					<ui:define name="label">#{messages['pedido.situacao']}</ui:define>
+					<h:outputText id="situacao" required="true"
+						value="#{pedidoHome.listSituacao.get(pedidoHome.instance.situacao)}">
+					</h:outputText>
+				</s:decorate>				
+				
+
+				<div style="clear: both" />
+
+			</p:panel>
+
+			<div class="actionButtons">
+				<h:form id="btns">
+					<p:commandButton action="/private/onbyte/PedidoEdit.xhtml"
+						id="edit" style="width:150px;"
+						rendered="#{rich:isUserInRole('PedidoApostila1_A')}" ajax="false"
+						disabled="#{pedidoHome.instance.situacao!=1}" image="editar"
+						value="#{messages['global.edit']}" />
+
+					<p:commandButton ajax="false" image="confirma" style="width:150px;"
+						action="/private/onbyte/PedidoList.xhtml" id="done"
+						value="#{messages['global.done']}" />
+
+
+					<p:commandButton id="btnEnviarPedido" image="proximo"
+						style="width:150px;"
+						value="#{messages['pedidoHome.btnEnviarPedido']}"
+						actionListener="#{pedidoHome.enviarArquivo}" ajax="false"
+						rendered="#{rich:isUserInRole('PedidoApostila1_A')}"
+						disabled="#{pedidoHome.instance.situacao!=1}" />
+
+
+
+
+					<p:commandButton id="btnAtualizarEstoque" image="atualizar"
+						style="width:150px;"
+						value="#{messages['pedidoHome.btnAtualizarEstoque']}"
+						disabled="#{pedidoHome.instance.situacao!=2}"
+						rendered="#{rich:isUserInRole('PedidoApostila1_A')}"
+						onclick="Richfaces.showModalPanel('chaveLiberacaoPanel'); return false;" />
+				</h:form>
+
+			</div>
+
+		</p:panel>
+
+
+
+		<p:tabView switchType="ajax">
+			<p:tab title="Itens Pedido">
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:graphicImage value="/img/onetomany.gif"
+							style="vertical-align: middle; padding-right: 4px;" />#{messages['pedido.itemPedidos']}</h:panelGroup>
+				</f:facet>
+				<h:form styleClass="association" id="itemPedidosChildren">
+
+					<h:outputFormat value="#{messages['global.AssociadosTabela']}"
+						rendered="#{empty pedidoHome.itemPedidos}">
+						<f:param value="#{messages['menu.PedidoApostila1']}" />
+						<f:param value="#{messages['pedido.itemPedidos']}" />
+					</h:outputFormat>
+
+					<p:dataTable noDataLabel="#{messages['global.naoHaDados']}"
+						value="#{pedidoHome.itemPedidos}" var="_itemPedido"
+						paginatorPosition="bottom" rows="12" paginator="true"
+						rowsPerPageTemplate="12,18"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="true" selectionMode="single" style="text-align:center;"
+						id="curMatrisTable">
+						<p:column sortBy="#{_itemPedido.id.nroItemPedido}"
+							sortOrder="ASCENDING">
+							<f:facet name="header">#{messages['itemPedido.nroItemPedido']}</f:facet>
+							<h:outputText value="#{_itemPedido.id.nroItemPedido}" />
+						</p:column>
+						<p:column sortBy="#{_itemPedido.cursos.descricao}">
+							<f:facet name="header">#{messages['itemPedido.cursos']}</f:facet>
+							<h:outputText value="#{_itemPedido.cursos.descricao}" />
+						</p:column>
+						<p:column sortBy="#{_itemPedido.qtdItemPedido}">
+							<f:facet name="header">#{messages['itemPedido.qtdItemPedido']}</f:facet>
+							<h:outputText value="#{_itemPedido.qtdItemPedido}">
+								<f:convertNumber />
+							</h:outputText>
+						</p:column>
+						<p:column sortBy="#{_itemPedido.qtdItemPedido}">
+							<f:facet name="header">Qtd. Digital</f:facet>
+							<h:outputText value="#{_itemPedido.qtdItemDigital}">
+								<f:convertNumber />
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+
+				</h:form>
+			</p:tab>
+		</p:tabView>
+		<rich:modalPanel id="chaveLiberacaoPanel" autosized="true"
+			resizeable="false" onshow="scrollPosCurso()">
+			<p:panel header="#{messages['pedidoHome.btnAtualizarEstoque']}..">
+
+				<f:facet name="controls">
+					<h:panelGroup>
+						<h:graphicImage value="/img/false.png" styleClass="hidelink"
+							id="hidelink_chaveLiberacaoPanel" />
+						<rich:componentControl for="chaveLiberacaoPanel"
+							attachTo="hidelink_chaveLiberacaoPanel" operation="hide"
+							event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<a:form styleClass="edit">
+					<center>
+						<h:panelGrid columns="3">
+							<s:decorate id="chaveLiberacaoField"
+								template="layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['pedido.chaveLiberacao']}:</ui:define>
+								<h:inputText id="descricao" size="20" maxlength="20"
+									value="#{pedidoHome.chaveLiberacao}">
+									<a:support event="onblur" reRender="chaveLiberacaoField"
+										bypassUpdates="true" ajaxSingle="true" />
+								</h:inputText>
+							</s:decorate>
+
+							<p:commandButton id="btnAtualizarEstoque" image="atualizar"
+								value="#{messages['pedidoHome.btnAtualizar']}" style="width:100px;"
+								onclick="updateEstoque();" />
+
+							<p:commandButton style="width:100px;" value="Cancelar"
+								image="excluir"
+								onclick="Richfaces.hideModalPanel('chaveLiberacaoPanel');" />
+
+							<a:jsFunction name="updateEstoque" limitToList="true"
+								reRender="btns"
+								data="#{pedidoHome.messageRetornoAjax}" 
+								onbeforedomupdate="showMessageRetorno(data)"
+								oncomplete="if(data.length==0) {Richfaces.hideModalPanel('chaveLiberacaoPanel'); document.location=document.location;}"
+								actionListener="#{pedidoHome.atualizarEstoque}" />
+
+						</h:panelGrid>
+					</center>
+				</a:form>
+			</p:panel>
+		</rich:modalPanel>
+	</ui:define>
+
+</ui:composition>

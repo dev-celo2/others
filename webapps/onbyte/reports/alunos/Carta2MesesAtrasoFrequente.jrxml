@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-04-04T11:42:35 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelInadimplentesDados" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="561" leftMargin="17" rightMargin="17" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="38f93e3e-617e-47f1-a556-7dfefb21b797">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="localData" class="java.lang.String"/>
+	<parameter name="respUnidade" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nome" class="java.lang.String"/>
+	<field name="idade" class="java.lang.Integer"/>
+	<field name="representante" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="780" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="30" y="34" width="500" height="23" uuid="e6e1f2e0-2e65-4eb4-b5bf-5d0d848d1281"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{localData}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="30" y="80" width="500" height="40" uuid="dd0f108f-a2e0-4ce0-b9f5-8619b768e6c0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="13"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="1.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idade} > 17 ? "Confidencial para o Sr. (a) " + $F{nome} +"." : "Confidencial para o Sr. (a) " + $F{representante}  + " representante legal de "+ $F{nome} +"."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="181" width="500" height="299" uuid="6cc53b9e-16cc-4014-9611-d5c8ef6a5c71"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Estamos muito satisfeitos em tê-lo como nosso aluno, participando de nossas aulas e, principalmente, confiando no nosso consistente trabalho, o qual proporciona um ensino de alto nível e com comprovada eficiência de aprendizado. 
+Gostaríamos de agradecer a pontualidade no pagamento de suas parcelas anteriores. Porém, atualmente, consta em nossos registros um atraso em suas parcelas.
+Lembramos que seu dia e horário de aula continuam reservados a você, portanto é de extrema importância que venha até a escola, a fim de juntos conversarmos a respeito da(s) mensalidade(s), visando solucionar da melhor maneira possível, de maneira que não atrapalhe a continuidade do seu curso. Caso tenha perdido aulas nesse período, lembre-se que poderá realizar as reposições. 
+
+Desde já agradecemos a atenção.
+
+
+Favor desconsiderar esta, caso já tenha ido até a escola negociar ou quitar suas parcelas em atraso.
+
+Cordiais saudações,
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="550" width="340" height="20" uuid="10ae9fff-94fd-47f4-b135-7deac9682b6b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[________________________________________________]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="570" width="340" height="21" uuid="b4be1f86-e257-475b-b51a-1b88025c4935"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{respUnidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

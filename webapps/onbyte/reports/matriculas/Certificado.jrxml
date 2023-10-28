@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Certificado" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6036225b-a244-48e7-8d5e-367c8fe69ee7">
+	<property name="ireport.zoom" value="1.3310000000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="215"/>
+	<parameter name="nomeAluno" class="java.lang.String"/>
+	<parameter name="cidade" class="java.lang.String"/>
+	<parameter name="cursos" class="java.lang.String"/>
+	<parameter name="media" class="java.lang.String"/>
+	<parameter name="dtInicio" class="java.util.Date"/>
+	<parameter name="dtTermino" class="java.util.Date"/>
+	<parameter name="qtdhoras" class="java.lang.Integer"/>
+	<title>
+		<band height="595" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66fe5bf5-9e3c-4bc6-b199-96ba41092226" x="72" y="203" width="576" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none">
+					<font fontName="Times New Roman" size="24" isBold="true"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeAluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="83adf029-9367-48ed-b5c5-c04a80497140" x="73" y="297" width="575" height="80"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="14" isBold="false"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="17.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cursos}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66fe5bf5-9e3c-4bc6-b199-96ba41092226" x="114" y="391" width="96" height="18"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="false"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{certificadoNovo.cargaHoraria}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66fe5bf5-9e3c-4bc6-b199-96ba41092226" x="73" y="269" width="577" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="true"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{certificadoNovo.concluiu}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66fe5bf5-9e3c-4bc6-b199-96ba41092226" x="313" y="391" width="67" height="18"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="false"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{certificadoNovo.media}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66fe5bf5-9e3c-4bc6-b199-96ba41092226" x="480" y="391" width="91" height="18"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="false"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{certificadoNovo.concluidoEm}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66fe5bf5-9e3c-4bc6-b199-96ba41092226" x="115" y="419" width="96" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none">
+					<font fontName="Times New Roman" size="18" isBold="true" isItalic="true"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{certificadoNovo.qtdHoras}, $P{qtdhoras})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66fe5bf5-9e3c-4bc6-b199-96ba41092226" x="313" y="419" width="65" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none">
+					<font fontName="Times New Roman" size="18" isBold="true" isItalic="true"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{media}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66fe5bf5-9e3c-4bc6-b199-96ba41092226" x="460" y="419" width="130" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none">
+					<font fontName="Times New Roman" size="18" isBold="true" isItalic="true"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%1$tB/%1$tY",$P{dtTermino})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement uuid="66fe5bf5-9e3c-4bc6-b199-96ba41092226" x="72" y="167" width="577" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="true"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{certificadoNovo.certificamos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

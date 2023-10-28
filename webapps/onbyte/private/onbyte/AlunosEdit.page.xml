@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page login-required="true" no-conversation-view-id="/private/onbyte/AlunosList.xhtml"
+	xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+	<begin-conversation flush-mode="MANUAL" join="true" />
+	<action execute="#{alunosHome.wire}" />
+	<param name="alunosFrom" />
+	<param name="alunosCodigo" value="#{alunosHome.alunosCodigo}" />
+	<navigation from-action="#{alunosHome.persist}">
+		<rule if-outcome="persisted">
+			<end-conversation />
+			<redirect view-id="/private/onbyte/AlunosList.xhtml" />
+		</rule>
+	</navigation>
+	<navigation from-action="#{alunosHome.update}">
+		<rule if-outcome="updated">
+			<end-conversation />
+			<redirect view-id="/private/onbyte/AlunosList.xhtml" />
+		</rule>
+	</navigation>
+	<navigation from-action="#{alunosHome.remove}">
+		<rule if-outcome="removed">
+			<end-conversation />
+			<redirect view-id="/private/onbyte/AlunosList.xhtml" />
+		</rule>
+		<rule if-outcome="exception">			
+			<redirect>
+				<param name="alunosCodigo" value="#{alunosHome.alunosCodigo}"  />
+			</redirect>
+		</rule>
+	</navigation>
+	<navigation from-action="#{alunosHome.cancelUpdate}">
+		<end-conversation />
+		<redirect view-id="/private/onbyte/AlunosList.xhtml" />
+	</navigation>
+</page>

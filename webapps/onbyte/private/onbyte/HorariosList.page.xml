@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+   <begin-conversation join="true" flush-mode="MANUAL"/>
+   
+   <action execute="#{horariosList.wire}"/>
+   
+   <!--
+   <param name="firstResult" value="#{horariosList.firstResult}"/>
+   <param name="sort" value="#{horariosList.orderColumn}"/>
+   <param name="dir" value="#{horariosList.orderDirection}"/>
+   <param name="logic" value="#{horariosList.restrictionLogicOperator}"/>
+   
+   
+   <param name="from"/>
+   <param name="diasemana" value="#{horariosList.horarios.diasemana}"/>
+   <param name="final_" value="#{horariosList.horarios.final_}"/>
+   <param name="inicio" value="#{horariosList.horarios.inicio}"/>
+   <param name="lab1" value="#{horariosList.horarios.lab1}"/>
+   <param name="lab2" value="#{horariosList.horarios.lab2}"/>
+   <param name="lab3" value="#{horariosList.horarios.lab3}"/>
+   <param name="lab4" value="#{horariosList.horarios.lab4}"/>
+   <param name="lab5" value="#{horariosList.horarios.lab5}"/>
+   -->
+   <navigation from-action="#{horariosList.update}">
+      <rule if-outcome="updated">
+         <end-conversation/>
+         <redirect view-id="/private/onbyte/HorariosList.xhtml"/>
+      </rule>
+   </navigation>
+</page>

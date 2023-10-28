@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+   <param name="firstResult" value="#{sugestaoList.firstResult}"/>
+   <param name="sort" value="#{sugestaoList.orderColumn}"/>
+   <param name="dir" value="#{sugestaoList.orderDirection}"/>
+   <param name="logic" value="#{sugestaoList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="cp1" value="#{sugestaoList.sugestao.cp1}"/>
+   <param name="cp2" value="#{sugestaoList.sugestao.cp2}"/>
+   <param name="cp3" value="#{sugestaoList.sugestao.cp3}"/>
+   <param name="cp4" value="#{sugestaoList.sugestao.cp4}"/>
+   <param name="p1" value="#{sugestaoList.sugestao.p1}"/>
+   <param name="p2" value="#{sugestaoList.sugestao.p2}"/>
+   <param name="p3" value="#{sugestaoList.sugestao.p3}"/>
+   <param name="p4" value="#{sugestaoList.sugestao.p4}"/>
+   <param name="sugestao" value="#{sugestaoList.sugestao.sugestao}"/>
+
+</page>

@@ -1,0 +1,83 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<p:accordionPanel collapsible="true">
+
+			<p:tab title="Horários #{messages['global.Detalhes']}">
+				<p:panel>
+
+
+					<s:decorate id="codigo" template="layout/display.xhtml">
+						<ui:define name="label">#{messages['horarios.codigo']}</ui:define>
+						<h:outputText value="#{horariosHome.instance.codigo}" />
+					</s:decorate>
+
+					<s:decorate id="diasemana" template="layout/display.xhtml">
+						<ui:define name="label">#{messages['horarios.diasemana']}</ui:define>
+						<h:outputText value="#{horariosHome.instance.diasemana}" />
+					</s:decorate>
+
+					<s:decorate id="inicio" template="layout/display.xhtml">
+						<ui:define name="label">#{messages['horarios.inicio']}</ui:define>
+						<h:outputText value="#{horariosHome.instance.inicio}" />
+					</s:decorate>
+
+					<s:decorate id="final_" template="layout/display.xhtml">
+						<ui:define name="label">#{messages['horarios.final']}</ui:define>
+						<h:outputText value="#{horariosHome.instance.final_}" />
+					</s:decorate>
+
+					<s:decorate id="lab1" template="layout/display.xhtml">
+						<ui:define name="label">#{messages['horarios.lab1']}</ui:define>
+						<h:outputText value="#{horariosHome.instance.lab1}" />
+					</s:decorate>
+
+					<s:decorate id="lab2" template="layout/display.xhtml">
+						<ui:define name="label">#{messages['horarios.lab2']}</ui:define>
+						<h:outputText value="#{horariosHome.instance.lab2}" />
+					</s:decorate>
+
+					<s:decorate id="lab3" template="layout/display.xhtml">
+						<ui:define name="label">#{messages['horarios.lab3']}</ui:define>
+						<h:outputText value="#{horariosHome.instance.lab3}" />
+					</s:decorate>
+
+					<s:decorate id="lab4" template="layout/display.xhtml">
+						<ui:define name="label">#{messages['horarios.lab4']}</ui:define>
+						<h:outputText value="#{horariosHome.instance.lab4}" />
+					</s:decorate>
+
+					<s:decorate id="lab5" template="layout/display.xhtml">
+						<ui:define name="label">#{messages['horarios.lab5']}</ui:define>
+						<h:outputText value="#{horariosHome.instance.lab5}" />
+					</s:decorate>
+
+					<div style="clear: both" />
+
+				</p:panel>
+
+				<div class="actionButtons">
+
+					<s:button view="/private/onbyte/HorariosEdit.xhtml" id="edit"
+						value="#{messages['global.edit']}" />
+
+					<s:button
+						view="/private/onbyte/#{empty horariosFrom ? 'HorariosList' : horariosFrom}.xhtml"
+						id="done" value="#{messages['global.done']}" />
+
+				</div>
+			</p:tab>
+		</p:accordionPanel>
+	</ui:define>
+
+</ui:composition>

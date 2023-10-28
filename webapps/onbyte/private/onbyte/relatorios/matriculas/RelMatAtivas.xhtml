@@ -1,0 +1,231 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<a:form id="relMatAtivasSearch" styleClass="edit">
+			<a:jsFunction name="fn_Refresh"
+				reRender="relMatAtivas,vlTotal,vlTotalDevido" limitToList="true"
+				bypassUpdates="false">
+				<f:setPropertyActionListener target="#{relMatAtivas.matriculas}"
+					value="#{null}" />
+			</a:jsFunction>
+			<p:panel header="#{messages['relMatAtivas.title']}"
+				style="width:99.5%">
+
+				<p:panel style="width:99.5%;">
+					<h:panelGrid columns="2" id="pgFiltros"
+						style="margin: 0px auto; width: 50%">
+						<p:panel style="width:330px; height:80px"
+							bodyClass="panelPaddingZero">
+							<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relMatAtivas.filtroHorarioAgend']}</s:span>
+							<s:div style="position: relative; top: -9px;">
+								<h:selectOneRadio value="#{relMatAtivas.rdHorarioAgendado}"
+									layout="pageDirection">
+									<f:selectItem itemValue="0"
+										itemLabel="#{messages['global.all']}" />
+									<f:selectItem itemValue="1"
+										itemLabel="#{messages['relMatAtivas.comAgendamento']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{messages['relMatAtivas.semAgendamento']}" />
+									<a:support event="onchange"
+										reRender="relMatAtivas,vlTotal,vlTotalDevido,pgMotivoSemAgendamento"
+										limitToList="true" bypassUpdates="false">
+										<f:setPropertyActionListener
+											target="#{relMatAtivas.matriculas}" value="#{null}" />
+									</a:support>
+								</h:selectOneRadio>
+							</s:div>
+						</p:panel>
+						<h:panelGroup id="pgMotivoSemAgendamento">
+							<p:panel
+								style="width:330px; height:80px; display:#{relMatAtivas.rdHorarioAgendado.intValue()==2?'block':'none'};"
+								bodyClass="panelPaddingZero">
+								<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relMatAtivas.motivoSemAgendamento']}</s:span>
+								<s:div style="position: relative; top: -9px;">
+									<h:panelGroup>
+										<t:selectOneRadio layout="spread" id="motivoSemAgendamento"
+											value="#{relMatAtivas.motivoSemAgendamento}"
+											onchange="fn_Refresh();">
+											<f:selectItem itemValue="0"
+												itemLabel="#{messages['global.all']}" />
+											<f:selectItem
+												itemLabel="#{messages['matriculasHome.motivoRetAgend0']}"
+												itemValue="-1" />
+											<f:selectItem
+												itemLabel="#{messages['matriculasHome.motivoRetAgend1']}"
+												itemValue="1" />
+											<f:selectItem
+												itemLabel="#{messages['matriculasHome.motivoRetAgend2']}"
+												itemValue="2" />
+											<f:selectItem
+												itemLabel="#{messages['matriculasHome.motivoRetAgend3']}"
+												itemValue="3" />
+										</t:selectOneRadio>
+										<h:panelGrid columns="3" width="100%"
+											style="border-collapse:collapse;border-spacing: 0;;">
+											<t:radio for="motivoSemAgendamento" index="0" />
+											<t:radio for="motivoSemAgendamento" index="1" />
+											<t:radio for="motivoSemAgendamento" index="2" />
+											<t:radio for="motivoSemAgendamento" index="3" />
+											<t:radio for="motivoSemAgendamento" index="4" />
+										</h:panelGrid>
+									</h:panelGroup>
+								</s:div>
+							</p:panel>
+						</h:panelGroup>
+					</h:panelGrid>
+				</p:panel>
+			</p:panel>
+
+
+			<p:panel id="relMatAtivas" style="width:100%"
+				header="#{messages['menu.Vendas1']} #{messages['global.searchResults']}: #{empty relMatAtivas.matriculas ? 0 : relMatAtivas.matriculas.size}">
+
+				<p:dataTable emptyMessage="Nenhum Registro Encontrado."
+					id="tablerelMatAtivas" paginator="true" rows="12"
+					value="#{relMatAtivas.matriculas}" paginatorPosition="bottom"
+					rowsPerPageTemplate="12,18" lazy="true" selection="true"
+					selectionMode="single"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					style="text-align: center;" var="_matriculas"
+					widgetVar="clientesTable">
+
+					<p:column>
+						<f:facet name="header">#{messages['matriculas.codigo']}</f:facet>
+						<h:outputText value="#{_matriculas.matricula}" />
+					</p:column>
+
+
+					<p:column>
+						<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+						<h:outputText value="#{_matriculas.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatAtivas.dtTermino']}</f:facet>
+						<h:outputText value="#{_matriculas.dt_termino}">
+							<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+								timeZone="#{timeZoneSelector.timeZone}"
+								pattern="#{messages.pattern}" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatAtivas.parcelas']}</f:facet>
+						<h:outputText value="#{_matriculas.qtd_parcelas}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatAtivas.pagas']}</f:facet>
+						<h:outputText value="#{_matriculas.qtd_parcelas_pagas}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatAtivas.aPagar']}</f:facet>
+						<h:outputText value="#{_matriculas.qtd_parcelas_a_pagar}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['relMatAtivas.totalDevido']}</f:facet>
+						<h:outputText value="#{_matriculas.total_devido}">
+							<f:convertNumber type="currency" minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					<p:column style="text-align: center;">
+						<f:facet name="header">#{messages['relMatAtivas.qtdAgendamento']}</f:facet>
+						<h:outputText value="#{_matriculas.qtd_Agendamentos}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['alunos.telres']}</f:facet>
+						<h:outputText value="#{_matriculas.telres}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">#{messages['alunos.telcel']}</f:facet>
+						<h:outputText value="#{_matriculas.telcel}" style="font-size:9px;" />
+					</p:column>
+
+
+					<p:column>
+
+						<f:facet name="header">#{messages['global.view']}</f:facet>
+						<s:link
+							view="/private/onbyte/#{empty from ? 'MatriculasEdit' : from}.xhtml"
+							propagation="#{empty from ? 'none' : 'default'}"
+							id="matriculasViewId">
+							<p:graphicImage value="/images/lupa.png" />
+							<f:param name="matriculasCodigo" value="#{_matriculas.matricula}" />
+						</s:link>
+                            #{' '}
+                            <s:link
+							view="/private/onbyte/MatriculasEdit.xhtml"
+							value="#{messages['global.edit']}" propagation="none"
+							id="matriculasEdit" rendered="#{false}">
+							<f:param name="matriculasCodigo" value="#{_matriculas.matricula}" />
+						</s:link>
+
+					</p:column>
+
+
+				</p:dataTable>
+
+				<h:panelGrid columns="15" style="width:100%;">
+
+					<s:div styleClass="actionButtons" rendered="#{empty from}">
+						<h:commandLink limitToList="true"
+							actionListener="#{relMatAtivas.exportarRelatorioPDF}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/pdf.png" />
+
+						</h:commandLink>
+						<h:commandLink limitToList="true"
+							actionListener="#{relMatAtivas.exportarRelatorioExcel}"
+							style="width:80px; height: 40px; white-space: normal;">
+							<p:graphicImage value="/images/excel.png" />
+
+						</h:commandLink>
+					</s:div>
+
+
+					<h:outputLabel style="font-weight: bold;"
+						value="#{messages['relMatAtivas.numMatAtivasSemAgend']} : ">
+						<h:outputText style="font-weight: bold;"
+							value="#{relMatAtivas.qtdMatSemAgend}" />
+					</h:outputLabel>
+					<h:outputLabel style="font-weight: bold;"
+						value="#{messages['relMatAtivas.numMatAtivasComAgend']} : ">
+						<h:outputText style="font-weight: bold;"
+							value="#{relMatAtivas.qtdMatComAgend}" />
+					</h:outputLabel>
+					<h:outputLabel style="font-weight: bold;"
+						value="#{messages['relMatAtivas.numAlunosMatAtiva']} : ">
+						<h:outputText style="font-weight: bold;"
+							value="#{relMatAtivas.distinctCodigoAlunos.size()}" />
+					</h:outputLabel>
+
+
+					<h:outputLabel value="Total Devido " style="font-weight: bold;">
+
+						<h:outputText id="vlTotalDevido"
+							value="#{relMatAtivas.totalDevido}" readonly="true"
+							style="text-align: right; color:#0101DF;: bold;" size="18">
+							<f:convertNumber type="currency" minFractionDigits="2"
+								maxFractionDigits="2" />
+						</h:outputText>
+
+					</h:outputLabel>
+
+
+				</h:panelGrid>
+
+			</p:panel>
+
+
+		</a:form>
+	</ui:define>
+</ui:composition>

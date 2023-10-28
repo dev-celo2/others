@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+      
+
+   <param name="firstResult" value="#{movcaixaList.firstResult}"/>
+   <param name="sort" value="#{movcaixaList.orderColumn}"/>
+   <param name="dir" value="#{movcaixaList.orderDirection}"/>
+   <param name="logic" value="#{movcaixaList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="hora" value="#{movcaixaList.movcaixa.id.hora}"/>
+   <param name="codbol" value="#{movcaixaList.movcaixa.codbol}"/>
+   <param name="descricao" value="#{movcaixaList.movcaixa.descricao}"/>
+   <param name="tipo" value="#{movcaixaList.movcaixa.tipo}"/>
+   <param name="caixasNumero" value="#{movcaixaList.caixasNumero}"/>
+
+</page>

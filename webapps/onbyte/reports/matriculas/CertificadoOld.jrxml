@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Certificado" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="803" leftMargin="19" rightMargin="20" topMargin="21" bottomMargin="20" uuid="6036225b-a244-48e7-8d5e-367c8fe69ee7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="129"/>
+	<parameter name="nomeAluno" class="java.lang.String"/>
+	<parameter name="cidade" class="java.lang.String"/>
+	<parameter name="cursos" class="java.lang.String"/>
+	<parameter name="media" class="java.lang.String"/>
+	<parameter name="dtInicio" class="java.util.Date"/>
+	<parameter name="dtTermino" class="java.util.Date"/>
+	<parameter name="qtdhoras" class="java.lang.Integer"/>
+	<title>
+		<band height="431" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="66fe5bf5-9e3c-4bc6-b199-96ba41092226" x="116" y="169" width="650" height="18"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="14" isBold="false"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{certificado.nomeAluno}, $P{nomeAluno})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ab7260cc-f2dc-45df-86ee-0604e13daa16" x="229" y="396" width="422" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cidade}+",  "+String.format("%1$td  de  %1$tB  de  %1$tY",new java.util.Date())+"."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="83adf029-9367-48ed-b5c5-c04a80497140" x="116" y="194" width="550" height="80"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="14" isBold="false"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="17.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cursos}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="40b2bb69-f713-4b06-b1cc-dad34221fc4c" x="116" y="276" width="550" height="18"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="14" isBold="false"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{certificado.periodo}, String.format("%1$td  de  %1$tB  de  %1$tY",$P{dtInicio}), String.format("%1$td  de  %1$tB  de  %1$tY",$P{dtTermino}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="be339865-f531-4ab1-aba3-085ad6688681" x="116" y="303" width="550" height="54"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="14" isBold="false"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="28.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[msg($R{certificado.totalHoras}, $P{qtdhoras}, $P{media})]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

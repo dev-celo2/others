@@ -1,0 +1,536 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<ui:composition
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+	<ui:define name="body">
+	
+			
+		<ui:fragment rendered="#{identity.loggedIn}">
+			<!--<script type="text/javascript">document.location.href="private/admin/customerList.jsf"</script>-->
+		</ui:fragment>
+
+		
+
+
+		<h:inputHidden rendered="#{!identity.loggedIn}">
+
+			<div class="container">
+				<!-- Codrops top bar -->
+				<br /> <br /> <br /> <br /> <br /> <br />
+
+
+
+				<div id="container_demo">
+					<!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+					<a class="hiddenanchor" id="toregister"></a> <a
+						class="hiddenanchor" id="tologin"></a>
+					<div id="wrapper">
+
+						<div id="login" class="animate form">
+
+							<form>
+								<h1>LOGIN</h1>
+
+
+								<div class="input-group">
+									<span class="input-group-addon"
+										style="font-size: 15px !important; color: #536c70;"
+										id="basic-addon1"><b><i
+											class="glyphicon glyphicon-user" /> USUÁRIO</b></span>
+									<h:inputText styleClass="form-control" id="username"
+										name="username" type="text" title="Usuário"
+										value="#{credentials.username}" size="30" required="true" />
+								</div>
+
+								<p />
+
+								<div class="input-group">
+									<span class="input-group-addon" id="basic-addon1"
+										style="font-size: 15px !important; color: #536c70;"><b><i
+											class="glyphicon glyphicon-lock" /> SENHA</b> <rich:spacer
+											width="15px" /></span>
+									<h:inputSecret styleClass="form-control" required="true"
+										value="#{credentials.password}" size="30" />
+								</div>
+
+
+
+
+								<br />
+								<p class="login button">
+									<h:form>
+										<h:commandButton action="#{identity.login}" value="ENTRAR"
+											ajax="false" />
+									</h:form>
+								</p>
+								<p class="change_link">
+
+									<!--  <a target="_blank" href="http://onbyte.mysuite1.com.br/client/chatan.php" class="to_register">Suporte Técnico</a> -->
+								</p>
+							</form>
+						</div>
+
+
+
+					</div>
+				</div>
+
+			</div>
+
+
+		</h:inputHidden>
+
+
+		<ui:fragment rendered="#{identity.loggedIn}">
+			<h:form>
+				<a:jsFunction name="fn_RedirectIndex" action="index"
+					immediate="true" />
+				<a:jsFunction name="fn_RedirectSetFuncionario"
+					action="private/onbyte/SetFuncionario" immediate="true" />
+			</h:form>
+
+			<!-- Modal  FIM REL REPOSIÇÕES ALUNOS-->
+			<div id="modalReposicoes"
+				style="z-index: 1043; top: calc(50% -                                       300px) !important;"
+				class="modal fade " data-backdrop="static" role="dialog">
+				<div class="modal-dialog" style="width: 550px;">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="font-weight: bold;" class="text text-primary">
+									<i class="glyphicon glyphicon-exclamation-sign"
+										style="font-size: 20px;" /> AVISO
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<center>
+									<b> EXISTEM ALUNOS COM REPOSIÇÕES OU AULA AVULSA EM ABERTO!</b>
+									<p />
+									<b> VISUALIZAR O RELATÓRIO?</b>
+								</center>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+
+							<center>
+								<a:form>
+
+									<h:commandLink onclick="$('#modalReposicoes').modal('hide');"
+										styleClass="btn btn-success" style="width:150px; height:35px;"
+										immediate="true"
+										actionListener="#{authenticatorAction.exportarRelatorioReposicoesAbertoPDF}">
+										<i class="glyphicon glyphicon-ok" />
+										SIM
+									</h:commandLink>
+
+									<rich:spacer width="2px;" />
+
+									<a:commandLink styleClass="btn btn-danger"
+										style="width:150px; height:35px;"
+										onclick="$('#modalReposicoes').modal('hide'); return false;">
+										<i class="glyphicon glyphicon-remove" />
+										NÃO
+									</a:commandLink>
+
+
+								</a:form>
+
+							</center>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- FIM REL REPOSIÇÕES ALUNOS-->
+
+
+
+
+
+			<!-- Modal  FINALIZAR MATRICULAS-->
+			<div id="modalFinalizaMat"
+				style="z-index: 1042; top: calc(50% -                                       300px) !important;"
+				class="modal fade " data-backdrop="static" role="dialog">
+				<div class="modal-dialog" style="width: 500px;">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="font-weight: bold;" class="text text-primary">
+									<i class="glyphicon glyphicon-exclamation-sign"
+										style="font-size: 20px;" /> AVISO
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<center>
+									<b> #{messages['index.msgFinalizarMatriculas1']}<br />
+										#{messages['index.finalizarMatriculas']}
+									</b>
+								</center>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+
+							<center>
+								<a:form>
+									<a:commandLink styleClass="btn btn-success"
+										onclick="yes(); $('#modalFinalizaMat').modal('hide'); $('#modalRelFinalizaMat').modal('show');"
+										style="width:120px; height:35px;" immediate="true">
+										<i class="glyphicon glyphicon-ok" />
+										SIM
+									</a:commandLink>
+
+									<rich:spacer width="2px" />
+
+									<a:commandLink styleClass="btn btn-danger"
+										onclick="no(); $('#modalFinalizaMat').modal('hide');"
+										style="width:120px; height:35px;">
+
+										<i class="glyphicon glyphicon-ok" />
+										NÃO 
+										</a:commandLink>
+
+
+									<a:jsFunction name="yes"
+										actionListener="#{authenticatorAction.finalizarMatr}"
+										oncomplete="no();  ">
+										<f:setPropertyActionListener value="#{false}"
+											target="#{authenticatorAction.finalizarMatriculas}" />
+										<f:setPropertyActionListener value="#{true}"
+											target="#{authenticatorAction.finalizandoMatricula}" />
+									</a:jsFunction>
+
+
+									<a:jsFunction name="no" immediate="true">
+										<f:setPropertyActionListener value="#{false}"
+											target="#{authenticatorAction.finalizarMatriculas}" />
+									</a:jsFunction>
+
+
+								</a:form>
+
+							</center>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- FIM FINALIZAR MATRICULAS-->
+
+
+
+			<!-- Modal RELATORIO FINALIZAR MATRICULAS-->
+			<div id="modalRelFinalizaMat"
+				style="z-index: 1041; top: calc(50% -                                       300px) !important;"
+				class="modal fade " data-backdrop="static" role="dialog">
+				<div class="modal-dialog" style="width: 500px;">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="font-weight: bold;" class="text text-primary">
+									<i class="glyphicon glyphicon-exclamation-sign"
+										style="font-size: 20px;" /> AVISO
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<center>
+									<b> #{messages['index.visualizarRelTerminaramCurso']} </b>
+								</center>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+
+							<center>
+								<a:form>
+									<s:link styleClass="btn btn-success"
+										view="/private/onbyte/relatorios/alunos/RelTerminaram.xhtml"
+										onclick="$('#modalRelFinalizaMat').modal('hide');"
+										style="width:120px; height:35px;" immediate="true">
+										<f:param name="dataInicial"
+											value="#{authenticatorAction.matriculas_p_finalizar[0].dttermino}" />
+										<f:param name="dataFinal" value="#{currentDate}" />
+										<i class="glyphicon glyphicon-ok" />
+										SIM
+									</s:link>
+
+									<rich:spacer width="2px" />
+
+									<a:commandLink styleClass="btn btn-danger"
+										onclick="$('#modalRelFinalizaMat').modal('hide'); return false;"
+										style="width:120px; height:35px;">
+
+										<i class="glyphicon glyphicon-ok" />
+										NÃO 
+										</a:commandLink>
+
+								</a:form>
+
+							</center>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- FIM Modal RELATORIO FINALIZAR MATRICULAS-->
+
+
+			<!-- Modal ALUNOS SEM APOSTILA-->
+			<div id="alunosSemApostila"
+				style="z-index: 1043; top: calc(50% -                                       300px) !important;"
+				class="modal fade " data-backdrop="static" role="dialog">
+				<div class="modal-dialog" style="width: 500px;">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="font-weight: bold;" class="text text-primary">
+									<i class="glyphicon glyphicon-exclamation-sign"
+										style="font-size: 20px;" /> AVISO
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<center>
+									<b> #{messages['index.msgAlunoSemApostila']} </b>
+								</center>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+
+							<center>
+								<a:form>
+									<a:commandLink styleClass="btn btn-success"
+										onclick="fn_onHideConfPrintSemApostilaPanel(); $('#alunosSemApostila').modal('hide');">
+										<i class="glyphicon glyphicon-ok" />
+									OK
+								</a:commandLink>
+								</a:form>
+
+							</center>
+							<a:jsFunction name="fn_onHideConfPrintSemApostilaPanel"
+								immediate="true" limitToList="true" ajaxSingle="true">
+								<f:setPropertyActionListener value="#{false}"
+									target="#{authenticatorAction.matriculasSemApostila}" />
+							</a:jsFunction>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+			<script type="text/javascript">
+
+			$(document).ready(function(){
+
+			var verificar = #{authenticatorAction.matriculasSemApostila};
+			var finalizaMat = #{authenticatorAction.finalizarMatriculas}
+			var reposicoes = #{authenticatorAction.existeHorariosEmAberto}
+
+			if(verificar == true){
+
+				$('#alunosSemApostila').modal('show');
+
+				}
+
+			if(finalizaMat == true){
+
+				$('#modalFinalizaMat').modal('show');
+				
+				}
+
+			if(reposicoes == true){
+
+				$('#modalReposicoes').modal('show');
+				
+				}
+		
+		
+	 });
+
+</script>
+
+			<ui:fragment rendered="#{!sistemaLiberado}">
+				<ui:include src="/private/onbyte/LiberacaoSistemaPanel.xhtml">
+					<ui:param name="from" value="index" />
+				</ui:include>
+				<script type="text/javascript">
+				$('#modalControleInterno').modal('show');
+        </script>
+			</ui:fragment>
+
+
+			<ui:fragment
+				rendered="#{sistemaLiberado and !informarIdCliente and !dadosEnviados}">
+				<ui:include src="/private/onbyte/LiberacaoEnvioDadosPanel.xhtml">
+					<ui:param name="from" value="index" />
+				</ui:include>
+				<script type="text/javascript">
+						$('#modalEnvioDados').modal('show');
+        		</script>
+			</ui:fragment>
+
+
+			<ui:fragment rendered="#{sistemaLiberado and informarIdCliente}">
+				<ui:include src="/private/onbyte/InformarIdClientePanel.xhtml">
+					<ui:param name="from" value="index" />
+				</ui:include>
+
+				<script type="text/javascript">
+						$('#modalIdCliente').modal('show');
+        		</script>
+			</ui:fragment>
+
+			<c:if
+				test="#{sistemaLiberado and dadosEnviados and !informarIdCliente and (authenticatorAction.caixa==null || authenticatorAction.caixa.dtFecha!=null)  &amp;&amp; authenticatorAction.user!=null }">
+				<ui:include src="/private/onbyte/CaixasAberturaPanel.xhtml">
+					<ui:param name="from" value="index" />
+				</ui:include>
+			</c:if>
+			
+			
+
+			<script type="text/javascript">
+
+			
+
+			$(document).ready(function(){				
+				$('#openBox').modal('show');
+			 });
+	
+	</script>
+
+			<c:if test="false">
+				<ui:include src="/private/onbyte/HoraAtualList.xhtml" />
+			</c:if>
+
+
+			<rich:modalPanel id="avisoEnvioDadosPanel" width="350" height="100"
+				resizeable="false" onhide="fn_onHideavisoEnvioDadosPanel();"
+				showWhenRendered="true"
+				rendered="#{authenticatorAction.avisoEnvioDados}">
+				<f:facet name="header">
+					<h:panelGroup>
+						<h:outputText value="#{messages['global.aviso']}" />
+					</h:panelGroup>
+				</f:facet>
+				<f:facet name="controls">
+					<h:panelGroup>
+						<h:graphicImage value="/img/false.png" styleClass="hidelink"
+							id="hidelink_avisoEnvioDadosPanel" />
+						<rich:componentControl for="avisoEnvioDadosPanel"
+							attachTo="hidelink_avisoEnvioDadosPanel" operation="hide"
+							event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<a:form styleClass="edit">
+					<center>
+						<s:div>
+                #{messages['aviso.enviodeDados']}
+                </s:div>
+					</center>
+					<a:jsFunction name="fn_onHideavisoEnvioDadosPanel" immediate="true"
+						limitToList="true" ajaxSingle="true">
+						<f:setPropertyActionListener value="#{false}"
+							target="#{authenticatorAction.avisoEnvioDados}" />
+					</a:jsFunction>
+				</a:form>
+			</rich:modalPanel>
+		</ui:fragment>
+
+
+		<!--  	<div style="position: absolut; bottom: 0.0%; width: 100%; height: 70px; background-position:center;">
+			<p:panel 
+				style=" border-style: outset; -moz-border-radius: 20px;
+					-webkit-border-radius: 20px; border-width: 2px; margin: 0 auto; height:69px; width: 689px; background-color: transparent !important;"
+				rendered="#{identity.loggedIn}">
+				<center>
+
+					<table width="100%">
+						<thead>
+							<tr>
+
+								<td>
+									<form name="form_data">
+										<div class="input-group">
+											<span
+												style=" background: transparent !important; border: none;"
+												class="input-group-addon" id="basic-addon1"><i
+												class="glyphicon glyphicon-calendar" /></span> <input type="text"
+												name="data" readonly="readonly" class="form-control"
+												style="border: none; width: 282px; background: transparent !important; color: #000000; border: 0 none; font-family: Arial; font-size: 9pt; font-weight: bold; text-align: center;" />
+
+
+											<span
+												style="background: transparent !important; border: none;"
+												class="input-group-addon" id="basic-addon1"><i
+												class="glyphicon glyphicon-time" /></span> <input type="text"
+												name="relogio" size="50" readonly="readonly"
+												class="form-control"
+												style="border: none; width: 146px; background: transparent !important; color: #000000; border: 0 none; font-family: Arial; font-size: 9pt; font-weight: bold; text-align: center;" />
+
+										</div>
+
+									</form>
+
+
+								</td>
+
+
+
+
+								<td><p:graphicImage id="imgLogo" value="#{logoAction.logo}"
+										width="163px" height="49px" style="margin-top:4px"
+										cache="false" /></td>
+
+							</tr>
+						</thead>
+					</table>
+				</center>
+			</p:panel>
+
+		</div> -->
+
+
+
+
+	</ui:define>
+
+
+
+</ui:composition>
+</html>

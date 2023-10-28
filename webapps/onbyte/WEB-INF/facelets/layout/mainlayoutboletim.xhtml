@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>#{messages['boletimAlunosAction.title']}</title>
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/css/default.css" />
+	<link rel="stylesheet" type="text/css" href="#{request.contextPath}/stylesheet/theme.css" />
+	<script type="text/javascript" src="#{request.contextPath}/js/moniloc.js"/>
+	<link rel=""/>
+	<p:resources exclude="/jquery/jquery.js"/>	
+	<ui:insert name="head"/>
+</head>
+<body>
+<f:view locale="#{messages.locale}">
+<ui:insert name="metadata"/>
+<img src="#{request.contextPath}/images/logo_escola.PNG" width="171" height="49" style="margin-top:4px"/>
+<rich:spacer width="10px"/>
+<h:outputText value="#{messages['boletimAlunosAction.consulteAluno']}" style="font-family: Arial; font-weight: bold; font-size: 30px;"  />
+<div id="content" style="padding: 0 5px 5px;">            
+<ui:insert name="body"/>
+</div>
+</f:view>
+</body>
+
+</html>

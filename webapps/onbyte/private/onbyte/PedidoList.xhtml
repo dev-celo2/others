@@ -1,0 +1,216 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="pedidoSearch" styleClass="edit">
+
+			<p:accordionPanel collapsible="true">
+				<p:tab
+					title="#{messages['menu.PedidoApostila1']} #{messages['global.searchFilter']}">
+
+					<p:panel>
+
+						<h:panelGrid>
+
+							<s:decorate template="layout/display.xhtml">
+								<ui:define name="label">#{messages['pedido.nroPedido']}</ui:define>
+								<h:inputText id="chaveLiberacao"
+									value="#{pedidoList.pedido.nroPedido}" />
+							</s:decorate>
+
+							<s:decorate template="layout/display.xhtml">
+								<ui:define name="label">#{messages['pedido.situacao']}</ui:define>
+								<h:selectOneMenu id="situacao"
+									value="#{pedidoList.pedido.situacao}">
+									<f:selectItem itemLabel="#{messages['global.all']}"
+										itemValue="" />
+									<c:forEach var="_situacao" items="#{pedidoHome.listSituacao}"
+										varStatus="loopstatus">
+										<f:selectItem itemValue="#{_situacao.key}"
+											itemLabel="#{_situacao.value}" />
+									</c:forEach>
+								</h:selectOneMenu>
+							</s:decorate>
+
+							<s:decorate template="layout/display.xhtml">
+								<ui:define name="label">#{messages['global.match']}</ui:define>
+								<h:selectOneRadio id="logic"
+									value="#{pedidoList.restrictionLogicOperator}"
+									styleClass="radio">
+									<f:selectItem itemLabel="#{messages['global.all']}"
+										itemValue="and" />
+									<f:selectItem itemLabel="#{messages['global.any']}"
+										itemValue="or" />
+								</h:selectOneRadio>
+							</s:decorate>
+
+						</h:panelGrid>
+
+					</p:panel>
+
+
+					<div class="actionButtons">
+						<p:commandButton id="search" value="#{messages['global.search']}"
+							image="localizar" ajax="false" style="width:100px;"
+							action="/private/onbyte/PedidoList.xhtml" />
+
+						<p:commandButton ajax="false" id="reset" image="excluir"
+							actionListener="#{pedidoList.limpaCampos}" style="width:100px;"
+							value="#{messages['global.clear']}" includePageParams="false" />
+					</div>
+
+
+				</p:tab>
+			</p:accordionPanel>
+
+		</h:form>
+
+
+		<p:panel
+			header="#{empty pedidoList.resultList ? 0 : pedidoList.paginated ? pedidoList.resultCount : pedidoList.resultList.size} Pedidos de Apostilas Encontrados.">
+
+			<div class="results" id="pedidoList">
+
+				<p:dataTable id="pedidoList" var="_pedido" selection="true"
+					selectionMode="single" emptyMessage="Nenhum Registro Encontrado"
+					value="#{pedidoList.resultList}" style="font-size:9px; font-weight: bold; text-transform:uppercase"
+					rendered="#{not empty pedidoList.resultList}">
+					<p:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{pedidoList}" />
+								<ui:param name="propertyLabel"
+									value="#{messages['pedido.nroPedido']}" />
+								<ui:param name="propertyPath" value="pedido.nroPedido" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_pedido.nroPedido}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{pedidoList}" />
+								<ui:param name="propertyLabel"
+									value="#{messages['pedido.dtpedido']}" />
+								<ui:param name="propertyPath" value="pedido.dtpedido" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_pedido.dtpedido}">
+							<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+								timeZone="#{timeZoneSelector.timeZone}"
+								pattern="#{messages.pattern}" />
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{pedidoList}" />
+								<ui:param name="propertyLabel"
+									value="#{messages['pedido.funcionarios']}" />
+								<ui:param name="propertyPath" value="pedido.funcionarios" />
+							</ui:include>
+						</f:facet>
+						<h:outputText value="#{_pedido.funcionarios.nome}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<ui:include src="layout/sort.xhtml">
+								<ui:param name="entityList" value="#{pedidoList}" />
+								<ui:param name="propertyLabel"
+									value="#{messages['pedido.situacao']}" />
+								<ui:param name="propertyPath" value="pedido.situacao" />
+							</ui:include>
+						</f:facet>
+						<h:outputText
+							value="#{pedidoHome.listSituacao.get(_pedido.situacao)}" />
+					</p:column>
+					<p:column styleClass="action">
+						<f:facet name="header">#{messages['global.action']}</f:facet>
+						<s:link style="width:100%;" title="Visualizar"
+							view="/private/onbyte/#{empty from ? 'Pedido' : from}.xhtml"
+							propagation="#{empty from ? 'none' : 'default'}"
+							id="pedidoViewId">
+							<p:graphicImage value="/images/folderOpen.png" />
+							<f:param name="pedidoNroPedido" value="#{_pedido.nroPedido}" />
+						</s:link>
+												
+            #{' '}
+            <s:link view="/private/onbyte/PedidoEdit.xhtml"
+							 propagation="none" title="Editar"
+							id="pedidoEdit"
+							rendered="#{empty from &amp;&amp; _pedido.situacao==1 &amp;&amp; rich:isUserInRole('PedidoApostila1_A')}">
+							<p:graphicImage value="/images/editar.png" />
+							<f:param name="pedidoNroPedido" value="#{_pedido.nroPedido}" />
+						</s:link>
+					</p:column>
+				</p:dataTable>
+
+			</div>
+			<div class="tableControl">
+
+				<h:form>
+					<h:panelGroup>
+						<p:commandButton ajax="false" image="primeiro"
+							action="/private/onbyte/PedidoList.xhtml"
+							rendered="#{pedidoList.previousExists}"
+							title="#{messages['global.firstPage']}" id="firstPage">
+							<f:param name="firstResult" value="0" />
+						</p:commandButton>
+
+						<p:commandButton ajax="false" image="anterior"
+							action="/private/onbyte/PedidoList.xhtml"
+							rendered="#{pedidoList.previousExists}"
+							title="#{messages['global.previousPage']}" id="previousPage">
+							<f:param name="firstResult"
+								value="#{pedidoList.previousFirstResult}" />
+						</p:commandButton>
+
+						<p:commandButton ajax="false" image="proximo"
+							action="/private/onbyte/PedidoList.xhtml"
+							rendered="#{pedidoList.nextExists}"
+							title="#{messages['global.nextPage']}" id="nextPage">
+							<f:param name="firstResult" value="#{pedidoList.nextFirstResult}" />
+						</p:commandButton>
+
+						<p:commandButton ajax="false" image="ultimo"
+							action="/private/onbyte/PedidoList.xhtml"
+							rendered="#{pedidoList.nextExists}"
+							title="#{messages['global.lastPage']} " id="lastPage">
+							<f:param name="firstResult" value="#{pedidoList.lastFirstResult}" />
+						</p:commandButton>
+
+					</h:panelGroup>
+
+					<h:panelGrid style="float: left;" rendered="#{empty from}">
+						<p:commandButton ajax="false" image="novo" id="create" style="width:150px;"
+							action="/private/onbyte/PedidoEdit.xhtml" propagation="none"
+							rendered="#{rich:isUserInRole('PedidoApostila1_A')}"
+							value="Novo Pedido">
+							<f:param name="pedidoNroPedido" />
+						</p:commandButton>
+					</h:panelGrid>
+					
+					
+
+				</h:form>
+			</div>
+
+		</p:panel>
+
+
+
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,250 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<a:form id="relMatEfetuadasSearch" styleClass="edit">
+
+			<p:panel header="#{messages['relMatEfetuadas.title']}"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:70px">
+					<h:panelGrid style="margin: 0px auto; width: 50%" columns="5"
+						id="pgFiltros">
+
+						<h:panelGrid columns="4">
+							<p:panel style="width:450px; height:50px">
+
+								<h:panelGrid style="text-align:center;" columns="3">
+
+									<h:selectOneRadio value="#{relMatEfetuadas.rd_Consultor}"
+										style="width:100%">
+										<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relMatEfetuadas.filtroConsultor']}:</s:span>
+										<f:selectItem itemValue="1"
+											itemLabel="#{messages['global.all']}" />
+										<f:selectItem itemValue="2" itemLabel="Consultor:" />
+									</h:selectOneRadio>
+									<s:div>
+										<h:inputHidden id="codigoConsultor"
+											value="#{relMatEfetuadas.codigoConsultor}" />
+
+										<h:inputText id="consultor" required="true" readonly="true"
+											size="40" value="#{relMatEfetuadas.consultor.nome}">
+										</h:inputText>
+
+										<p:commandButton title="#{messages['global.busca']}"
+											image="localizar"
+											onclick="Richfaces.showModalPanel('BuscarConsultorPanel'); return false;"
+											style="height: 24px; margin: 0;" />
+									</s:div>
+								</h:panelGrid>
+							</p:panel>
+						</h:panelGrid>
+
+
+
+
+						<p:panel style="width:355px; height:30px;" id="pnDatas">
+							<h:panelGroup>
+								<s:span style=" font-weight:bold;">Data Inicial: </s:span>
+								<rich:calendar id="dataInicial" inputSize="10"
+									enableManualInput="true" value="#{relMatEfetuadas.dataInicial}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+
+							<h:panelGroup>
+								<s:span style="font-weight: bold;">Data Final: </s:span>
+								<rich:calendar id="dataFinal" inputSize="10"
+									enableManualInput="true" value="#{relMatEfetuadas.dataFinal}"
+									datePattern="#{messages.pattern}" />
+							</h:panelGroup>
+
+						</p:panel>
+
+
+
+
+						<p:commandButton value="#{messages['global.bntFilrar']}"
+							image="localizar" style="width:100px; margin: 0;"
+							onclick="filtrar();" />
+
+						<a:jsFunction name="filtrar"
+							reRender="relMatEfetuadas, valorTotalMatr" limitToList="true"
+							oncomplete="inicializar();">
+							<f:setPropertyActionListener
+								target="#{relMatEfetuadas.matriculas}" value="#{null}" />
+						</a:jsFunction>
+
+
+					</h:panelGrid>
+				</p:panel>
+
+
+
+
+
+
+
+
+				<p:panel id="relMatEfetuadas"
+					header="#{messages['menu.Vendas1']} #{messages['global.searchResults']} :#{empty relMatEfetuadas.matriculas ? 0 : relMatEfetuadas.matriculas.size}">
+
+					<p:dataTable emptyMessage="#{messages['global.naoHaDados']}"
+						id="tablerelMatEfetuadas" var="_matriculas"
+						paginatorPosition="bottom" rows="12" paginator="true"
+						rowsPerPageTemplate="12,18"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="true" selectionMode="single" style="text-align:center;"
+						value="#{relMatEfetuadas.matriculas}">
+						<p:column width="60">
+							<f:facet name="header">#{messages['matriculas.codigo']}</f:facet>
+							<h:outputText value="#{_matriculas.codigo}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+							<h:outputText value="#{_matriculas.alunos.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relMatEfetuadas.dtmatri']}</f:facet>
+							<h:outputText value="#{_matriculas.dtmatri}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relMatEfetuadas.dtinicio']}</f:facet>
+							<h:outputText value="#{_matriculas.dtinicio}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relMatEfetuadas.dttermino']}</f:facet>
+							<h:outputText value="#{_matriculas.dttermino}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relMatEfetuadas.status']}</f:facet>
+							<h:outputText
+								value="#{combos.getStatusMatricula().get(_matriculas.status)}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.telres']}</f:facet>
+							<h:outputText value="#{_matriculas.alunos.telres}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.telcel']}</f:facet>
+							<h:outputText value="#{_matriculas.alunos.telcel}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.email']}</f:facet>
+							<h:outputText value="#{_matriculas.alunos.email}" />
+						</p:column>
+						<p:column width="80">
+							<f:facet name="header">#{messages['matriculas.vlmatricula']}</f:facet>
+							<h:outputText value="#{_matriculas.vlmatricula}"
+								style="float: right;"
+								rendered="#{_matriculas.vlmatricula!=null}">
+								<f:convertNumber type="currency" minFractionDigits="2" />
+							</h:outputText>
+							<h:outputText value="#{0}" style="float: right;"
+								rendered="#{_matriculas.vlmatricula==null}">
+								<f:convertNumber type="currency" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column width="15" breakBefore="true" />
+
+					</p:dataTable>
+
+
+
+					<h:panelGrid columns="3">
+						<s:div styleClass="actionButtons" rendered="#{empty from}">
+
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relMatEfetuadas.exportarRelatorioPDF}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/pdf.png" />
+							</h:commandLink>
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relMatEfetuadas.exportarRelatorioExcel}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/excel.png" />
+							</h:commandLink>
+
+
+						</s:div>
+						<rich:spacer width="15px" />
+
+						<h:panelGrid columns="2">
+
+							<h1>#{messages['relMatEfetuadas.vlTotalMatr']}:</h1>
+
+							<h:inputText id="valorTotalMatr"
+								value="#{relMatEfetuadas.valorTotalMatr}" readonly="true"
+								style="text-align: right; color:font-weight: bold;" size="15">
+								<f:convertNumber type="currency" minFractionDigits="2"
+									maxFractionDigits="2" />
+							</h:inputText>
+						</h:panelGrid>
+
+					</h:panelGrid>
+
+
+				</p:panel>
+
+			</p:panel>
+
+
+			<script type="text/javascript"
+				src="#{request.contextPath}/js/jquery.maskedinput-1.3.min.js" />
+			<script>
+			inicializar();
+			function inicializar(){
+				jQuery(function($){
+			
+				$("#relMatEfetuadasSearch\\:dataInicialInputDate").mask("99/99/9999"); //maskedinput
+				$("#relMatEfetuadasSearch\\:dataFinalInputDate").mask("99/99/9999"); //maskedinput
+			
+				});
+			}
+		
+			</script>
+		</a:form>
+		<rich:modalPanel id="BuscarConsultorPanel" autosized="true"
+			resizeable="false">
+			<p:panel header="Buscar Consultor que vendeu a matrícula...">				
+				<f:facet name="controls">
+					<h:panelGroup>
+						<h:graphicImage value="/img/false.png" styleClass="hidelink"
+							id="hidelink_BuscarConsultor" />
+						<rich:componentControl for="BuscarConsultorPanel"
+							attachTo="hidelink_BuscarConsultor" operation="hide"
+							event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<ui:include src="../../PesquisaConsultor.xhtml">
+					<ui:param name="defaultBean" value="#{relMatEfetuadas}" />
+					<ui:param name="id_render" value="consultor,codigoConsultor" />
+					<ui:param name="setRetorno" value="codigoConsultor" />
+				</ui:include>
+			</p:panel>
+		</rich:modalPanel>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,204 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<a:form id="relMatCursoSearch" styleClass="edit">
+
+			<p:panel header="#{messages['relMatCurso.title']}"
+				style="width:99.5%">
+
+				<p:panel style="width:99.5%;">
+					<h:panelGrid columns="4" id="pgFiltros"
+						style="margin: 0px auto; width: 50%">
+						<h:panelGrid columns="2">
+
+							<p:panel style="width:350px; height:60px">
+								<h:panelGrid columns="2">
+									<s:span style="font-weight: bold;">#{messages['menu.Clientes1']}:</s:span>
+									<h:selectOneMenu id="cursoField"
+										value="#{relCursos.cursoCodigo}"
+										style="width: 240px; height: 21px;">
+										<f:selectItem itemLabel="TODOS OS CURSOS" itemValue="#{null}" />
+										<f:selectItems itemLabelEscaped="true"
+											value="#{relQuadroHorarios.cursos}" />
+									</h:selectOneMenu>
+								</h:panelGrid>
+								<h:panelGrid columns="2" >
+										<s:span style="font-weight: bold;">Status Curso: </s:span>
+										<h:selectOneMenu id="statusCurso" 
+										 value="#{relCursos.statusCurso}"
+												style="width: 210px; height: 21px;" >
+												<f:selectItem itemLabel="TODOS" />
+												<f:selectItem itemLabel="ANDAMENTO" itemValue="A" />
+												<f:selectItem itemLabel="ESPERA" itemValue="E" />
+												<f:selectItem itemLabel="CONCLUIDOS" itemValue="C" />
+									</h:selectOneMenu>
+									</h:panelGrid>
+							</p:panel>
+
+
+							<p:panel style="width:350px; height:60px">
+
+								<h:panelGrid style="width:100%; text-align:center;" columns="2">
+									<s:span styleClass="spanNamePanel" style="font-weight: bold;">#{messages['relMatCanceladas.status']}:</s:span>
+									<h:selectOneRadio value="#{relCursos.statusMatricula}"
+										style="width:100%">
+										<f:selectItems itemLabelEscaped="true"
+											value="#{matriculasList.listStatusMatricula}" />
+										<f:selectItem itemValue="TODAS"
+											itemLabel="#{messages['global.all']}" />
+										<a:support event="change"
+											limitToList="true" oncomplete="inicializar();"
+											bypassUpdates="false">
+											<f:setPropertyActionListener
+												target="#{relMatPorMarketing.tipomark}" value="#{null}" />
+										</a:support>
+									</h:selectOneRadio>
+								</h:panelGrid>
+							</p:panel>
+						</h:panelGrid>
+						
+						<h:selectOneRadio value="#{relCursos.filtrarData}"
+									layout="pageDirection" style="width:100px" >
+									<f:selectItem itemValue="1" 
+										itemLabel="#{messages['global.all']}" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{messages['global.periodo']}" />
+									<a:support event="onchange" reRender="relMatCursos, pgFiltros"
+										limitToList="true" ajaxSingle="true"
+										oncomplete="inicializar();" bypassUpdates="false" />
+						</h:selectOneRadio>
+						<p:commandButton value="#{messages['global.bntFilrar']}"
+								image="localizar" style="width:100px;" onclick="filtrar();" />
+
+
+						<a:jsFunction name="filtrar"
+							reRender="relMatCursos" limitToList="true"
+							oncomplete="inicializar();"
+							actionListener="#{relCursos.listarMatriculas}">
+						</a:jsFunction>
+							
+						<p:panel style=" height:50px; display:#{relCursos.filtrarData.intValue()==2?'block':'none'};" id="pnDatas" 
+							bodyClass="panelPaddingZero">
+						<h:panelGrid columns="8" style="margin: 0px auto;"
+								>
+							<s:span styleClass="name"
+								style="font-weight:bold; font-size:15px;float:none; clear:none; vertical-align: baseline;">#{messages['global.periodo']}: </s:span>
+
+							<rich:spacer width="5px" />
+
+							<s:span style="font-weight: bold;">Data Inicial :</s:span>
+								<rich:calendar id="dataInicial" inputSize="10"										
+									enableManualInput="true" value="#{relCursos.dataInicial}"
+									datePattern="#{messages.pattern}" />
+								<rich:spacer width="5px" />
+								<s:span style="font-weight: bold;">Data Final :</s:span>
+								<rich:calendar id="dataFinal" inputSize="10"
+									enableManualInput="true" value="#{relCursos.dataFinal}"
+									datePattern="#{messages.pattern}" />
+										 
+
+						</h:panelGrid>
+						</p:panel>
+						
+					</h:panelGrid>
+				</p:panel>
+			</p:panel>
+
+
+			<p:panel id="relMatCursos" style="width:100%"
+				header="#{messages['matriculas.codigo']}s Encontradas: #{empty relCursos.matriculas ? 0 : relCursos.matriculas.size}">
+
+				<p:dataTable emptyMessage="Nenhum Registro Encontrado."
+					id="tablerelMatCursos" paginator="true" rows="12"
+					value="#{relCursos.matriculas}" paginatorPosition="bottom"
+					rowsPerPageTemplate="12,18" lazy="true" selection="true"
+					selectionMode="single"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					style="text-align: center;" var="_matriculas"
+					widgetVar="relMatCursos">
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Data de Matrícula" />
+						</f:facet>
+						<h:outputText value="#{_matriculas.matriculas.dtmatri}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Matricula" />
+						</f:facet>
+						<h:outputText value="#{_matriculas.id.matricula}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Codigo Aluno" />
+						</f:facet>
+						<h:outputText value="#{_matriculas.matriculas.alunos.codigo}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{messages['manutencaoMatricula.aluno']}" />
+						</f:facet>
+						<h:outputText value="#{_matriculas.matriculas.alunos.nome}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{messages['parametroHome.cursos']}" />
+						</f:facet>
+						<h:outputText value="#{_matriculas.cursos.descricao}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Status Curso" />
+						</f:facet>
+						<h:outputText value="#{_matriculas.status == 'A' ? 'andamento' : (_matriculas.status == 'E' ? 'ESPERA' : 'CONCLUIDO')}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<h:panelGrid columns="15" style="width:100%;">
+
+					<s:div styleClass="actionButtons" rendered="#{empty from}">
+
+
+
+					</s:div>
+
+
+				</h:panelGrid>
+
+				<h:commandLink limitToList="true"
+					action="#{relCursos.exportarRelatorio(1)}"
+					style="width:80px; height: 40px; white-space: normal;">
+					<p:graphicImage value="/images/pdf.png" />
+
+				</h:commandLink>
+
+				<h:commandLink limitToList="true"
+					actionListener="#{relCursos.exportarRelatorio(2)}"
+					style="width:80px; height: 40px; white-space: normal;">
+					<p:graphicImage value="/images/excel.png" />
+
+				</h:commandLink>
+			</p:panel>
+		
+		</a:form>
+	</ui:define>
+</ui:composition>

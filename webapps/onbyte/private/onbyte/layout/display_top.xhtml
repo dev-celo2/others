@@ -1,0 +1,16 @@
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:s="http://jboss.com/products/seam/taglib">
+
+    <h:panelGrid styleClass="prop">
+        <s:span styleClass="name" style="white-space: nowrap;#{styleName}">
+            <ui:insert name="label"/>
+        </s:span>
+        <s:span styleClass="valueDisplay" style="white-space: nowrap;#{styleValue}">
+            <ui:insert/>
+        </s:span>
+    </h:panelGrid>
+
+</ui:composition>

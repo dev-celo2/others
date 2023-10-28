@@ -1,0 +1,1045 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="parametroSearch" styleClass="edit">
+
+        <rich:simpleTogglePanel label="Parametro #{messages['global.searchFilter']}" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Abrecaixa</ui:define>
+                <h:inputText id="abrecaixa" value="#{parametroList.parametro.id.abrecaixa}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Bairro</ui:define>
+                <h:inputText id="bairro" value="#{parametroList.parametro.id.bairro}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Bloatrazo</ui:define>
+                <h:inputText id="bloatrazo" value="#{parametroList.parametro.id.bloatrazo}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Bloinativo</ui:define>
+                <h:inputText id="bloinativo" value="#{parametroList.parametro.id.bloinativo}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Cabecalho1</ui:define>
+                <h:inputText id="cabecalho1" value="#{parametroList.parametro.id.cabecalho1}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Capslock</ui:define>
+                <h:inputText id="capslock" value="#{parametroList.parametro.id.capslock}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Cep</ui:define>
+                <h:inputText id="cep" value="#{parametroList.parametro.id.cep}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Cidade</ui:define>
+                <h:inputText id="cidade" value="#{parametroList.parametro.id.cidade}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Cnpj</ui:define>
+                <h:inputText id="cnpj" value="#{parametroList.parametro.id.cnpj}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Descsistema</ui:define>
+                <h:inputText id="descsistema" value="#{parametroList.parametro.id.descsistema}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Email</ui:define>
+                <h:inputText id="email" value="#{parametroList.parametro.id.email}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Empresa</ui:define>
+                <h:inputText id="empresa" value="#{parametroList.parametro.id.empresa}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Endereco</ui:define>
+                <h:inputText id="endereco" value="#{parametroList.parametro.id.endereco}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Estado</ui:define>
+                <h:inputText id="estado" value="#{parametroList.parametro.id.estado}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Insc</ui:define>
+                <h:inputText id="insc" value="#{parametroList.parametro.id.insc}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Mensfincurso</ui:define>
+                <h:inputText id="mensfincurso" value="#{parametroList.parametro.id.mensfincurso}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Mensrepaberto</ui:define>
+                <h:inputText id="mensrepaberto" value="#{parametroList.parametro.id.mensrepaberto}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Nomefand</ui:define>
+                <h:inputText id="nomefand" value="#{parametroList.parametro.id.nomefand}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Nomefanh</ui:define>
+                <h:inputText id="nomefanh" value="#{parametroList.parametro.id.nomefanh}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Nomefantasia</ui:define>
+                <h:inputText id="nomefantasia" value="#{parametroList.parametro.id.nomefantasia}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Numlock</ui:define>
+                <h:inputText id="numlock" value="#{parametroList.parametro.id.numlock}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Passesalaaula</ui:define>
+                <h:inputText id="passesalaaula" value="#{parametroList.parametro.id.passesalaaula}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Pciniciocaixa</ui:define>
+                <h:inputText id="pciniciocaixa" value="#{parametroList.parametro.id.pciniciocaixa}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Pcmatri</ui:define>
+                <h:inputText id="pcmatri" value="#{parametroList.parametro.id.pcmatri}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Pcmensa</ui:define>
+                <h:inputText id="pcmensa" value="#{parametroList.parametro.id.pcmensa}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Pcsaldoantcred</ui:define>
+                <h:inputText id="pcsaldoantcred" value="#{parametroList.parametro.id.pcsaldoantcred}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Pcsaldoantdeb</ui:define>
+                <h:inputText id="pcsaldoantdeb" value="#{parametroList.parametro.id.pcsaldoantdeb}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Pctranscaixa</ui:define>
+                <h:inputText id="pctranscaixa" value="#{parametroList.parametro.id.pctranscaixa}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Pctranscaixadeb</ui:define>
+                <h:inputText id="pctranscaixadeb" value="#{parametroList.parametro.id.pctranscaixadeb}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Perdescacima</ui:define>
+                <h:inputText id="perdescacima" value="#{parametroList.parametro.id.perdescacima}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Perdescextra</ui:define>
+                <h:inputText id="perdescextra" value="#{parametroList.parametro.id.perdescextra}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Referencia</ui:define>
+                <h:inputText id="referencia" value="#{parametroList.parametro.id.referencia}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Rodape1</ui:define>
+                <h:inputText id="rodape1" value="#{parametroList.parametro.id.rodape1}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Rodape2</ui:define>
+                <h:inputText id="rodape2" value="#{parametroList.parametro.id.rodape2}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Senha</ui:define>
+                <h:inputText id="senha" value="#{parametroList.parametro.id.senha}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Senhavend</ui:define>
+                <h:inputText id="senhavend" value="#{parametroList.parametro.id.senhavend}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Telefone1</ui:define>
+                <h:inputText id="telefone1" value="#{parametroList.parametro.id.telefone1}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Telefone2</ui:define>
+                <h:inputText id="telefone2" value="#{parametroList.parametro.id.telefone2}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['global.match']}</ui:define>
+                <h:selectOneRadio id="logic" value="#{parametroList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="#{messages['global.all']}" itemValue="and"/>
+                    <f:selectItem itemLabel="#{messages['global.any']}" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:simpleTogglePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['global.search']}" action="/private/onbyte/ParametroList.xhtml"/>
+            <s:button id="reset" value="#{messages['global.clear']}" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">Parametro #{messages['global.searchResults']} (#{empty parametroList.resultList ? 0 : (parametroList.paginated ? parametroList.resultCount : parametroList.resultList.size)})</f:facet>
+    <div class="results" id="parametroList">
+
+    <h:outputFormat value="#{messages['global.NoSearchResults']}"
+               rendered="#{empty parametroList.resultList}"/>
+
+    <rich:dataTable id="parametroList" onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                var="_parametro"
+              value="#{parametroList.resultList}"
+           rendered="#{not empty parametroList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Abrecaixa"/>
+                    <ui:param name="propertyPath" value="parametro.id.abrecaixa"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.abrecaixa}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Algo"/>
+                    <ui:param name="propertyPath" value="parametro.id.algo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.algo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Avisoatrazo"/>
+                    <ui:param name="propertyPath" value="parametro.id.avisoatrazo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.avisoatrazo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Bairro"/>
+                    <ui:param name="propertyPath" value="parametro.id.bairro"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.bairro}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Bloatrazo"/>
+                    <ui:param name="propertyPath" value="parametro.id.bloatrazo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.bloatrazo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Bloinativo"/>
+                    <ui:param name="propertyPath" value="parametro.id.bloinativo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.bloinativo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Cabecalho1"/>
+                    <ui:param name="propertyPath" value="parametro.id.cabecalho1"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.cabecalho1}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Capslock"/>
+                    <ui:param name="propertyPath" value="parametro.id.capslock"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.capslock}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Cep"/>
+                    <ui:param name="propertyPath" value="parametro.id.cep"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.cep}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Cidade"/>
+                    <ui:param name="propertyPath" value="parametro.id.cidade"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.cidade}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Cnpj"/>
+                    <ui:param name="propertyPath" value="parametro.id.cnpj"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.cnpj}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Contrato"/>
+                    <ui:param name="propertyPath" value="parametro.id.contrato"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.contrato}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Datafrequencia"/>
+                    <ui:param name="propertyPath" value="parametro.id.datafrequencia"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.datafrequencia}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Descsistema"/>
+                    <ui:param name="propertyPath" value="parametro.id.descsistema"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.descsistema}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Email"/>
+                    <ui:param name="propertyPath" value="parametro.id.email"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.email}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Empresa"/>
+                    <ui:param name="propertyPath" value="parametro.id.empresa"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.empresa}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Endereco"/>
+                    <ui:param name="propertyPath" value="parametro.id.endereco"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.endereco}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Estado"/>
+                    <ui:param name="propertyPath" value="parametro.id.estado"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.estado}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Fundo"/>
+                    <ui:param name="propertyPath" value="parametro.id.fundo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.fundo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Insc"/>
+                    <ui:param name="propertyPath" value="parametro.id.insc"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.insc}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Jurodia"/>
+                    <ui:param name="propertyPath" value="parametro.id.jurodia"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.jurodia}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Mensfincurso"/>
+                    <ui:param name="propertyPath" value="parametro.id.mensfincurso"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.mensfincurso}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Mensrepaberto"/>
+                    <ui:param name="propertyPath" value="parametro.id.mensrepaberto"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.mensrepaberto}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Nomefand"/>
+                    <ui:param name="propertyPath" value="parametro.id.nomefand"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.nomefand}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Nomefanh"/>
+                    <ui:param name="propertyPath" value="parametro.id.nomefanh"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.nomefanh}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Nomefantasia"/>
+                    <ui:param name="propertyPath" value="parametro.id.nomefantasia"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.nomefantasia}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Numeroacertos"/>
+                    <ui:param name="propertyPath" value="parametro.id.numeroacertos"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.numeroacertos}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Numlock"/>
+                    <ui:param name="propertyPath" value="parametro.id.numlock"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.numlock}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Passesalaaula"/>
+                    <ui:param name="propertyPath" value="parametro.id.passesalaaula"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.passesalaaula}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Pciniciocaixa"/>
+                    <ui:param name="propertyPath" value="parametro.id.pciniciocaixa"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.pciniciocaixa}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Pcmatri"/>
+                    <ui:param name="propertyPath" value="parametro.id.pcmatri"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.pcmatri}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Pcmensa"/>
+                    <ui:param name="propertyPath" value="parametro.id.pcmensa"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.pcmensa}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Pcsaldoantcred"/>
+                    <ui:param name="propertyPath" value="parametro.id.pcsaldoantcred"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.pcsaldoantcred}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Pcsaldoantdeb"/>
+                    <ui:param name="propertyPath" value="parametro.id.pcsaldoantdeb"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.pcsaldoantdeb}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Pctranscaixa"/>
+                    <ui:param name="propertyPath" value="parametro.id.pctranscaixa"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.pctranscaixa}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Pctranscaixadeb"/>
+                    <ui:param name="propertyPath" value="parametro.id.pctranscaixadeb"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.pctranscaixadeb}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Perdescacima"/>
+                    <ui:param name="propertyPath" value="parametro.id.perdescacima"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.perdescacima}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Perdescextra"/>
+                    <ui:param name="propertyPath" value="parametro.id.perdescextra"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.perdescextra}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Referencia"/>
+                    <ui:param name="propertyPath" value="parametro.id.referencia"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.referencia}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Rodape1"/>
+                    <ui:param name="propertyPath" value="parametro.id.rodape1"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.rodape1}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Rodape2"/>
+                    <ui:param name="propertyPath" value="parametro.id.rodape2"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.rodape2}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Senha"/>
+                    <ui:param name="propertyPath" value="parametro.id.senha"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.senha}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Senhavend"/>
+                    <ui:param name="propertyPath" value="parametro.id.senhavend"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.senhavend}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Telefone1"/>
+                    <ui:param name="propertyPath" value="parametro.id.telefone1"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.telefone1}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Telefone2"/>
+                    <ui:param name="propertyPath" value="parametro.id.telefone2"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.telefone2}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Valcursoextra"/>
+                    <ui:param name="propertyPath" value="parametro.id.valcursoextra"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.valcursoextra}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Valorcancela"/>
+                    <ui:param name="propertyPath" value="parametro.id.valorcancela"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.valorcancela}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Vendautomatico"/>
+                    <ui:param name="propertyPath" value="parametro.id.vendautomatico"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.vendautomatico}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{parametroList}"/>
+                    <ui:param name="propertyLabel" value="Versao"/>
+                    <ui:param name="propertyPath" value="parametro.id.versao"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_parametro.id.versao}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">#{messages['global.action']}</f:facet>
+            <s:link view="/private/onbyte/#{empty from ? 'Parametro' : from}.xhtml"
+                   value="#{empty from ? messages['global.view'] : messages['global.select']}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="parametroViewId">
+                <f:param name="parametroAbrecaixa"
+                        value="#{_parametro.id.abrecaixa}"/>
+                <f:param name="parametroAlgo"
+                        value="#{_parametro.id.algo}"/>
+                <f:param name="parametroAvisoatrazo"
+                        value="#{_parametro.id.avisoatrazo}"/>
+                <f:param name="parametroBairro"
+                        value="#{_parametro.id.bairro}"/>
+                <f:param name="parametroBloatrazo"
+                        value="#{_parametro.id.bloatrazo}"/>
+                <f:param name="parametroBloinativo"
+                        value="#{_parametro.id.bloinativo}"/>
+                <f:param name="parametroCabecalho1"
+                        value="#{_parametro.id.cabecalho1}"/>
+                <f:param name="parametroCapslock"
+                        value="#{_parametro.id.capslock}"/>
+                <f:param name="parametroCep"
+                        value="#{_parametro.id.cep}"/>
+                <f:param name="parametroCidade"
+                        value="#{_parametro.id.cidade}"/>
+                <f:param name="parametroCnpj"
+                        value="#{_parametro.id.cnpj}"/>
+                <f:param name="parametroContrato"
+                        value="#{_parametro.id.contrato}"/>
+                <f:param name="parametroDatafrequencia"
+                        value="#{_parametro.id.datafrequencia}"/>
+                <f:param name="parametroDescsistema"
+                        value="#{_parametro.id.descsistema}"/>
+                <f:param name="parametroEmail"
+                        value="#{_parametro.id.email}"/>
+                <f:param name="parametroEmpresa"
+                        value="#{_parametro.id.empresa}"/>
+                <f:param name="parametroEndereco"
+                        value="#{_parametro.id.endereco}"/>
+                <f:param name="parametroEstado"
+                        value="#{_parametro.id.estado}"/>
+                <f:param name="parametroFundo"
+                        value="#{_parametro.id.fundo}"/>
+                <f:param name="parametroInsc"
+                        value="#{_parametro.id.insc}"/>
+                <f:param name="parametroJurodia"
+                        value="#{_parametro.id.jurodia}"/>
+                <f:param name="parametroMensfincurso"
+                        value="#{_parametro.id.mensfincurso}"/>
+                <f:param name="parametroMensrepaberto"
+                        value="#{_parametro.id.mensrepaberto}"/>
+                <f:param name="parametroNomefand"
+                        value="#{_parametro.id.nomefand}"/>
+                <f:param name="parametroNomefanh"
+                        value="#{_parametro.id.nomefanh}"/>
+                <f:param name="parametroNomefantasia"
+                        value="#{_parametro.id.nomefantasia}"/>
+                <f:param name="parametroNumeroacertos"
+                        value="#{_parametro.id.numeroacertos}"/>
+                <f:param name="parametroNumlock"
+                        value="#{_parametro.id.numlock}"/>
+                <f:param name="parametroPassesalaaula"
+                        value="#{_parametro.id.passesalaaula}"/>
+                <f:param name="parametroPciniciocaixa"
+                        value="#{_parametro.id.pciniciocaixa}"/>
+                <f:param name="parametroPcmatri"
+                        value="#{_parametro.id.pcmatri}"/>
+                <f:param name="parametroPcmensa"
+                        value="#{_parametro.id.pcmensa}"/>
+                <f:param name="parametroPcsaldoantcred"
+                        value="#{_parametro.id.pcsaldoantcred}"/>
+                <f:param name="parametroPcsaldoantdeb"
+                        value="#{_parametro.id.pcsaldoantdeb}"/>
+                <f:param name="parametroPctranscaixa"
+                        value="#{_parametro.id.pctranscaixa}"/>
+                <f:param name="parametroPctranscaixadeb"
+                        value="#{_parametro.id.pctranscaixadeb}"/>
+                <f:param name="parametroPerdescacima"
+                        value="#{_parametro.id.perdescacima}"/>
+                <f:param name="parametroPerdescextra"
+                        value="#{_parametro.id.perdescextra}"/>
+                <f:param name="parametroReferencia"
+                        value="#{_parametro.id.referencia}"/>
+                <f:param name="parametroRodape1"
+                        value="#{_parametro.id.rodape1}"/>
+                <f:param name="parametroRodape2"
+                        value="#{_parametro.id.rodape2}"/>
+                <f:param name="parametroSenha"
+                        value="#{_parametro.id.senha}"/>
+                <f:param name="parametroSenhavend"
+                        value="#{_parametro.id.senhavend}"/>
+                <f:param name="parametroTelefone1"
+                        value="#{_parametro.id.telefone1}"/>
+                <f:param name="parametroTelefone2"
+                        value="#{_parametro.id.telefone2}"/>
+                <f:param name="parametroValcursoextra"
+                        value="#{_parametro.id.valcursoextra}"/>
+                <f:param name="parametroValorcancela"
+                        value="#{_parametro.id.valorcancela}"/>
+                <f:param name="parametroVendautomatico"
+                        value="#{_parametro.id.vendautomatico}"/>
+                <f:param name="parametroVersao"
+                        value="#{_parametro.id.versao}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/private/onbyte/ParametroEdit.xhtml"
+                   value="#{messages['global.edit']}"
+             propagation="none"
+                      id="parametroEdit"
+                rendered="#{empty from}">
+                <f:param name="parametroAbrecaixa"
+                        value="#{_parametro.id.abrecaixa}"/>
+                <f:param name="parametroAlgo"
+                        value="#{_parametro.id.algo}"/>
+                <f:param name="parametroAvisoatrazo"
+                        value="#{_parametro.id.avisoatrazo}"/>
+                <f:param name="parametroBairro"
+                        value="#{_parametro.id.bairro}"/>
+                <f:param name="parametroBloatrazo"
+                        value="#{_parametro.id.bloatrazo}"/>
+                <f:param name="parametroBloinativo"
+                        value="#{_parametro.id.bloinativo}"/>
+                <f:param name="parametroCabecalho1"
+                        value="#{_parametro.id.cabecalho1}"/>
+                <f:param name="parametroCapslock"
+                        value="#{_parametro.id.capslock}"/>
+                <f:param name="parametroCep"
+                        value="#{_parametro.id.cep}"/>
+                <f:param name="parametroCidade"
+                        value="#{_parametro.id.cidade}"/>
+                <f:param name="parametroCnpj"
+                        value="#{_parametro.id.cnpj}"/>
+                <f:param name="parametroContrato"
+                        value="#{_parametro.id.contrato}"/>
+                <f:param name="parametroDatafrequencia"
+                        value="#{_parametro.id.datafrequencia}"/>
+                <f:param name="parametroDescsistema"
+                        value="#{_parametro.id.descsistema}"/>
+                <f:param name="parametroEmail"
+                        value="#{_parametro.id.email}"/>
+                <f:param name="parametroEmpresa"
+                        value="#{_parametro.id.empresa}"/>
+                <f:param name="parametroEndereco"
+                        value="#{_parametro.id.endereco}"/>
+                <f:param name="parametroEstado"
+                        value="#{_parametro.id.estado}"/>
+                <f:param name="parametroFundo"
+                        value="#{_parametro.id.fundo}"/>
+                <f:param name="parametroInsc"
+                        value="#{_parametro.id.insc}"/>
+                <f:param name="parametroJurodia"
+                        value="#{_parametro.id.jurodia}"/>
+                <f:param name="parametroMensfincurso"
+                        value="#{_parametro.id.mensfincurso}"/>
+                <f:param name="parametroMensrepaberto"
+                        value="#{_parametro.id.mensrepaberto}"/>
+                <f:param name="parametroNomefand"
+                        value="#{_parametro.id.nomefand}"/>
+                <f:param name="parametroNomefanh"
+                        value="#{_parametro.id.nomefanh}"/>
+                <f:param name="parametroNomefantasia"
+                        value="#{_parametro.id.nomefantasia}"/>
+                <f:param name="parametroNumeroacertos"
+                        value="#{_parametro.id.numeroacertos}"/>
+                <f:param name="parametroNumlock"
+                        value="#{_parametro.id.numlock}"/>
+                <f:param name="parametroPassesalaaula"
+                        value="#{_parametro.id.passesalaaula}"/>
+                <f:param name="parametroPciniciocaixa"
+                        value="#{_parametro.id.pciniciocaixa}"/>
+                <f:param name="parametroPcmatri"
+                        value="#{_parametro.id.pcmatri}"/>
+                <f:param name="parametroPcmensa"
+                        value="#{_parametro.id.pcmensa}"/>
+                <f:param name="parametroPcsaldoantcred"
+                        value="#{_parametro.id.pcsaldoantcred}"/>
+                <f:param name="parametroPcsaldoantdeb"
+                        value="#{_parametro.id.pcsaldoantdeb}"/>
+                <f:param name="parametroPctranscaixa"
+                        value="#{_parametro.id.pctranscaixa}"/>
+                <f:param name="parametroPctranscaixadeb"
+                        value="#{_parametro.id.pctranscaixadeb}"/>
+                <f:param name="parametroPerdescacima"
+                        value="#{_parametro.id.perdescacima}"/>
+                <f:param name="parametroPerdescextra"
+                        value="#{_parametro.id.perdescextra}"/>
+                <f:param name="parametroReferencia"
+                        value="#{_parametro.id.referencia}"/>
+                <f:param name="parametroRodape1"
+                        value="#{_parametro.id.rodape1}"/>
+                <f:param name="parametroRodape2"
+                        value="#{_parametro.id.rodape2}"/>
+                <f:param name="parametroSenha"
+                        value="#{_parametro.id.senha}"/>
+                <f:param name="parametroSenhavend"
+                        value="#{_parametro.id.senhavend}"/>
+                <f:param name="parametroTelefone1"
+                        value="#{_parametro.id.telefone1}"/>
+                <f:param name="parametroTelefone2"
+                        value="#{_parametro.id.telefone2}"/>
+                <f:param name="parametroValcursoextra"
+                        value="#{_parametro.id.valcursoextra}"/>
+                <f:param name="parametroValorcancela"
+                        value="#{_parametro.id.valorcancela}"/>
+                <f:param name="parametroVendautomatico"
+                        value="#{_parametro.id.vendautomatico}"/>
+                <f:param name="parametroVersao"
+                        value="#{_parametro.id.versao}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/private/onbyte/ParametroList.xhtml"
+            rendered="#{parametroList.previousExists}"
+               value="#{messages.left}#{messages.left} #{messages['global.firstPage']}"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/ParametroList.xhtml"
+            rendered="#{parametroList.previousExists}"
+               value="#{messages.left} #{messages['global.previousPage']}"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{parametroList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/ParametroList.xhtml"
+            rendered="#{parametroList.nextExists}"
+               value="#{messages['global.nextPage']} #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{parametroList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/ParametroList.xhtml"
+            rendered="#{parametroList.nextExists}"
+               value="#{messages['global.lastPage']} #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{parametroList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/private/onbyte/ParametroEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="#{messages['global.create']} parametro">
+            <f:param name="parametroAbrecaixa"/>
+            <f:param name="parametroAlgo"/>
+            <f:param name="parametroAvisoatrazo"/>
+            <f:param name="parametroBairro"/>
+            <f:param name="parametroBloatrazo"/>
+            <f:param name="parametroBloinativo"/>
+            <f:param name="parametroCabecalho1"/>
+            <f:param name="parametroCapslock"/>
+            <f:param name="parametroCep"/>
+            <f:param name="parametroCidade"/>
+            <f:param name="parametroCnpj"/>
+            <f:param name="parametroContrato"/>
+            <f:param name="parametroDatafrequencia"/>
+            <f:param name="parametroDescsistema"/>
+            <f:param name="parametroEmail"/>
+            <f:param name="parametroEmpresa"/>
+            <f:param name="parametroEndereco"/>
+            <f:param name="parametroEstado"/>
+            <f:param name="parametroFundo"/>
+            <f:param name="parametroInsc"/>
+            <f:param name="parametroJurodia"/>
+            <f:param name="parametroMensfincurso"/>
+            <f:param name="parametroMensrepaberto"/>
+            <f:param name="parametroNomefand"/>
+            <f:param name="parametroNomefanh"/>
+            <f:param name="parametroNomefantasia"/>
+            <f:param name="parametroNumeroacertos"/>
+            <f:param name="parametroNumlock"/>
+            <f:param name="parametroPassesalaaula"/>
+            <f:param name="parametroPciniciocaixa"/>
+            <f:param name="parametroPcmatri"/>
+            <f:param name="parametroPcmensa"/>
+            <f:param name="parametroPcsaldoantcred"/>
+            <f:param name="parametroPcsaldoantdeb"/>
+            <f:param name="parametroPctranscaixa"/>
+            <f:param name="parametroPctranscaixadeb"/>
+            <f:param name="parametroPerdescacima"/>
+            <f:param name="parametroPerdescextra"/>
+            <f:param name="parametroReferencia"/>
+            <f:param name="parametroRodape1"/>
+            <f:param name="parametroRodape2"/>
+            <f:param name="parametroSenha"/>
+            <f:param name="parametroSenhavend"/>
+            <f:param name="parametroTelefone1"/>
+            <f:param name="parametroTelefone2"/>
+            <f:param name="parametroValcursoextra"/>
+            <f:param name="parametroValorcancela"/>
+            <f:param name="parametroVendautomatico"/>
+            <f:param name="parametroVersao"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

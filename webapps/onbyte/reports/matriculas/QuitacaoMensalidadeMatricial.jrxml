@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="QuitacaoMensalidadeMatricial" pageWidth="573" pageHeight="754" whenNoDataType="AllSectionsNoDetail" columnWidth="573" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="72f1daa9-3aab-49d6-9d0c-5b520cf6ef6c">
+	<property name="ireport.zoom" value="1.2396694214876034"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nomeFantasia" class="java.lang.String"/>
+	<parameter name="endereco" class="java.lang.String"/>
+	<parameter name="cep" class="java.lang.String"/>
+	<parameter name="telefone" class="java.lang.String"/>
+	<parameter name="bairro" class="java.lang.String"/>
+	<parameter name="cidade" class="java.lang.String"/>
+	<parameter name="uf" class="java.lang.String"/>
+	<parameter name="totalParcelas" class="java.lang.Integer"/>
+	<field name="id.matricula" class="java.lang.Integer"/>
+	<field name="matriculas.alunos.nome" class="java.lang.String"/>
+	<field name="matriculas.modulos.descricao" class="java.lang.String"/>
+	<field name="id.parcela" class="java.lang.Integer"/>
+	<field name="dtaVenc" class="java.util.Date"/>
+	<field name="valor" class="java.lang.Double"/>
+	<field name="dtaPgto" class="java.util.Date"/>
+	<field name="valorPg" class="java.math.BigDecimal"/>
+	<field name="funcionario.nome" class="java.lang.String"/>
+	<detail>
+		<band height="220">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="01230016-04d1-43cd-82f3-0e8be998d29b" x="4" y="7" width="275" height="12"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeFantasia}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="b45035ec-eced-436a-af4a-dde16787bda9" x="288" y="7" width="272" height="12"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeFantasia}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="1963bdf8-c9b9-4ff2-a5e3-dee9fb9b1b92" x="4" y="35" width="275" height="12"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{endereco}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="8ee04918-3bcd-4e67-901f-df373315b72e" x="4" y="49" width="275" height="12"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bairro}+" "+$P{cidade}+" "+$P{cep}+"-"+$P{uf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d81d0c5a-c980-41a6-99f5-fd8c0c980fcb" x="5" y="87" width="38" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.alunos}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fa5cbe39-c453-4c9c-8e4a-801bd7f9cc30" x="5" y="99" width="38" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{modulos.curso}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="dbb3cdef-09dd-442e-97c9-f336f3d37932" x="5" y="111" width="49" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{mensalidades.parcela}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="787001c8-0472-4685-8d6b-87ee5654b570" x="5" y="123" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{mensalidade.dtaVenc}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f486c2bf-6399-458f-946a-7ed9c94db5f5" x="5" y="135" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{quitacaoMensalidade.valor}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7f29ddf6-9db9-4b98-826f-d8cdb6e4c20a" x="5" y="146" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{quitacaoMensalidade.acrescimos}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3b252b2d-9b14-45fe-b85a-6a39c2815dea" x="5" y="158" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{carneAluno.descontos}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="591f292b-94f3-43ec-a538-37150d4516bc" x="5" y="170" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{mensalidades.valorPg}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ac8b4a8c-734e-4cf9-bf35-f736dd689b9e" x="5" y="181" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{quitacaoMensalidade.dtaPgto}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6ef0db59-90bf-4e59-8dfa-f67ef9735d9a" x="5" y="192" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{quitacaoMensalidade.funcionario}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="04c9616b-3b15-4d1b-9090-31102f618d83" x="71" y="66" width="82" height="22"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="18" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{quitacaoMensalidade.recibo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="102d38c7-818f-4149-84d9-f561e35664db" x="43" y="87" width="27" height="12"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id.matricula}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e347fce4-400e-4d64-953b-7807ad7fb24f" x="78" y="87" width="201" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.alunos.nome}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fe07547c-408b-4267-9c53-c8a22214e134" x="49" y="99" width="230" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.modulos.descricao}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6473f71e-9e0a-4675-ae79-fe1b029d72e8" x="62" y="111" width="217" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id.parcela}+"   "+$R{global.of}+"    "+$P{totalParcelas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="934ba18b-3a2c-4477-b019-de378930c52d" x="82" y="123" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dtaVenc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="4a4a2e71-73dc-4808-889a-1d9db1d52069" x="82" y="135" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="cb8902e6-5938-4166-b782-c540885485fd" x="82" y="146" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorPg}!=null&&$F{valorPg}.doubleValue()>$F{valor}.doubleValue()?$F{valorPg}.doubleValue()-$F{valor}.doubleValue():0]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="48152e96-ddcb-48f7-a000-2b66f9050b61" x="82" y="158" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorPg}!=null&&$F{valor}.doubleValue()>$F{valorPg}.doubleValue()?$F{valor}.doubleValue()-$F{valorPg}.doubleValue():0]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="d431aa98-7aa5-4b0f-bc55-a981a6fac6b7" x="82" y="170" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorPg}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="5330cadd-0e6d-4674-a538-16500e18c0ff" x="82" y="181" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dtaPgto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d8e00f74-e87f-446e-9f18-b13dcf4b21e9" x="82" y="192" width="183" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{funcionario.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a52bbb7d-9226-4efb-bd44-f70641ae7fe4" x="355" y="66" width="82" height="22"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="18" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{quitacaoMensalidade.recibo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4acd3367-6624-4a9c-8d0b-1628c7822c15" x="288" y="49" width="272" height="12"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{bairro}+" "+$P{cidade}+" "+$P{cep}+"-"+$P{uf}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="ecc2e067-e5ac-46a8-b01f-5f378028e7ff" x="288" y="35" width="272" height="12"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{endereco}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4555ec82-6fe4-418e-ab1f-c07cb87eb98c" x="327" y="87" width="27" height="12"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id.matricula}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="49cc909e-9e6d-49c8-966f-e331eca7f359" x="332" y="99" width="224" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.modulos.descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="39211efc-dced-40eb-9f1b-b4936f427c9a" x="289" y="158" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{carneAluno.descontos}+": "]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9da45547-76a2-42ea-b879-ef3bec1ad60a" x="364" y="87" width="192" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.alunos.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5aff6c21-2270-440e-90ef-c8c10ea40e1c" x="289" y="146" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{quitacaoMensalidade.acrescimos}+": "]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="43b4c8df-6df8-455d-9692-41b4584b62f7" x="368" y="170" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorPg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5c2b8636-2fba-498a-bd6f-7544c4f91f95" x="289" y="135" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{quitacaoMensalidade.valor}+": "]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2e91896b-5b46-4d8a-ade3-8cbf2aa6561b" x="368" y="192" width="188" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{funcionario.nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="8a1a9f26-1059-4e61-9259-c8a468d658e5" x="368" y="123" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dtaVenc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="96097eb8-7de5-4a93-b993-0b08afbd7ed3" x="289" y="181" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{quitacaoMensalidade.dtaPgto}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0d020417-e679-4e63-b2c2-d2f4e0465884" x="289" y="87" width="38" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.alunos}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b795c9e0-b347-4bc2-9d4e-f0f1b36d5e5a" x="289" y="192" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{quitacaoMensalidade.funcionario}+": "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="07252e40-9f50-4ff6-87ca-559144d9db2c" x="289" y="111" width="49" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{mensalidades.parcela}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cbc1bbfa-b8d8-43eb-87e6-d43e8b3ab754" x="289" y="99" width="38" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{modulos.curso}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9682d056-377d-4e8a-845b-05f1df0b7b1a" x="289" y="123" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{mensalidade.dtaVenc}+": "]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="8f869528-25ea-470b-88ed-f81a9a43ffb5" x="368" y="158" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorPg}!=null&&$F{valor}.doubleValue()>$F{valorPg}.doubleValue()?$F{valor}.doubleValue()-$F{valorPg}.doubleValue():0]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7fec0775-7dbe-4397-bd9a-6c09664ef11a" x="289" y="170" width="73" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{mensalidades.valorPg}+": "]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="25136457-50db-42ea-8d1f-06de6b29d0f4" x="368" y="135" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bc0ae0f4-a8ee-4b7e-964d-c91b74b19cb9" x="344" y="111" width="212" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id.parcela}+"   "+$R{global.of}+"    "+$P{totalParcelas}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="af93b2c5-7143-440f-8579-6b158fd9b692" x="368" y="181" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dtaPgto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="5adbaab8-993d-43d0-8a23-ea4a11bd4a0a" x="368" y="146" width="74" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorPg}!=null&&$F{valorPg}.doubleValue()>$F{valor}.doubleValue()?$F{valorPg}.doubleValue()-$F{valor}.doubleValue():0]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3a18700c-31b5-4d99-8c72-1861a1475173" x="2" y="59" width="569" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[----------------------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4a165c15-4168-40e6-9179-ccdce2ffb449" x="1" y="208" width="570" height="12"/>
+				<textElement markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[----------------------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="88c37c7b-aa64-439d-96cb-52af3f396e2f" x="4" y="21" width="275" height="12"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telefone}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="697daab1-b77b-4850-ba60-e3058743f041" x="288" y="21" width="272" height="12"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Courier New" size="10" isBold="false"/>
+					<paragraph lineSpacing="Single" lineSpacingSize="22.0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telefone}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

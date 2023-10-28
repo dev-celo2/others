@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelQuadroHorariosPorMatricula" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="808" leftMargin="17" rightMargin="17" topMargin="20" bottomMargin="20" uuid="231e1d41-a4c4-45ee-8e38-697500a646a8">
+	<property name="ireport.zoom" value="1.2100000000000035"/>
+	<property name="ireport.x" value="348"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="title_linha1" class="java.lang.String"/>
+	<parameter name="title_linha2" class="java.lang.String"/>
+	<field name="matricula" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="dtinicio" class="java.util.Date"/>
+	<field name="qtd_Parcelas_Atras" class="java.lang.Integer"/>
+	<field name="qtd_aulas" class="java.lang.Integer"/>
+	<field name="qtd_faltas" class="java.lang.Integer"/>
+	<field name="qtd_pres_aula" class="java.lang.Integer"/>
+	<field name="qtd_pres_rep" class="java.lang.Integer"/>
+	<field name="qtd_aulas_faltantes" class="java.lang.Integer"/>
+	<field name="telres" class="java.lang.String"/>
+	<field name="telcel" class="java.lang.String"/>
+	<field name="telcom" class="java.lang.String"/>
+	<field name="horarioCodigo" class="java.lang.Integer"/>
+	<field name="diasemana" class="java.lang.String"/>
+	<field name="inicio" class="java.lang.String"/>
+	<field name="final_" class="java.lang.String"/>
+	<variable name="DETAIL_COUNT" class="java.lang.Integer" calculation="Count"/>
+	<group name="matricula">
+		<groupExpression><![CDATA[$F{matricula}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement uuid="8cced7a5-620a-4e67-97a2-1a4cd9f68793" x="0" y="15" width="273" height="11"/>
+					<textElement verticalAlignment="Bottom" markup="none">
+						<font fontName="Arial" size="9" isBold="false" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{alunos.codigo}+" / "+$R{alunos.nome}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="12492977-87ce-4fd6-8e57-f7c117f931d3" x="597" y="15" width="69" height="11"/>
+					<textElement verticalAlignment="Bottom" markup="none">
+						<font fontName="Arial" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{alunos.telresAbr}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="5d0bee0a-be83-4733-8d5f-d50d7bd8b35e" x="666" y="15" width="73" height="11"/>
+					<textElement verticalAlignment="Bottom" markup="none">
+						<font fontName="Arial" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{alunos.telcel}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="8f009b59-0fcc-42bf-966e-38f3c93c5766" mode="Transparent" x="273" y="15" width="52" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
+						<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relQuadroHorarios.dtinicio}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="86322153-0c78-4563-9617-7fe1797f8a03" mode="Transparent" x="367" y="15" width="44" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
+						<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relQuadroHorarios.qtdAulas}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="ed11cb31-b63c-4566-958c-9779d8e9fbaa" mode="Transparent" x="325" y="15" width="42" height="11" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Bottom" rotation="None" markup="none">
+						<font fontName="Arial" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relQuadroHorarios.mensalidadeAtrasada}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="a13f9c44-20c2-4689-827e-d3e634a7f415" x="0" y="26" width="808" height="1"/>
+				</line>
+				<textField>
+					<reportElement uuid="d9f58371-5f7e-41a1-b360-45adce4ef642" x="739" y="15" width="69" height="11"/>
+					<textElement verticalAlignment="Bottom" markup="none">
+						<font fontName="Arial" size="9" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{alunos.telcom}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="340f0c9b-9574-4141-b580-a26cb58c4a35" x="456" y="15" width="44" height="11"/>
+					<textElement verticalAlignment="Bottom" markup="none">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relQuadroHorarios.presencaAula}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="54502d89-ce8b-4892-9009-98f9f246a0e1" x="500" y="15" width="41" height="11"/>
+					<textElement verticalAlignment="Bottom" markup="none">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relQuadroHorarios.presencaRep}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="26636102-5b1e-44bb-855f-36c235fd17fe" x="541" y="15" width="56" height="11"/>
+					<textElement verticalAlignment="Bottom" markup="none">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relQuadroHorarios.alunoFantates}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="06f41876-cf56-4a3e-8d53-42bce41a26aa" x="354" y="3" width="316" height="12"/>
+					<textElement markup="none">
+						<font fontName="Arial" size="10" isBold="false" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relQuadroHorarios.msgPresencaFalta}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="80cd077b-dd79-492e-974e-4b4979e0ac67" x="0" y="0" width="808" height="1"/>
+				</line>
+				<textField>
+					<reportElement uuid="749907b6-b861-4d35-856a-9828e0cb99ab" x="411" y="15" width="45" height="11"/>
+					<textElement verticalAlignment="Bottom" markup="none">
+						<font fontName="Arial" size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relQuadroHorarios.qtdFaltas}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="0587f852-0290-4f14-badf-084b61da0249" x="0" y="27" width="43" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{matricula}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="b5a59d41-ea4d-4bf3-8726-5cd83f1858a9" x="43" y="27" width="230" height="13"/>
+					<textElement>
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="7e236825-ae49-4dad-80cd-8010ac240592" x="597" y="27" width="69" height="13"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{telres}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="d8691431-9ffc-4dfe-acda-cb9e9cb25fc8" x="666" y="27" width="73" height="13"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{telcel}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement uuid="32b79280-2962-4380-957b-eec87fb0fe94" x="273" y="27" width="52" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{dtinicio}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement uuid="85973f72-0b80-47d2-9886-7b031115ef38" x="325" y="27" width="42" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{qtd_Parcelas_Atras}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement uuid="cdf7b851-9f83-4f09-8bd6-573eefe20d74" x="367" y="27" width="44" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{qtd_aulas}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="ff59010d-2b2d-43d9-9152-4bd92e8317fe" x="739" y="27" width="69" height="13"/>
+					<box>
+						<pen lineWidth="0.0"/>
+						<topPen lineWidth="0.0"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement>
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{telcom}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement uuid="a4f16e07-3956-459a-93ff-4998b56a6ec9" x="456" y="27" width="44" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{qtd_pres_aula}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement uuid="d7e602b2-34a7-4f89-b8a6-942d8bd7fe93" x="500" y="27" width="41" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{qtd_pres_rep}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement uuid="d47eeec2-4f57-4259-ba95-adcca14dae48" x="541" y="27" width="56" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{qtd_aulas_faltantes}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement uuid="d9c9934a-9d26-486b-8c49-150246182d6a" x="411" y="27" width="45" height="13"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{qtd_faltas}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="58" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement uuid="212655c1-e3c5-45dc-b0f2-d85efc84e18e" x="0" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="89284dc7-e72f-489e-9870-fecc023351f2" x="708" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<patternExpression><![CDATA[$R{global.reportPagina}+": "]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cb842066-3579-45b2-b691-3898548d35f4" mode="Transparent" x="0" y="22" width="808" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="15" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title_linha1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1ae2c2f4-ac4f-44cf-8fee-68f8fc955f4f" x="100" y="0" width="608" height="23"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="ZurichCalligraphic" size="20" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8daea65f-19be-4e0d-aea7-c70f9c8d5e91" mode="Transparent" x="0" y="40" width="808" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="15" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title_linha2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement uuid="fc9b047c-6824-4546-9679-487dc3ed805d" x="27" y="0" width="73" height="13"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Arial" size="9" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{horarios.diasemana}+": "]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="64703643-8ab7-4b7a-a32d-a17bcc6add76" x="101" y="0" width="87" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[com.intelinet.util.Combos.getDiasSemanaAbr().get($F{diasemana})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d10112e8-1c9d-41a4-a139-c31ed46f37d3" x="191" y="0" width="33" height="13"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Arial" size="9" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculasHome.horariosInicio}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="2d35c656-c6b1-4e51-bea1-4c810e747df8" x="224" y="0" width="34" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a522c223-2e65-4a96-a7a3-881816f904e8" x="265" y="0" width="40" height="13"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Arial" size="9" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculasHome.horariosTermino}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="8c735539-eb56-4dc9-bae3-42888ff46278" x="305" y="0" width="34" height="13"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{final_}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="1">
+			<line>
+				<reportElement uuid="37c94594-86d7-4de9-9a55-a0ee06b671f3" x="0" y="0" width="808" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

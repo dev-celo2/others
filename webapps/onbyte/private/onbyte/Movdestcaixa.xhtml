@@ -1,0 +1,237 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:p="http://primefaces.prime.com.tr/ui"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <p:panel>
+        <f:facet name="header">Movdestcaixa #{messages['global.Detalhes']}</f:facet>
+
+        <s:decorate id="data" template="layout/display.xhtml">
+            <ui:define name="label">Data</ui:define>
+            <h:outputText value="#{movdestcaixaHome.instance.id.data}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </s:decorate>
+        <s:decorate id="destCaixa" template="layout/display.xhtml">
+            <ui:define name="label">Dest caixa</ui:define>
+            <h:outputText value="#{movdestcaixaHome.instance.id.destCaixa}"/>
+        </s:decorate>
+        <s:decorate id="hora" template="layout/display.xhtml">
+            <ui:define name="label">Hora</ui:define>
+            <h:outputText value="#{movdestcaixaHome.instance.id.hora}"/>
+        </s:decorate>
+
+        <s:decorate id="descricao" template="layout/display.xhtml">
+            <ui:define name="label">Descricao</ui:define>
+            <h:outputText value="#{movdestcaixaHome.instance.descricao}"/>
+        </s:decorate>
+
+        <s:decorate id="tipo" template="layout/display.xhtml">
+            <ui:define name="label">Tipo</ui:define>
+            <h:outputText value="#{movdestcaixaHome.instance.tipo}"/>
+        </s:decorate>
+
+        <s:decorate id="valor" template="layout/display.xhtml">
+            <ui:define name="label">Valor</ui:define>
+            <h:outputText value="#{movdestcaixaHome.instance.valor}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </p:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/private/onbyte/MovdestcaixaEdit.xhtml"
+                    id="edit"
+                 value="#{messages['global.edit']}"/>
+
+        <s:button view="/private/onbyte/#{empty movdestcaixaFrom ? 'MovdestcaixaList' : movdestcaixaFrom}.xhtml"
+                    id="done"
+                 value="#{messages['global.done']}"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Destcaixa</h:panelGroup>
+        </f:facet>
+    <div class="association" id="destcaixaParent">
+
+        <h:outputFormat value="There is no destcaixa associado a este movdestcaixa."
+                   rendered="#{movdestcaixaHome.instance.destcaixa == null}"/>
+
+        <rich:dataTable var="_destcaixa"
+                   value="#{movdestcaixaHome.instance.destcaixa}"
+                rendered="#{movdestcaixaHome.instance.destcaixa != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="destcaixaTable">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_destcaixa.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Descricao</f:facet>
+                <h:outputText value="#{_destcaixa.descricao}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewdestcaixa"
+                     value="Visualizar"
+                      view="/private/onbyte/Destcaixa.xhtml">
+                    <f:param name="destcaixaCodigo"
+                           value="#{_destcaixa.codigo}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Funcionarios</h:panelGroup>
+        </f:facet>
+    <div class="association" id="funcionariosParent">
+
+        <h:outputFormat value="There is no funcionarios associado a este movdestcaixa."
+                   rendered="#{movdestcaixaHome.instance.funcionarios == null}"/>
+
+        <rich:dataTable var="_funcionarios"
+                   value="#{movdestcaixaHome.instance.funcionarios}"
+                rendered="#{movdestcaixaHome.instance.funcionarios != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="funcionariosTable">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_funcionarios.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Bairro</f:facet>
+                <h:outputText value="#{_funcionarios.bairro}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cep</f:facet>
+                <h:outputText value="#{_funcionarios.cep}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cidade</f:facet>
+                <h:outputText value="#{_funcionarios.cidade}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Cpf</f:facet>
+                <h:outputText value="#{_funcionarios.cpf}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Endereco</f:facet>
+                <h:outputText value="#{_funcionarios.endereco}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Fone</f:facet>
+                <h:outputText value="#{_funcionarios.fone}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Fone2</f:facet>
+                <h:outputText value="#{_funcionarios.fone2}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Nome</f:facet>
+                <h:outputText value="#{_funcionarios.nome}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Passe</f:facet>
+                <h:outputText value="#{_funcionarios.passe}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Rg</f:facet>
+                <h:outputText value="#{_funcionarios.rg}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Tipo</f:facet>
+                <h:outputText value="#{_funcionarios.tipo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Uf</f:facet>
+                <h:outputText value="#{_funcionarios.uf}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewfuncionarios"
+                     value="Visualizar"
+                      view="/private/onbyte/Funcionarios.xhtml">
+                    <f:param name="funcionariosCodigo"
+                           value="#{_funcionarios.codigo}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Planocontas</h:panelGroup>
+        </f:facet>
+    <div class="association" id="planocontasParent">
+
+        <h:outputFormat value="There is no planocontas associado a este movdestcaixa."
+                   rendered="#{movdestcaixaHome.instance.planocontas == null}"/>
+
+        <rich:dataTable var="_planocontas"
+                   value="#{movdestcaixaHome.instance.planocontas}"
+                rendered="#{movdestcaixaHome.instance.planocontas != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="planocontasTable">
+            <h:column>
+                <f:facet name="header">Codigo</f:facet>
+                <h:outputText value="#{_planocontas.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Descricao</f:facet>
+                <h:outputText value="#{_planocontas.descricao}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Niv1</f:facet>
+                <h:outputText value="#{_planocontas.niv1}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Niv2</f:facet>
+                <h:outputText value="#{_planocontas.niv2}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Niv3</f:facet>
+                <h:outputText value="#{_planocontas.niv3}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Tipo</f:facet>
+                <h:outputText value="#{_planocontas.tipo}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewplanocontas"
+                     value="Visualizar"
+                      view="/private/onbyte/Planocontas.xhtml">
+                    <f:param name="planocontasCodigo"
+                           value="#{_planocontas.codigo}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

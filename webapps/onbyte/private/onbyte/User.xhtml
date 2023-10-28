@@ -1,0 +1,188 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">User #{messages['global.Detalhes']}</f:facet>
+
+
+        <s:decorate id="creationTime" template="layout/display.xhtml">
+            <ui:define name="label">Creation time</ui:define>
+            <h:outputText value="#{userHome.instance.creationTime}">
+                <s:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="lastModification" template="layout/display.xhtml">
+            <ui:define name="label">Last modification</ui:define>
+            <h:outputText value="#{userHome.instance.lastModification}">
+                <s:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="active" template="layout/display.xhtml">
+            <ui:define name="label">Active</ui:define>
+            <h:outputText value="#{userHome.instance.active}"/>
+        </s:decorate>
+
+        <s:decorate id="email" template="layout/display.xhtml">
+            <ui:define name="label">Email</ui:define>
+            <h:outputText value="#{userHome.instance.email}"/>
+        </s:decorate>
+
+        <s:decorate id="login" template="layout/display.xhtml">
+            <ui:define name="label">Login</ui:define>
+            <h:outputText value="#{userHome.instance.login}"/>
+        </s:decorate>
+
+        <s:decorate id="name" template="layout/display.xhtml">
+            <ui:define name="label">Name</ui:define>
+            <h:outputText value="#{userHome.instance.name}"/>
+        </s:decorate>
+
+        <s:decorate id="passwd" template="layout/display.xhtml">
+            <ui:define name="label">Passwd</ui:define>
+            <h:outputText value="#{userHome.instance.passwd}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/private/onbyte/UserEdit.xhtml"
+                    id="edit"
+                 value="#{messages['global.edit']}"/>
+
+        <s:button view="/private/onbyte/#{empty userFrom ? 'UserList' : userFrom}.xhtml"
+                    id="done"
+                 value="#{messages['global.done']}"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Modified by</h:panelGroup>
+        </f:facet>
+    <div class="association" id="modifiedByParent">
+
+        <h:outputFormat value="There is no modifiedBy associado a este user."
+                   rendered="#{userHome.instance.modifiedBy == null}"/>
+
+        <rich:dataTable var="_user"
+                   value="#{userHome.instance.modifiedBy}"
+                rendered="#{userHome.instance.modifiedBy != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="modifiedByTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_user.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Creation time</f:facet>
+                <h:outputText value="#{_user.creationTime}">
+                    <s:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Last modification</f:facet>
+                <h:outputText value="#{_user.lastModification}">
+                    <s:convertDateTime type="both" pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Modified by id</f:facet>
+                <h:outputText value="#{_user.modifiedBy.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Active</f:facet>
+                <h:outputText value="#{_user.active}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{_user.email}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Login</f:facet>
+                <h:outputText value="#{_user.login}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_user.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Passwd</f:facet>
+                <h:outputText value="#{_user.passwd}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Profile id</f:facet>
+                <h:outputText value="#{_user.profile.id}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewuser"
+                     value="Visualizar"
+                      view="/private/onbyte/User.xhtml">
+                    <f:param name="userId"
+                           value="#{_user.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Profile</h:panelGroup>
+        </f:facet>
+    <div class="association" id="profileParent">
+
+        <h:outputFormat value="There is no profile associado a este user."
+                   rendered="#{userHome.instance.profile == null}"/>
+
+        <rich:dataTable var="_profile"
+                   value="#{userHome.instance.profile}"
+                rendered="#{userHome.instance.profile != null}"
+               onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                      id="profileTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_profile.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{_profile.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Tag</f:facet>
+                <h:outputText value="#{_profile.tag}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">#{messages['global.action']}</f:facet>
+                <s:link id="viewprofile"
+                     value="Visualizar"
+                      view="/private/onbyte/Profile.xhtml">
+                    <f:param name="profileId"
+                           value="#{_profile.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

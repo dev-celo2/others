@@ -1,0 +1,385 @@
+body {
+	background: url(../images/admin.jpg) no-repeat center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	position: relative;
+	font-family: 'Open Sans', sans-serif;
+	height: 100%
+	
+}
+
+/* p, td, li {
+	font-family: sans-serif;
+	font-size: 13px;
+	color:#464646;
+} */
+img {
+	border: 0px;
+}
+
+form {
+	margin: 0;
+	display: inline;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1,h2,h3 {
+	margin: 0px;
+}
+
+#content {
+	padding: 7px 3px 0px 3px;
+	max-width: 100%;
+}
+
+#footer {
+	padding: 0px 10px 15px 15px;
+}
+
+.section {
+	border-bottom: dotted #cccccc 1px;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+
+.title {
+	margin-bottom: 10px;
+	font-size: 16px;
+	color: gray;
+	font-weight: bold;
+}
+
+.subtitle {
+	margin-top: 10px;
+	margin-bottom: 4px;
+	font-size: 14px;
+	color: gray;
+	font-weight: bold;
+}
+
+.gl {
+	padding-left: 5px;
+	padding-right: 20px;
+	background-color: lightgray;
+	border-bottom: solid #ffffff 1px;
+}
+
+.gv {
+	border-bottom: solid #e0e0e0 1px;
+}
+
+.rf-dt {
+	min-width: 80%;
+}
+
+.rf-dt-r:hover {
+	background-color: #f0f0f0;
+}
+
+.tclosed {
+	text-decoration: line-through;
+}
+
+.mensalidade_col1 {
+	width: 70%;
+}
+
+.rich-inplace-view {
+	background-color: transparent;
+	border-bottom-color: white;
+}
+
+.rich-inplace-select-view {
+	background-color: transparent;
+	border-bottom-color: white;
+}
+
+.mensalidade_col2 {
+	width: 10%;
+	vertical-align: top;
+}
+
+.mensalidade_col3 {
+	vertical-align: top;
+}
+
+.mensalidadepagas_col1 {
+	width: 770px;
+}
+
+.mensalidadepagas_col2 {
+	width: 100px;
+	vertical-align: top;
+}
+
+.cursos_col1 {
+	width: 70%;
+}
+
+.cursos_col1_1 {
+	width: 80%;
+}
+
+.cursos_col2 {
+	vertical-align: top;
+	width: 110px;
+}
+
+.extdt-innerdiv {
+	overflow-y: hidden;
+	overflow-x: auto !important;
+}
+
+.matricula_col2 {
+	vertical-align: bottom;
+}
+
+.frequencias_col {
+	vertical-align: top;
+}
+
+.inputNumberView {
+	text-align: right;
+}
+
+.inputNumberEdit {
+	text-align: right;
+}
+
+.table_Horarios {
+	padding: 1px;
+}
+
+.table_Planoconta {
+	padding: 1px;
+}
+
+.panelPaddingZero {
+	padding: 0px;
+}
+
+.pngridManutMatriculaCo1 {
+	width: 5%;
+}
+
+.pngridManutMatriculaCo2 {
+	width: 80%;
+	padding-top: 0.5%;
+}
+
+.statusMatricula {
+	color: red;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.spanNamePanel {
+	background-color: white;
+	margin: 0;
+	margin-left: 10px;
+	position: relative;
+	top: -8px;
+	white-space: nowrap;
+}
+
+.tableMovCaixa {
+	color: blue;
+}
+
+.tableMovCaixaDebito {
+	color: red;
+}
+
+.pnTotalMovdestCaixa {
+	padding: 0;
+	background-color: transparent;
+}
+
+/*
+table td, table th
+{
+    padding: 0; 
+}
+*/
+.alignBotton {
+	vertical-align: bottom;
+}
+
+.alignTop {
+	vertical-align: top;
+}
+
+.tableBoletim {
+	font-size: 0px;
+}
+
+.gradeHorariosAgendados {
+	background-color: yellow;
+}
+
+.gradeHorariosReposicao {
+	background-color: orange;
+}
+
+input.flat {
+	border: 1px solid black;
+	height: 10px;
+	width: 95%;
+}
+
+.mensalidadesPagasHeader {
+	font-size: 10px;
+}
+
+.extdt-content {
+	overflow-x: visible;
+	overflow-y: auto;
+}
+
+.col_scroll {
+	vertical-align: top;
+	width: 1px;
+}
+
+.localizar {
+	background-image: url("../images/lupa.png") !important;
+}
+
+.excluir {
+	background-image: url("../images/lixeira.png") !important;
+}
+
+.novo {
+	background-image: url("../images/novo.png") !important;
+}
+
+.primeiro {
+	background-image: url("../images/primeiro.png") !important;
+}
+
+.ultimo {
+	background-image: url("../images/ultimo.png") !important;
+}
+
+.proximo {
+	background-image: url("../images/proximo.png") !important;
+}
+
+.save {
+	background-image: url("../images/save.png") !important;
+}
+
+.anterior {
+	background-image: url("../images/anterior.png") !important;
+}
+
+.editar {
+	background-image: url("../images/editar.png") !important;
+}
+
+.delete {
+	background-image: url("../images/excluir.png") !important;
+}
+
+.imprimir {
+	background-image: url("../images/imprimir.png") !important;
+}
+
+.confirma {
+	background-image: url("../images/confirma.png") !important;
+}
+
+.grade {
+	background-image: url("../images/grade.png") !important;
+}
+
+.trancar {
+	background-image: url("../images/trancar.png") !important;
+}
+
+.sair {
+	background-image: url("../images/sair.png") !important;
+}
+
+.retirada {
+	background-image: url("../images/retirada.png") !important;
+}
+
+.caixa {
+	background-image: url("../images/caixa.png") !important;
+}
+
+.atualizar {
+	background-image: url("../images/atualiza.png") !important;
+}
+
+.lix {
+	background-image: url("../images/lix.png") !important;
+	left:11px;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 98% !important;
+}
+
+.matPnl1Col1 {
+	width: 27.5%;
+}
+
+.matPnl1Col2 {
+	width: 40%;
+}
+
+.matPnl1Col3 {
+	width: 31.5%;
+}
+
+.matPnl2Col1 {
+	width: 27.5%;
+}
+
+.matPnl2Col2 {
+	width: 40%;
+}
+
+.matPnl2Col3 {
+	width: 31.5%;
+}
+
+.matTabHorPnl1Col1 {
+	width: 23%;
+}
+
+.matTabAvulPnl1Col1 {
+	width: 10%;
+}
+
+.matPnlContCol1 {
+	width: 80%;
+}
+
+.manuPnlContCol1 {
+	width: 55%;
+}
+
+.pnlgCadAlun1 {
+	width: 99%;
+}
+
+.pnlgCadAlun2 {
+	width: 1%;
+}
+
+.subme {
+	text-align: right;
+}
+

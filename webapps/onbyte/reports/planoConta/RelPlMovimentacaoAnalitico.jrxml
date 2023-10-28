@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelPlMovimentacaoAnalitico" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="561" leftMargin="17" rightMargin="17" topMargin="20" bottomMargin="20" uuid="8a94db5a-0a58-499a-b513-f6a3a0654831">
+	<property name="ireport.zoom" value="1.610510000000002"/>
+	<property name="ireport.x" value="139"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="title_periodo" class="java.lang.String"/>
+	<field name="planocontas.planoContasNiv1.descricao" class="java.lang.String"/>
+	<field name="planocontas.planoContasNiv2.descricao" class="java.lang.String"/>
+	<field name="planocontas.descricao" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String"/>
+	<field name="valor" class="java.math.BigDecimal"/>
+	<field name="planocontas.codigo" class="java.lang.String"/>
+	<field name="planocontas.planoContasNiv2.codigo" class="java.lang.String"/>
+	<field name="planocontas.planoContasNiv1.codigo" class="java.lang.String"/>
+	<field name="data" class="java.util.Date"/>
+	<field name="descricao" class="java.lang.String"/>
+	<variable name="DETAIL_COUNT" class="java.lang.Integer" calculation="Count"/>
+	<variable name="SUM_VALOR_NIV1" class="java.lang.Double" resetType="Group" resetGroup="Nivel1" calculation="Sum">
+		<variableExpression><![CDATA[($F{tipo}.equals("C")?1.0:-1.0)*$F{valor}.floatValue()]]></variableExpression>
+	</variable>
+	<variable name="SUM_VALOR_NIV2" class="java.lang.Double" resetType="Group" resetGroup="Nivel2" calculation="Sum">
+		<variableExpression><![CDATA[($F{tipo}.equals("C")?1.0:-1.0)*$F{valor}.floatValue()]]></variableExpression>
+	</variable>
+	<variable name="SUM_VALOR_NIV3" class="java.lang.Double" resetType="Group" resetGroup="Nivel3" calculation="Sum">
+		<variableExpression><![CDATA[($F{tipo}.equals("C")?1.0:-1.0)*$F{valor}.floatValue()]]></variableExpression>
+	</variable>
+	<group name="Nivel1" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{planocontas.planoContasNiv1.codigo}]]></groupExpression>
+	</group>
+	<group name="Nivel2">
+		<groupExpression><![CDATA[$F{planocontas.planoContasNiv2.codigo}]]></groupExpression>
+	</group>
+	<group name="Nivel3" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{planocontas.codigo}]]></groupExpression>
+		<groupHeader>
+			<band height="59">
+				<printWhenExpression><![CDATA[$F{planocontas.planoContasNiv1.descricao}!=null]]></printWhenExpression>
+				<line>
+					<reportElement uuid="9c295f70-7baa-4f2e-9339-e937dad6daec" x="0" y="45" width="561" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="9ba71d19-f7d2-4aee-ad09-1c23673dbb72" x="0" y="58" width="561" height="1"/>
+				</line>
+				<textField>
+					<reportElement uuid="85ddaf99-c385-4d01-848d-839b95a6c0a3" mode="Transparent" x="0" y="46" width="47" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{planocontas.codigo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="789e2e15-0b9b-4246-a3aa-4ec48342441c" mode="Transparent" x="47" y="46" width="59" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{global.date}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="1cee0173-248b-4220-aafe-eed310ffea5d" mode="Transparent" x="106" y="46" width="347" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{movdestcaixa.descricao}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="6e2003da-5586-4956-9932-4e8736f81309" x="0" y="0" width="561" height="1"/>
+				</line>
+				<textField>
+					<reportElement uuid="237c0a3e-0ee4-4db8-a304-a2f780224a4b" mode="Transparent" x="453" y="46" width="37" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relPlMovimentacao.tipo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="30d1be16-57ab-4223-9b51-cdbd2e081785" mode="Transparent" x="490" y="46" width="71" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{movdestcaixa.valor}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="e53c68f8-ecee-4ca7-a843-c60033db1024" x="111" y="28" width="49" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.codigo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="09f47ace-04af-46b6-b16b-a52f3098886f" mode="Transparent" x="74" y="28" width="37" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relPlMovimentacao.Nivel3}+":"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="8bdf9b6a-84f8-4067-8ada-ee3356937ab7" x="160" y="28" width="234" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.descricao}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="94facbf3-2563-4cb6-b2ca-ee8592c82780" x="121" y="14" width="251" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.planoContasNiv2.descricao}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="91fe21ef-1c77-4a65-9daf-d10d039ec58c" x="74" y="14" width="47" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.planoContasNiv2.codigo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="8bc62046-389e-4ed8-b90c-bd0dd6f95563" mode="Transparent" x="37" y="14" width="37" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relPlMovimentacao.Nivel2}+":"]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement uuid="f0aa2afa-6eed-436c-bf4a-29f51ac1173c" mode="Transparent" x="37" y="0" width="49" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.planoContasNiv1.codigo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="a1c68bc8-e05c-4814-b084-cef2c2f540e5" x="86" y="0" width="253" height="12"/>
+					<textElement>
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{planocontas.planoContasNiv1.descricao}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="0d888ce9-3e1f-4d41-a168-a71d5e09d32a" mode="Transparent" x="0" y="0" width="37" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Arial" size="10" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relPlMovimentacao.Nivel1}+":"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="12">
+				<textField>
+					<reportElement uuid="71dfce39-da1b-463b-9a9d-1f8c223b2917" x="368" y="0" width="48" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Nivel3_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤ #,##0.00">
+					<reportElement uuid="974866af-fcac-4bf9-86f9-4cb53d2974d5" x="490" y="0" width="71" height="12"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SUM_VALOR_NIV3}==null?0:$V{SUM_VALOR_NIV3}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="0acdf262-30d2-490a-8076-5a32d31677bb" x="434" y="0" width="55" height="12"/>
+					<textElement markup="none">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relPlMovimentacao.saldo}+":"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="c98466ca-2301-4212-a9b9-c2885ee911d3" x="293" y="0" width="75" height="12"/>
+					<textElement markup="none">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$R{relPlMovimentacao.totalItens}+":"]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="1d79bef7-42db-43fe-a977-5af724d6dfd3" x="0" y="0" width="561" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="48" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement uuid="a0fd0109-0694-4acc-938c-342afddbf738" x="0" y="0" width="87" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="49e85eff-2d6c-4bf6-a8d6-152bb75b8da2" x="517" y="0" width="44" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<patternExpression><![CDATA[$R{global.reportPagina}+": "]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a8182c34-c18a-45ea-8768-1a962b3a05f3" x="83" y="0" width="395" height="25"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Monotype Corsiva" size="22" isBold="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relPlMovimentacao.title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="54542672-abbc-4fa1-9ef5-93ee4b33078f" mode="Transparent" x="0" y="25" width="561" height="23" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Monotype Corsiva" size="20" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title_periodo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="12">
+			<textField>
+				<reportElement uuid="02997f43-5676-41c3-8729-1ee5f8054fdc" x="0" y="0" width="47" height="12"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{planocontas.codigo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="1988a1f3-5e4c-4ae5-bc4a-86608cda5149" x="47" y="0" width="59" height="12"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="775a39cd-5d0c-4737-81dd-16210a9f7b01" x="106" y="0" width="347" height="12"/>
+				<textElement>
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="7835126d-3f29-4210-9ea6-ad01e71ecb50" x="490" y="0" width="71" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3f94a2f2-6ffb-43ff-baa1-c5cf7db76ca9" x="453" y="0" width="37" height="12"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

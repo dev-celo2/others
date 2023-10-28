@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelFrequencias" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c1ef37f8-71b1-44ec-a69f-c15a323a3bc3">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="totalAulasCurso" class="java.lang.Integer"/>
+	<parameter name="statusMat" class="java.lang.String"/>
+	<field name="frequencia.matriculas.codigo" class="java.lang.Integer"/>
+	<field name="frequencia.matriculas.alunos.nome" class="java.lang.String"/>
+	<field name="frequencia.matriculas.status" class="java.lang.String"/>
+	<field name="frequencia.id.data" class="java.util.Date"/>
+	<field name="frequencia.tipo" class="java.lang.String"/>
+	<field name="frequencia.presente" class="java.lang.String"/>
+	<field name="frequencia.computador" class="java.lang.Integer"/>
+	<field name="frequencia.saiucedo" class="java.lang.String"/>
+	<field name="frequencia.motivo" class="java.lang.String"/>
+	<field name="frequencia.horarios.inicio" class="java.lang.String"/>
+	<field name="frequencia.horarios.final_" class="java.lang.String"/>
+	<variable name="PRES_AULA" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[($F{frequencia.tipo}.equals( "AULA")  && $F{frequencia.presente}.equals( "S" )? 1 : 0)]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="62" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="0" y="0" width="100" height="20" uuid="d24fa788-025c-4523-8453-a7bbaf29c6ba"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="702" y="0" width="100" height="20" uuid="4ecab89b-ce57-490d-9370-5000cb8fd305"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<patternExpression><![CDATA[$R{global.reportPagina}+": "]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="22" width="802" height="22" uuid="973a98b0-55d0-4684-a479-8525d563e0b3"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Times New Roman" size="18" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relFrequencias.titleReport}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="1" width="602" height="21" uuid="66e7f5f1-e3e9-4c77-8cf6-612b2b046ec7"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="ZurichCalligraphic" size="20" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="582" y="44" width="101" height="18" uuid="05952895-a510-4d59-ad1b-5d9527b567b4"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="10" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relFrequencias.status}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="683" y="44" width="91" height="18" uuid="7ce239c5-4951-49bd-b969-637aea50f9e7"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="10" isBold="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{statusMat}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="692" y="0" width="110" height="18" uuid="36dcc9fc-8fbf-4ed4-ba6f-7dae20cab090"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relFrequencias.motivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="640" y="0" width="52" height="18" uuid="1df2cfd9-bdbc-4cc3-9c9f-35af211d21c8"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relFrequencias.saiucedo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="593" y="0" width="47" height="18" uuid="f94f2be0-866a-46a1-ace1-998f91400e47"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relFrequencias.presente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="0" width="59" height="18" uuid="f8daff04-7f6f-4d2e-9732-827cf2d86cb6"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relFrequencias.computador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="365" y="0" width="61" height="18" uuid="4faa9f85-fa6d-46ba-8524-ae2a7e23d60c"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relFrequencias.tipoAula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="92" height="18" uuid="6b3c17e8-3062-4eda-92cc-5fbd869dcd28"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relFrequencias.status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="192" y="0" width="173" height="18" uuid="51eed572-d5c6-4e76-b554-ac2d0e2c2564"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{alunos.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="0" width="50" height="18" uuid="fddd03af-ae55-413a-af92-909d88a642af"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="50" height="18" uuid="c21e2506-0afb-4b7d-afe1-6988ddf19de8"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relMatCanceladas.dtcancel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="0" width="55" height="18" uuid="fe962017-19fe-475e-b984-12f96474a850"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{horarios.inicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="540" y="0" width="53" height="18" uuid="4a01f4b1-4dbf-4152-9be1-7b384e555b61"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{horarios.final}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="50" height="18" uuid="f752de71-de31-4bdb-8529-5581dcd5a220"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frequencia.id.data}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="426" y="0" width="59" height="18" uuid="8b576b6f-d0c5-4a68-92d7-6a01b6bfcc21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frequencia.computador}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="50" y="0" width="50" height="18" uuid="39eab46d-8229-4c37-acae-ee860ddd0c0f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frequencia.matriculas.codigo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="100" y="0" width="92" height="18" uuid="b0f9857d-acf2-4a10-b00b-b51473c22924"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frequencia.matriculas.status}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="192" y="0" width="173" height="18" uuid="f133e4be-7057-4480-aa2e-74a735e14f25"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frequencia.matriculas.alunos.nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="365" y="0" width="61" height="18" uuid="fbcc68a9-3148-4b27-bd16-c6932d3d267d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frequencia.tipo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="692" y="0" width="110" height="18" uuid="4a314a49-e747-4440-8b18-42f0b273b696"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{frequencia.motivo} == null ? " " : $F{frequencia.motivo})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="593" y="0" width="47" height="18" uuid="db19c740-45e0-41dd-9335-12f188142812"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{frequencia.presente}.equals("S") ? "SIM" : "NÃO")]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="640" y="0" width="52" height="18" uuid="a28394c8-c262-4986-b1bc-3f97c2928a6d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frequencia.saiucedo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="540" y="0" width="54" height="18" uuid="01b353ba-a62f-4a23-8dfa-fc5100d50da3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frequencia.horarios.final_}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="485" y="0" width="55" height="18" uuid="56e8f291-b74b-4444-afd5-d1d924879588"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{frequencia.horarios.inicio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="17">
+			<line>
+				<reportElement x="0" y="0" width="802" height="1" uuid="a6701127-fb40-4c9a-a389-6a2eadb970a6"/>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

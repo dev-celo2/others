@@ -1,0 +1,351 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+	<ui:define name="body">
+		<a:queue ignoreDupResponses="#{false}" />
+
+		<h:form>
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-th-list" /> MÓDULO DETALHES
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<table width="100%">
+							<thead>
+								<tr style="text-align: center;">
+
+									<td style="width: 20%;">
+
+										<div class="input-group" style="width: 98%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon1">CÓDIGO</span>
+
+											<h:inputText readonly="true" id="codigo"
+												styleClass="form-control"
+												value="#{modulosHome.instance.codigo}" />
+										</div>
+
+									</td>
+
+									<td>
+
+										<div class="input-group" style="width: 99%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">DESCRIÇÃO</span>
+
+											<h:inputText readonly="true" id="descricao"
+												styleClass="form-control"
+												value="#{modulosHome.instance.descricao}" />
+
+										</div>
+
+									</td>
+									<td>
+
+										<div class="input-group">
+											<span style="font-weight: bold;" class="input-group-addon"
+												id="basic-addon3">VALOR</span>
+											<h:inputText readonly="true"
+												value="#{modulosHome.instance.valormodulo}"
+												styleClass="form-control">
+												<f:convertNumber type="currency" maxFractionDigits="2"
+													minFractionDigits="2" />
+											</h:inputText>
+										</div>
+									</td>
+									
+									<td>
+										<div class="input-group">
+											<span style="font-weight: bold;" class="input-group-addon"
+												id="basic-addon3">ATIVO</span>
+
+											<h:selectOneMenu id="ativo" styleClass="form-control" readonly="true" disabled="true"
+												value="#{modulosHome.instance.ativo}">
+												<f:selectItem itemValue="S"
+													itemLabel="#{messages['global.sim']}" />
+												<f:selectItem itemValue="N"
+													itemLabel="#{messages['global.nao']}" />												
+											</h:selectOneMenu>
+										</div>
+									</td>
+									
+
+								</tr>
+							</thead>
+						</table>
+
+
+
+					</div>
+				</div>
+				<div class="panel-footer">
+					<center>
+
+						<s:link view="/private/onbyte/ModulosEdit.xhtml" id="edit"
+							styleClass="btn btn-info"
+							rendered="#{rich:isUserInRole('Convnios1_A')}"
+							style="width:150px;">
+							<i class="glyphicon glyphicon-pencil" />
+							Editar
+						</s:link>
+
+						<rich:spacer width="2px;" />
+
+						<s:link styleClass="btn btn-success" style="width:150px;"
+							view="/private/onbyte/#{empty modulosFrom ? 'ModulosList' : modulosFrom}.xhtml"
+							id="done">
+							<i class="glyphicon glyphicon-ok" />
+							Concluído
+							</s:link>
+
+					</center>
+				</div>
+			</div>
+
+			<p />
+
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-education" /> CURSOS
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<a:outputPanel id="tblCursos">
+
+							<table id="tblCursos2" width="100%"
+								style="text-align: center; text-transform: uppercase; font-size: 12px;"
+								class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+								<thead>
+									<tr>
+
+										<th style="text-align: center;">Ordem</th>
+										<th style="text-align: center;">Código</th>
+										<th style="text-align: center;">Curso</th>
+										<th style="text-align: center;">Horas</th>
+										<th style="text-align: center;">Qtd. Aulas</th>
+										<th style="text-align: center;">Valor</th>
+										<th style="text-align: center;">Visualizar</th>
+
+
+
+									</tr>
+								</thead>
+
+								<tbody class="searchable" id="tbody">
+
+									<c:forEach items="#{modulosHome.cursosModulos}"
+										var="cursosModulo">
+										<tr>
+
+											<td class="center"><h:outputText
+													value="#{cursosModulo.ordem}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{cursosModulo.cursos.codigo}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{cursosModulo.cursos.descricao}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{cursosModulo.cursos.horasCurso}" /></td>
+													
+													<td class="center"><h:outputText
+													value="#{cursosModulo.cursos.NHoras}" /></td>
+
+											<td class="center"><h:outputText
+													value="#{cursosModulo.cursos.valor}" /></td>
+
+											<td class="center"><s:link styleClass="btn btn-default"
+													title="Visualizar" view="/private/onbyte/Cursos.xhtml">
+													<f:param name="cursosCodigo"
+														value="#{cursosModulo.id.curso}" />
+													<f:param name="cursosFrom" value="Modulos" />
+													<i class="glyphicon glyphicon-search" />
+												</s:link></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+
+							<script>
+			$(document).ready(function() {
+			    $('#tblCursos2').DataTable( {
+			    	
+			        "language": {
+			        	"sEmptyTable": "Nenhum registro encontrado",
+			            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+			            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+			            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+			            "sInfoPostFix": "",
+			            "sInfoThousands": ".",
+			            "sLengthMenu": "_MENU_ resultados por página",
+			            "sLoadingRecords": "Carregando...",
+			            "sProcessing": "Processando...",
+			            "sZeroRecords": "Nenhum registro encontrado",
+			            "sSearch": "Pesquisar",
+			            "oPaginate": {
+			                "sNext": "Próximo",
+			                "sPrevious": "Anterior",
+			                "sFirst": "Primeiro",
+			                "sLast": "Último"
+			            },
+			            "oAria": {
+			                "sSortAscending": ": Ordenar colunas de forma ascendente",
+			                "sSortDescending": ": Ordenar colunas de forma descendente"
+			            }
+			        }
+			    } );
+
+             
+
+					} );
+					
+  </script>
+
+
+
+
+						</a:outputPanel>
+
+					</div>
+				</div>
+				<div class="panel-footer">
+
+					<a:commandLink reRender="pnlOrdemCursos" style="width:150px;"
+						onclick="$('#modalOrdemCursos').modal('show');"
+						styleClass="btn btn-danger">
+						<i class="glyphicon glyphicon-sort" />
+						Ordem Cursos
+					</a:commandLink>
+
+					<span style="float: right; font-size: 16px;"
+						class="label label-default">MÓDULO POSSUI
+						#{modulosHome.totalHorasModulo} HORAS</span>
+
+
+				</div>
+
+			</div>
+
+
+			<!--MODAL OrdemCursos-->
+			<div id="modalOrdemCursos" class="modal fade" data-backdrop="static"
+				role="dialog">
+				<div class="modal-dialog modal-lg">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="font-weight: bold;" class="modal-title text-primary">
+									<i class="glyphicon glyphicon-sort text-primary"
+										style="font-size: 20px;" /> ORDEM CURSOS
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<a:outputPanel id="pnlOrdemCursos">
+
+
+									<table width="100%"
+										style="text-align: center; text-transform: uppercase; font-size: 12px;"
+										class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+										<thead>
+											<tr>
+
+												<th style="text-align: center; width: 10%">Ordem</th>
+												<th style="text-align: center;">Código</th>
+												<th style="text-align: center;">Curso</th>
+												<th style="text-align: center;">Horas</th>
+
+
+
+
+
+											</tr>
+										</thead>
+
+										<tbody class="searchable" id="tbody">
+
+											<c:forEach items="#{modulosHome.cursosModulos}"
+												var="cursosModulo">
+												<tr>
+
+													<td class="center"><h:inputText
+															style="text-align: center;" styleClass="form-control"
+															value="#{cursosModulo.ordem}" /></td>
+
+													<td class="center"><h:outputText
+															value="#{cursosModulo.cursos.codigo}" /></td>
+
+													<td class="center"><h:outputText
+															value="#{cursosModulo.cursos.descricao}" /></td>
+
+													<td class="center"><h:outputText
+															value="#{cursosModulo.cursos.NHoras}" /></td>
+
+
+
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+
+								</a:outputPanel>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+
+							<a:commandLink reRender="tblCursos" style="width:150px;"
+								actionListener="#{modulosHome.updateOrdemCursos}"
+								onclick="$('#modalOrdemCursos').modal('hide');"
+								styleClass="btn btn-success">
+								<i class="glyphicon glyphicon-save" />
+						Gravar
+						</a:commandLink>
+
+							<a:commandLink onclick="$('#modalOrdemCursos').modal('hide');"
+								style="width:150px;" styleClass="btn btn-default">
+								<i class="glyphicon glyphicon-remove" />
+						Cancelar
+						</a:commandLink>
+
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!--FIM MODAL -->
+
+		</h:form>
+
+
+
+
+
+
+	</ui:define>
+
+</ui:composition>

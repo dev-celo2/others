@@ -1,0 +1,1965 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-04-24T11:00:14 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelPerfilAluno" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="561" leftMargin="17" rightMargin="17" topMargin="20" bottomMargin="20" uuid="9ac243c0-22bc-481d-890e-833817b5ce50">
+	<property name="ireport.zoom" value="1.6105100000000014"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="matriculas.codigo" class="java.lang.Integer"/>
+	<field name="matriculas.alunos.nome" class="java.lang.String"/>
+	<field name="sitMoradia" class="java.lang.String"/>
+	<field name="atFisicas" class="java.lang.String"/>
+	<field name="livro" class="java.lang.String"/>
+	<field name="internet" class="java.lang.String"/>
+	<field name="tempoLivre" class="java.lang.String"/>
+	<field name="filme" class="java.lang.String"/>
+	<field name="cor" class="java.lang.String"/>
+	<field name="timeFut" class="java.lang.String"/>
+	<field name="esporte" class="java.lang.String"/>
+	<field name="aposCurso" class="java.lang.String"/>
+	<field name="obterCurso" class="java.lang.String"/>
+	<variable name="moradiaPropria" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{sitMoradia}.equals("Mora em casa própria" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="moradiaAlugada" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{sitMoradia}.equals("Moro em casa alugada" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="moradiaFamiliares" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{sitMoradia}.equals("Moro com familiares" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="moradiaFinanciada" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{sitMoradia}.equals("Moro em casa financiada" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="atFisicasNunca" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{atFisicas}.equals("Nunca" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="atFisicasOcasionalmente" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{atFisicas}.equals("Ocasionalmente" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="atFisicasRaramente" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{atFisicas}.equals("Raramente" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="atFisicasSempre" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{atFisicas}.equals("Sempre" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeNenhum" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Não tenho time" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeAvai" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Avaí" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeBahia" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Bahia" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeAmericaMg" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("América Mineiro" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeAtleticoGo" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Atlético Goianiense" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeVitBh" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Vitória Bahia" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeBotafogo" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Botafogo" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeCeara" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Ceará" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeVasco" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Vasco" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeCoritiba" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Coritiba" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeCorinthians" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Corinthians" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeChape" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Chapecoense" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeFigueirense" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Figueirense" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeGoias" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Goiás" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeSport" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Sport" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeSP" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("São Paulo" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeSantos" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Santos" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeGremio" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Grêmio" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeParana" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Paraná" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timePaysandu" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Paysandu" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timePalmeiras" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Palmeiras" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timePonte" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Ponte Preta" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeSantaCruz" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Santa Cruz" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeJoinville" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Joinville" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeInter" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Internacional" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeNautico" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Naútico" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeJuventude" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Juventude" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeAtleticoPr" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Atlético Paranaense" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeFortaleza" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Fortaleza" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeFlamengo" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Flamengo" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeFluminense" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Fluminense" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeAtleticoMg" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Atlético Mineiro" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeCruzeiro" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Cruzeiro" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="timeOutro" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{timeFut}.equals("Outro" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="novoCursoAposSim" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aposCurso}.toString().equals("true" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="novoCursoAposNao" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{aposCurso}.toString().equals("false" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="obterCursoRealizacao" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{obterCurso}.equals("Sentir-me realizado" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="obterCursoEmprego" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{obterCurso}.equals("Conseguir um emprego" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="obterCursoMelhorar" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{obterCurso}.equals("Melhorar minha posição na empresa em que trabalho" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="obterCursoConhecimento" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{obterCurso}.equals("Aumentar meus conhecimentos" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="obterCursoOutro" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{obterCurso}.equals("Outro" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="tLivreInternet" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{tempoLivre}.equals("Internet" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="tLivreJogos" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{tempoLivre}.equals("Jogos" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="tLivreEsportes" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{tempoLivre}.equals("Esportes" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="tLivreOutros" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{tempoLivre}.equals("Outros" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="tLivreTv" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{tempoLivre}.equals("Televisão" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeGuerra" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Guerra" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeAcao" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Ação" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeComedia" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Comédia" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeDrama" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Drama" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeFiccao" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Ficção Científica" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeFaroeste" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Faroeste" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeAventura" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Aventura" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeTerror" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Terror" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeSuspense" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Suspense" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmePolicial" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Policial" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="FilmeMusical" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Musical" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeAnimacao" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Animação" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeFantasia" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Fantasia" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeRomance" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Romance" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="filmeOutro" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{filme}.equals("Outra" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroGuerra" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Guerra" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroTerror" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Terror" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroComedia" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Comédia" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroAcao" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Ação" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroRomance" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Romance" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroAventura" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Aventura" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroSuspense" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Suspense" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroFantasia" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Fantasia" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroFaroeste" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Faroeste" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroAnimacao" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Animação" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroPolicial" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Policial" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroFiccao" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Ficção Científica" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroDrama" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Drama" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroMusical" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Musical" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="livroOutro" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{livro}.equals("Outra" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteNenhum" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Não gosto de esporte" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteFutebol" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Futebol" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteVolei" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Vôlei" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteSkate" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Skate" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteTenisMesa" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Tênis de Mesa" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteNatacao" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Natação" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteFutsal" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Futsal" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteCapoeira" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Capoeira" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteJudo" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Judô" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteBasquete" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Basquete" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteTenis" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Tênis" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteHandball" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Handball" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteSurf" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Surfe" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteAtletismo" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Atletismo" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="esporteOutro" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{esporte}.equals("Outro" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="InternetSem" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{internet}.equals("Não tenho acesso" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="InternetCelular" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{internet}.equals("Pelo celular" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="InternetCasa" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{internet}.equals("Em casa" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="InternetTrabalho" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{internet}.equals("No trabalho" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="InternetEscola" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{internet}.equals("Na escola" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="corVermelho" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cor}.equals("Vermelho" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="corAmarelo" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cor}.equals("Amarelo" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="corVerde" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cor}.equals("Verde" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="corAzul" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cor}.equals("Azul" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="corRosa" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cor}.equals("Rosa" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="corLilás" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cor}.equals("Lilás" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="corBranco" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cor}.equals("Branco" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="corPreto" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cor}.equals("Preto" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="corPink" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cor}.equals("Pink" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<variable name="corOutra" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{cor}.equals("Outra" ) ? new Integer(1) : new Integer(0)]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="81" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="0" y="0" width="100" height="20" uuid="29b0886f-64dd-4ad5-a37c-1bb9f2703c67"/>
+				<textElement>
+					<font fontName="Times New Roman" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="455" y="0" width="100" height="20" uuid="c26767d2-d368-49b4-b6e2-4c2bfb10fc1f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<patternExpression><![CDATA[$R{global.reportPagina}+": "]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="0" width="336" height="23" uuid="40e5b070-7062-48d7-8015-a370b9bb00b9"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="ZurichCalligraphic" size="20" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="22" width="561" height="18" uuid="15ac020d-de9d-4eef-8425-f0499682ad15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="15" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RELATÓRIO PERFIL(S) ALUNO(S)"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="43" width="561" height="30" uuid="f36fcd4f-9827-4a1e-bf36-05678720a0bd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="11" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="142" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="24" width="210" height="16" uuid="0a564d75-677b-451a-889c-37f84ae21335"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="24" width="351" height="16" uuid="aa705020-a5c2-4ef5-ab7d-e154072a8d8e"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.alunos.nome}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="4" width="561" height="1" forecolor="#828282" uuid="c5fadb9a-da6f-4621-b613-171f29e545bb"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="10" width="210" height="14" uuid="af04ad05-d5c6-43fb-bfa0-d7d49a02c6ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MATRÍCULA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="10" width="351" height="14" uuid="186bffe0-4e73-4b6b-9890-d24dd321c18d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALUNO(A)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="46" width="160" height="14" uuid="8a86c274-92dc-4d9e-8bba-4ccd8773895d"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SIT. CASA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="59" width="160" height="13" uuid="0d41f91c-6a5e-44a4-9c98-50a7a8d321bb"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sitMoradia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="450" y="79" width="111" height="15" uuid="ae6170b8-3d92-4100-80f2-f3013da27ec5"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GÊN. LIVRO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="93" width="111" height="14" uuid="87c5fced-723b-4395-932e-47fe54ac7d9d"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{livro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="160" y="115" width="141" height="14" uuid="afa86fc2-9ef1-400d-9bfe-fce31597f16a"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTERNET]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="129" width="141" height="13" uuid="dfb7b828-a5c5-44be-a6ce-baf6dde65811"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{internet}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="160" y="80" width="142" height="14" uuid="6c3cd58f-9016-4689-95c4-628612977034"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TEMPO LIVRE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="94" width="142" height="13" uuid="70125b16-5b36-4392-8e93-16f761953b08"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tempoLivre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="60" width="142" height="13" uuid="2dbe58fa-4e62-4cc0-a6e9-0dfe01ef8cd4"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{atFisicas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="160" y="46" width="142" height="14" uuid="c46fa30e-b003-4d0b-a989-0a60a480021c"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AT. FÍSICAS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="301" y="94" width="149" height="13" uuid="5216463c-6747-4558-a305-65577958f9fb"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{filme}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="302" y="79" width="148" height="14" uuid="d692a890-2675-44ca-956d-2c29608c0964"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GÊN. FILME]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="302" y="129" width="148" height="13" uuid="00e86024-48e5-478c-a30a-221272794449"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="302" y="59" width="148" height="13" uuid="d435552c-7901-4b2f-8621-f21591df752f"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{timeFut}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="129" width="160" height="13" uuid="afff9b52-4d1f-4eb4-b349-d32e2f9ac608"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{esporte}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="115" width="160" height="14" uuid="60132894-add5-44f3-a03a-c25af8cb1a2b"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="115" width="148" height="14" uuid="cabb6977-7a64-4502-9da3-1ca25c33eb68"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="46" width="148" height="14" uuid="5c6ee7a4-0f2d-44b2-a8e0-6b4062ac1bbc"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIME DO CORAÇÃO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="93" width="160" height="13" uuid="f09d015c-be05-42b4-9966-2c96ffcf6c7d"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{obterCurso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="79" width="160" height="14" uuid="cd3f68cf-e8c1-4235-9ec6-ac610793e546"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBTER C/ CURSO
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="46" width="111" height="14" uuid="357cfdcf-21b0-4087-9c35-f48492848f70"/>
+				<box>
+					<topPen lineWidth="1.0" lineColor="#F2F2F2"/>
+					<leftPen lineColor="#F2F2F2"/>
+					<bottomPen lineColor="#F2F2F2"/>
+					<rightPen lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOVO CURSO APÓS?]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="60" width="111" height="13" uuid="80bc8103-4f23-4eba-84c1-64de4fcdddae"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#F2F2F2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aposCurso}.toString() .equals("true") ? "SIM" : "NÃO"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="721">
+			<textField>
+				<reportElement x="281" y="200" width="280" height="15" uuid="e7766a11-3827-47e3-beac-df145cd01b73">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeAvai} + " TORCE(M) PELO AVAÍ."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="505" width="280" height="15" uuid="ef24e6f8-fdac-435f-842f-8d1a00e20606">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeFluminense} + " TORCE(M) PELO FLUMINENSE."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="302" width="280" height="15" uuid="81c3773a-16b4-40de-b0e8-6f53c1a90921">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeCorinthians} + " TORCE(M) PELO CORINTHIANS."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="384" width="280" height="15" uuid="a8404ec4-dcb3-447b-b202-856ba6a9ec68">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timePaysandu} + " TORCE(M) PELO PAYSANDU."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="220" width="280" height="15" uuid="3359f922-c5f7-49d9-8dfd-e9c8fd9c1c8c">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeBahia} + " TORCE(M) PELO BAHIA."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="23" width="561" height="1" uuid="290c72c4-b9f2-470c-817b-c0774a33e2e9"/>
+			</line>
+			<textField>
+				<reportElement x="1" y="404" width="280" height="15" uuid="e0e0d408-449e-4409-a250-7c210fa5b5ee">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timePalmeiras} + " TORCE(M) PELO PALMEIRAS."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="445" width="280" height="15" uuid="69d59d50-3bdc-494e-b275-428d37c5facf">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeNautico} + " TORCE(M) PELO NAUTICO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="665" width="280" height="15" uuid="b9b5e044-31ca-4d21-97e0-49718592d19c">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{obterCursoConhecimento} + " ALUNO(S) DESEJAM TER MAIS CONHECIMENTO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="282" width="280" height="15" uuid="1fa4cdb9-7b6c-48f4-8b89-a780530fecc2">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeCoritiba} + " TORCE(M) PELO CORITIBA."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="613" width="561" height="1" uuid="29cd7fc8-4338-4e82-8373-8cd8d032e2d7"/>
+			</line>
+			<textField>
+				<reportElement x="1" y="342" width="280" height="15" uuid="c7df3dfb-0e78-407b-b2ae-b06ba897c641">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeSport} + " TORCE(M) PELO SPORT."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="282" width="280" height="15" uuid="359b7212-b291-4d37-a9c0-3acd7a9a6203">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeVasco} + " TORCE(M) PELO VASCO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="260" width="280" height="15" uuid="14627b0f-ca92-448d-b69f-1b212ddc8405">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeBotafogo} + " TORCE(M) PELO BOTAFOGO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="687" width="562" height="15" uuid="15f6c19d-96ba-4291-bcce-77f9faf01999">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{obterCursoOutro} + " ALUNO(S) DESEJAM OUTRO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="364" width="280" height="15" uuid="625ca1f4-dc82-4712-a8f3-40c3a14c6fad">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeSantos} + " TORCE(M) PELO SANTOS."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="200" width="280" height="15" uuid="bd0e6cf7-488e-49f7-8a8e-6d9de9c69dca">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeNenhum} + " NÃO TORCE(M)."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="424" width="280" height="15" uuid="e758f234-7e58-4789-a47e-50d3c5dd1078">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeJoinville} + " TORCE(M) PELO JOINVILLE."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="342" width="280" height="15" uuid="1876fd3c-63d4-4db7-9e44-8c0c197d7792">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeSP} + " TORCE(M) PELO SÃO PAULO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="260" width="280" height="15" uuid="03ac5997-4401-4533-b9ef-6a9c72165096">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeCeara} + " TORCE(M) PELO CEARÁ."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="644" width="280" height="15" uuid="dcbf9191-dc68-4ace-8407-b415decc0f9d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{obterCursoEmprego} + " ALUNO(S) DESEJAM UM EMPREGO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="220" width="280" height="15" uuid="67ac5495-32de-4512-b2d4-51c67e51470f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeAmericaMg} + " TORCE(M) PELO AMÉRICA MINEIRO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="485" width="280" height="15" uuid="fb255ddc-39fa-4da8-a470-c42241cf7fd7">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeFlamengo} + " TORCE(M) PELO FLAMENGO."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="714" width="561" height="1" uuid="92e5560a-5e69-4734-b22d-1791a8d92a5f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="0" y="485" width="280" height="15" uuid="fe54f575-5e76-49c9-95d9-aedfed1f5005">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeFortaleza} + " TORCE(M) PELO FORTALEZA."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="240" width="280" height="15" uuid="34fddeae-a549-44ee-80d5-f4bd5eff14b4">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeVitBh} + " TORCE(M) PELO VITÓRIA DA BAHIA."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="281" y="465" width="280" height="15" uuid="cd9d7249-9c33-4e86-a8f7-4fe6b48de51e">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeAtleticoPr} + " TORCE(M) PELO ATLÉTICO PARANAENSE."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="560" width="410" height="15" uuid="90e90a3c-4323-4df4-b5f9-54edbeff8030">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[FAZER NOVO CURSO APÓS?]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="281" y="587" width="280" height="15" uuid="4c3bebf8-55d7-4337-9051-94c7cd3344fa">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{novoCursoAposNao} + " NÃO DESEJAM FAZER UM NOVO CURSO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="48" width="280" height="15" uuid="ee9b92b7-e5e2-4220-b9f5-235a61ba82b7">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{moradiaAlugada} + " MORA(M) EM CASA ALUGADA."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="465" width="280" height="15" uuid="68284564-cbef-4962-a1df-27987bd2b9e5">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeJuventude} + " TORCE(M) PELO JUVENTUDE."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="587" width="280" height="15" uuid="3ee6d1d7-814d-4b0b-a841-5ebeb5d543fa">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{novoCursoAposSim} + " DESEJAM FAZER UM NOVO CURSO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="240" width="280" height="15" uuid="22fb607e-619e-4d24-8e91-a2e3277c7c24">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeAtleticoGo} + "  TORCE(M) PELO ATLÉTICO GOIANIENSE."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="505" width="280" height="15" uuid="9d313f6f-b78a-4726-8805-a5bae1003c9a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeCruzeiro} + " TORCE(M) PELO CRUZEIRO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="142" width="280" height="15" uuid="3de328f7-037d-4e08-9d70-4c183016fc3b">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{atFisicasSempre} + " PRATICA(M) SEMPRE."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="445" width="280" height="15" uuid="9b6d578b-21a8-4d5d-9535-080a5955284f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeInter} + " TORCE(M) PELO INTERNACIONAL."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="322" width="280" height="15" uuid="d1e706ed-3c91-4809-8748-6813b5b59aa8">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeGoias} + " TORCE(M) PELO GOIÁS."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="644" width="280" height="15" uuid="91ca0a5c-9647-411a-bae5-438f1f61f762">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{obterCursoRealizacao} + " ALUNO(S) DESEJAM REALIZAÇÃO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="70" width="280" height="15" uuid="3c1b7d4a-13eb-4d5e-ba0c-ec9cfa749073">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{moradiaFinanciada} + " MORA(M) EM CASA FINANCIADA."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="302" width="280" height="15" uuid="c03dade7-c70c-4eea-963e-9b9003c357c9">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeChape} + " TORCE(M) PELO CHAPECOENSE."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="120" width="280" height="15" uuid="88a9d226-c13e-4b4f-9d62-0d4b35de1fe7">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{atFisicasNunca} + " NÃO PRATICA(M)."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="424" width="280" height="15" uuid="a421c299-9a55-4d03-bdc9-5a578e0c4026">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeSantaCruz} + " TORCE(M) PELO SANTA CRUZ."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="6" width="560" height="15" uuid="2f524fb7-045b-4fe9-9bc4-68e2446c5097">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DETALHAMENTO FINAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="48" width="280" height="15" uuid="c7f95c4c-c698-4ad1-9900-bc8254c913ff">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{moradiaPropria} + " MORA(M) EM CASA PRÓPRIA."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="142" width="280" height="15" uuid="9ed253e7-8ef7-4834-86a8-2f4cd055fa67">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{atFisicasRaramente} + " PRATICA(M) RARAMENTE."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="120" width="280" height="15" uuid="b43038a6-1c66-4f20-97ef-ef00861b42ad">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{atFisicasOcasionalmente} + " PRATICA(M) OCASIONALMENTE."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="93" width="561" height="1" uuid="9a186f5d-16e2-4d34-ae01-f67f5bed89ab"/>
+			</line>
+			<textField>
+				<reportElement x="1" y="384" width="280" height="15" uuid="8f117cf0-e57e-4184-bd07-b2c3897fbde1">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeParana} + " TORCE(M) PELO PARANÁ."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="550" width="561" height="1" uuid="4871298e-4fcc-4101-83bd-14385f6c0ee3">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</line>
+			<textField>
+				<reportElement x="282" y="364" width="280" height="15" uuid="884353ba-cb33-480b-ad8d-d03ed77e924d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeGremio} + " TORCE(M) PELO GRÊMIO."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="28" width="410" height="15" uuid="c9f8ab22-f731-4432-a190-5f036d76b4d6">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[MORADIA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="282" y="404" width="280" height="15" uuid="dcecd09b-0f70-480e-a878-8682aab88a39">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timePonte} + " TORCE(M) PELO PONTE PRETA."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="70" width="280" height="15" uuid="c577bc6d-cfa4-4504-bd27-75c4654c65a8">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{moradiaFamiliares} + " MORA(M) COM FAMILIARES."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="99" width="410" height="15" uuid="17d69e9e-237f-4f7d-8115-fb13f197e072">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ATIVIDADES FÍSICAS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="322" width="280" height="15" uuid="d0c55c74-9ca9-46b4-a018-16a074f56264">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeFigueirense} + " TORCE(M) PELO FIGUEIRENSE."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="80" y="174" width="410" height="15" uuid="14f56498-71b2-496f-9f2f-fa16396f07b5">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[TIME DO CORAÇÃO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="280" y="665" width="280" height="15" uuid="1f35137e-6a85-4307-8ee4-376a24963589">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{obterCursoMelhorar} + " ALUNO(S) DESEJAM SUBIR DE CARGO."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="167" width="561" height="1" uuid="a588887c-891f-478d-b96b-50d6160db0de"/>
+			</line>
+			<staticText>
+				<reportElement x="80" y="621" width="410" height="15" uuid="24335045-d22b-408f-a40b-69580c4914cd">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[O QUE ESPERAM OBTER COM O CURSO?]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="280" y="526" width="280" height="15" uuid="d6779b30-0984-4b5c-aa5d-7d29677e8c6b">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeOutro} + " TORCE(M) POR OUTRO TIME."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="526" width="280" height="15" uuid="7432fe20-02c6-499b-8152-9d1a08a6db51">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{timeAtleticoMg} + " TORCEM PELO ATLÉTICO MINEIRO."]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="802" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<line>
+				<reportElement x="0" y="19" width="561" height="1" uuid="b01c93bd-512a-4e12-ae20-da4def606e9a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="80" y="27" width="410" height="15" uuid="bef1d1f6-fb0d-4842-86f5-6e4e19423efe">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[COMO PASSAM O TEMPO LIVRE?]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="50" width="180" height="15" uuid="dc571fd0-efcf-4fab-b2c8-a390fe6090d4">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{tLivreTv} + " ASSISTE(M) TV. "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="50" width="183" height="15" uuid="787b8f41-7c3c-42da-8c3e-ad31a5a88676">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{tLivreInternet} + " ACESSA(M)  INTERNET. "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="50" width="182" height="15" uuid="ed9ef07f-b0cb-4b54-b919-f0b68605c046">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{tLivreEsportes} + " PRATICA(M) ESPORTE(S). "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="72" width="280" height="15" uuid="e7870ade-969d-49c3-8b25-0a61fa0ebcb9">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{tLivreJogos} + " JOGA(M). "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="72" width="280" height="15" uuid="f7fc77da-a26e-47ad-a2c5-1617530558d2">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{tLivreOutros} + " OUTRO(S). "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="99" width="561" height="1" uuid="2663f708-28f8-44b7-8004-59afd9cfbd21">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="80" y="110" width="410" height="15" uuid="c196331a-22fd-48bf-abb1-1f3c9a470710">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[GÊNERO FILME PREFERIDO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="133" width="183" height="15" uuid="99d032e5-2910-4d77-8bd0-ae2be7e3a1ae">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeGuerra} + " GOSTA(M) DE GUERRA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="153" width="183" height="15" uuid="8e3c42ad-4ec5-4fb4-976d-2ce9a5c79ebd">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeAcao} + " GOSTA(M) DE AÇÃO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="133" width="183" height="15" uuid="9daec4d4-d447-4abf-bb41-115c753bbe0e">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeComedia} + " GOSTA(M) DE COMÉDIA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="133" width="183" height="15" uuid="3fc7c7dd-438b-4734-939b-4555db7291a0">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeDrama} + " GOSTA(M) DE DRAMA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="153" width="183" height="15" uuid="acefadd6-7816-4c30-9143-a3ce52ac79af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeFiccao} + " GOSTA(M) DE FICÇÃO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="153" width="183" height="15" uuid="cf04975d-9dc1-4ccc-82d2-fdda5acd5aef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeFaroeste} + " GOSTA(M) DE FAROESTE"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="173" width="183" height="15" uuid="4232a3e1-7ee8-4f7f-82b9-a3e940816578"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeAventura} + " GOSTA(M) DE AVENTURA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="193" width="183" height="15" uuid="5d9f69f7-4f4c-4136-8689-9927f7035226"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeTerror} +  " GOSTA(M) DE TERROR"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="173" width="183" height="15" uuid="9a9b703c-350f-4751-9b65-575b949fe1bc">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeSuspense} + " GOSTA(M) DE SUSPENSE"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="173" width="183" height="15" uuid="a4543255-c441-4318-be84-8913abe5f8e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmePolicial} +  " GOSTA(M) DE POLICIAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="193" width="183" height="15" uuid="0a44ea64-6c8c-4506-8560-e22f79d6cbcf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{FilmeMusical} + " GOSTA(M) DE MUSICAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="193" width="183" height="15" uuid="e32a0a77-32c5-4bb6-ab8e-222cca6c2374"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeAnimacao} +  " GOSTA(M) DE ANIMAÇÃO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="213" width="183" height="15" uuid="66b58d16-e6bc-4002-be1a-1815626516bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeFantasia} +  " GOSTA(M) DE FANTASIA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="213" width="183" height="15" uuid="4a19d1ab-edec-4da2-bccc-e675e54803e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeRomance} + " GOSTA(M) DE ROMANCE"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="213" width="183" height="15" uuid="7ccabc3f-eeee-4b37-b117-5794f1aa8b8e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{filmeOutro} +  " GOSTA(M) DE OUTRO"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="241" width="561" height="1" uuid="19cf9be6-9e17-4976-8305-f8e7c82ce32a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="80" y="250" width="410" height="15" uuid="37f8c839-8a62-470f-ba6e-49f507191ca4">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[GÊNERO LIVRO PREFERIDO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="272" width="183" height="15" uuid="c2274e49-51eb-4438-8769-0caa8702e79d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroGuerra}  + " GOSTA(M) DE GUERRA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="272" width="183" height="15" uuid="f69c80bd-45d4-4b4e-b4c7-343904bfade3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroTerror}  + " GOSTA(M) DE TERROR"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="272" width="183" height="15" uuid="4a00ee33-5737-4a95-80e0-34b2aa72f5ec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroComedia}  + " GOSTA(M) DE COMÉDIA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="290" width="183" height="15" uuid="10f7076e-1d42-41e9-a17f-25ce051100a0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroAcao}  + " GOSTA(M) DE AÇÃO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="290" width="183" height="15" uuid="10b14397-17bc-4851-96c2-112e8ecca8ad"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroRomance}  + " GOSTA(M) DE ROMANCE"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="310" width="183" height="15" uuid="1a3947ec-2d91-41c3-ba33-355e8a4326de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroAventura}  + " GOSTA(M) DE AVENTURA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="290" width="183" height="15" uuid="5dc2393c-2b2b-437c-a028-98567f09ded7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroSuspense}  + " GOSTA(M) DE SUSPENSE"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="310" width="183" height="15" uuid="1d08134c-645c-4f46-93c9-7f4f6bd0fe29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroFantasia}  + " GOSTA(M) DE FANTASIA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="330" width="183" height="15" uuid="2bfb6004-480f-40a8-9b46-01e675bfc5d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroFaroeste}  + " GOSTA(M) DE FAROESTE"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="350" width="183" height="15" uuid="4a7d487e-238e-4353-9029-e95c7d2ee2a4">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroAnimacao}  + " GOSTA(M) DE ANIMAÇÃO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="310" width="183" height="15" uuid="d6022b62-d5f5-46f2-b65f-9213f39d61ac">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroPolicial}  + " GOSTA(M) DE POLICIAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="350" width="183" height="15" uuid="ab7a6cc4-65d2-43e0-989c-3348b5d18822"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroFiccao}  + " GOSTA(M) DE FICÇÃO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="330" width="183" height="15" uuid="aae1fa97-f839-4d84-9a28-7e543200b529"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroDrama}  + " GOSTA(M) DE DRAMA"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="330" width="183" height="15" uuid="e3177496-2222-4653-84e4-2188b0589257"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroMusical}  + " GOSTA(M) DE MUSICAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="350" width="183" height="15" uuid="376d52d9-bd72-4326-8a86-e1cecf9c846d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{livroOutro}  + " GOSTA(M) DE OUTRO"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="375" width="561" height="1" uuid="910c2f18-4da4-4f7f-a349-8206366ab8c1">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="80" y="384" width="410" height="15" uuid="a22e1544-c852-4e78-b9a8-28ae117bc99e">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ESPORTE PREFERERIDO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="408" width="183" height="15" uuid="04eb8813-6884-478f-81e6-b9f1d5b7f4ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteNenhum} + " NÃO PRATICA(M)."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="428" width="183" height="15" uuid="4c1567ac-7453-445e-9ff0-7a3c26a18a99"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteFutebol}+ " PRATICA(M) FUTEBOL."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="428" width="183" height="15" uuid="ee9e0ddf-6318-4960-8910-a35668affc6a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteVolei}+ " PRATICA(M) VÔLEI."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="408" width="183" height="15" uuid="e4406351-80af-4342-8942-8758af509ef9">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteSkate}+ " PRATICA(M) SKATE."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="408" width="183" height="15" uuid="9d69d66e-8cc5-4d3e-9eeb-26f06ea027d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteTenisMesa}+ " PRATICA(M) TÊNIS DE MESA."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="428" width="183" height="15" uuid="81a270fd-76ec-45f8-92a0-ccfaa0987c06"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteNatacao}+ " PRATICA(M) NATAÇÃO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="448" width="183" height="15" uuid="9e5cff09-b1a1-48f9-8bc0-489e2e3cdfb2">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteFutsal}+ " PRATICA(M) FUTSAL."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="448" width="183" height="15" uuid="26157fd6-c5ef-4727-bf3e-99ee6c5b0c55">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteCapoeira}+ " PRATICA(M) CAPOEIRA."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="469" width="183" height="15" uuid="f57cc86c-c192-4587-8b75-e451c615eaf2">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteJudo}+ " PRATICA(M) JUDÔ."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="470" width="183" height="15" uuid="c0995a7e-4424-4c64-8439-e785f0c93187">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteBasquete}+ " PRATICA(M) BASQUETE."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="470" width="183" height="15" uuid="0bc871c3-3b9a-4c74-862c-7b130c7382f3">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteTenis}+ " PRATICA(M) TÊNIS."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="448" width="183" height="15" uuid="9e3f3524-05a7-42f6-88dc-41177de7415c">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteHandball}+ " PRATICA(M) HANDBALL."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="490" width="183" height="15" uuid="c2365442-3c14-49aa-ae2f-00912881aceb">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteSurf}+ " PRATICA(M) SURF."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="490" width="183" height="15" uuid="9be52a62-69f1-42d9-9eef-d4795418b303">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteAtletismo}+ " PRATICA(M) ATLETISMO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="490" width="183" height="15" uuid="d07a5b2d-ae98-4a13-86a4-edefb928d972">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{esporteOutro}+ " PRATICA(M) OUTRO."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="514" width="561" height="1" uuid="00efe6dc-9501-4e31-a938-529e09bd0b89">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="80" y="520" width="410" height="15" uuid="1d9482fb-94f6-4347-a298-4c9665a32d8a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ACESSO INTERNET]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="542" width="183" height="15" uuid="98e05367-885f-443e-b52d-b245ebfa7074">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{InternetSem} + " NÃO ACESSA(M)."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="542" width="183" height="15" uuid="c3c9553e-e109-4379-99bc-6748f48ae41d">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{InternetCelular}+ " ACESSA(M) PELO CELULAR."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="562" width="279" height="15" uuid="fac946bc-26bb-4370-a644-b0b3c9e0899d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{InternetCasa}+ " ACESSA(M) EM CASA."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="562" width="279" height="15" uuid="c28cd099-f2b0-4ba4-8b78-a5eec457358f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{InternetTrabalho}+ " ACESSA(M) NO TRABALHO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="542" width="183" height="15" uuid="7606625b-bcde-477d-aa56-d5c93780707a">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{InternetEscola}+ " ACESSA(M) NA ESCOLA."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="586" width="561" height="1" uuid="d2374cfa-c6dd-470b-bddd-349c63084719">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="80" y="593" width="410" height="15" uuid="0e73978a-d243-4998-b36f-e5362ab99e4e">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="1.0" lineColor="#DBDBDB"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[COR PREFERIDA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="618" width="183" height="15" uuid="b7f28154-3189-4063-8a86-63aed565fe06">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{corVermelho} + " GOSTA(M) DE VERMELHO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="618" width="183" height="15" uuid="df717ef8-ccfc-493b-b9e5-f4431f3cbe11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{corAmarelo}+ " GOSTA(M) DE AMARELO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="618" width="183" height="15" uuid="e22a8e3b-a53e-43b2-aa05-8f0eff948f5b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{corVerde}+ " GOSTA(M) DE VERDE."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="640" width="183" height="15" uuid="deffe4e1-962d-4159-8694-f562795de04f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{corAzul}+ " GOSTA(M) DE AZUL."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="660" width="183" height="15" uuid="84bc3b59-cbde-46b4-8e92-9a00e8757f37">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{corRosa}+ " GOSTA(M) DE ROSA."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="640" width="183" height="15" uuid="1df3f3cd-742f-4a0b-9cb5-ce45faf674de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{corLilás}+ " GOSTA(M) DE LILÁS."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="640" width="183" height="15" uuid="959174eb-9a19-4bce-b559-4b5eec708472"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{corBranco}+ " GOSTA(M) DE BRANCO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="660" width="183" height="15" uuid="8b8f78f7-3c1b-401f-a2a0-b75586919f51"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{corPreto}+ " GOSTA(M) DE PRETO."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="660" width="183" height="15" uuid="bb5b5647-d4a5-46a8-bd91-3fa3e83515bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{corPink}+ " GOSTA(M) DE PINK."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="680" width="560" height="15" uuid="d36a3997-e771-4e3f-bfd8-f3554e1004e6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{corOutra}+ " GOSTA(M) DE OUTRA."]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="704" width="561" height="1" uuid="6e87ae82-dcb1-41f3-8cf8-457e52b33ab3">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

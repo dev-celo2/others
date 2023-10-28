@@ -1,0 +1,205 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="caixasSearch" styleClass="edit">
+
+        <rich:simpleTogglePanel label="Caixas #{messages['global.searchFilter']}" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">#{messages['global.match']}</ui:define>
+                <h:selectOneRadio id="logic" value="#{caixasList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="#{messages['global.all']}" itemValue="and"/>
+                    <f:selectItem itemLabel="#{messages['global.any']}" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:simpleTogglePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="#{messages['global.search']}" action="/private/onbyte/CaixasList.xhtml"/>
+            <s:button id="reset" value="#{messages['global.clear']}" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">Caixas #{messages['global.searchResults']} (#{empty caixasList.resultList ? 0 : (caixasList.paginated ? caixasList.resultCount : caixasList.resultList.size)})</f:facet>
+    <div class="results" id="caixasList">
+
+    <h:outputFormat value="#{messages['global.NoSearchResults']}"
+               rendered="#{empty caixasList.resultList}"/>
+
+    <rich:dataTable id="caixasList" onRowMouseOver="this.style.backgroundColor='#F1F1F1'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                var="_caixas"
+              value="#{caixasList.resultList}"
+           rendered="#{not empty caixasList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{caixasList}"/>
+                    <ui:param name="propertyLabel" value="Numero"/>
+                    <ui:param name="propertyPath" value="caixas.numero"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_caixas.numero}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{caixasList}"/>
+                    <ui:param name="propertyLabel" value="Dt abre"/>
+                    <ui:param name="propertyPath" value="caixas.dtAbre"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_caixas.dtAbre}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{caixasList}"/>
+                    <ui:param name="propertyLabel" value="Dt fecha"/>
+                    <ui:param name="propertyPath" value="caixas.dtFecha"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_caixas.dtFecha}">
+                <f:convertDateTime type="date" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" pattern="#{messages.pattern}"/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{caixasList}"/>
+                    <ui:param name="propertyLabel" value="Funcionarios by func abre codigo"/>
+                    <ui:param name="propertyPath" value="caixas.funcionariosByFuncAbre.codigo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_caixas.funcionariosByFuncAbre.codigo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{caixasList}"/>
+                    <ui:param name="propertyLabel" value="Funcionarios by func fecha codigo"/>
+                    <ui:param name="propertyPath" value="caixas.funcionariosByFuncFecha.codigo"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_caixas.funcionariosByFuncFecha.codigo}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{caixasList}"/>
+                    <ui:param name="propertyLabel" value="Hr abre"/>
+                    <ui:param name="propertyPath" value="caixas.hrAbre"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_caixas.hrAbre}">
+                <f:convertDateTime type="time" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" />
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{caixasList}"/>
+                    <ui:param name="propertyLabel" value="Hr fecha"/>
+                    <ui:param name="propertyPath" value="caixas.hrFecha"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_caixas.hrFecha}">
+                <f:convertDateTime type="time" locale="#{localeSelector.locale}" timeZone="#{timeZoneSelector.timeZone}" />
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{caixasList}"/>
+                    <ui:param name="propertyLabel" value="Vl inicio"/>
+                    <ui:param name="propertyPath" value="caixas.vlInicio"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_caixas.vlInicio}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">#{messages['global.action']}</f:facet>
+            <s:link view="/private/onbyte/#{empty from ? 'Caixas' : from}.xhtml"
+                   value="#{empty from ? messages['global.view'] : messages['global.select']}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="caixasViewId">
+                <f:param name="caixasNumero"
+                        value="#{_caixas.numero}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/private/onbyte/CaixasEdit.xhtml"
+                   value="#{messages['global.edit']}"
+             propagation="none"
+                      id="caixasEdit"
+                rendered="#{empty from}">
+                <f:param name="caixasNumero"
+                        value="#{_caixas.numero}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/private/onbyte/CaixasList.xhtml"
+            rendered="#{caixasList.previousExists}"
+               value="#{messages.left}#{messages.left} #{messages['global.firstPage']}"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/CaixasList.xhtml"
+            rendered="#{caixasList.previousExists}"
+               value="#{messages.left} #{messages['global.previousPage']}"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{caixasList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/CaixasList.xhtml"
+            rendered="#{caixasList.nextExists}"
+               value="#{messages['global.nextPage']} #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{caixasList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/private/onbyte/CaixasList.xhtml"
+            rendered="#{caixasList.nextExists}"
+               value="#{messages['global.lastPage']} #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{caixasList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/private/onbyte/CaixasEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="#{messages['global.create']} caixas">
+            <f:param name="caixasNumero"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

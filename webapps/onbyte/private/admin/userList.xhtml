@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:s="http://jboss.com/products/seam/taglib"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:rich="http://richfaces.org/rich"
+		xmlns:a4j="http://richfaces.org/a4j"
+		xmlns:gui="http://intelinet.com.br/gui"
+		template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="trail">
+	<h:outputText value="#{messages['trail.separator']} "/>
+	<h:outputText value="#{messages['user.sectionTitle']}"/>
+</ui:define>
+
+<ui:define name="body">
+<a4j:queue requestDelay="#{ajaxQueueBean.requestDelay}" ignoreDupResponses="#{ajaxQueueBean.ignoreDupResponces}"/>
+
+	<gui:section title="#{messages['user.sectionTitle']}">
+		<h:form id="form">
+			#{messages["global.search"]}:
+			<h:inputText value="#{searchManager.filter}" id="search" size="30" maxlength="30">
+				<a4j:support event="keyup" render="results" execute="@this"/>
+			</h:inputText>
+			<a4j:commandButton value="#{messages['global.ok']}" render="results" onbegin="document.getElementById('form:search').focus()"/>
+			<script>document.getElementById("form:search").focus()</script>
+		</h:form>
+		<br/><br/>
+		<s:link outcome="/private/admin/userForm" value="#{messages['global.add']}" rendered="#{identity.hasRole('manager')}"/>
+		<rich:dataTable id="results" value="#{userInfoAction.dataModel}" var="user" rows="#{searchManager.resultsPerPage}">
+			<rich:column>
+				<f:facet name="header">#{messages["user.name"]}</f:facet>
+				<h:outputText value="#{user.name}"/>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">#{messages["user.email"]}</f:facet>
+				<h:outputText value="#{user.email}"/>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">#{messages["user.active"]}</f:facet>
+				<h:outputText value="#{messages['global.nao']}" rendered="#{user.active eq 0}"/>
+				<h:outputText value="#{messages['global.sim']}" rendered="#{user.active eq 1}"/>
+			</rich:column>
+			<rich:column style="text-align:center">
+				<f:facet name="header"></f:facet>
+				<s:link outcome="/private/admin/userView" value="#{messages['global.view']}">
+					<f:param name="id" value="#{user.id}"/>
+				</s:link>
+				<ui:fragment rendered="#{identity.hasRole('manager')}">
+				<h:outputText value=" "/>
+				<s:link outcome="/private/admin/userForm" value="#{messages['global.edit']}">
+					<f:param name="id" value="#{user.id}"/>
+				</s:link>
+				</ui:fragment>
+			</rich:column>
+			<f:facet name="footer">
+				<gui:paginator/>
+			</f:facet>
+		</rich:dataTable>
+	</gui:section>
+</ui:define>
+
+</ui:composition>

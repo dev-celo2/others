@@ -1,0 +1,57 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+
+	<div id="DialogRemoveConvalu#{cont.index}" style="z-index: 4041;"
+		class="modal fade " data-backdrop="static" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<center>
+						<h4 style="color: gray; font-weight: bold;" class="modal-title">
+							<i class="glyphicon glyphicon-pencil" style="font-size: 20px;" />
+							REMOVER CONTATO
+						</h4>
+					</center>
+				</div>
+				<div class="modal-body">
+					<div class="box-content">
+
+
+						<center><h6>Remover Contato da ordem #{_contatos.id.seque} com data de <h:outputText value="#{_contatos.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText> e hora #{_contatos.hora}?</h6></center>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<center>
+						<a:commandLink
+							reRender="pnlEditCont#{cont.index}, grpContatos, msgGlobal"
+							style="width:200px;"
+							onclick="$('#DialogRemoveConvalu#{cont.index}').modal('hide');"
+							actionListener="#{matriculasHome.removeContato(_contatos)}"
+							title="Gravar" styleClass="btn btn-success">
+							<i class="glyphicon glyphicon-ok" /> Ok
+					</a:commandLink>
+						<button type="button" style="width: 200px;"
+							class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove" /> Cancelar</button>
+					</center>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</ui:composition>

@@ -1,0 +1,77 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+		<rich:modalPanel id="setFuncionario" width="500" height="100" resizeable="false">
+	        <f:facet name="header">
+	            <h:panelGroup>
+	                <h:outputText value="#{messages['setFuncionario.title']}" />
+	            </h:panelGroup>
+	        </f:facet>
+	        <f:facet name="controls">
+	            <h:panelGroup>
+	                <h:graphicImage value="/img/false.png" styleClass="hidelink"
+	                    id="hidelink_setFuncionario" />
+	                <rich:componentControl for="setFuncionario"
+	                    attachTo="hidelink_setFuncionario" operation="hide"
+	                    event="onclick" />
+	            </h:panelGroup>
+	        </f:facet>
+	        <a:form id="formSetFuncionario" ajaxSubmit="true">
+	            <h:panelGrid columns="4" columnClasses=",,,alignBotton">
+	                <s:decorate id="referenciaField" template="/private/onbyte/layout/edit_top.xhtml">
+	                    <ui:define name="label">#{messages['funcionarios.passe']}:</ui:define>
+	                    <h:inputSecret id="novaReferencia" size="8" maxlength="8" autocomplete="off"
+	                        value="#{authenticatorAction.userPasswd}">
+	                        <a:support event="onblur"
+	                            reRender="funcionarioCodigoField,funcionarioNomeField"
+	                            ajaxSingle="true" limitToList="true" bypassUpdates="false"
+	                            data="#{authenticatorAction.messageRetornoAjax}"
+	                            onbeforedomupdate="showMessageRetorno(data)" />
+	                    </h:inputSecret>
+	                </s:decorate>
+	                <s:decorate id="funcionarioCodigoField"
+	                    template="/private/onbyte/layout/edit_top.xhtml">
+	                    <ui:define name="label">#{messages['funcionarios.codigo']}:</ui:define>
+	                    <h:inputText id="novaReferencia" size="8"
+	                        readonly="#{authenticatorAction.senhavend.equals('Sim')}"
+	                        required="true" value="#{authenticatorAction.userId}">
+	                        <a:support event="onchange" reRender="funcionarioNomeField"
+	                            ajaxSingle="true" limitToList="true" bypassUpdates="false" />
+	                    </h:inputText>
+	                </s:decorate>
+	                <s:decorate id="funcionarioNomeField"
+	                    template="/private/onbyte/layout/edit_top.xhtml">
+	                    <ui:define name="label">#{messages['funcionarios.nome']}:</ui:define>
+	                    <h:selectOneMenu value="#{authenticatorAction.userId}"
+	                        style="width:250px"
+	                        disabled="#{authenticatorAction.senhavend.equals('Sim')}"
+	                        validatorMessage="''" required="true">
+	                        <f:selectItem itemLabel="#{null}" itemValue="#{-1}" />
+	                        <f:selectItems itemLabelEscaped="true" value="#{authenticatorAction.funcionarios}"
+	                            var="_funcionarios" itemLabel="#{_funcionarios.nome}"
+	                            itemValue="#{_funcionarios.codigo}" />
+	                        <a:support event="onchange" reRender="funcionarioCodigoField"
+	                            ajaxSingle="true" limitToList="true" bypassUpdates="false" />
+	                    </h:selectOneMenu>
+	                </s:decorate>
+	                <h:commandButton id="btnOK" value="#{messages['global.ok']}"
+	                    action="#{authenticatorAction.setFuncionario}">
+	                </h:commandButton>
+	            </h:panelGrid>
+	        </a:form>
+	    </rich:modalPanel>
+		<script type="text/javascript">
+			Richfaces.showModalPanel('setFuncionario');		
+		</script>
+	</ui:define>
+
+</ui:composition>

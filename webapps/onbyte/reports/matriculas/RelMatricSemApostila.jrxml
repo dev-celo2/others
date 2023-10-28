@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelMatricSemApostila" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="473bb990-b689-4626-9d8b-dff4f19f3918">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<subDataset name="listCompraApostilas" uuid="cab0b786-86df-4286-afd7-7487fc6192d6">
+		<field name="descricao" class="java.lang.String"/>
+		<field name="necessidade" class="java.lang.Integer"/>
+	</subDataset>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="title_rel" class="java.lang.String"/>
+	<parameter name="listCompraApostilas" class="java.util.List"/>
+	<field name="matriculas.codigo" class="java.lang.Integer"/>
+	<field name="matriculas.alunos.nome" class="java.lang.String"/>
+	<field name="cursos.descricao" class="java.lang.String"/>
+	<field name="dataprimeiroacesso" class="java.util.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="40" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement uuid="06185b4b-f0c6-4cdb-b6cb-7ff18795280b" x="0" y="0" width="100" height="20"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="3e44d109-bf78-4823-b4c5-546bd36b3941" x="455" y="0" width="100" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<patternExpression><![CDATA[$R{global.reportPagina}+": "]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5529d438-110e-4a8d-af4d-bc93973fc847" x="109" y="0" width="336" height="23"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="ZurichCalligraphic" size="20" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7a5ee1fb-a731-4d47-9ec6-bf2c3f4f64d5" mode="Transparent" x="0" y="22" width="555" height="18" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title_rel}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3befb713-5284-4b0e-8f2b-4f3fcbfadb57" x="0" y="0" width="245" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="none">
+					<font fontName="Arial" size="11" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{alunos.codigo}+" / "+$R{alunos.nome}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="728f439c-2dff-4abb-aff7-86aa2bc9da2b" mode="Transparent" x="432" y="0" width="57" height="15" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{curMatri.dataprimeiroacesso}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a449c8f6-3e23-4dbb-beb0-7ad3fc924ca9" x="245" y="0" width="187" height="15"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement markup="none">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{cursos.descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement uuid="223cf06b-795b-46fc-a472-af894f5a08bd" x="0" y="0" width="41" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="09a56ae4-83ed-49b5-85ed-a1a819b49370" x="41" y="0" width="204" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matriculas.alunos.nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="8e17ad4f-0bc7-4ebe-a21e-9dc8eb6df507" x="432" y="0" width="57" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataprimeiroacesso}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="37c31a52-ee4a-432f-b670-5ce3ca09ca78" x="245" y="0" width="187" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cursos.descricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="47">
+			<componentElement>
+				<reportElement uuid="e0be1bb2-cb39-4ca8-aa2d-b3af9362cb9a" x="19" y="32" width="451" height="15"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="listCompraApostilas" uuid="dc1b6122-002b-4361-9ea7-5af68ba9f475">
+						<dataSourceExpression><![CDATA[new JRBeanCollectionDataSource($P{listCompraApostilas})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="15" width="451">
+						<textField pattern="###0 un" isBlankWhenNull="true">
+							<reportElement uuid="7b09a4d2-2ffa-4d08-8a6f-b610359021df" key="textField" x="311" y="0" width="140" height="15"/>
+							<box>
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Right" verticalAlignment="Top">
+								<font fontName="Times New Roman" size="12"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{necessidade}]]></textFieldExpression>
+						</textField>
+						<textField pattern="" isBlankWhenNull="true">
+							<reportElement uuid="7c18db26-8c74-4750-accf-05ca59c20608" key="textField" x="0" y="0" width="249" height="15"/>
+							<box>
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement verticalAlignment="Top">
+								<font fontName="Times New Roman" size="12"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField>
+				<reportElement uuid="0080d602-e56d-4a84-937f-87dd26f2d500" key="staticText" x="19" y="14" width="249" height="18"/>
+				<textElement markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{cursos.descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0080d602-e56d-4a84-937f-87dd26f2d500" key="staticText" x="268" y="14" width="202" height="18"/>
+				<textElement textAlignment="Right" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relMatricSemApostila.totalSerEntregue}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="53139166-654f-425d-9f34-7e5a7c87b4f7" x="0" y="1" width="555" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

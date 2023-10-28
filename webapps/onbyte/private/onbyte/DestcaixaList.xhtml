@@ -1,0 +1,228 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+		<h:form id="tipomarkSearch" styleClass="edit">
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-filter" /> CONTAS CAIXA FILTRO DE
+					PESQUISA
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<table width="100%">
+							<thead>
+								<tr style="text-align: center;">
+
+
+									<td>
+
+										<div class="input-group" style="width: 99%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">DESCRIÇÃO</span>
+
+											<h:inputText id="ip" styleClass="form-control"
+												value="#{destcaixaList.destcaixa.descricao}" />
+
+										</div>
+
+									</td>
+									<td>
+
+										<div class="input-group">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon3">COMBINAR</span>
+											<h:selectOneMenu id="logic" style="height:35px;"
+												value="#{destcaixaList.restrictionLogicOperator}"
+												styleClass="form-control">
+												<f:selectItem itemLabel="#{messages['global.all']}"
+													itemValue="and" />
+												<f:selectItem itemLabel="#{messages['global.any']}"
+													itemValue="or" />
+											</h:selectOneMenu>
+										</div>
+									</td>
+
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div class="panel-footer">
+
+					<center>
+
+						<h:commandLink id="search" style="width:150px;"
+							styleClass="btn btn-default"
+							action="/private/onbyte/DestcaixaList.xhtml">
+							<i class="glyphicon glyphicon-search" />
+						Localizar
+					</h:commandLink>
+
+						<rich:spacer width="2px;" />
+
+						<s:link id="reset" style="width:150px;"
+							styleClass="btn btn-danger" includePageParams="false">
+							<i class="glyphicon glyphicon-erase" />
+						Limpar
+					</s:link>
+
+					</center>
+
+				</div>
+			</div>
+
+			<p />
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-usd" /> CONTAS CAIXA ENCONTRADOS:
+					#{empty destcaixaList.resultList ? 0 : (destcaixaList.paginated ?
+					destcaixaList.resultCount : destcaixaList.resultList.size)}
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+						<a:outputPanel id="grpContasCx">
+							<table id="destcaixaList" width="100%"
+								style="text-align: center; text-transform: uppercase; font-size: 12px;"
+								class="table-responsive table-condensed table table-striped tbody table-bordered bootstrap-datatable datatable table-hover ">
+								<thead>
+									<tr>
+
+										<th style="text-align: center;"><a:commandLink
+												value="código" actionListener="#{destcaixaList.orderby(1)}"
+												reRender="grpContasCx">
+												<i class="#{destcaixaList.classOrder}" />
+											</a:commandLink></th>
+
+										<th style="text-align: center;"><a:commandLink
+												value="descrição"
+												actionListener="#{destcaixaList.orderby(2)}"
+												reRender="grpContasCx">
+												<i class="#{destcaixaList.classOrder}" />
+											</a:commandLink></th>
+
+										<th style="text-align: center;">Ação</th>
+
+									</tr>
+								</thead>
+
+								<tbody class="searchable" id="tbody">
+
+									<c:forEach items="#{destcaixaList.resultList}" var="_contasCx">
+										<tr style="font-size: 11px;">
+
+											<td><h:outputText value="#{_contasCx.codigo}" /></td>
+
+											<td><h:outputText value="#{_contasCx.descricao}" /></td>
+
+
+											<td><s:link styleClass="btn btn-default"
+													view="/private/onbyte/#{empty from ? 'Destcaixa' : from}.xhtml"
+													title="#{empty from ? messages['global.view'] : messages['global.select']}"
+													propagation="#{empty from ? 'none' : 'default'}">
+													<i class="glyphicon glyphicon-search" />
+													<f:param name="destcaixaCodigo" value="#{_contasCx.codigo}" />
+
+												</s:link> #{' '} <s:link view="/private/onbyte/DestcaixaEdit.xhtml"
+													styleClass="btn btn-warning"
+													title="#{messages['global.edit']}" propagation="none"
+													rendered="#{empty from &amp;&amp; rich:isUserInRole('DestinodoCaixa1_A')}">
+													<i class="glyphicon glyphicon-pencil" />
+													<f:param name="destcaixaCodigo" value="#{_contasCx.codigo}" />
+												</s:link></td>
+
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</a:outputPanel>
+					</div>
+				</div>
+				<div class="panel-footer">
+
+
+
+					<center>
+						<div>
+
+							<s:link view="/private/onbyte/DestcaixaList.xhtml"
+								rendered="#{destcaixaList.previousExists}"
+								title="PRIMEIRA PÁGINA" styleClass="btn btn-default"
+								id="firstPage">
+								<f:param name="firstResult" value="0" />
+								<i class="glyphicon glyphicon-fast-backward" />
+							</s:link>
+
+							<s:link view="/private/onbyte/DestcaixaList.xhtml"
+								title="PÁGINA ANTERIOR"
+								rendered="#{destcaixaList.previousExists}"
+								styleClass="btn btn-default" id="previousPage">
+								<f:param name="firstResult"
+									value="#{destcaixaList.previousFirstResult}" />
+
+								<i class="glyphicon glyphicon-backward" />
+
+							</s:link>
+
+							<s:link view="/private/onbyte/DestcaixaList.xhtml"
+								title="PRÓXIMA PÁGINA" rendered="#{destcaixaList.nextExists}"
+								styleClass="btn btn-default" id="nextPage">
+								<f:param name="firstResult"
+									value="#{destcaixaList.nextFirstResult}" />
+								<i class="glyphicon glyphicon-forward" />
+							</s:link>
+
+							<s:link view="/private/onbyte/DestcaixaList.xhtml"
+								rendered="#{destcaixaList.nextExists}" title="ÚLTIMA PÁGINA"
+								styleClass="btn btn-default" id="lastPage">
+								<f:param name="firstResult"
+									value="#{destcaixaList.lastFirstResult}" />
+								<i class="glyphicon glyphicon-fast-forward" />
+
+							</s:link>
+
+
+						</div>
+
+					</center>
+
+					<s:div styleClass="actionButtons" rendered="#{empty from}">
+						<s:link style="width:200px;" styleClass="btn btn-success"
+							view="/private/onbyte/DestcaixaEdit.xhtml" id="create"
+							propagation="none"
+							rendered="#{rich:isUserInRole('DestinodoCaixa1_A')}">
+							<f:param name="destcaixaCodigo" />
+							<i class="glyphicon glyphicon-plus" />
+							Nova Conta Caixa
+						</s:link>
+					</s:div>
+
+
+				</div>
+			</div>
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:rich="http://richfaces.org/rich"
+		xmlns:a4j="http://richfaces.org/a4j"
+		xmlns:gui="http://intelinet.com.br/gui"
+		template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+<ui:define name="trail">
+	<h:outputText value="#{messages['trail.separator']} "/>
+	<h:outputText value="#{messages['customer.sectionTitle']}"/>
+</ui:define>
+
+<ui:define name="body">
+<a4j:queue requestDelay="#{ajaxQueueBean.requestDelay}" ignoreDupResponses="#{ajaxQueueBean.ignoreDupResponces}"/>
+
+	<gui:section title="#{messages['customer.sectionTitle']}">
+		<h:form id="form">
+			#{messages["global.search"]}:
+			<h:inputText value="#{searchManager.filter}" id="search" size="30" maxlength="30">
+				<a4j:ajax event="keyup" render="results" execute="@this"/>
+			</h:inputText>
+			<a4j:commandButton value="#{messages['global.ok']}" render="results" onbegin="document.getElementById('form:search').focus()"/>
+			<h:outputScript>document.getElementById("form:search").focus()</h:outputScript>
+		</h:form>
+		<br/><br/>
+		<h:link outcome="/private/admin/customerForm" value="#{messages['global.add']}" rendered="#{identity.hasRole('manager','CUSTOMER','SYSMGMT')}"/>
+		<rich:dataTable id="results" value="#{customerAction.dataModel}" var="customer" rows="#{searchManager.resultsPerPage}">
+			<rich:column>
+				<f:facet name="header">#{messages["customer.cpf"]}</f:facet>
+				<h:outputText value="#{customer.cpf}"/>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">#{messages["customer.name"]}</f:facet>
+				<h:outputText value="#{customer.name}"/>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">#{messages["customer.email"]}</f:facet>
+				<h:outputText value="#{customer.email}"/>
+			</rich:column>
+			<rich:column style="text-align:center">
+				<f:facet name="header"></f:facet>
+				<h:link outcome="/private/admin/customerView" value="#{messages['global.view']}">
+					<f:param name="id" value="#{customer.id}"/>
+				</h:link>
+				<ui:fragment rendered="#{identity.hasRole('manager','CUSTOMER','SYSMGMT')}">
+				<h:outputText value=" "/>
+				<h:link outcome="/private/admin/customerForm" value="#{messages['global.edit']}">
+					<f:param name="id" value="#{customer.id}"/>
+				</h:link>
+				</ui:fragment>
+			</rich:column>
+			<f:facet name="footer">
+				<gui:paginator/>
+			</f:facet>
+		</rich:dataTable>
+	</gui:section>
+</ui:define>
+
+</ui:composition>

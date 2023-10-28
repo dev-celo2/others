@@ -1,0 +1,195 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<a:form id="relMatPorFuncionarioSearch" styleClass="edit">
+
+			<p:panel header="#{messages['relMatPorFuncionario.title']}"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:60px">
+					<h:panelGrid style="margin: 0px auto; width: 50%" columns="1"
+						id="pgFiltros">
+
+						<p:panel style="width:690px; height:40px;" id="pnDatas">
+							<h:panelGrid columns="9">
+								<s:span style="font-weight: bold;">#{messages['relMatPorFuncionario.mes']}:</s:span>
+								<rich:inputNumberSpinner
+									value="#{relMatPorFuncionario.monthSelect}" maxValue="12"
+									minValue="1" inputSize="2" />
+
+								<rich:spacer width="15px" />
+
+								<s:span style="font-weight: bold;">#{messages['relMatPorFuncionario.ano']}:</s:span>
+								<rich:inputNumberSpinner
+									value="#{relMatPorFuncionario.yearSelect}" maxValue="9999"
+									minValue="1900" inputSize="2" />
+
+								<rich:spacer width="15px" />
+
+								<s:span style="font-weight: bold;">#{messages['relMatPorFuncionario.func']}:</s:span>
+								<h:selectOneMenu id="alunosselect"
+									value="#{relMatPorFuncionario.codigoFuncionario}"
+									style="width: 250px; height: 21px;"
+									readonly="#{!matriculasHome.editable}">
+									<f:selectItems itemLabelEscaped="true"
+										value="#{relMatPorFuncionario.funcionarios}"
+										var="_funcionarios" itemValue="#{_funcionarios.codigo}"
+										itemLabel="#{_funcionarios.nome}" />
+								</h:selectOneMenu>
+
+								<p:commandButton value="#{messages['global.bntFilrar']}"
+									image="localizar" style="width:100px; margin: 0;"
+									onclick="filtrar();" />
+
+								<a:jsFunction name="filtrar"
+									reRender="relMatPorFuncionario, vlTotal" limitToList="true"
+									oncomplete="inicializar();">
+									<f:setPropertyActionListener
+										target="#{relMatPorFuncionario.matriculas}" value="#{null}" />
+								</a:jsFunction>
+
+
+							</h:panelGrid>
+
+
+
+						</p:panel>
+
+					</h:panelGrid>
+				</p:panel>
+
+
+
+
+
+				<p:panel id="relMatPorFuncionario"
+					header="#{messages['menu.Vendas1']} #{messages['global.searchResults']}: #{empty relMatPorFuncionario.matriculas ? 0 : relMatPorFuncionario.matriculas.size}">
+
+					<p:dataTable emptyMessage="#{messages['global.naoHaDados']}"
+						id="tablerelMatPorFuncionario" var="_matriculas"
+						paginatorPosition="bottom" rows="12" paginator="true"
+						rowsPerPageTemplate="12,18"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="true" selectionMode="single" style="text-align:center;"
+						value="#{relMatPorFuncionario.matriculas}">
+						<p:column>
+							<f:facet name="header">#{messages['matriculas.codigo']}</f:facet>
+							<h:outputText value="#{_matriculas.codigo}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">#{messages['alunos.nome']}</f:facet>
+							<h:outputText value="#{_matriculas.alunos.nome}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relMatPorFuncionario.dtinicio']}</f:facet>
+							<h:outputText value="#{_matriculas.dtinicio}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relMatPorFuncionario.dttermino']}</f:facet>
+							<h:outputText value="#{_matriculas.dttermino}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.telres']}</f:facet>
+							<h:outputText value="#{_matriculas.alunos.telres}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['alunos.telcel']}</f:facet>
+							<h:outputText value="#{_matriculas.alunos.telcel}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['matriculas.vlmatricula']}</f:facet>
+							<h:outputText value="#{_matriculas.vlmatricula}"
+								style="float: right;"
+								rendered="#{_matriculas.vlmatricula!=null}">
+								<f:convertNumber type="currency" minFractionDigits="2" />
+							</h:outputText>
+							<h:outputText value="#{0}" style="float: right;"
+								rendered="#{_matriculas.vlmatricula==null}">
+								<f:convertNumber type="currency" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['matriculas.vlmensal']}</f:facet>
+							<h:outputText value="#{_matriculas.vlmensal}"
+								style="float: right;" rendered="#{_matriculas.vlmensal!=null}">
+								<f:convertNumber type="currency" minFractionDigits="2" />
+							</h:outputText>
+							<h:outputText value="#{0}" style="float: right;"
+								rendered="#{_matriculas.vlmensal==null}">
+								<f:convertNumber type="currency" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+
+
+					<h:panelGrid columns="3">
+						<s:div styleClass="actionButtons" rendered="#{empty from}">
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relMatPorFuncionario.exportarRelatorioPDF}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/pdf.png" />
+							</h:commandLink>
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relMatPorFuncionario.exportarRelatorioExcel}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/excel.png" />
+							</h:commandLink>
+
+						</s:div>
+						<rich:spacer width="15px"/>
+						<h:panelGrid columns="2" id="vlTotal">
+							<s:decorate id="vlTotalMatricField"
+								template="../../layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['relMatPorFuncionario.vlTotalMatr']}</ui:define>
+								<h:inputText id="vlTotalMatric"
+									value="#{relMatPorFuncionario.valorTotalMatr}" readonly="true"
+									style="text-align: right; color:font-weight: bold;" size="15">
+									<f:convertNumber type="currency" minFractionDigits="2"
+										maxFractionDigits="2" />
+								</h:inputText>
+							</s:decorate>
+							<s:decorate id="vlTotalMensaField"
+								template="../../layout/edit_top.xhtml">
+								<ui:define name="label">#{messages['relMatPorFuncionario.vlTotalMens']}</ui:define>
+								<h:inputText id="vlTotalMensa"
+									value="#{relMatPorFuncionario.valorTotalMensalidade}"
+									readonly="true"
+									style="text-align: right; color:font-weight: bold;" size="15">
+									<f:convertNumber type="currency" minFractionDigits="2"
+										maxFractionDigits="2" />
+								</h:inputText>
+							</s:decorate>
+						</h:panelGrid>
+
+					</h:panelGrid>
+
+
+				</p:panel>
+
+			</p:panel>
+
+
+		</a:form>
+	</ui:define>
+</ui:composition>

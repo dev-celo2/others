@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelCompraApostilas" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="473bb990-b689-4626-9d8b-dff4f19f3918">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="title_rel" class="java.lang.String"/>
+	<parameter name="title_periodo" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.Integer"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="qtd_apostila" class="java.lang.Integer"/>
+	<field name="necessidade" class="java.lang.Integer"/>
+	<field name="sugestaoCompra" class="java.lang.Integer"/>
+	<field name="dtInicioPrevisto" class="java.util.Date"/>
+	<field name="aluAguardado" class="java.lang.Integer"/>
+	<field name="compImediata" class="java.lang.Integer"/>
+	<field name="prevFutura" class="java.lang.Integer"/>
+	<field name="compraFutura" class="java.lang.Integer"/>
+	<field name="totalComprar" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="48" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="0" y="0" width="100" height="20" uuid="06185b4b-f0c6-4cdb-b6cb-7ff18795280b"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement x="702" y="0" width="100" height="20" uuid="3e44d109-bf78-4823-b4c5-546bd36b3941"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<patternExpression><![CDATA[$R{global.reportPagina}+": "]]></patternExpression>
+			</textField>
+			<textField>
+				<reportElement x="233" y="0" width="336" height="23" uuid="5529d438-110e-4a8d-af4d-bc93973fc847"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="ZurichCalligraphic" size="20" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="22" width="411" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="7a5ee1fb-a731-4d47-9ec6-bf2c3f4f64d5"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="15" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title_rel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="421" y="22" width="339" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="7a5ee1fb-a731-4d47-9ec6-bf2c3f4f64d5"/>
+				<textElement verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="15" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title_periodo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="411" y="23" width="10" height="17" uuid="c7c56d33-0d6e-4f66-8268-7d546a539d27"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["-"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="278" y="0" width="78" height="15" uuid="a6735280-6c6a-47a1-a1fc-c624424a62d4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{pedidoHome.estoque}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="534" y="0" width="84" height="15" uuid="10664329-0781-4532-a7df-75168437abf9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relCompraApostilas.prevFutura}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Transparent" x="0" y="0" width="278" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="5eee92b5-d11a-41fe-9169-5c9e404bcc31"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Arial" size="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{itemPedido.cursos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="356" y="0" width="90" height="15" uuid="a6735280-6c6a-47a1-a1fc-c624424a62d4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relCompraApostilas.aluAguardado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="446" y="0" width="88" height="15" uuid="a6735280-6c6a-47a1-a1fc-c624424a62d4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relCompraApostilas.compImediata}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="618" y="0" width="91" height="15" uuid="a6735280-6c6a-47a1-a1fc-c624424a62d4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relCompraApostilas.compraFutura}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="709" y="0" width="93" height="15" uuid="10664329-0781-4532-a7df-75168437abf9"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{relCompraApostilas.totalComprar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="534" y="0" width="84" height="13" uuid="8e17ad4f-0bc7-4ebe-a21e-9dc8eb6df507"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{prevFutura}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="278" height="13" uuid="f25c6a99-c0a6-4d4e-bd90-21e48b0e199c"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="278" y="0" width="78" height="13" uuid="8e17ad4f-0bc7-4ebe-a21e-9dc8eb6df507"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{qtd_apostila}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="356" y="0" width="90" height="13" uuid="8e17ad4f-0bc7-4ebe-a21e-9dc8eb6df507"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{aluAguardado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="446" y="0" width="88" height="13" uuid="8e17ad4f-0bc7-4ebe-a21e-9dc8eb6df507"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{compImediata}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="709" y="0" width="93" height="13" uuid="8e17ad4f-0bc7-4ebe-a21e-9dc8eb6df507"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{totalComprar}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="618" y="0" width="91" height="13" uuid="8e17ad4f-0bc7-4ebe-a21e-9dc8eb6df507"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{compraFutura}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="256">
+			<staticText>
+				<reportElement x="15" y="8" width="552" height="248" uuid="c6430298-6c15-4111-90b4-2c1da77b2e21"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Est. Atual:
+•	Número de apostilas em estoque para o curso em questão.
+
+Alu. Aguardando:
+•	Alunos ativos, com curso em Andamento, que ainda não receberam apostila.
+
+Comp. imediata:
+•	Apostilas para alunos ativos, com curso em Andamento, que ainda não receberam apostila.
+
+Previsão Futura:
+•	Alunos ativos, com o primeiro curso em Espera sem apostila e que ainda não iniciaram o curso até o dia da consulta.
+
+Comp. Futura:
+•	Filtra os cursos em Espera do Aluno ativo.
+
+Total Comprar:
+•	Soma os campos Compra imediata, Compra Futura e Compra Futura.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="802" height="1" uuid="50694c69-bb1a-4b51-b949-3c241fbaf334"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

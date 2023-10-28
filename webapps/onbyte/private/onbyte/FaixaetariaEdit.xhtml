@@ -1,0 +1,211 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
+	template="/WEB-INF/facelets/layout/mainlayoutEscola.xhtml">
+
+
+
+	<ui:define name="body">
+
+		<h:form id="computadores">
+
+			<div class="panel panel-primary"
+				style="width: 99.5%; margin: 0 auto;">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-edit" /> #{faixaetariaHome.managed ?
+					'EDITAR FAIXA ETÁRIA' : 'INSERIR FAIXA ETÁRIA'}
+				</div>
+				<div class="panel-body">
+					<div class="box-content">
+
+						<table width="100%">
+							<thead>
+								<tr style="text-align: center;">
+
+
+									<td style="width: 15%;">
+
+										<div class="input-group" style="width: 98%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">FAIXA</span>
+
+											<h:inputText id="faixa" styleClass="form-control"
+												readonly="true" value="#{faixaetariaHome.instance.faixa}" />
+
+										</div>
+
+									</td>
+
+
+									<td style="width: 40%;">
+
+										<div class="input-group" style="width: 99%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">MOTIVO</span>
+
+											<h:inputText id="descricao" styleClass="form-control"
+												value="#{faixaetariaHome.instance.descricao}" />
+
+										</div>
+
+									</td>
+
+									<td style="width: 15%;">
+
+										<div class="input-group" style="width: 98%;">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">IDADE INICIAL</span>
+
+											<h:inputText id="inicial" styleClass="form-control"
+												value="#{faixaetariaHome.instance.idadeinicial}" />
+
+										</div>
+
+									</td>
+
+									<td style="width: 15%;">
+
+										<div class="input-group">
+											<span class="input-group-addon" style="font-weight: bold;"
+												id="basic-addon2">IDADE FINAL</span>
+
+											<h:inputText id="final" styleClass="form-control"
+												value="#{faixaetariaHome.instance.idadefinal}" />
+
+										</div>
+
+									</td>
+
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<p />
+					<span style="color: red;"> * </span>Campos obrigatórios
+				</div>
+				<div class="panel-footer">
+
+					<center>
+
+						<h:commandLink id="save" styleClass="btn btn-success"
+							style="width:150px;" action="#{faixaetariaHome.persist}"
+							disabled="#{!faixaetariaHome.wired}"
+							rendered="#{!faixaetariaHome.managed &amp;&amp; rich:isUserInRole('FaixasEtrias1_A')}">
+							<i class="glyphicon glyphicon-floppy-disk" />
+							Gravar
+						</h:commandLink>
+
+						<h:commandLink id="update" styleClass="btn btn-success"
+							style="width:150px;" action="#{faixaetariaHome.update}"
+							rendered="#{faixaetariaHome.managed &amp;&amp; rich:isUserInRole('FaixasEtrias1_A')}">
+							<i class="glyphicon glyphicon-floppy-disk" />
+							Gravar
+						</h:commandLink>
+
+						<rich:spacer width="2px;" />
+
+						<a:commandLink id="delete" styleClass="btn btn-warning"
+							style="width:150px;" onclick="$('#modalDelFx').modal('show');"
+							rendered="#{faixaetariaHome.managed &amp;&amp; rich:isUserInRole('FaixasEtrias1_R')}">
+							<i class="glyphicon glyphicon-trash" />
+							Excluir
+						</a:commandLink>
+
+						<rich:spacer width="2px;" />
+
+						<s:link id="cancelEdit" styleClass="btn btn-danger"
+							style="width:150px;" propagation="end"
+							view="/private/onbyte/Faixaetaria.xhtml"
+							rendered="#{faixaetariaHome.managed}">
+							<i class="glyphicon glyphicon-remove" />
+							Cancelar
+						</s:link>
+
+						<s:link id="cancelAdd" styleClass="btn btn-danger"
+							style="width:150px;" propagation="end"
+							view="/private/onbyte/#{empty faixaetariaFrom ? 'FaixaetariaList' : faixaetariaFrom}.xhtml"
+							rendered="#{!faixaetariaHome.managed}">
+							<i class="glyphicon glyphicon-remove" />
+							Cancelar
+						</s:link>
+
+
+					</center>
+
+				</div>
+			</div>
+
+
+			<!-- Modal Delete tipopmkt-->
+			<div id="modalDelFx" class="modal fade" data-backdrop="static"
+				role="dialog">
+				<div class="modal-dialog modal-sm">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="color: gray; font-weight: bold;" class="modal-title">
+									<i class="glyphicon glyphicon-trash" style="font-size: 20px;" />
+									EXCLUIR FAIXA
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<center>
+
+									<h4 style="font-weight: bold; color: gray;" class="modal-title">
+										CONFIRMA A AÇÃO <i class="glyphicon glyphicon-question-sign"
+											style="font-size: 40px;" />
+									</h4>
+
+								</center>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<center>
+
+								<a:commandLink styleClass="btn btn-default" style="width:100px;"
+									action="#{faixaetariaHome.remove}" reRender="msgGlobal"
+									onclick="$('#modalDelFx').modal('hide');">
+									<i class="glyphicon glyphicon-ok" />
+							Sim
+							</a:commandLink>
+
+								<rich:spacer width="2xp;" />
+
+								<a:commandLink styleClass="btn btn-default" style="width:100px;"
+									onclick="$('#modalDelFx').modal('hide');" immediate="true">
+									<i class="glyphicon glyphicon-ban-circle" />
+							Não
+							</a:commandLink>
+
+							</center>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!--FIM Modal Delete Computador -->
+
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

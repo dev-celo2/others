@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page login-required="true" no-conversation-view-id="/private/onbyte/MatriculasList.xhtml"
+	xmlns="http://jboss.com/products/seam/pages" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+	<begin-conversation flush-mode="MANUAL" join="true" />
+	<action execute="#{matriculasHome.wire}" />
+	<param name="matriculasFrom" />
+	<param name="matriculasCodigo" value="#{matriculasHome.matriculasCodigo}" />
+	<param name="alunosFrom" />
+	<param name="alunosCodigo" value="#{alunosHome.alunosCodigo}" />
+	<param name="funcionariosFrom" />
+	<param name="funcionariosCodigo" value="#{funcionariosHome.funcionariosCodigo}" />
+	<param name="modulosFrom" />
+	<param name="modulosCodigo" value="#{modulosHome.modulosCodigo}" />
+	<param name="tipomarkFrom" />
+	<param name="tipomarkCodigo" value="#{tipomarkHome.tipomarkCodigo}" />
+	<navigation from-action="#{matriculasHome.persist}">
+		<rule if-outcome="persisted">
+			<end-conversation />
+			<redirect view-id="/private/onbyte/MatriculasList.xhtml" />
+		</rule>
+	</navigation>
+	<navigation from-action="#{matriculasHome.update}">
+		<rule if-outcome="updated">
+			<end-conversation />
+			<redirect view-id="/private/onbyte/MatriculasList.xhtml" />
+		</rule>
+		<rule if-outcome="exception">
+            <redirect>
+                <param name="matriculasCodigo" value="#{matriculasHome.matriculasCodigo}" />
+            </redirect>
+        </rule>
+	</navigation>
+	<navigation from-action="#{matriculasHome.remove}">
+		<rule if-outcome="removed">
+			<end-conversation />
+			<redirect view-id="/private/onbyte/MatriculasList.xhtml" />
+		</rule>
+		<rule if-outcome="exception">
+			<redirect>
+				<param name="matriculasCodigo" value="#{matriculasHome.matriculasCodigo}" />
+			</redirect>
+		</rule>
+	</navigation>
+	<navigation from-action="#{matriculasHome.cancelUpdate}">
+		<end-conversation />
+		<redirect view-id="/private/onbyte/MatriculasList.xhtml" />
+	</navigation>
+</page>

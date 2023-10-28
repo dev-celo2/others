@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BoletimSugestao" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" uuid="660bb414-d8a9-4c4a-94d9-3df4d5e4db7b">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="22"/>
+	<parameter name="nomeAluno" class="java.lang.String"/>
+	<parameter name="dtnascAluno" class="java.util.Date"/>
+	<parameter name="notaMinima" class="java.lang.Integer"/>
+	<parameter name="rgAluno" class="java.lang.String"/>
+	<parameter name="cpfAluno" class="java.lang.String"/>
+	<parameter name="telresAluno" class="java.lang.String"/>
+	<parameter name="telcelAluno" class="java.lang.String"/>
+	<parameter name="resp1" class="java.lang.String"/>
+	<parameter name="resp2" class="java.lang.String"/>
+	<parameter name="resp3" class="java.lang.String"/>
+	<parameter name="resp4" class="java.lang.String"/>
+	<parameter name="av1" class="java.lang.String"/>
+	<parameter name="av2" class="java.lang.String"/>
+	<parameter name="av3" class="java.lang.String"/>
+	<parameter name="av4" class="java.lang.String"/>
+	<parameter name="data" class="java.sql.Date"/>
+	<parameter name="sugestao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="613" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="5" width="539" height="31" uuid="d08eb3b2-8958-423c-a383-eeb8a2d2e3ce"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Calibri" size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{boletimSugestoes.title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="52" width="40" height="18" uuid="ec0cd419-1516-4d82-9ecb-03267eab2369"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{matriculas.alunos}+":"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="46" y="52" width="317" height="18" uuid="5c1d6863-b6dc-4f2e-bfc4-e78a6d57081b"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeAluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="76" width="123" height="18" uuid="0b4c4749-2c68-47f3-bed2-3cc81b4ddc2a"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{boletimComentario.dtnasc}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="129" y="76" width="63" height="18" uuid="42225870-54e3-4ce4-a045-06ac5ad4b753"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dtnascAluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="102" width="56" height="18" uuid="6e67bc6e-2da6-4d48-b616-83cc094e278d"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{boletimSugestoes.telefone}+":"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="62" y="102" width="78" height="18" uuid="6acb4b96-c01c-4270-82e5-728fbae1174d"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telresAluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="129" width="522" height="18" uuid="f775e217-ee0e-49c0-ac8c-2486133b5e0b"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{boletimSugestoes.perguntas}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="205" y="76" width="42" height="18" uuid="23e0c91d-0a72-4a19-89f0-0ed54fb7372c"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{alunos.rg}+":"]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="247" y="76" width="106" height="18" uuid="bada86ec-6f89-4b59-ae3d-c00d2f6d45dd"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{rgAluno}]]></textFieldExpression>
+			</textField>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement x="411" y="76" width="106" height="18" uuid="1d831dc0-3f1e-4525-b4b0-7b0c9897e2c2"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cpfAluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="76" width="33" height="18" uuid="64a759b2-26f5-429b-9a0e-52891e338768"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{alunos.cpf}+":"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="269" y="102" width="78" height="18" uuid="9e6a4ff8-36ab-49e6-8b42-3da5031691e7"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telcelAluno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="223" y="102" width="46" height="18" uuid="8a7c9804-a149-4908-946e-c31b58b3d217"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$R{boletimSugestoes.celular}+":"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="152" width="539" height="1" uuid="8316db9f-60a9-4772-a8e5-3299bae0ea84"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="14" y="239" width="485" height="18" uuid="4dc5dee2-f269-4438-8259-a12d8675baec"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1-) "+$R{boletimSugestoes.pergunta1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="14" y="328" width="485" height="18" uuid="159c5756-4e47-42df-b908-24dbe79fa10b"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2-) "+$R{boletimSugestoes.pergunta2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="14" y="417" width="485" height="18" uuid="806f0c53-2314-4e5c-8dbc-02130607ef21"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3-) "+$R{boletimSugestoes.pergunta3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="14" y="506" width="485" height="18" uuid="dfbec501-a4b1-42a8-8de4-f52c644f74ff"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["4-) "+$R{boletimSugestoes.pergunta4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="14" y="595" width="416" height="18" uuid="db7ebecd-872b-41c5-9da8-2ba675ab6b6d"/>
+				<textElement verticalAlignment="Bottom" markup="none">
+					<font fontName="Calibri" size="14" isBold="true"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["5-) "+$R{boletimSugestoes.pergunta5}+":"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="283" width="449" height="15" uuid="fe9d6fc0-ae4a-4aa9-87a2-a7d75f97dc60">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{resp1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="263" width="62" height="17" uuid="c6470401-0185-4765-a56f-7621e1084ac6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Avaliação:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="282" width="62" height="17" uuid="11369bdb-feb2-4dab-bc7d-596e984df82f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comentário:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="264" width="449" height="15" uuid="b6851b3a-7f95-4a85-b39d-ad2d1f8ff6a1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{av1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="356" width="449" height="15" uuid="911dd09c-1ac5-4973-9609-750cf978e5fd">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{av2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="375" width="449" height="15" uuid="507349b8-26d5-4a13-9041-abcd5c30ac73">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{resp2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="355" width="62" height="17" uuid="7a2900a1-6eb7-4dd8-b524-90f8fe0b5850">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Avaliação:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="374" width="62" height="17" uuid="e4007cab-6c26-4d00-9eb0-36700816d177"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comentário:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="443" width="62" height="17" uuid="f92551be-b179-48f0-a2b8-ec0f9e299819">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Avaliação:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="79" y="444" width="449" height="15" uuid="d655f194-bda7-4501-8c4a-41d946aa81a3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{av3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="462" width="62" height="17" uuid="579a6895-c3b2-4fb8-89bf-0369a1dbaa66"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comentário:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="79" y="463" width="449" height="15" uuid="40950b26-2956-4e44-9ae0-8ecdd72a0689">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{resp3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="530" width="62" height="17" uuid="899623e3-a854-47e7-b7d5-568e63b9d126">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Avaliação:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="76" y="531" width="449" height="15" uuid="49dab0a5-8034-42bb-86a4-d98b22c75120">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{av4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="76" y="550" width="449" height="15" uuid="6803bb22-f647-49bb-a751-ee74fa280108">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{resp4}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="549" width="62" height="17" uuid="7f1e2f0c-a3cb-475f-8559-424d657dedc3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comentário:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="150" y="205" width="228" height="15" uuid="a69b7283-fdd5-44bc-a3bc-770601d51f7e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{data}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="205" width="120" height="17" uuid="56e0cb76-6c62-48b8-b5c4-8110a32e0deb">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA DA SUGESTÃO:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="173">
+			<textField>
+				<reportElement x="499" y="70" width="40" height="15" uuid="afe46bb4-9c25-40e5-ac14-873dfb94e59e"/>
+				<textElement>
+					<font fontName="Calibri" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="90" width="539" height="1" uuid="c78ecfcb-b208-4283-b738-e26c7190ca48"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="10" y="10" width="515" height="40" uuid="4086c0c0-21f8-4f82-b184-592c31b6032d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{sugestao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+	<h:form id="alunosEdit">
+
+		<div class="container" style="width: 100%; height: 100%;">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#dados"><i
+						class="glyphicon glyphicon-user" style="font-size: 20px;" />
+						ALUNO #{alunosHome.instance.codigo}</a></li>
+
+				<li><a data-toggle="tab" href="#foto"><i
+						class="glyphicon glyphicon-camera" style="font-size: 20px;" />
+						FOTO</a></li>
+
+			</ul>
+
+			<div class="tab-content">
+
+				<!--Início Aba Dados  -->
+				<div id="dados" class="tab-pane fade in active"
+					style="text-transform: uppercase;">
+
+					<p />
+
+					<div class="panel panel-default">
+						<div class="panel-body">
+
+							<table width="100%">
+								<thead>
+									<tr>
+
+										<td>
+
+											<div class="col-xs-3">
+												<label for="ex1">DATA</label>
+												<h:inputText styleClass="datepickerDados form-control"
+													value="#{alunosHome.instance.dtcadastro}"
+													disabled="#{!alunosHome.editable}" />
+												<ui:param name="showMessageError" value="#{false}" />
+											</div>
+
+											<div class="col-xs-5">
+												<label for="ex1">NOME <span style="color: red;">*</span></label>
+												<h:inputText id="nome" required="true" size="30"
+													styleClass="form-control" maxlength="30"
+													readonly="#{!alunosHome.editable}"
+													value="#{alunosHome.instance.nome}">
+													<a:support event="onblur" reRender="nomeField"
+														bypassUpdates="true" ajaxSingle="true" />
+												</h:inputText>
+											</div>
+
+											<div class="col-xs-4">
+												<label for="ex1">SITUAÇÃO</label>
+
+												<h:selectOneMenu value="#{alunosHome.instance.situacao}"
+													styleClass="form-control"
+													disabled="#{!alunosHome.editable}">
+													<f:selectItem itemValue="Ativo" itemLabel="ATIVO" />
+													<f:selectItem itemValue="Inativo" itemLabel="INATIVO" />
+													<a:support event="onblur" reRender="situacaoField"
+														bypassUpdates="true" ajaxSingle="true" />
+												</h:selectOneMenu>
+
+											</div>
+
+										</td>
+
+									</tr>
+								</thead>
+							</table>
+
+							<table width="100%">
+								<thead>
+									<tr>
+
+										<td>
+
+											<div class="col-xs-3">
+												<label for="ex1">CADASTRO</label>
+												<h:selectOneMenu value="#{alunosHome.instance.cadastro}"
+													styleClass="form-control"
+													disabled="#{!alunosHome.editable}">
+													<f:selectItem itemValue="Completo" itemLabel="COMPLETO" />
+													<f:selectItem itemValue="Incompleto" itemLabel="INCOMPLETO" />
+													<a:support event="onblur" reRender="cadastroField"
+														bypassUpdates="true" ajaxSingle="true" />
+												</h:selectOneMenu>
+												<ui:param name="showMessageError" value="#{false}" />
+											</div>
+
+											<div class="col-xs-5">
+												<label for="ex1">ENDEREÇO</label>
+												<h:inputText id="endereco" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="40" size="40"
+													value="#{alunosHome.instance.endereco}" />
+											</div>
+
+											<div class="col-xs-4">
+												<label for="ex1">BAIRRO</label>
+
+												<h:inputText id="bairro" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="30" size="30"
+													value="#{alunosHome.instance.bairro}" />
+
+											</div>
+
+										</td>
+									</tr>
+								</thead>
+							</table>
+
+							<table width="100%">
+								<thead>
+									<tr>
+
+										<td>
+
+
+											<div class="col-xs-3">
+												<label for="ex1">CIDADE</label>
+												<h:inputText id="cidade" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="30" size="30"
+													value="#{alunosHome.instance.cidade}" />
+											</div>
+
+											<div class="col-xs-1">
+												<label for="ex1">ESTADO</label>
+												<h:inputText id="uf" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="2" size="2"
+													value="#{alunosHome.instance.estado}" />
+											</div>
+
+											<div class="col-xs-2">
+												<label for="ex1">CEP</label>
+
+												<p:inputMask mask="99.999-999" id="cep"
+													readonly="#{!alunosHome.editable}"
+													styleClass="form-control"
+													value="#{alunosHome.instance.cep}" />
+
+											</div>
+
+											<div class="col-xs-2">
+												<label for="ex1">RG</label>
+
+												<h:inputText id="rg" styleClass="form-control"
+													readonly="#{!alunosHome.editable}"
+													value="#{alunosHome.instance.rg}" />
+											</div>
+
+											<div class="col-xs-4">
+												<label for="ex1">CPF</label>
+
+												<p:inputMask mask="999.999.999-99" id="cpf"
+													readonly="#{!alunosHome.editable}"
+													styleClass="form-control"
+													value="#{alunosHome.instance.cpf}" />
+											</div>
+
+
+										</td>
+									</tr>
+								</thead>
+							</table>
+
+							<table width="100%">
+								<thead>
+									<tr>
+
+										<td>
+
+											<div class="col-xs-3">
+												<label for="ex1">NASCIMENTO - <h:outputText
+														id="dtnascField" style="color:blue;"
+														value=" #{alunosHome.instance.idade} ANOS" /></label>
+
+												<h:inputText styleClass="form-control datepickerDados"
+													id="dtnasc" disabled="#{!alunosHome.editable}"
+													value="#{alunosHome.instance.dtnasc}">
+													<a:support event="onblur" reRender="dtnascField"
+														bypassUpdates="false" ajaxSingle="true" />
+													<a:support event="onchange" reRender="dtnascField"
+														bypassUpdates="false" ajaxSingle="true" />
+												</h:inputText>
+
+											</div>
+
+											<div class="col-xs-2">
+												<label for="ex1">TELEFONE</label>
+												<p:inputMask mask="(99)9999-9999" id="fone"
+													readonly="#{!alunosHome.editable}"
+													styleClass="form-control"
+													value="#{alunosHome.instance.telres}" />
+											</div>
+
+											<div class="col-xs-3">
+												<label for="ex1">CELULAR</label>
+												<p:inputMask mask="(99)99999-9999" id="fone2"
+													readonly="#{!alunosHome.editable}"
+													styleClass="form-control"
+													value="#{alunosHome.instance.telcel}" />
+											</div>
+
+											<div class="col-xs-4">
+												<label for="ex1">E-M@IL</label>
+
+												<h:inputText id="email" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="50" size="50"
+													value="#{alunosHome.instance.email}" />
+
+											</div>
+
+
+										</td>
+
+
+
+									</tr>
+								</thead>
+							</table>
+
+							<table width="100%">
+								<thead>
+									<tr>
+
+										<td>
+
+											<div class="col-xs-3">
+												<label for="ex1">ESCOLA</label>
+
+												<h:inputText id="escola" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="30" size="30"
+													value="#{alunosHome.instance.escola}" />
+
+
+											</div>
+
+											<div class="col-xs-5">
+												<label for="ex1">ENDEREÇO TRABALHO</label>
+												<h:inputText id="enderecocom" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="40" size="40"
+													value="#{alunosHome.instance.enderecocom}" />
+											</div>
+
+											<div class="col-xs-4">
+												<label for="ex1">BAIRRO TRABALHO</label>
+												<h:inputText id="bairrocom" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="30" size="30"
+													value="#{alunosHome.instance.bairrocom}" />
+											</div>
+
+
+										</td>
+
+									</tr>
+								</thead>
+							</table>
+
+
+							<table width="100%">
+								<thead>
+									<tr>
+
+										<td>
+
+
+											<div class="col-xs-3">
+												<label for="ex1">CEP TRABALHO</label>
+
+												<p:inputMask mask="99.999-999" id="cepcom"
+													readonly="#{!alunosHome.editable}"
+													styleClass="form-control"
+													value="#{alunosHome.instance.cepcom}" />
+
+											</div>
+
+											<div class="col-xs-2">
+												<label for="ex1">TEL. TRABALHO</label>
+												<p:inputMask mask="(99)9999-9999" id="fonecom"
+													readonly="#{!alunosHome.editable}"
+													styleClass="form-control"
+													value="#{alunosHome.instance.telcom}" />
+											</div>
+
+											<div class="col-xs-3">
+												<label for="ex1">TEL. RESP.</label>
+												<p:inputMask mask="(99)9999-9999" id="foneresp"
+													readonly="#{!alunosHome.editable}"
+													styleClass="form-control"
+													value="#{alunosHome.instance.telresponsavel}" />
+											</div>
+
+											<div class="col-xs-4">
+												<label for="ex1">NOME MÃE</label>
+
+												<h:inputText id="mae" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="40" size="40"
+													value="#{alunosHome.instance.nomeMae}" />
+
+											</div>
+
+										</td>
+
+									</tr>
+								</thead>
+							</table>
+
+
+							<table width="100%">
+								<thead>
+									<tr>
+
+										<td>
+
+											<div class="col-xs-3">
+												<label for="ex1">NOME PAI</label>
+
+												<h:inputText id="pai" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="40" size="40"
+													value="#{alunosHome.instance.nomePai}" />
+
+											</div>
+
+											<div class="col-xs-3">
+												<label for="ex1">RESP. PGTO.</label>
+												<h:inputText id="respPgto" styleClass="form-control"
+													readonly="#{!alunosHome.editable}" maxlength="40" size="40"
+													value="#{alunosHome.instance.resppgto}" />
+											</div>
+
+											<div class="col-xs-2">
+												<label for="ex1">NASC. RESP.</label>
+												<h:inputText styleClass="form-control datepickerDados"
+													id="dtnascresp" disabled="#{!alunosHome.editable}"
+													value="#{alunosHome.instance.dtnascresp}"
+													readonly="#{!alunosHome.editable}" />
+
+												<script> $(".datepickerDados").datepicker({
+																	showAnim: 'clip',
+																	 changeMonth: true,
+																	 changeYear:true,
+																	 dateFormat: 'dd/mm/yy',
+																	    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+																	    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+																	    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+																	    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+																	    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+																	    nextText: 'Próximo',
+																	    prevText: 'Anterior',
+																	 															   
+																	   
+																	});</script>
+
+
+											</div>
+
+											<div class="col-xs-4">
+												<label for="ex1">RG RESP.</label>
+												<h:inputText styleClass="form-control "
+													value="#{alunosHome.instance.rgresp}"
+													readonly="#{!alunosHome.editable}" />
+											</div>
+											
+											<div class="col-xs-3">
+																<label for="ex1">CEL. PAI.</label>
+
+																<p:inputMask mask="(99)99999-9999"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.celPai}" />
+															</div>
+
+															<div class="col-xs-5">
+																<label for="ex1">CEL. MÃE.</label>
+
+																<p:inputMask mask="(99)99999-9999"
+																	readonly="#{!alunosHome.editable}"
+																	styleClass="form-control"
+																	value="#{alunosHome.instance.celMae}" />
+															</div>
+
+											<div class="col-xs-4">
+												<label for="ex1">CPF/CNPJ RESPONSÁVEL</label>
+
+												<table style="width: 100%">
+													<thead>
+														<tr>
+
+															<td><h:selectOneMenu value="#{alunosHome.tp_Doc}"
+																	style="width:97%" styleClass="form-control"
+																	id="cpfRespon1" disabled="#{!alunosHome.editable}"
+																	readonly="#{!alunosHome.editable}">
+																	<f:selectItem itemLabel="CPF" itemValue="1" />
+																	<f:selectItem itemLabel="CNPJ" itemValue="2" />
+																	<a:support event="onchange" reRender="cpfRespon" />
+																</h:selectOneMenu></td>
+
+															<td><a:outputPanel id="cpfRespon">
+																	<p:inputMask
+																		mask="#{alunosHome.tp_Doc == 1 ? '999.999.999-99' : '99.999.999/9999-99'}"
+																		styleClass="form-control"
+																		readonly="#{!alunosHome.editable}"
+																		value="#{alunosHome.instance.cpfresp}">
+																		<f:validator validatorId="cpfValidator" />
+																	</p:inputMask>
+																</a:outputPanel></td>
+
+														</tr>
+													</thead>
+												</table>
+
+											</div>
+
+
+										</td>
+
+									</tr>
+								</thead>
+							</table>
+
+							<div class="col-xs-12">
+								<label for="ex1">RECADOS</label>
+								<h:inputTextarea id="recados" styleClass="form-control"
+									readonly="#{!alunosHome.editable}"
+									value="#{alunosHome.recados}">
+								</h:inputTextarea>
+
+							</div>
+							<br /> <br /> <br /> <br /> <br /> <span style="color: red">*</span>
+							Campos Obrigatórios
+
+						</div>
+						<!--Fim Aba Dados  -->
+
+						<div class="panel-footer">
+
+							<center>
+
+
+								<a:commandLink id="save" styleClass="btn btn-success"
+									style="width:160px;" actionListener="#{alunosHome.persist}"
+									onclick="$('#fichaAlunoDlg').modal('hide');"
+									disabled="#{!alunosHome.wired}"
+									reRender="fichaAluno, msgGlobal"
+									rendered="#{!alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}">
+									<f:setPropertyActionListener target="#{alunosHome.editable}"
+										value="#{false}" />
+									<i class="glyphicon glyphicon-floppy-disk" />
+													Gravar
+								</a:commandLink>
+
+								<a:commandLink id="update" styleClass="btn btn-success"
+									style="width:160px;" actionListener="#{alunosHome.update}"
+									reRender="fichaAluno, msgGlobal, alunosField2, idade"
+									disabled="#{!rich:isUserInRole('Produtos1_A')}"
+									rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}">
+									<f:setPropertyActionListener target="#{alunosHome.editable}"
+										value="#{false}" />
+									<i class="glyphicon glyphicon-floppy-disk" />
+												Gravar Edições
+								</a:commandLink>
+
+
+								<rich:spacer width="2px;" />
+
+								<a:commandLink id="cancelEdit" styleClass="btn btn-danger"
+									style="width:160px;"
+									onclick="$('#fichaAlunoDlg').modal('hide');"
+									action="#{alunosHome.cancelUpdate}"
+									rendered="#{alunosHome.editable &amp;&amp; aluno.instance.codigo != null}">
+									<f:setPropertyActionListener target="#{alunosHome.editable}"
+										value="#{false}" />
+									<i class="glyphicon glyphicon-remove" />
+												Cancelar
+								</a:commandLink>
+
+
+								<a:commandLink id="cancelAdd" styleClass="btn btn-danger"
+									style="width:160px;" immediate="true" propagation="end"
+									onclick="$('#fichaAlunoDlg').modal('hide');"
+									rendered="#{!alunosHome.managed &amp;&amp; aluno.instance.codigo == null}">
+									<i class="glyphicon glyphicon-remove" />
+												Cancelar
+								</a:commandLink>
+
+								<rich:spacer width="2px;" />
+
+								<a:commandLink id="editable" styleClass="btn btn-info"
+									style="width:160px;" reRender="fichaAluno"
+									disabled="#{alunosHome.editable}"
+									rendered="#{alunosHome.managed &amp;&amp; rich:isUserInRole('Produtos1_A')}">
+									<f:setPropertyActionListener target="#{alunosHome.editable}"
+										value="#{true}" />
+									<i class="glyphicon glyphicon-pencil" />
+												Editar
+								</a:commandLink>
+
+								<rich:spacer width="2px" />
+
+								<a:commandLink styleClass="btn btn-default" style="width:150px;"
+									onclick=" $('#fichaAlunoDlg').modal('hide');">										
+										SAIR <i class="glyphicon glyphicon-log-out" />
+								</a:commandLink>
+
+
+
+							</center>
+
+
+						</div>
+
+					</div>
+				</div>
+
+				<!--Início Aba Fotos  -->
+				<div id="foto" class="tab-pane fade">
+
+					<p />
+
+					<a:outputPanel id="pnlFoto" rendered="#{alunosHome.managed}">
+						<center>
+							<h:outputText styleClass="label label-default"
+								rendered="#{alunosHome.instance.codigo == null}"
+								value="A FOTO SÓ PODERÁ
+												SER CAPTURADA APÓS TER SALVO O REGISTRO DO ALUNO!" />
+							<p />
+
+							<a:outputPanel rendered="#{alunosHome.fotoNoBanco()}">
+
+								<s:graphicImage id="picture"
+									rendered="#{alunosHome.instance.foto != null}"
+									style="width: 320px; height: 240px;"
+									value="#{alunosHome.instance.foto}" />
+
+								<h:graphicImage id="picture2"
+									rendered="#{alunosHome.instance.foto == null}"
+									style="width: 420px; height: 240px;"
+									value="/images/semFotoo.jpg" />
+
+							</a:outputPanel>
+
+							<a:outputPanel rendered="#{!alunosHome.fotoNoBanco()}">
+
+								<h:graphicImage id="fotoAluno"
+									rendered="#{alunosHome.verificaSePossuiFoto()}"
+									value="/foto/#{alunosHome.instance.codigo}.jpg" />
+
+								<h:graphicImage id="fotoAlunoVazia"
+									rendered="#{!alunosHome.verificaSePossuiFoto()}"
+									style="width: 420px; height: 240px;"
+									value="/images/semFotoo.jpg" />
+
+							</a:outputPanel>
+							<p />
+
+							<a:commandLink style="width:250px;"
+								rendered="#{alunosHome.instance.codigo != null}"
+								styleClass="btn btn-default"
+								onclick="ligarWebCam(); $('#capturarImagemPanel').modal('show');">
+								<i class="glyphicon glyphicon-camera" />
+												Tirar Foto Com WebCam
+											</a:commandLink>
+
+							<rich:spacer width="2px;" />
+
+							<a:commandLink style="width:250px;" reRender="pnlFoto, msgGlobal"
+								actionListener="#{alunosHome.excluirFoto}"
+								rendered="#{alunosHome.instance.foto != null}"
+								styleClass="btn btn-warning">
+												Excluir Foto
+											<i class="glyphicon glyphicon-trash" />
+							</a:commandLink>
+
+
+						</center>
+
+					</a:outputPanel>
+
+
+				</div>
+				<!--Fim Aba Fotos  -->
+
+
+			</div>
+
+		</div>
+
+
+
+		<!-- Modal Capturar Imagem Cam-->
+		<div id="capturarImagemPanel" class="modal fade"
+			data-backdrop="static" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<center>
+							<h4 style="color: gray; font-weight: bold;" class="modal-title">
+								<i class="glyphicon glyphicon-camera" style="font-size: 20px;" />
+								CAPTURAR IMAGEM
+							</h4>
+						</center>
+					</div>
+					<div class="modal-body">
+						<div class="box-content">
+
+
+							<a:jsFunction name="fn_capturarImagemPanel" reRender="foto"
+								limitToList="true" />
+							<a:jsFunction name="fn_setFoto" reRender="picture1, picture2"
+								actionListener="#{alunosHome.setFoto}" />
+
+
+							<h:panelGroup>
+								<rich:componentControl for="capturarImagemPanel"
+									attachTo="hidelink_CapturarImagem" operation="hide"
+									event="onclick" />
+							</h:panelGroup>
+
+
+							<center>
+
+								<h:panelGrid>
+
+									<rich:panel style="width: 350px; height: 265px;">
+										<center>
+											<a:outputPanel id="swfLink"
+												style="width: 330px; height: 260px;" />
+										</center>
+									</rich:panel>
+
+								</h:panelGrid>
+
+							</center>
+
+						</div>
+					</div>
+
+					<div class="modal-footer">
+
+						<center>
+
+							<s:link style="width:150px;" styleClass="btn btn-warning"
+								onclick="webcam.configure(); return false;">
+								<i class="glyphicon glyphicon-cog" />	
+									Configure
+								</s:link>
+
+							<rich:spacer width="2px;" />
+
+							<s:link style="width:150px;" styleClass="btn btn-default"
+								onclick="webcam.freeze(); return false;">
+								<i class="glyphicon glyphicon-camera" />	
+									Capturar
+								</s:link>
+
+							<rich:spacer width="2px;" />
+
+							<s:link onclick="webcam.reset(); return false;"
+								style="width:150px;" styleClass="btn btn-info">
+								<i class="glyphicon glyphicon-erase" />	
+									Reset
+								</s:link>
+
+							<rich:spacer width="2px;" />
+
+							<a:commandLink style="width:150px;" styleClass="btn btn-success"
+								reRender="msgGlobal"
+								onclick="webcam.upload(); fn_capturarImagemPanel(); setTimeout(refresh, 500);">
+								<i class="glyphicon glyphicon-floppy-disk" />	
+									Salvar								
+								</a:commandLink>
+
+							<rich:spacer width="2px;" />
+
+							<s:link style="width:150px;" styleClass="btn btn-default"
+								onclick="$('#capturarImagemPanel').modal('hide');">
+								<i class="glyphicon glyphicon-log-out" />	
+									Sair
+								</s:link>
+
+						</center>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<!--FIM Modal Delete Funcionario -->
+	</h:form>
+
+	<script type="text/javascript"
+		src="#{request.contextPath}/js/webcam.js" />
+	<!-- Configure a few settings -->
+	<script language="JavaScript">
+		function ligarWebCam(){
+			
+			//webcam.set_api_url( 'test.php' );
+			webcam.set_api_url( '#{request.contextPath}/FotoCaptura/' );			
+			webcam.set_swf_url( '#{request.contextPath}/swf/webcam.swf' );
+			webcam.set_quality( 90 ); // JPEG quality (1 - 100)
+			webcam.set_shutter_sound( false ); // play shutter click sound
+			//webcam.set_hook( 'onLoad', 'my_load_handler' );
+			webcam.set_hook( 'onComplete', 'my_completion_handler' );
+			#{rich:element('swfLink')}.innerHTML = webcam.get_html(320, 240);			
+		}
+		
+		function my_load_handler() {
+			webcam.configure( 'privacy' );
+		}
+		function take_snapshot() {
+			
+			// take snapshot and upload to server
+			webcam.snap();
+		}
+
+		function my_completion_handler(msg) {
+			// extract URL out of PHP output
+			fn_setFoto();
+			//if (msg.match(/(http\:\/\/\S+)/)) {}
+			//else alert("PHP Error: " + msg);		
+		}
+	</script>
+	<script>
+function refresh(){ 
+  history.go(0); 
+}
+</script>
+
+
+
+
+
+</ui:composition>
+

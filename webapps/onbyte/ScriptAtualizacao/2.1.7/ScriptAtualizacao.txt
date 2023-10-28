@@ -1,0 +1,173 @@
+
+
+ALTER TABLE parametro ADD bloqueio_cur varchar (1);
+
+ALTER TABLE modulos ADD ativo varchar (1);
+
+UPDATE PARAMETRO SET
+       BLOQUEIO_CUR = 'N'
+WHERE (IDCLIENTE != '');
+
+UPDATE MODULOS SET
+       ATIVO = 'S'
+WHERE (CODIGO > 0);
+
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 34
+WHERE (ID = 'Faltantes1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 35
+WHERE (ID = 'Devedores1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 36
+WHERE (ID = 'erminar1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 37
+WHERE (ID = 'erminaram1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 38
+WHERE (ID = 'MensalidadesaReceber1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 39
+WHERE (ID = 'MensRecebidas1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 40
+WHERE (ID = 'NaoMatriculados1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 41
+WHERE (ID = 'RelAcompAlunos1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 42
+WHERE (ID = 'Matrculas1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 42
+WHERE (ID = 'RelApostilasEntregue1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 43
+WHERE (ID = 'Efetuadas1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 44
+WHERE (ID = 'Canceladas1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 45
+WHERE (ID = 'Ativas1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 46
+WHERE (ID = 'PorMarketing1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 47
+WHERE (ID = 'PorFuncionrio1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 48
+WHERE (ID = 'RelMatricSemApostila1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 49
+WHERE (ID = 'RelCompraApostilas1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 51
+WHERE (ID = 'MatriculaMedia');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 52
+WHERE (ID = 'CaixaMensal1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 53
+WHERE (ID = 'Movimentao2');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 54
+WHERE (ID = 'B1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 55
+WHERE (ID = 'QuadrodeHorrios1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 56
+WHERE (ID = 'GradeHorarios1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 57
+WHERE (ID = 'BoletimdoAluno1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 58
+WHERE (ID = 'Utilitrios1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 59
+WHERE (ID = 'Aparncia1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 60
+WHERE (ID = 'Perfil1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 61
+WHERE (ID = 'Calculadora1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 62
+WHERE (ID = 'Parmetros1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 63
+WHERE (ID = 'Feriado1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 64
+WHERE (ID = 'Backups1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 65
+WHERE (ID = 'AgendadordeBakups1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 66
+WHERE (ID = 'AtivaMonitordeBackups1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 67
+WHERE (ID = 'BackupManual1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 68
+WHERE (ID = 'rocaReferncia1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 69
+WHERE (ID = 'Sobre1');
+
+UPDATE OPCAOMENU SET 
+    ORDEM = 70
+WHERE (ID = 'Sair1');
+
+INSERT INTO OPCAOMENU (ID, DESCRICAO, NIVEL, ORDEM)
+               VALUES ('RelFrequencia', 'Frequencias', 3, 33);
+
+INSERT INTO OPCAOMENU (ID, DESCRICAO, NIVEL, ORDEM)
+               VALUES ('RelMatriculasAnalitico1', 'Analítico', 3, 50);			   
+
+UPDATE PARAMETRO SET 
+    VERSAO = 2.17;
+
+COMMIT WORK;

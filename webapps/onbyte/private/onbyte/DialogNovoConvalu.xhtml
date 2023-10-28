@@ -1,0 +1,112 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+
+	<!-- Modal INSERIR CONTATO-->
+			<div id="modalAddContato" class="modal fade" data-backdrop="static"
+				role="dialog">
+				<div class="modal-dialog modal-lg">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<center>
+								<h4 style="color: gray; font-weight: bold;" class="modal-title">
+									<i class="glyphicon glyphicon-plus" style="font-size: 20px;" />
+									ADICIONAR CONTATO
+								</h4>
+							</center>
+						</div>
+						<div class="modal-body">
+							<div class="box-content">
+
+								<rich:panel id="pnlAddCont"
+									style="border:none; height:160px; width:100%;">
+
+
+
+									<div class="col-xs-3">
+										<label for="ex1">DATA</label>
+										<h:inputText required="true" readonly="true"
+											class="form-control"
+											value="#{matriculasHome.contatoMatricula.data}">
+										</h:inputText>
+									</div>
+
+
+									<div class="col-xs-3">
+										<label for="ex1">HORA</label>
+										<h:inputText required="true" readonly="true"
+											class="form-control"
+											value="#{matriculasHome.contatoMatricula.hora}">
+										</h:inputText>
+									</div>
+
+
+									<div class="col-xs-6">
+										<label for="ex1">FUNCIONÁRIO</label>
+										<h:inputText required="true" readonly="true"
+											class="form-control"
+											value="#{matriculasHome.contatoMatricula.funcionarios.nome}">
+										</h:inputText>
+									</div>
+
+									<rich:spacer height="15px;"/>
+
+
+									<div class="col-xs-12">
+										<center>
+											<label for="ex1">CONVERSA</label>
+										</center>
+										<h:inputTextarea 
+											value="#{matriculasHome.conversaNovoContato}" class="form-control"
+											style="height:80px;"
+											readonly="#{!rich:isUserInRole('Vendas1_A')}" />
+									</div>
+
+
+
+								</rich:panel>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<center>
+
+								<a:commandLink styleClass="btn btn-success" style="width:200px;"
+									actionListener="#{matriculasHome.salvarNovaConvalu()}"									
+									reRender="grpContatos, grpAlteracoes, msgGlobal"
+									onclick="$('#modalAddContato').modal('hide'); ">
+									<i class="glyphicon glyphicon-floppy-disk" />
+									GRAVAR
+								</a:commandLink>
+
+								<rich:spacer width="2xp;"/>
+																
+								<a:commandLink styleClass="btn btn-default" style="width:200px;" actionListener="#{matriculasHome.cancelarNovoContato}"									
+									onclick="$('#modalAddContato').modal('hide');">
+									<i class="glyphicon glyphicon-remove" />
+									Cancelar									
+								</a:commandLink>
+
+							</center>
+
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!--FIM INSERIR CONTATO -->
+
+</ui:composition>

@@ -1,0 +1,154 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	template="/WEB-INF/facelets/layout/mainlayout.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="relPlBuscaPorDescricaoSearch" styleClass="edit"
+			ajaxSubmit="true" reRender="relPlBuscaPorDescricao">
+
+
+			<p:panel header="#{messages['relPlBuscaPorDescricao.title']}"
+				style="width:99.5%">
+				<p:panel style="width:99.5%; height:90px">
+					<h:panelGrid style="margin: 0px auto; width: 30%" columns="3"
+						id="pgFiltros">
+
+						<p:panel style="width:700px; height:75px;" id="pnDatas">
+							<h:panelGrid columns="4">
+								<p:panel style="width:262px; height:50px"
+									bodyClass="panelPaddingZero">
+									<s:span style="font-weight: bold;">#{messages['relPlBuscaPorDescricao.tipoBusca']}</s:span>
+									<h:panelGrid style="width:100%">
+										<h:selectOneRadio value="#{relPlBuscaPorDescricao.tipoBusca}"
+											style="width:100%">
+											<f:selectItem itemValue="1"
+												itemLabel="#{messages['relPlBuscaPorDescricao.tipoBusca1']}" />
+											<f:selectItem itemValue="2"
+												itemLabel="#{messages['relPlBuscaPorDescricao.tipoBusca2']}" />
+										</h:selectOneRadio>
+
+										<h:inputText value="#{relPlBuscaPorDescricao.textSearch}"
+											style="width:250px;" />
+									</h:panelGrid>
+								</p:panel>
+
+								<p:panel
+									style="width:300px; height:50px;  position: relative; top: 6px;"
+									bodyClass="panelPaddingZero">
+
+									<h:panelGrid style="width:100%;" columns="2">
+										<s:span style="font-weight: bold;">#{messages['relPlBuscaPorDescricao.tipoConta']}:</s:span>
+										<h:selectOneRadio value="#{relPlBuscaPorDescricao.tipoConta}"
+											style="width:100%">
+											<f:selectItem itemValue=""
+												itemLabel="#{messages['global.ambos']}" />
+											<f:selectItem itemValue="D"
+												itemLabel="#{messages['global.debito']}" />
+											<f:selectItem itemValue="C"
+												itemLabel="#{messages['global.credito']}" />
+										</h:selectOneRadio>
+									</h:panelGrid>
+								</p:panel>
+
+
+								<p:commandButton value="#{messages['global.bntFilrar']}"
+									image="localizar" style="width:100px; margin: 0;"
+									onclick="filtrar();" />
+
+								<a:jsFunction name="filtrar" reRender="relPlBuscaPorDescricao"
+									limitToList="true" oncomplete="inicializar();"
+									bypassUpdates="false">
+									<f:setPropertyActionListener
+										target="#{relPlBuscaPorDescricao.movimentacao}"
+										value="#{null}" />
+								</a:jsFunction>
+
+							</h:panelGrid>
+
+						</p:panel>
+
+					</h:panelGrid>
+				</p:panel>
+
+
+
+
+
+
+				<p:panel id="relPlBuscaPorDescricao">
+					<f:facet name="header">#{messages['relPlBuscaPorDescricao.movimentos']} #{messages['global.searchResults']}: #{empty relPlBuscaPorDescricao.movimentacao ? 0 : relPlBuscaPorDescricao.movimentacao.size}</f:facet>
+
+
+					<p:dataTable emptyMessage="#{messages['global.naoHaDados']}"
+						id="tablerelPlBuscaPorDescricao" var="_movimentacao"
+						paginatorPosition="bottom" rows="12" paginator="true"
+						rowsPerPageTemplate="12,18"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						selection="true" selectionMode="single" style="text-align:center;"
+						value="#{relPlBuscaPorDescricao.movimentacao}">
+						<p:column>
+							<f:facet name="header">#{messages['planocontas.descricao']}</f:facet>
+							<h:outputText value="#{_movimentacao.planocontas.descricao}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['global.date']}</f:facet>
+							<h:outputText value="#{_movimentacao.data}">
+								<f:convertDateTime type="date" locale="#{localeSelector.locale}"
+									timeZone="#{timeZoneSelector.timeZone}"
+									pattern="#{messages.pattern}" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['movdestcaixa.valor']}</f:facet>
+							<h:outputText value="#{_movimentacao.valor}"
+								>
+								<f:convertNumber type="currency" minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['relPlBuscaPorDescricao.planocontas']}</f:facet>
+							<h:outputText value="#{_movimentacao.planocontas.codigo}" />
+						</p:column>
+						<p:column>
+							<f:facet name="header">#{messages['movdestcaixa.descricao']}</f:facet>
+							<h:outputText value="#{_movimentacao.descricao}" />
+						</p:column>
+					</p:dataTable>
+
+					<h:panelGrid columns="3">
+						<s:div styleClass="actionButtons" rendered="#{empty from}">
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relPlBuscaPorDescricao.exportarRelatorioPDF}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/pdf.png" />
+							</h:commandLink>
+
+							<h:commandLink limitToList="true"
+								actionListener="#{relPlBuscaPorDescricao.exportarRelatorioExcel}"
+								style="width:80px; height: 40px; white-space: normal;">
+								<p:graphicImage value="/images/excel.png" />
+							</h:commandLink>
+
+						</s:div>
+
+					</h:panelGrid>
+
+
+				</p:panel>
+
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<c:if test="#{empty title}">
+	<c:set var="title" value="#{subtitle}" />
+	<c:set var="clazz" value="subtitle" />
+</c:if>
+<c:if test="#{empty subtitle}">
+	<c:set var="clazz" value="title" />
+</c:if>
+<div class="section">
+<div class="#{clazz}">#{title}</div>
+<ui:insert />
+</div>
+
+</ui:composition>

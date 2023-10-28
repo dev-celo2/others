@@ -1,0 +1,140 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+	<div>
+
+		<h:form>
+
+			<nav class="navbar navbar-default">
+
+				<div class="navbar-header">
+
+					<a class="navbar-brand" href="#{request.contextPath}/private/onbyte/lojaOnCash.jsf" title="PRINCIPAL"><i class="glyphicon glyphicon-home"/></a>
+				</div>
+
+				<div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed"
+							data-toggle="collapse"
+							data-target="#bs-example-navbar-collapse-1"
+							data-aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse"
+						id="bs-example-navbar-collapse-1">
+
+						<ul class="nav navbar-nav">
+
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" data-role="button"
+								data-aria-haspopup="true" data-aria-expanded="false"><i
+									class="glyphicon glyphicon-th" /> Cadastro<span class="caret"></span>
+							</a>
+								<ul class="dropdown-menu">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/ProdutomoedaList.jsf'><i
+											class="glyphicon glyphicon-gift" />&#160;&#160;&#160;Produtos</a></li>
+
+									<li data-role="separator" class="divider"></li>
+									<li><a href='#{request.contextPath}/index.jsf'><i
+											class="glyphicon glyphicon-hand-left" />&#160;&#160;&#160;Sair</a></li>
+
+								</ul></li>
+						</ul>
+
+						<ul class="nav navbar-nav">
+
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" data-role="button"
+								data-aria-haspopup="true" data-aria-expanded="false"><i
+									class="glyphicon glyphicon-equalizer"></i> Movimentacão<span
+									class="caret"></span> </a>
+								<ul class="dropdown-menu">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/ProdutosolicitadoList.jsf'><i
+											class="glyphicon glyphicon-headphones" />&#160;&#160;&#160;Produto
+											Solicitado</a></li>
+
+								</ul></li>
+						</ul>
+
+						<ul class="nav navbar-nav">
+
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" data-role="button"
+								data-aria-haspopup="true" data-aria-expanded="false"><i
+									class="glyphicon glyphicon-file"></i> Relatórios<span
+									class="caret"></span> </a>
+								<ul class="dropdown-menu">
+									<li><a
+										href='#{request.contextPath}/private/onbyte/relatorios/loja/RelProdutos.jsf'><i
+											class="glyphicon glyphicon-duplicate" />&#160;&#160;&#160;Status Pedidos</a></li>
+
+								</ul></li>
+						</ul>
+
+
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown"><a:commandLink id="pedEsp"
+									StyleClass="dropdown-toggle" data-toggle="dropdown"
+									data-role="button" data-aria-haspopup="true"
+									data-aria-expanded="false">
+									<span class="badge">#{produtosolicitadoHome.pedidosAguardando}</span> Pedidos Aguardando Entrega/Cancelamento
+							</a:commandLink>
+								<ul class="dropdown-menu">
+
+
+									<a:outputPanel id="listPedSol">
+
+										<c:if test="#{produtosolicitadoHome.pedidosAguardando != 0}">
+											<c:forEach items="#{produtosolicitadoHome.prodSolList}"
+												var="prodSol">
+
+												<h7> <span><rich:spacer width="2px" /> <i
+													class="glyphicon glyphicon-hand-right" /> PEDIDO:
+													#{prodSol.id} - ALUNO: #{prodSol.alunos.nome}</span></h7>
+												<p />
+
+
+											</c:forEach>
+										</c:if>
+
+										<c:if test="#{produtosolicitadoHome.pedidosAguardando == 0}">
+
+											<h7> <span><rich:spacer width="2px" /> <i
+												class="glyphicon glyphicon-info-sign" /> Todos Pedidos
+												Entregues!</span></h7>
+
+										</c:if>
+									</a:outputPanel>
+
+
+
+
+								</ul></li>
+						</ul>
+					</div>
+					<!-- /.navbar-collapse -->
+				</div>
+				<!-- /.container-fluid -->
+			</nav>
+
+			<a:poll interval="120000" reRender="pedEsp, listPedSol" />
+
+		</h:form>
+
+	</div>
+</ui:composition>

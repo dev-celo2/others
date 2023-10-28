@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jstl/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:rich="http://richfaces.org/rich">
+<div>
+
+<h:form>
+<rich:toolbar>
+	<rich:menuItem mode="client" onclick="document.location.href='#{request.contextPath}/private/admin/userList.jsf'">
+		<h:outputText value="#{messages['menu.users']}"/>
+	</rich:menuItem>
+	<rich:menuItem mode="client" onclick="document.location.href='#{request.contextPath}/private/admin/customerList.jsf'">
+		<h:outputText value="#{messages['menu.customers']}"/>
+	</rich:menuItem>
+	<rich:menuItem mode="client" onclick="document.location.href='#{request.contextPath}/private/ticket/search.jsf'">
+		<h:outputText value="#{messages['menu.tickets']}"/>
+	</rich:menuItem>
+	<rich:dropDownMenu mode="client" label="#{messages['menu.kb']}">
+		<rich:menuItem onclick="document.location.href='#{request.contextPath}/private/kb/kbList.jsf'">
+			<h:outputText value="#{messages['menu.kb.manage']}" />
+		</rich:menuItem>
+		<rich:menuItem onclick="window.open('#{request.contextPath}/private/kb/onlineHelp.jsf','oh', 'menubar=0,resizable=1,width=750,height=500')">
+			<h:outputText value="#{messages['menu.kb.open']}" />
+		</rich:menuItem>
+	</rich:dropDownMenu>
+	<rich:toolbarGroup location="right">
+		<rich:menuItem label="Sair" action="#{authenticatorAction.logout()}"/>
+	</rich:toolbarGroup>
+</rich:toolbar>
+</h:form>
+
+</div>
+</ui:composition>

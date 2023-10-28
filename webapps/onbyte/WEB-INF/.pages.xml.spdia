@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram model-entity="SeamPagesDiagram">
+ <item ID="#private#*" NAME="#xprivate#x*" PATH="/private/*"
+  SHAPE="24,121,0,0" TYPE="page" model-entity="SeamPagesDiagramItem"/>
+ <item ID="org.jboss.seam.security.NotLoggedInException"
+  NAME="exception:org.jboss.seam.security.NotLoggedInException"
+  PATH="org.jboss.seam.security.NotLoggedInException" SHAPE="24,17,0,0"
+  TYPE="exception" model-entity="SeamPagesDiagramItem">
+  <output ID="/error.xhtml" NAME="output" PATH="/error.xhtml"
+   TARGET="#xerror.xhtml" model-entity="SeamPagesDiagramItemOutput"/>
+ </item>
+ <item NAME="#xerror.xhtml" PATH="/error.xhtml" SHAPE="344,17,0,0"
+  TYPE="page" model-entity="SeamPagesDiagramItem"/>
+</diagram>

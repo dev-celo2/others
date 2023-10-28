@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="rolesMappings.xsd">
+	<profile name="admin">
+		<grouptype name="SYSMGMT">
+			<group name="USER">
+				<role name="manager"/>
+			</group>
+			<group name="CUSTOMER">
+				<role name="manager"/>
+			</group>
+		</grouptype>
+	</profile>
+
+	<profile name="operator">
+		<grouptype name="SYSMGMT">
+			<group name="USER"/>
+			<group name="CUSTOMER"/>
+		</grouptype>
+	</profile>
+
+</mappings>

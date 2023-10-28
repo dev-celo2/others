@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd"
+      no-conversation-view-id="/private/onbyte/ModulosList.xhtml"
+      login-required="true">
+
+   <begin-conversation join="true" flush-mode="MANUAL"/>
+
+   <action execute="#{modulosHome.wire}"/>
+
+   <param name="modulosFrom"/>
+   <param name="modulosCodigo" value="#{modulosHome.modulosCodigo}"/>
+
+
+   <navigation from-action="#{modulosHome.persist}">
+      <rule if-outcome="persisted">
+         <end-conversation/>
+         <redirect view-id="/private/onbyte/Modulos.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{modulosHome.update}">
+      <rule if-outcome="updated">
+         <end-conversation/>
+         <redirect view-id="/private/onbyte/Modulos.xhtml"/>
+      </rule>
+   </navigation>
+
+   <navigation from-action="#{modulosHome.remove}">
+      <rule if-outcome="removed">
+         <end-conversation/>
+         <redirect view-id="/private/onbyte/ModulosList.xhtml"/>
+      </rule>
+   </navigation>
+
+</page>
